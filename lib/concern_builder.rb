@@ -1,3 +1,6 @@
+require 'active_support'
+require 'active_support/all'
+
 class ConcernBuilder
   require 'concern_builder/version'
   require 'concern_builder/options_parser'
