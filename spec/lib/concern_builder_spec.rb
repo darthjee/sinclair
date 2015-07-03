@@ -10,12 +10,13 @@ describe ConcernBuilder do
   class ConcernBuilder::Dummy::Builder < ConcernBuilder
     def init
       add_method(:blocked) { 1 }
-      add_method(:defined, '@value = @value + 1')
+      add_method(:defined, "@value = @value + #{ options_object.try(:increment) || 1 }")
     end
   end
 
+  let(:options) { {} }
   let(:dummy_builder) { ConcernBuilder::Dummy::Builder }
-  let(:builder) { dummy_builder.new([], ConcernBuilder::Dummy, {}) }
+  let(:builder) { dummy_builder.new([], ConcernBuilder::Dummy, options) }
   let(:instance) { ConcernBuilder::Dummy.new }
 
   before do
@@ -32,6 +33,14 @@ describe ConcernBuilder do
     it 'creates a method using the string definition' do
       expect(instance.defined).to eq(1)
       expect(instance.defined).to eq(2)
+    end
+  end
+
+  context 'when passing options' do
+    let(:options) { { increment: 2 } }
+    it 'parses the options' do
+      expect(instance.defined).to eq(2)
+      expect(instance.defined).to eq(4)
     end
   end
 end
