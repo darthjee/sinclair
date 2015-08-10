@@ -9,7 +9,7 @@ class ConcernBuilder
 
   attr_reader :attr_names, :methods_def
 
-  def initialize(attr_names, instance, options)
+  def initialize(attr_names, instance, options = {})
     @attr_names = attr_names
     @instance = instance
     @options = options
