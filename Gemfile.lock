@@ -42,7 +42,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.6)
   concern_builder!
-  rake
+  rake (~> 12.0.0)
   rspec (~> 2.14)
   simplecov
 
