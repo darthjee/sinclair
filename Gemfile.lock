@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    concern_builder (0.0.2)
+    concern_builder (0.0.3)
       activesupport (~> 5.1.4)
 
 GEM
