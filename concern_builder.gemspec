@@ -17,11 +17,11 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|gem|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_runtime_dependency 'activesupport', '~> 5.1.4'
+  gem.add_runtime_dependency 'activesupport', '~> 5.2.0'
 
-  gem.add_development_dependency "bundler", "~> 1.6"
-  gem.add_development_dependency "rake", "~> 12.0.0"
-  gem.add_development_dependency "rspec", "~> 2.14"
-  gem.add_development_dependency 'simplecov'
+  gem.add_development_dependency 'bundler', '~> 1.6'
+  gem.add_development_dependency 'rake', '~> 12.0.0'
+  gem.add_development_dependency 'rspec', '~> 2.14'
+  gem.add_development_dependency 'simplecov', '~> 0.16.1'
 end
 
