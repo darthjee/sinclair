@@ -1,0 +1,18 @@
+version: '2'
+services:
+  base: &base
+    image: ruby:2.4.0
+    working_dir: /home/app/concern_builder
+    volumes:
+      - .:/home/app/concern_builder
+      - concern_builder_gems_2_4_0:/usr/local/bundle
+
+  #################### CONTAINERS ####################
+
+  concern_builder:
+    <<: *base
+    container_name: concern_builder
+    command: /bin/bash -c 'bundle install && bundle exec rspec'
+
+volumes:
+  concern_builder_gems_2_4_0:
