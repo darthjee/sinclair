@@ -16,30 +16,36 @@ class ConcernBuilder
   end
 
   def build
-    methods_def.each do |method_def|
-      @instance.module_eval(method_def, __FILE__, __LINE__ + 1)
+    methods_def.each do |definition|
+      build_method(definition)
     end
   end
 
   def add_method(name, code = nil, &block)
-    if code.is_a?(String)
-      add_code_method(name, code)
-    else
-      add_block_method(name, block)
-    end
+    methods_def << { name: name, code: code, block: block }
   end
 
   private
+  
+  def build_method(definition)
+    if definition[:code].is_a?(String)
+      add_code_method(definition[:name], definition[:code])
+    else
+      add_block_method(definition[:name], definition[:block])
+    end
+  end
 
   def add_block_method(name, block)
     @instance.send(:define_method, name, block)
   end
 
   def add_code_method(name, code)
-    @methods_def << <<-CODE
+    full_code = <<-CODE
       def #{name}
         #{code}
       end
     CODE
+    
+    @instance.module_eval(full_code, __FILE__, __LINE__ + 1)
   end
 end
