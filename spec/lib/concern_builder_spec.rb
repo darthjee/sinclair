@@ -15,11 +15,12 @@ describe ConcernBuilder do
   end
 
   let(:options) { {} }
-  let(:dummy_builder) { ConcernBuilder::Dummy::Builder }
+  let(:dummy_builder) { described_class::Dummy::Builder }
   let(:builder) { dummy_builder.new(ConcernBuilder::Dummy, options) }
   let(:instance) { ConcernBuilder::Dummy.new }
 
   before do
+    builder.init
     builder.build
   end
 

@@ -13,7 +13,6 @@ class ConcernBuilder
     @instance = instance
     @options = options
     @methods_def = []
-    init
   end
 
   def build
@@ -22,8 +21,6 @@ class ConcernBuilder
     end
   end
 
-  private
-
   def add_method(name, code = nil, &block)
     if code.is_a?(String)
       add_code_method(name, code)
@@ -31,6 +28,8 @@ class ConcernBuilder
       add_block_method(name, block)
     end
   end
+
+  private
 
   def add_block_method(name, block)
     @instance.send(:define_method, name, block)
