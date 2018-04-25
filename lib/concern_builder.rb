@@ -2,50 +2,33 @@ require 'active_support'
 require 'active_support/all'
 
 class ConcernBuilder
-  autoload :VERSION,       'concern_builder/version'
-  autoload :OptionsParser, 'concern_builder/options_parser'
+  require 'concern_builder/options_parser'
+
+  autoload :VERSION,          'concern_builder/version'
+  autoload :MethodDefinition, 'concern_builder/method_definition'
 
   include OptionsParser
 
-  attr_reader :methods_def
+  attr_reader :clazz
 
-  def initialize(instance, options = {})
-    @instance = instance
+  def initialize(clazz, options = {})
+    @clazz = clazz
     @options = options
-    @methods_def = []
   end
 
   def build
-    methods_def.each do |definition|
-      build_method(definition)
+    definitions.each do |definition|
+      definition.build
     end
   end
 
   def add_method(name, code = nil, &block)
-    methods_def << { name: name, code: code, block: block }
+    definitions << MethodDefinition.new(clazz, name, code, &block)
   end
 
   private
-  
-  def build_method(definition)
-    if definition[:code].is_a?(String)
-      add_code_method(definition[:name], definition[:code])
-    else
-      add_block_method(definition[:name], definition[:block])
-    end
-  end
 
-  def add_block_method(name, block)
-    @instance.send(:define_method, name, block)
-  end
-
-  def add_code_method(name, code)
-    full_code = <<-CODE
-      def #{name}
-        #{code}
-      end
-    CODE
-    
-    @instance.module_eval(full_code, __FILE__, __LINE__ + 1)
+  def definitions
+    @definitions ||= []
   end
 end
