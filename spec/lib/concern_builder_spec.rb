@@ -16,7 +16,7 @@ describe ConcernBuilder do
 
   let(:options) { {} }
   let(:dummy_builder) { ConcernBuilder::Dummy::Builder }
-  let(:builder) { dummy_builder.new([], ConcernBuilder::Dummy, options) }
+  let(:builder) { dummy_builder.new(ConcernBuilder::Dummy, options) }
   let(:instance) { ConcernBuilder::Dummy.new }
 
   before do

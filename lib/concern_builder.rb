@@ -7,10 +7,9 @@ class ConcernBuilder
 
   include OptionsParser
 
-  attr_reader :attr_names, :methods_def
+  attr_reader :methods_def
 
-  def initialize(attr_names, instance, options = {})
-    @attr_names = attr_names
+  def initialize(instance, options = {})
     @instance = instance
     @options = options
     @methods_def = []
