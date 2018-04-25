@@ -63,5 +63,31 @@ describe ConcernBuilder do
         expect(instance.string).to eq(2)
       end
     end
+
+    context 'when declaring a method using string or block' do
+      context 'when declaring the block first' do
+        before do
+          subject.add_method(:value) { 1 }
+          subject.add_method(:value, '2')
+          subject.build
+        end
+
+        it 'respect the order of method addtion' do
+          expect(instance.value).to eq(2)
+        end
+      end
+
+      context 'when declaring the string first' do
+        before do
+          subject.add_method(:value, '1')
+          subject.add_method(:value) { 2 }
+          subject.build
+        end
+
+        it 'respect the order of method addtion' do
+          expect(instance.value).to eq(2)
+        end
+      end
+    end
   end
 end
