@@ -6,8 +6,8 @@ describe ConcernBuilder do
   subject { builder_class.new(dummy_class, options) }
 
   context 'when extending the class' do
-    let(:builder_class) { dummy_class::Builder }
-    let(:dummy_class) { described_class::Dummy }
+    let(:builder_class) { described_class::DummyBuilder }
+    let(:dummy_class) { Class.new }
 
     before do
       subject.init
