@@ -26,6 +26,10 @@ class ConcernBuilder
     definitions << MethodDefinition.new(clazz, name, code, &block)
   end
 
+  def eval_and_add_method(name, &block)
+    add_method(name, instance_eval(&block))
+  end
+
   private
 
   def definitions

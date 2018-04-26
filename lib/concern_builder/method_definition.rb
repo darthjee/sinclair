@@ -25,7 +25,7 @@ class ConcernBuilder::MethodDefinition
   def build_code_method
     clazz.module_eval(code_definition, __FILE__, __LINE__ + 1)
   end
-  
+
   def code_definition
     <<-CODE
       def #{name}
