@@ -94,7 +94,7 @@ describe ConcernBuilder do
   describe '#eval_and_add_method' do
     before do
       subject.add_method(:value, "@value ||= 0")
-      subject.eval_and_add_method(:defined) { "@value = value + #{ options_object.try(:increment) || 1 }" }
+      subject.eval_and_add_method(:defined) { "@value = value + #{ options_object.increment || 1 }" }
       subject.build
     end
 
