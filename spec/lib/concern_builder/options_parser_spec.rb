@@ -3,7 +3,8 @@ require 'spec_helper'
 describe ConcernBuilder::OptionsParser do
   let(:clazz) { described_class::Dummy }
   let(:switched) { true }
-  let(:options) { { switch: switched, option_1: 'value1', option_2: 2} }
+  let(:value_1) { 'value1' }
+  let(:options) { { switch: switched, option_1: value_1, option_2: 2} }
 
   subject do
     clazz.new(options)
@@ -30,6 +31,29 @@ describe ConcernBuilder::OptionsParser do
 
     it 'considers is to be nil' do
       expect(subject.the_method).to eq('missing option')
+    end
+  end
+
+  context 'when changing the options before the option call' do
+    before do
+      subject
+      options[:switch] = false
+    end
+
+    it 'does not reevaluate the options' do
+      expect(subject.the_method).to eq('The value is value1')
+    end
+
+    context 'when the option value is another object on its own' do
+      let(:value_1) { { key: 'value' } }
+      before do
+        subject
+        options[:option_1][:key] = 100
+      end
+
+      it 'does not reevaluate the options' do
+        expect(subject.the_method).to eq('The value is {:key=>"value"}')
+      end
     end
   end
 end

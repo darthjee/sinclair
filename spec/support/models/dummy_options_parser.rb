@@ -3,7 +3,7 @@ class ConcernBuilder
     include OptionsParser
 
     def initialize(options)
-      @options = options
+      @options = options.deep_dup
     end
 
     def the_method
