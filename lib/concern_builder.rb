@@ -18,12 +18,12 @@ class ConcernBuilder
 
   def build
     definitions.each do |definition|
-      definition.build
+      definition.build(clazz)
     end
   end
 
   def add_method(name, code = nil, &block)
-    definitions << MethodDefinition.new(clazz, name, code, &block)
+    definitions << MethodDefinition.new(name, code, &block)
   end
 
   def eval_and_add_method(name, &block)

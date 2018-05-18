@@ -1,28 +1,27 @@
 class ConcernBuilder::MethodDefinition
-  attr_reader :clazz, :name, :code, :block
+  attr_reader :name, :code, :block
 
-  def initialize(clazz, name, code = nil, &block)
-    @clazz = clazz
+  def initialize(name, code = nil, &block)
     @name = name
     @code = code
     @block = block
   end
 
-  def build
+  def build(clazz)
     if code.is_a?(String)
-      build_code_method
+      build_code_method(clazz)
     else
-      build_block_method
+      build_block_method(clazz)
     end
   end
 
   private
 
-  def build_block_method
+  def build_block_method(clazz)
     clazz.send(:define_method, name, block)
   end
 
-  def build_code_method
+  def build_code_method(clazz)
     clazz.module_eval(code_definition, __FILE__, __LINE__ + 1)
   end
 

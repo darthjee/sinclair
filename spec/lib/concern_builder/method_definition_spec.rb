@@ -10,10 +10,10 @@ describe ConcernBuilder::MethodDefinition do
     context 'when method was defined with an string' do
       let(:code) { '"Self ==> " + self.to_s' }
 
-      subject { described_class.new(clazz, method_name, code) }
+      subject { described_class.new(method_name, code) }
 
       before do
-        subject.build
+        subject.build(clazz)
       end
 
       it 'adds the method to the clazz instance' do
@@ -27,13 +27,13 @@ describe ConcernBuilder::MethodDefinition do
 
     context 'when method was defined with a block' do
       subject do
-        described_class.new(clazz, method_name) do
+        described_class.new(method_name) do
           "Self ==> " + self.to_s
          end
       end
 
       before do
-        subject.build
+        subject.build(clazz)
       end
 
       it 'adds the method to the clazz instance' do
