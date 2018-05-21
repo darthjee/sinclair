@@ -1,3 +1,5 @@
+require_relative 'my_concern'
+
 class MyClass
   include MyConcern
   validate :name, :surname, String

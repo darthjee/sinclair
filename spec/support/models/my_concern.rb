@@ -1,3 +1,5 @@
+require_relative 'validator_builder'
+
 module MyConcern
   extend ActiveSupport::Concern
 
