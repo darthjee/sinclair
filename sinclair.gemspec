@@ -1,14 +1,14 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'concern_builder/version'
+require 'sinclair/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = 'concern_builder'
-  gem.version       = ConcernBuilder::VERSION
+  gem.name          = 'sinclair'
+  gem.version       = Sinclair::VERSION
   gem.authors       = ["DarthJee"]
   gem.email         = ["darthjee@gmail.com"]
-  gem.homepage      = 'https://github.com/darthjee/concern_builder'
+  gem.homepage      = 'https://github.com/darthjee/sinclair'
   gem.description   = 'Gem for easy concern creation'
   gem.summary       = gem.description
 
@@ -23,5 +23,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rake', '~> 12.0.0'
   gem.add_development_dependency 'rspec', '~> 2.14'
   gem.add_development_dependency 'simplecov', '~> 0.16.1'
+  gem.add_development_dependency 'pry-nav'
 end
 

@@ -6,7 +6,8 @@ end
 
 SimpleCov.start 'gem'
 
-require 'concern_builder'
+require 'sinclair'
+require 'pry-nav'
 
 support_files = File.expand_path("spec/support/**/*.rb")
 Dir[support_files].each { |file| require file  }
