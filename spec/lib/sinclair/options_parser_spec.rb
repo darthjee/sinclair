@@ -26,7 +26,7 @@ describe Sinclair::OptionsParser do
     let(:options) { { option_1: 'value1', option_2: 2} }
 
     it do
-      expect(subject.the_method).not_to raise_error
+      expect { subject.the_method }.not_to raise_error
     end
 
     it 'considers is to be nil' do
