@@ -1,6 +1,8 @@
 Sinclair
 ========
 
+![sinclair](https://raw.githubusercontent.com/darthjee/sinclair/master/sinclair.jpg)
+
 This gem helps the creation of complex concern with class methods
 
 Getting started
