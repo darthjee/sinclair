@@ -5,9 +5,8 @@ Sinclair
 
 This gem helps the creation of complex concern with class methods
 
-Getting started
+Installation
 ---------------
-1. Installation
   - Install it
 
   ```ruby
@@ -24,7 +23,8 @@ Getting started
     bundle install sinclair
   ```
 
-2. Using it:
+Usage
+---------------
 The concern builder can actully be used in two ways, as an stand alone object capable of
 adding methods to your class or by extending it for more complex logics
 
