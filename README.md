@@ -1,4 +1,4 @@
-Concern Builder
+Sinclair
 ========
 
 This gem helps the creation of complex concern with class methods
@@ -9,7 +9,7 @@ Getting started
   - Install it
 
   ```ruby
-    gem install sinclairn
+    gem install sinclair
   ```
 
   - Or add Sinclairn to your `Gemfile` and `bundle install`:
