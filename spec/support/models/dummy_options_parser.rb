@@ -1,4 +1,4 @@
-class ConcernBuilder
+class Sinclair
   class OptionsParser::Dummy
     include OptionsParser
 

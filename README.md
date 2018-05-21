@@ -9,17 +9,17 @@ Getting started
   - Install it
 
   ```ruby
-    gem install concern_buildern
+    gem install sinclairn
   ```
 
-  - Or add ConcernBuildern to your `Gemfile` and `bundle install`:
+  - Or add Sinclairn to your `Gemfile` and `bundle install`:
 
   ```ruby
-    gem 'concern_builder'
+    gem 'sinclair'
   ```
 
   ```bash
-    bundle install concern_builder
+    bundle install sinclair
   ```
 
 2. Using it:
@@ -31,7 +31,7 @@ adding methods to your class or by extending it for more complex logics
   class Clazz
   end
 
-  builder = ConcernBuilder.new(Clazz)
+  builder = Sinclair.new(Clazz)
 
   builder.add_method(:twenty, '10 + 10')
   builder.add_method(:eighty) { 4 * twenty }
@@ -51,7 +51,7 @@ adding methods to your class or by extending it for more complex logics
  - Extending the builder
 
   ```ruby
-    class ValidationBuilder < ConcernBuilder
+    class ValidationBuilder < Sinclair
       delegate :expected, to: :options_object
 
       def initialize(clazz, options={})

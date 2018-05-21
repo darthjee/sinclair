@@ -1,4 +1,4 @@
-class ConcernBuilder::DummyBuilder < ConcernBuilder
+class Sinclair::DummyBuilder < Sinclair
   def init
     add_method(:blocked) { 1 }
     add_method(:defined, "@value = value + #{ options_object.try(:increment) || 1 }")

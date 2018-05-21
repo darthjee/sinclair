@@ -1,4 +1,4 @@
-class ConcernBuilder::MethodDefinition
+class Sinclair::MethodDefinition
   attr_reader :name, :code, :block
 
   def initialize(name, code = nil, &block)

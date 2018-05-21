@@ -1,4 +1,4 @@
-module ConcernBuilder::OptionsParser
+module Sinclair::OptionsParser
   extend ActiveSupport::Concern
 
   attr_reader :options

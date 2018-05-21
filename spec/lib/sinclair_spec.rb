@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ConcernBuilder do
+describe Sinclair do
   let(:options) { {} }
   let(:instance) { dummy_class.new }
   let(:dummy_class) { Class.new }

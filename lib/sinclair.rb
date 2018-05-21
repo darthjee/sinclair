@@ -1,11 +1,11 @@
 require 'active_support'
 require 'active_support/all'
 
-class ConcernBuilder
-  require 'concern_builder/options_parser'
+class Sinclair
+  require 'sinclair/options_parser'
 
-  autoload :VERSION,          'concern_builder/version'
-  autoload :MethodDefinition, 'concern_builder/method_definition'
+  autoload :VERSION,          'sinclair/version'
+  autoload :MethodDefinition, 'sinclair/method_definition'
 
   include OptionsParser
 

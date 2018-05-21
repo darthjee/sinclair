@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ConcernBuilder::MethodDefinition do
+describe Sinclair::MethodDefinition do
   let(:clazz) { Class.new }
   let(:instance) { clazz.new }
 

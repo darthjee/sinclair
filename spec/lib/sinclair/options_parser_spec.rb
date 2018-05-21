@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ConcernBuilder::OptionsParser do
+describe Sinclair::OptionsParser do
   let(:clazz) { described_class::Dummy }
   let(:switched) { true }
   let(:value_1) { 'value1' }

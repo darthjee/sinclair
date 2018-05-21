@@ -1,4 +1,4 @@
-class ValidationBuilder < ConcernBuilder
+class ValidationBuilder < Sinclair
   delegate :expected, to: :options_object
 
   def initialize(clazz, options={})

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Stand Alone' do
   let(:instance) { clazz.new }
   let(:clazz) { Class.new }
-  let(:builder) { ConcernBuilder.new(clazz) }
+  let(:builder) { Sinclair.new(clazz) }
 
   before do
     builder.add_method(:twenty, '10 + 10')
