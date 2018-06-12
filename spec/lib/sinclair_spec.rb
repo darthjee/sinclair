@@ -7,6 +7,20 @@ describe Sinclair do
   let(:builder_class) { described_class }
   subject { builder_class.new(dummy_class, options) }
 
+  describe '#build' do
+    context 'when there is a method added' do
+      before do
+        subject.add_method(:x) { 1 }
+      end
+
+      it 'changes the class adding a method' do
+        expect do
+          subject.build
+        end.to change { instance.respond_to?(:x) }.from(false).to(true)
+      end
+    end
+  end
+
   describe '#add_method' do
     it_behaves_like 'a class extending sinclair' do
       let(:builder_class) { described_class::DummyBuilder }
