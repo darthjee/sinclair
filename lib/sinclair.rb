@@ -14,6 +14,7 @@ class Sinclair
   def initialize(clazz, options = {})
     @clazz = clazz
     @options = options
+    TracePoint
   end
 
   def build

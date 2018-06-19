@@ -7,6 +7,14 @@ describe Sinclair do
   let(:builder_class) { described_class }
   subject { builder_class.new(dummy_class, options) }
 
+  describe 'autobuild' do
+    let(:dummy_class) { Dummy }
+
+    it 'builds the method when class is created' do
+      expect(dummy_class).to respond_to(:x)
+    end
+  end
+
   describe '#build' do
     context 'when there is a method added' do
       before do
