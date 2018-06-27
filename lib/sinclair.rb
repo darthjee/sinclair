@@ -6,6 +6,7 @@ class Sinclair
 
   autoload :VERSION,          'sinclair/version'
   autoload :MethodDefinition, 'sinclair/method_definition'
+  autoload :Matchers,         'sinclair/matchers'
 
   include OptionsParser
 
