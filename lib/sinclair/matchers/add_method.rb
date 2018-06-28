@@ -10,6 +10,11 @@ class Sinclair
       def to(instance = nil, &block)
         AddMethodTo.new(instance, method, &block)
       end
+
+      def equal?(other)
+        return unless other.class == self.class
+        other.method == method
+      end
     end
 
     class AddMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
@@ -42,7 +47,13 @@ class Sinclair
         true
       end
 
-      private
+      def equal?(other)
+        return unless other.class == self.class
+        other.method == method &&
+          other.evaluated_instance == evaluated_instance
+      end
+
+      protected
 
       def changed?
         !@initial_state && @final_state

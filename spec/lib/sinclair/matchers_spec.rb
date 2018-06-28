@@ -6,12 +6,12 @@ describe Sinclair::Matchers do
       expect(respond_to?(:add_method)).to be_truthy
     end
 
-    it 'returns a matcher' do
+    it do
       expect(add_method(:method_name)).to be_a(described_class::AddMethod)
     end
 
     it 'returns the matcher with correct argument' do
-      expect(add_method(:method_name).method).to eq(:method_name)
+      expect(add_method(:method_name)).to eq(described_class::AddMethod.new(:method_name))
     end
   end
 end
