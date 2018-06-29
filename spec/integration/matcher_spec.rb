@@ -5,22 +5,23 @@ describe 'matchers' do
     let(:method)   { :the_method }
     let(:klass)    { Class.new }
     let(:instance) { klass.new }
+    let(:expectation) do
+      expect { block.call }.to add_method(method).to(instance)
+    end
 
     context 'when method is added' do
-      it do
-        expect do
-          klass.send(:define_method, method) {}
-        end.to add_method(method).to(instance)
+      let(:block) { Proc.new { klass.send(:define_method, method) {} } }
+
+      it 'returns a succes' do
+        expect { expectation }.not_to raise_error
       end
     end
 
     context 'when method is not added' do
-      it do
-        expect do
-          expect do
-            1
-          end.to add_method(method).to(instance)
-        end.to raise_error(
+      let(:block) { Proc.new {} }
+
+      it 'raises expectation error' do
+        expect { expectation }.to raise_error(
           RSpec::Expectations::ExpectationNotMetError,
           "expected 'the_method' to be added to #{klass} but it didn't"
         )

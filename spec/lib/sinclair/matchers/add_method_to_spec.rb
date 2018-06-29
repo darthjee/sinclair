@@ -18,7 +18,7 @@ describe Sinclair::Matchers::AddMethodTo do
 
     context 'when a method is not added' do
       let(:event_proc) do
-        Proc.new { }
+        Proc.new {}
       end
 
       it { expect(subject.matches? event_proc).to be_falsey }
