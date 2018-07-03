@@ -72,4 +72,25 @@ describe 'matchers' do
       end
     end
   end
+
+  describe 'add method' do
+    let(:method)   { :the_method }
+    let(:klass)    { Class.new }
+    let(:expectation) do
+      expect { block.call }.to add_method(method)
+    end
+    let(:block) { proc { klass.send(:define_method, method) {} } }
+
+    context 'when not calling to' do
+      it 'raises error' do
+        expect do
+          expectation
+        end.to raise_error(
+          SyntaxError,
+          'You should specify which instance the method is being added to' \
+          "add_method(:#{method}).to(instance)"
+        )
+      end
+    end
+  end
 end
