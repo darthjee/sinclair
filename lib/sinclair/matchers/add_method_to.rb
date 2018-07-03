@@ -18,6 +18,10 @@ class Sinclair
           "#{@initial_state ? 'it already existed' : "it didn't"}"
       end
 
+      def failure_message_for_should_not
+        "expected '#{method}' not to be added to #{instance_class} but it was"
+      end
+
       def matches?(event_proc)
         @event_proc = event_proc
         return false unless event_proc.is_a?(Proc)

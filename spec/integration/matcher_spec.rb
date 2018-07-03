@@ -1,4 +1,4 @@
-require 'spec_helper' 
+require 'spec_helper'
 
 describe 'matchers' do
   describe 'add_method_to' do
@@ -8,10 +8,10 @@ describe 'matchers' do
     let(:expectation) do
       expect { block.call }.to add_method(method).to(instance)
     end
+    let(:block) { Proc.new { klass.send(:define_method, method) {} } }
+
 
     context 'when method is added' do
-      let(:block) { Proc.new { klass.send(:define_method, method) {} } }
-
       it 'returns a succes' do
         expect { expectation }.not_to raise_error
       end
@@ -24,6 +24,18 @@ describe 'matchers' do
         expect { expectation }.to raise_error(
           RSpec::Expectations::ExpectationNotMetError,
           "expected 'the_method' to be added to #{klass} but it didn't"
+        )
+      end
+    end
+
+    context 'when method existed before' do
+      before do
+        block.call
+      end
+      it 'raises expectation error' do
+        expect { expectation }.to raise_error(
+          RSpec::Expectations::ExpectationNotMetError,
+          "expected 'the_method' to be added to #{klass} but it already existed"
         )
       end
     end
@@ -42,13 +54,21 @@ describe 'matchers' do
       end
 
       context 'when method is added' do
-        let(:block) { Proc.new { klass.send(:define_method, method) {} } }
-
         it 'raises expectation error' do
-          expect { expectation }.not_to raise_error(
+          expect { expectation }.to raise_error(
             RSpec::Expectations::ExpectationNotMetError,
-            "expected 'the_method' to be added to #{klass} but it didn't"
+            "expected 'the_method' not to be added to #{klass} but it was"
           )
+        end
+      end
+
+      context 'when method existed before' do
+        before do
+          block.call
+        end
+
+        it 'returns a succes' do
+          expect { expectation }.not_to raise_error
         end
       end
     end

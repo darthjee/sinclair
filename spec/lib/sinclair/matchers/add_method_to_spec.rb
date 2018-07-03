@@ -38,6 +38,25 @@ describe Sinclair::Matchers::AddMethodTo do
       expect(subject.failure_message_for_should)
         .to eq("expected '#{method}' to be added to #{klass} but it didn't")
     end
+
+    context 'when method already exited' do
+      before do
+        klass.send(:define_method, method) {}
+        subject.matches? Proc.new {}
+      end
+
+      it 'returns information on the instance class and method' do
+        expect(subject.failure_message_for_should)
+          .to eq("expected '#{method}' to be added to #{klass} but it already existed")
+      end
+    end
+  end
+
+  describe '#failure_message_for_should_not' do
+    it 'returns information on the instance class and method' do
+      expect(subject.failure_message_for_should_not)
+        .to eq("expected '#{method}' not to be added to #{klass} but it was")
+    end
   end
 
   describe 'description' do
