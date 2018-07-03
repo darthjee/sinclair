@@ -12,7 +12,7 @@ describe Sinclair::Matchers::AddMethod do
       expect(subject.to(klass.new)).to be_a(Sinclair::Matchers::AddMethodTo)
     end
 
-    it do
+    it 'returns an add_method_to' do
       expect(subject.to(instance)).to eq(Sinclair::Matchers::AddMethodTo.new(instance, method))
     end
   end
