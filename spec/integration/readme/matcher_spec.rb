@@ -10,8 +10,16 @@ RSpec.describe DefaultValue do
   context 'when the builder runs' do
     it do
       expect do
-        builder.build
+        described_class.new(klass, method, value).build
       end.to add_method(method).to(instance)
+    end
+  end
+
+  context 'when the builder runs' do
+    it do
+      expect do
+        described_class.new(klass, method, value).build
+      end.to add_method(method).to(klass)
     end
   end
 end
