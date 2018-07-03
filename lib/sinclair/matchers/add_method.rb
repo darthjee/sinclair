@@ -12,8 +12,8 @@ class Sinclair
         @method = method
       end
 
-      def to(instance = nil, &block)
-        AddMethodTo.new(instance, method, &block)
+      def to(instance = nil)
+        AddMethodTo.new(instance, method)
       end
 
       def equal?(other)

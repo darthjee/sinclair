@@ -3,14 +3,13 @@ class Sinclair
     class AddMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
       attr_reader :method, :instance, :block
 
-      def initialize(instance, method, &block)
+      def initialize(instance, method)
         if instance.is_a?(Class)
           @instance_class = instance
         else
           @instance = instance
         end
         @method = method
-        @block = block
       end
 
       def description
@@ -41,7 +40,7 @@ class Sinclair
       def equal?(other)
         return unless other.class == self.class
         other.method == method &&
-          other.evaluated_instance == evaluated_instance
+          other.instance == instance
       end
 
       protected
@@ -52,7 +51,6 @@ class Sinclair
 
       def perform_change(event_proc)
         @initial_state = method_defined?
-        @evaluated_instance = nil
         event_proc.call
         @final_state = method_defined?
       end
@@ -61,12 +59,8 @@ class Sinclair
         instance_class.method_defined?(method)
       end
 
-      def evaluated_instance
-        @evaluated_instance ||= instance || block.call
-      end
-
       def instance_class
-        @instance_class ||= evaluated_instance.class
+        @instance_class ||= instance.class
       end
 
       def raise_block_syntax_error

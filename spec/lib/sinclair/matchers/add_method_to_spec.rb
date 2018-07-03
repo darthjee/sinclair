@@ -34,7 +34,7 @@ describe Sinclair::Matchers::AddMethodTo do
       subject { described_class.new(klass, method) }
 
       context 'when a method is added' do
-        fit { expect(subject.matches? event_proc).to be_truthy }
+        it { expect(subject.matches? event_proc).to be_truthy }
       end
     end
   end
