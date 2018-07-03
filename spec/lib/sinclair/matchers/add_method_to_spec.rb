@@ -8,11 +8,11 @@ describe Sinclair::Matchers::AddMethodTo do
   let(:instance) { klass.new }
 
   describe '#matches?' do
-    context 'when a method is added' do
-      let(:event_proc) do
-        Proc.new { klass.send(:define_method, method) {} }
-      end
+    let(:event_proc) do
+      Proc.new { klass.send(:define_method, method) {} }
+    end
 
+    context 'when a method is added' do
       it { expect(subject.matches? event_proc).to be_truthy }
     end
 
@@ -28,6 +28,14 @@ describe Sinclair::Matchers::AddMethodTo do
       end
 
       it { expect(subject.matches? event_proc).to be_falsey }
+    end
+
+    context 'when initializing with class' do
+      subject { described_class.new(klass, method) }
+
+      context 'when a method is added' do
+        fit { expect(subject.matches? event_proc).to be_truthy }
+      end
     end
   end
 

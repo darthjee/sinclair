@@ -4,7 +4,11 @@ class Sinclair
       attr_reader :method, :instance, :block
 
       def initialize(instance, method, &block)
-        @instance = instance
+        if instance.is_a?(Class)
+          @instance_class = instance
+        else
+          @instance = instance
+        end
         @method = method
         @block = block
       end
@@ -47,10 +51,14 @@ class Sinclair
       end
 
       def perform_change(event_proc)
-        @initial_state = evaluated_instance.respond_to?(method)
+        @initial_state = method_defined?
         @evaluated_instance = nil
         event_proc.call
-        @final_state = evaluated_instance.respond_to?(method)
+        @final_state = method_defined?
+      end
+
+      def method_defined?
+        instance_class.method_defined?(method)
       end
 
       def evaluated_instance
