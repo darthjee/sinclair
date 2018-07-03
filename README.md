@@ -211,6 +211,10 @@ RSpec.describe DefaultValue do
 end
 ```
 
+```bash
+> bundle exec rspec
+```
+
 ```string
 DefaultValue
   when the builder runs
