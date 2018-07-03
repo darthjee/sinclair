@@ -19,6 +19,7 @@ RSpec.configure do |config|
   config.filter_run_excluding :integration unless ENV['ALL']
 
   config.order = 'random'
+  config.include Sinclair::Matchers
 
   config.before do
   end

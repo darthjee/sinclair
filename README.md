@@ -156,3 +156,66 @@ adding methods to your class or by extending it for more complex logics
   ```
   false
   ```
+
+RSspec matcher
+---------------
+
+You can use the provided matcher to check that your builder is adding a method correctly
+
+```ruby
+class DefaultValue
+  delegate :build, to: :builder
+  attr_reader :klass, :method, :value
+
+  def initialize(klass, method, value)
+    @klass = klass
+    @method = method
+    @value = value
+  end
+
+  private
+
+  def builder
+    @builder ||= Sinclair.new(klass).tap do |b|
+      b.add_method(method) { value }
+    end
+  end
+end
+
+RSpec.configure do |config|
+  config.include Sinclair::Matchers
+end
+
+RSpec.describe DefaultValue do
+  let(:klass)    { Class.new }
+  let(:method)   { :the_method }
+  let(:value)    { Random.rand(100) }
+  let(:builder)  { described_class.new(klass, method, value) }
+  let(:instance) { klass.new }
+
+  context 'when the builder runs' do
+    it do
+      expect do
+        described_class.new(klass, method, value).build
+      end.to add_method(method).to(instance)
+    end
+  end
+
+  context 'when the builder runs' do
+    it do
+      expect do
+        described_class.new(klass, method, value).build
+      end.to add_method(method).to(klass)
+    end
+  end
+end
+```
+
+```string
+DefaultValue
+  when the builder runs
+      should add method 'the_method' to #<Class:0x0000000146c160> instances
+  when the builder runs
+      should add method 'the_method' to #<Class:0x0000000143a1b0> instances
+
+```

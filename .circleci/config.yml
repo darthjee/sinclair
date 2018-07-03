@@ -10,4 +10,5 @@ jobs:
       - run: ./cc-test-reporter before-build
       - run: bundle install
       - run: bundle exec rspec
+      - run: rubocop
       - run: ./cc-test-reporter after-build --exit-code $?
