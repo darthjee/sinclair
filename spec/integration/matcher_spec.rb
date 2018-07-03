@@ -8,8 +8,7 @@ describe 'matchers' do
     let(:expectation) do
       expect { block.call }.to add_method(method).to(instance)
     end
-    let(:block) { Proc.new { klass.send(:define_method, method) {} } }
-
+    let(:block) { proc { klass.send(:define_method, method) {} } }
 
     context 'when method is added' do
       it 'returns a succes' do
@@ -18,7 +17,7 @@ describe 'matchers' do
     end
 
     context 'when method is not added' do
-      let(:block) { Proc.new {} }
+      let(:block) { proc {} }
 
       it 'raises expectation error' do
         expect { expectation }.to raise_error(
@@ -40,13 +39,13 @@ describe 'matchers' do
       end
     end
 
-    context "when negating" do
+    context 'when negating' do
       let(:expectation) do
         expect { block.call }.not_to add_method(method).to(instance)
       end
 
       context 'when method is not added' do
-        let(:block) { Proc.new {} }
+        let(:block) { proc {} }
 
         it 'returns a succes' do
           expect { expectation }.not_to raise_error

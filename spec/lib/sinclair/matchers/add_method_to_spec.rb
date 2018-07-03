@@ -17,9 +17,7 @@ describe Sinclair::Matchers::AddMethodTo do
     end
 
     context 'when a method is not added' do
-      let(:event_proc) do
-        Proc.new {}
-      end
+      let(:event_proc) { Proc.new {} }
 
       it { expect(subject.matches? event_proc).to be_falsey }
     end
@@ -42,7 +40,7 @@ describe Sinclair::Matchers::AddMethodTo do
     context 'when method already exited' do
       before do
         klass.send(:define_method, method) {}
-        subject.matches? Proc.new {}
+        subject.matches?(Proc.new {})
       end
 
       it 'returns information on the instance class and method' do
