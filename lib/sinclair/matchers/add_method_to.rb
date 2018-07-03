@@ -1,7 +1,7 @@
 class Sinclair
   module Matchers
     class AddMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
-      attr_reader :method, :instance, :block
+      attr_reader :method, :instance
 
       def initialize(instance, method)
         if instance.is_a?(Class)
