@@ -35,6 +35,7 @@ class Sinclair
       def supports_block_expectations?
         true
       end
+
       protected
 
       attr_reader :method

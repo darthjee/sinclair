@@ -111,7 +111,6 @@ Metrics/BlockLength:
 # SupportedStyles: nested, compact
 Style/ClassAndModuleChildren:
   Exclude:
-    - 'lib/sinclair/method_definition.rb'
     - 'lib/sinclair/options_parser.rb'
     - 'spec/support/models/dummy_builder.rb'
     - 'spec/support/models/dummy_options_parser.rb'
