@@ -19,9 +19,8 @@ class Sinclair
       @block = block
     end
 
-
     # Adds the method to given klass
-    # @param klass [Class] class which will receive the new method 
+    # @param klass [Class] class which will receive the new method
     def build(klass)
       if code.is_a?(String)
         build_code_method(klass)
@@ -31,8 +30,8 @@ class Sinclair
     end
 
     private
-    attr_reader :name, :code, :block
 
+    attr_reader :name, :code, :block
 
     def build_block_method(klass)
       klass.send(:define_method, name, block)
