@@ -7,6 +7,10 @@ class Sinclair
     # @author darthjee
     #
     # @example
+    #  RSpec.configure do |config|
+    #    config.include Sinclair::Matchers
+    #  end
+    #
     #  class MyModel
     #  end
     #
