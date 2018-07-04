@@ -10,16 +10,16 @@ class Sinclair
 
   include OptionsParser
 
-  attr_reader :clazz
+  attr_reader :klass
 
-  def initialize(clazz, options = {})
-    @clazz = clazz
+  def initialize(klass, options = {})
+    @klass = klass
     @options = options
   end
 
   def build
     definitions.each do |definition|
-      definition.build(clazz)
+      definition.build(klass)
     end
   end
 

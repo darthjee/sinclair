@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe 'Stand Alone' do
-  let(:instance) { clazz.new }
-  let(:clazz) { Class.new }
-  let(:builder) { Sinclair.new(clazz) }
+  let(:instance) { klass.new }
+  let(:klass) { Class.new }
+  let(:builder) { Sinclair.new(klass) }
 
   before do
     builder.add_method(:twenty, '10 + 10')

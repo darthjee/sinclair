@@ -7,22 +7,22 @@ class Sinclair::MethodDefinition
     @block = block
   end
 
-  def build(clazz)
+  def build(klass)
     if code.is_a?(String)
-      build_code_method(clazz)
+      build_code_method(klass)
     else
-      build_block_method(clazz)
+      build_block_method(klass)
     end
   end
 
   private
 
-  def build_block_method(clazz)
-    clazz.send(:define_method, name, block)
+  def build_block_method(klass)
+    klass.send(:define_method, name, block)
   end
 
-  def build_code_method(clazz)
-    clazz.module_eval(code_definition, __FILE__, __LINE__ + 1)
+  def build_code_method(klass)
+    klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
   end
 
   def code_definition

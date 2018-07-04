@@ -60,7 +60,7 @@ adding methods to your class or by extending it for more complex logics
     class ValidationBuilder < Sinclair
       delegate :expected, to: :options_object
 
-      def initialize(clazz, options={})
+      def initialize(klass, options={})
         super
       end
 
@@ -69,7 +69,7 @@ adding methods to your class or by extending it for more complex logics
       end
 
       def add_accessors(fields)
-        clazz.send(:attr_accessor, *fields)
+        klass.send(:attr_accessor, *fields)
       end
     end
 

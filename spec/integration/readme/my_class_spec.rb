@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe MyClass do
-  subject { clazz.new(attributes) }
-  let(:clazz) { MyClass }
+  subject { klass.new(attributes) }
+  let(:klass) { MyClass }
   let(:name) { 'name' }
   let(:age) { 20 }
   let(:attributes) do

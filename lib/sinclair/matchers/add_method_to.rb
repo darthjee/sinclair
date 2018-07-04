@@ -30,7 +30,7 @@ class Sinclair
       #   method name
       def initialize(target, method)
         if target.is_a?(Class)
-          @instance_class = target
+          @klass = target
         else
           @instance = target
         end
@@ -38,16 +38,16 @@ class Sinclair
       end
 
       def description
-        "add method '#{method}' to #{instance_class} instances"
+        "add method '#{method}' to #{klass} instances"
       end
 
       def failure_message_for_should
-        "expected '#{method}' to be added to #{instance_class} but " \
+        "expected '#{method}' to be added to #{klass} but " \
           "#{@initial_state ? 'it already existed' : "it didn't"}"
       end
 
       def failure_message_for_should_not
-        "expected '#{method}' not to be added to #{instance_class} but it was"
+        "expected '#{method}' not to be added to #{klass} but it was"
       end
 
       def matches?(event_proc)
@@ -84,11 +84,11 @@ class Sinclair
       end
 
       def method_defined?
-        instance_class.method_defined?(method)
+        klass.method_defined?(method)
       end
 
-      def instance_class
-        @instance_class ||= instance.class
+      def klass
+        @klass ||= instance.class
       end
 
       def raise_block_syntax_error
