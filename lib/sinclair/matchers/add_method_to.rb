@@ -23,8 +23,13 @@ class Sinclair
     #    end
     #  end
     class AddMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
-      # @param target
-      #   target class / instance where the method should be added
+      # @overload initialize(klass, method)
+      #   @param [Class] klass
+      #     class where the method should be added to
+      #
+      # @overload initialize(instance, method)
+      #   @param [Object] klass
+      #     instance of the class where the method should be added to
       #
       # @param method
       #   method name

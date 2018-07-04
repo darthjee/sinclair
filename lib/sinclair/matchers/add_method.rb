@@ -17,9 +17,11 @@ class Sinclair
       # @return [AddMethodTo] the correct matcher
       # @overload to(klass)
       #   @param [Class] klass
+      #     class where the method should be added to
       #
       # @overload to(instance)
       #   @param [Object] instance
+      #     instance of the class where the method should be added to
       def to(target = nil)
         AddMethodTo.new(target, method)
       end
