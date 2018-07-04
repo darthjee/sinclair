@@ -27,6 +27,7 @@ class Sinclair
     autoload :AddMethodTo, 'sinclair/matchers/add_method_to'
 
     # DSL to AddMethod
+    # @return [AddMethod] RSpec Matcher
     def add_method(method)
       Sinclair::Matchers::AddMethod.new(method)
     end
