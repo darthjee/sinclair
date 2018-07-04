@@ -37,26 +37,31 @@ class Sinclair
         @method = method
       end
 
+      # @return [String] expectation description
       def description
         "add method '#{method}' to #{klass} instances"
       end
 
+      # @return [String] message on expectation failure
       def failure_message_for_should
         "expected '#{method}' to be added to #{klass} but " \
           "#{@initial_state ? 'it already existed' : "it didn't"}"
       end
 
+      # @return [String] message on expectation failure for negative expectation
       def failure_message_for_should_not
         "expected '#{method}' not to be added to #{klass} but it was"
       end
 
+      # @return [Boolean] expectation check
       def matches?(event_proc)
         return false unless event_proc.is_a?(Proc)
         raise_block_syntax_error if block_given?
         perform_change(event_proc)
-        changed?
+        added?
       end
 
+      # definition needed for block matchers
       def supports_block_expectations?
         true
       end
@@ -73,7 +78,7 @@ class Sinclair
 
       private
 
-      def changed?
+      def added?
         !@initial_state && @final_state
       end
 
