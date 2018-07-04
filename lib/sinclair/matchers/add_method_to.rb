@@ -1,13 +1,40 @@
 class Sinclair
   module Matchers
+    # AddMethodTo checks whether a method was or not added by the call of a block
+    #
+    # This is used with a RSpec DSL method add_method(method_name).to(class_object)
+    #
+    # @author darthjee
+    #
+    # @example
+    #  class MyModel
+    #  end
+    #
+    #  RSpec.describe 'my test' do
+    #    let(:klass)   { Class.new(MyModel) }
+    #    let(:builder) { Sinclair.new(klass) }
+    #
+    #    before do
+    #      builder.add_method(:class_name, 'self.class.name')
+    #    end
+    #
+    #    it do
+    #      expect { builder.build }.to add_method(:class_name).to(klass)
+    #    end
+    #  end
     class AddMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
       attr_reader :method, :instance
 
-      def initialize(instance, method)
-        if instance.is_a?(Class)
-          @instance_class = instance
+      # @param target
+      #   target class / instance where the method should be added
+      #
+      # @param method
+      #   method name
+      def initialize(target, method)
+        if target.is_a?(Class)
+          @instance_class = target
         else
-          @instance = instance
+          @instance = target
         end
         @method = method
       end
