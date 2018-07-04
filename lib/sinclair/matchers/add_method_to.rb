@@ -23,8 +23,6 @@ class Sinclair
     #    end
     #  end
     class AddMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
-      attr_reader :method, :instance
-
       # @param target
       #   target class / instance where the method should be added
       #
@@ -70,6 +68,10 @@ class Sinclair
       end
 
       protected
+
+      attr_reader :method, :instance
+
+      private
 
       def changed?
         !@initial_state && @final_state
