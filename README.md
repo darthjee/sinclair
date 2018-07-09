@@ -27,6 +27,10 @@ Installation
     bundle install sinclair
   ```
 
+Yard Documentation
+-------------------
+https://www.rubydoc.info/gems/sinclair/
+
 Usage
 ---------------
 The concern builder can actully be used in two ways, as an stand alone object capable of
