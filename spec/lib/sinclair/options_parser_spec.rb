@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe Sinclair::OptionsParser do
-  let(:clazz) { described_class::Dummy }
+  let(:klass) { described_class::Dummy }
   let(:switched) { true }
   let(:value_1) { 'value1' }
   let(:options) { { switch: switched, option_1: value_1, option_2: 2} }
 
   subject do
-    clazz.new(options)
+    klass.new(options)
   end
 
   it 'enables the given options to be acced' do

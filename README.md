@@ -33,34 +33,38 @@ The concern builder can actully be used in two ways, as an stand alone object ca
 adding methods to your class or by extending it for more complex logics
 
  - Stand Alone usage:
-```ruby
-  class Clazz
-  end
 
-  builder = Sinclair.new(Clazz)
+  ```ruby
 
-  builder.add_method(:twenty, '10 + 10')
-  builder.add_method(:eighty) { 4 * twenty }
-  builder.build
+    class Clazz
+    end
 
-  instance = Clazz.new
+    builder = Sinclair.new(Clazz)
 
-  puts "Twenty => #{instance.twenty}"
-  puts "Eighty => #{instance.eighty}"
-```
+    builder.add_method(:twenty, '10 + 10')
+    builder.add_method(:eighty) { 4 * twenty }
+    builder.build
 
-```string
-  Twenty => 20
-  Eighty => 80
-```
+    instance = Clazz.new
+
+    puts "Twenty => #{instance.twenty}"
+    puts "Eighty => #{instance.eighty}"
+  ```
+
+  ```string
+
+    Twenty => 20
+    Eighty => 80
+  ```
 
  - Extending the builder
 
   ```ruby
+
     class ValidationBuilder < Sinclair
       delegate :expected, to: :options_object
 
-      def initialize(clazz, options={})
+      def initialize(klass, options={})
         super
       end
 
@@ -69,7 +73,7 @@ adding methods to your class or by extending it for more complex logics
       end
 
       def add_accessors(fields)
-        clazz.send(:attr_accessor, *fields)
+        klass.send(:attr_accessor, *fields)
       end
     end
 
@@ -119,42 +123,32 @@ adding methods to your class or by extending it for more complex logics
   ```
 
   the instance will respond to the methods
-```name``` ```name=``` ```name_valid?```
-```surname``` ```surname=``` ```surname_valid?```
-```age``` ```age=``` ```age_valid?```
-```legs``` ```legs=``` ```legs_valid?```
-```valid?```
+  ```name``` ```name=``` ```name_valid?```
+  ```surname``` ```surname=``` ```surname_valid?```
+  ```age``` ```age=``` ```age_valid?```
+  ```legs``` ```legs=``` ```legs_valid?```
+  ```valid?```
 
   ```ruby
+
     valid_object = MyClass.new(
       name: :name,
       surname: 'surname',
       age: 20,
       legs: 2
     )
-    valid_object.valid?
-  ```
-
-  returns
-
-  ```
-  true
+    valid_object.valid? # returns true
   ```
 
   ```ruby
+
     invalid_object = MyClass.new(
       name: 'name',
       surname: 'surname',
       age: 20,
       legs: 2
     )
-    invalid_object.valid?
-  ```
-
-  returns
-
-  ```
-  false
+    invalid_object.valid? # returns false
   ```
 
 RSspec matcher
@@ -162,64 +156,67 @@ RSspec matcher
 
 You can use the provided matcher to check that your builder is adding a method correctly
 
-```ruby
-class DefaultValue
-  delegate :build, to: :builder
-  attr_reader :klass, :method, :value
+  ```ruby
 
-  def initialize(klass, method, value)
-    @klass = klass
-    @method = method
-    @value = value
-  end
+  class DefaultValue
+    delegate :build, to: :builder
+    attr_reader :klass, :method, :value
 
-  private
-
-  def builder
-    @builder ||= Sinclair.new(klass).tap do |b|
-      b.add_method(method) { value }
+    def initialize(klass, method, value)
+      @klass = klass
+      @method = method
+      @value = value
     end
-  end
-end
 
-RSpec.configure do |config|
-  config.include Sinclair::Matchers
-end
+    private
 
-RSpec.describe DefaultValue do
-  let(:klass)    { Class.new }
-  let(:method)   { :the_method }
-  let(:value)    { Random.rand(100) }
-  let(:builder)  { described_class.new(klass, method, value) }
-  let(:instance) { klass.new }
-
-  context 'when the builder runs' do
-    it do
-      expect do
-        described_class.new(klass, method, value).build
-      end.to add_method(method).to(instance)
+    def builder
+      @builder ||= Sinclair.new(klass).tap do |b|
+        b.add_method(method) { value }
+      end
     end
   end
 
-  context 'when the builder runs' do
-    it do
-      expect do
-        described_class.new(klass, method, value).build
-      end.to add_method(method).to(klass)
+  RSpec.configure do |config|
+    config.include Sinclair::Matchers
+  end
+
+  RSpec.describe DefaultValue do
+    let(:klass)    { Class.new }
+    let(:method)   { :the_method }
+    let(:value)    { Random.rand(100) }
+    let(:builder)  { described_class.new(klass, method, value) }
+    let(:instance) { klass.new }
+
+    context 'when the builder runs' do
+      it do
+        expect do
+          described_class.new(klass, method, value).build
+        end.to add_method(method).to(instance)
+      end
+    end
+
+    context 'when the builder runs' do
+      it do
+        expect do
+          described_class.new(klass, method, value).build
+        end.to add_method(method).to(klass)
+      end
     end
   end
-end
-```
+  ```
 
-```bash
-> bundle exec rspec
-```
+  ```bash
 
-```string
-DefaultValue
-  when the builder runs
-      should add method 'the_method' to #<Class:0x0000000146c160> instances
-  when the builder runs
-      should add method 'the_method' to #<Class:0x0000000143a1b0> instances
+  > bundle exec rspec
+  ```
 
-```
+  ```string
+
+  DefaultValue
+    when the builder runs
+        should add method 'the_method' to #<Class:0x0000000146c160> instances
+    when the builder runs
+        should add method 'the_method' to #<Class:0x0000000143a1b0> instances
+
+  ```

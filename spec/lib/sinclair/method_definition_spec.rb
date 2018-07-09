@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Sinclair::MethodDefinition do
-  let(:clazz) { Class.new }
-  let(:instance) { clazz.new }
+  let(:klass) { Class.new }
+  let(:instance) { klass.new }
 
   describe '#build' do
     let(:method_name) { :the_method }
@@ -13,10 +13,10 @@ describe Sinclair::MethodDefinition do
       subject { described_class.new(method_name, code) }
 
       before do
-        subject.build(clazz)
+        subject.build(klass)
       end
 
-      it 'adds the method to the clazz instance' do
+      it 'adds the method to the klass instance' do
         expect(instance).to respond_to(method_name)
       end
 
@@ -33,10 +33,10 @@ describe Sinclair::MethodDefinition do
       end
 
       before do
-        subject.build(clazz)
+        subject.build(klass)
       end
 
-      it 'adds the method to the clazz instance' do
+      it 'adds the method to the klass instance' do
         expect(instance).to respond_to(method_name)
       end
 
