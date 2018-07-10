@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ValidationBuilder < Sinclair
   delegate :expected, to: :options_object
 

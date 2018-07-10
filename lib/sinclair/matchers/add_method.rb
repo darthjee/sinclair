@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Sinclair
   module Matchers
     # AddMethod is able to build an instance of Sinclair::Matchers::AddMethodTo

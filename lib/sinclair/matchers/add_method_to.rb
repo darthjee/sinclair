@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Sinclair
   module Matchers
     # AddMethodTo checks whether a method was or not added by the call of a block

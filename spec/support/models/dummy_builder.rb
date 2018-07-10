@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Sinclair
   class DummyBuilder < Sinclair
     def init

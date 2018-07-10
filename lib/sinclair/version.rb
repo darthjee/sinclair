@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Sinclair
-  VERSION = '1.1.1'.freeze
+  VERSION = '1.1.1'
 end

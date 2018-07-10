@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Sinclair
   module OptionsParser
     class Dummy

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Sinclair
   # Matchers module will have the DSL to be included in RSpec in order to have
   # access to the matchers
