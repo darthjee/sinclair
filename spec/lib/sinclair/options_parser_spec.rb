@@ -4,7 +4,7 @@ describe Sinclair::OptionsParser do
   let(:klass) { described_class::Dummy }
   let(:switched) { true }
   let(:value_1) { 'value1' }
-  let(:options) { { switch: switched, option_1: value_1, option_2: 2} }
+  let(:options) { { switch: switched, option_1: value_1, option_2: 2 } }
 
   subject do
     klass.new(options)
@@ -23,7 +23,7 @@ describe Sinclair::OptionsParser do
   end
 
   context 'when there is an option missing' do
-    let(:options) { { option_1: 'value1', option_2: 2} }
+    let(:options) { { option_1: 'value1', option_2: 2 } }
 
     it do
       expect { subject.the_method }.not_to raise_error

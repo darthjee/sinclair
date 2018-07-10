@@ -14,7 +14,7 @@ describe MyClass do
     }
   end
 
-  %i(name surname age legs).each do |field|
+  %i[name surname age legs].each do |field|
     it do
       expect(subject).to respond_to(field)
     end

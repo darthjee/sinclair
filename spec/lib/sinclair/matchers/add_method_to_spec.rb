@@ -9,32 +9,32 @@ describe Sinclair::Matchers::AddMethodTo do
 
   describe '#matches?' do
     let(:event_proc) do
-      Proc.new { klass.send(:define_method, method) {} }
+      proc { klass.send(:define_method, method) {} }
     end
 
     context 'when a method is added' do
-      it { expect(subject.matches? event_proc).to be_truthy }
+      it { expect(subject.matches?(event_proc)).to be_truthy }
     end
 
     context 'when a method is not added' do
-      let(:event_proc) { Proc.new {} }
+      let(:event_proc) { proc {} }
 
-      it { expect(subject.matches? event_proc).to be_falsey }
+      it { expect(subject.matches?(event_proc)).to be_falsey }
     end
 
     context 'when the wrong method is added' do
       let(:event_proc) do
-        Proc.new { klass.send(:define_method, :another_method) {} }
+        proc { klass.send(:define_method, :another_method) {} }
       end
 
-      it { expect(subject.matches? event_proc).to be_falsey }
+      it { expect(subject.matches?(event_proc)).to be_falsey }
     end
 
     context 'when initializing with class' do
       subject { described_class.new(klass, method) }
 
       context 'when a method is added' do
-        it { expect(subject.matches? event_proc).to be_truthy }
+        it { expect(subject.matches?(event_proc)).to be_truthy }
       end
     end
   end
@@ -48,7 +48,7 @@ describe Sinclair::Matchers::AddMethodTo do
     context 'when method already exited' do
       before do
         klass.send(:define_method, method) {}
-        subject.matches?(Proc.new {})
+        subject.matches?(proc {})
       end
 
       it 'returns information on the instance class and method' do
@@ -68,7 +68,7 @@ describe Sinclair::Matchers::AddMethodTo do
       context 'when method already exited' do
         before do
           klass.send(:define_method, method) {}
-          subject.matches?(Proc.new {})
+          subject.matches?(proc {})
         end
 
         it 'returns information on the instance class and method' do
