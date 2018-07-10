@@ -1,5 +1,7 @@
-require "bundler/gem_tasks"
-require "rspec/core/rake_task"
+# frozen_string_literal: true
 
-task :default => :spec
+require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
+
+task default: :spec
 task test: :spec

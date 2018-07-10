@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 
 SimpleCov.profiles.define 'gem' do
@@ -9,8 +11,8 @@ SimpleCov.start 'gem'
 require 'sinclair'
 require 'pry-nav'
 
-support_files = File.expand_path("spec/support/**/*.rb")
-Dir[support_files].each { |file| require file  }
+support_files = File.expand_path('spec/support/**/*.rb')
+Dir[support_files].each { |file| require file }
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true

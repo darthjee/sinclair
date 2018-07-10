@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Sinclair
   module Matchers
     # AddMethod is able to build an instance of Sinclair::Matchers::AddMethodTo
     class AddMethod < RSpec::Matchers::BuiltIn::BaseMatcher
-      # as any matcher is expected to implement matches?, we raise a warning on the usage as
-      # this is only a builder for AddMethodTo
+      # as any matcher is expected to implement matches?, we raise a warning on
+      # the usage as this is only a builder for AddMethodTo
       def matches?(_actual)
         raise SyntaxError, 'You should specify which instance the method is being added to' \
           "add_method(:#{method}).to(instance)"

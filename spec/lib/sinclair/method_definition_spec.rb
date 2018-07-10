@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Sinclair::MethodDefinition do
@@ -28,8 +30,8 @@ describe Sinclair::MethodDefinition do
     context 'when method was defined with a block' do
       subject do
         described_class.new(method_name) do
-          "Self ==> " + self.to_s
-         end
+          'Self ==> ' + to_s
+        end
       end
 
       before do

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class ValidationBuilder < Sinclair
   delegate :expected, to: :options_object
 
-  def initialize(klass, options={})
+  def initialize(klass, options = {})
     super
   end
 

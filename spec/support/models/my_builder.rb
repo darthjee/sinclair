@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DefaultValue
   delegate :build, to: :builder
   attr_reader :klass, :method, :value

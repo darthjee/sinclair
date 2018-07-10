@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Sinclair do
@@ -94,8 +96,10 @@ describe Sinclair do
   describe '#eval_and_add_method' do
     context 'when defining the method once' do
       before do
-        subject.add_method(:value, "@value ||= 0")
-        subject.eval_and_add_method(:defined) { "@value = value + #{ options_object.increment || 1 }" }
+        subject.add_method(:value, '@value ||= 0')
+        subject.eval_and_add_method(:defined) do
+          "@value = value + #{options_object.increment || 1}"
+        end
         subject.build
       end
 
@@ -116,9 +120,11 @@ describe Sinclair do
 
     context 'when redefining a method already added' do
       before do
-        subject.add_method(:value,   "@value ||= 0")
-        subject.add_method(:defined, "100")
-        subject.eval_and_add_method(:defined) { "@value = value + #{ options_object.increment || 1 }" }
+        subject.add_method(:value,   '@value ||= 0')
+        subject.add_method(:defined, '100')
+        subject.eval_and_add_method(:defined) do
+          "@value = value + #{options_object.increment || 1}"
+        end
         subject.build
       end
 
@@ -130,9 +136,11 @@ describe Sinclair do
 
     context 'when readding it' do
       before do
-        subject.add_method(:value,   "@value ||= 0")
-        subject.eval_and_add_method(:defined) { "@value = value + #{ options_object.increment || 1 }" }
-        subject.add_method(:defined, "100")
+        subject.add_method(:value, '@value ||= 0')
+        subject.eval_and_add_method(:defined) do
+          "@value = value + #{options_object.increment || 1}"
+        end
+        subject.add_method(:defined, '100')
         subject.build
       end
 
