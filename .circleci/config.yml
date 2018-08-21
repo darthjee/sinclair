@@ -4,7 +4,10 @@ jobs:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
+      - run: ls -la
+      - run: pwd
       - checkout
+      - run: ls -la
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
       - run: ./cc-test-reporter before-build
