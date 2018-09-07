@@ -131,7 +131,7 @@ adding methods to your class or by extending it for more complex logics
   ```surname``` ```surname=``` ```surname_valid?```
   ```age``` ```age=``` ```age_valid?```
   ```legs``` ```legs=``` ```legs_valid?```
-  ```valid?```
+  ```valid?```.
 
   ```ruby
 
