@@ -10,7 +10,7 @@ RSpec.describe Sinclair::Matchers::AddMethod do
         let(:builder) { Sinclair.new(clazz) }
 
         before do
-          builder.add_method(:new_method, "2")
+          builder.add_method(:new_method, '2')
         end
 
         it do
@@ -24,7 +24,7 @@ RSpec.describe Sinclair::Matchers::AddMethod do
         let(:instance) { clazz.new }
 
         before do
-          builder.add_method(:the_method, "true")
+          builder.add_method(:the_method, 'true')
         end
 
         it do
