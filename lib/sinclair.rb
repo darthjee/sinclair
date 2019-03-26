@@ -84,7 +84,7 @@ class Sinclair
   # add a method to the method list to be created on klass
   #
   # @overload add_method(name, code)
-  #   @param name [String/Symbol] name of the method to be added
+  #   @param name [String,Symbol] name of the method to be added
   #   @param code [String] code to be evaluated when the method is ran
   #
   # @example Using string code
@@ -104,7 +104,7 @@ class Sinclair
   #   Person.new('john', 'wick').full_name # returns 'john wick'
   #
   # @overload add_method(name, &block)
-  #   @param name [String/Symbol] name of the method to be added
+  #   @param name [String,Symbol] name of the method to be added
   #   @param block [Proc]  block to be ran as method
   #
   # @example Using block

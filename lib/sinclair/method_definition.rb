@@ -6,7 +6,7 @@ class Sinclair
     # @overload initialize(name, code)
     # @overload initialize(name, &block)
     #
-    # @param name  [String/Symbol] name of the method
+    # @param name  [String,Symbol] name of the method
     # @param code  [String] code to be evaluated as method
     # @param block [Proc] block with code to be added as method
     #

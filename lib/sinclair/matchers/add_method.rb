@@ -11,7 +11,7 @@ class Sinclair
           "add_method(:#{method}).to(instance)"
       end
 
-      # @param method [String/Symbol] the method, to be checked, name
+      # @param method [String,Symbol] the method, to be checked, name
       def initialize(method)
         @method = method
       end
