@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Sinclair
+  # @api public
+  #
+  # @author darthjee
+  #
   # Concern for easily adding options
   #
   # @example
@@ -28,8 +32,14 @@ class Sinclair
 
     private
 
+    # @!visibility public
     attr_reader :options
 
+    # @!visibility public
+    #
+    # Builds an openstruct of the Hash
+    #
+    # @return [OpenStruct]
     def options_object
       @options_object ||= OpenStruct.new options
     end

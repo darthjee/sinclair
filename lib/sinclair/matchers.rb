@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Sinclair
+  # @api public
+  # @author darthjee
+  #
   # Matchers module will have the DSL to be included in RSpec in order to have
   # access to the matchers
   #
@@ -29,6 +32,10 @@ class Sinclair
     autoload :AddMethodTo, 'sinclair/matchers/add_method_to'
 
     # DSL to AddMethod
+    #
+    # @example (see Sinclair::Matchers)
+    # @example (see Sinclair::Matchers::AddMethod#to)
+    #
     # @return [AddMethod] RSpec Matcher
     def add_method(method)
       Sinclair::Matchers::AddMethod.new(method)

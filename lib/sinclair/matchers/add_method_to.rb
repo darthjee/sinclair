@@ -2,6 +2,9 @@
 
 class Sinclair
   module Matchers
+    # @api private
+    # @author darthjee
+    #
     # AddMethodTo checks whether a method was or not added by the call of a block
     #
     # This is used with a RSpec DSL method add_method(method_name).to(class_object)
@@ -29,6 +32,10 @@ class Sinclair
     #    end
     #  end
     class AddMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
+      # @private
+      #
+      # Returns a new instance of AddMethodTo
+      #
       # @overload initialize(klass, method)
       #   @param [Class] klass
       #     class where the method should be added to
@@ -48,22 +55,38 @@ class Sinclair
         @method = method
       end
 
-      # @return [String] expectation description
+      # @private
+      #
+      # Returnst expectaton description
+      #
+      # @return [String]
       def description
         "add method '#{method}' to #{klass} instances"
       end
 
-      # @return [String] message on expectation failure
+      # @private
+      #
+      # Returns message on expectation failure
+      #
+      # @return [String]
       def failure_message_for_should
         "expected '#{method}' to be added to #{klass} but " \
           "#{@initial_state ? 'it already existed' : "it didn't"}"
       end
 
-      # @return [String] message on expectation failure for negative expectation
+      # @private
+      #
+      # Returns message on expectation failure for negative expectation
+      #
+      # @return [String]
       def failure_message_for_should_not
         "expected '#{method}' not to be added to #{klass} but it was"
       end
 
+      # @private
+      #
+      # Checks if expectation is true or not
+      #
       # @return [Boolean] expectation check
       def matches?(event_proc)
         return false unless event_proc.is_a?(Proc)
@@ -77,6 +100,11 @@ class Sinclair
         true
       end
 
+      # @api private
+      #
+      # Checkes if another instnce is equal self
+      #
+      # @return [Boolean]
       def equal?(other)
         return unless other.class == self.class
         other.method == method &&
@@ -89,28 +117,55 @@ class Sinclair
 
       protected
 
+      # @api private
+      # @private
       attr_reader :method, :instance
 
       private
 
+      # @private
+      #
+      # Checks if a method was added (didn't exist before)
+      #
+      # @return Boolean
       def added?
         !@initial_state && @final_state
       end
 
+      # @private
+      #
+      # Call block to check if it aded a method or not
+      #
+      # @return [Boolan]
       def perform_change(event_proc)
         @initial_state = method_defined?
         event_proc.call
         @final_state = method_defined?
       end
 
+      # @private
+      #
+      # Checks if class has instance method defined
+      #
+      # @return [Boolean]
       def method_defined?
         klass.method_defined?(method)
       end
 
+      # @private
+      #
+      # Class to be analised
+      #
+      # @return [Class]
       def klass
         @klass ||= instance.class
       end
 
+      # @private
+      #
+      # Raises when block was not given
+      #
+      # @raise SyntaxError
       def raise_block_syntax_error
         raise SyntaxError, 'Block not received by the `add_method_to` matcher. ' \
           'Perhaps you want to use `{ ... }` instead of do/end?'

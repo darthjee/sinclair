@@ -3,10 +3,12 @@
 require 'active_support'
 require 'active_support/all'
 
+# @api public
+# @author darthjee
+#
 # Builder that add instance methods to a class
 #
 # @example
-#
 #   class MyModel
 #   end
 #
@@ -31,6 +33,8 @@ class Sinclair
 
   include OptionsParser
 
+  # Returns a new instance of Sinclair
+  #
   # @param klass [Class] to receive the methods
   # @param options [Hash] open hash options to be used by builders inheriting from Sinclair
   #   through the Sinclair::OptionsParser concern
@@ -70,6 +74,8 @@ class Sinclair
   #   builder.build
   #
   #   MyModel.new.respond_to(:default_value) # returns true
+  #
+  # @return [Array<MethodDefinition>]
   def build
     definitions.each do |definition|
       definition.build(klass)
@@ -79,42 +85,41 @@ class Sinclair
   # add a method to the method list to be created on klass
   #
   # @overload add_method(name, code)
-  #   @param name [String/Symbol] name of the method to be added
+  #   @param name [String,Symbol] name of the method to be added
   #   @param code [String] code to be evaluated when the method is ran
   #
-  #   @example
-  #     class Person
-  #       attr_reader :first_name, :last_name
+  # @example Using string code
+  #   class Person
+  #     attr_reader :first_name, :last_name
   #
-  #       def initialize(first_name, last_name)
-  #         @first_name = first_name
-  #         @last_name = last_name
-  #       end
+  #     def initialize(first_name, last_name)
+  #       @first_name = first_name
+  #       @last_name = last_name
   #     end
+  #   end
   #
-  #     builder = Sinclair.new(Person)
-  #     builder.add_method(:full_name, '[first_name, last_name].join(" ")')
-  #     builder.build
+  #   builder = Sinclair.new(Person)
+  #   builder.add_method(:full_name, '[first_name, last_name].join(" ")')
+  #   builder.build
   #
-  #     Person.new('john', 'wick').full_name # returns 'john wick'
+  #   Person.new('john', 'wick').full_name # returns 'john wick'
   #
   # @overload add_method(name, &block)
-  #   @param name [String/Symbol] name of the method to be added
+  #   @param name [String,Symbol] name of the method to be added
   #   @param block [Proc]  block to be ran as method
   #
-  #   @example
+  # @example Using block
+  #   builder = Sinclair.new(Person)
+  #   builder.add_method(:bond_name) { "#{last_name}, #{full_name}" }
+  #   builder.build
   #
-  #     builder = Sinclair.new(Person)
-  #     builder.add_method(:bond_name) { "#{last_name}, #{full_name}" }
-  #     builder.build
-  #
-  #     Person.new('john', 'wick').bond_name # returns 'wick, john wick'
+  #   Person.new('john', 'wick').bond_name # returns 'wick, john wick'
+  # @return [Array<MethodDefinition>]
   def add_method(name, code = nil, &block)
     definitions << MethodDefinition.new(name, code, &block)
   end
 
-  # evaluetes a block which will result in a [String] to be
-  # then used as code for the method
+  # Evaluetes a block which will result in a String, the method code
   #
   # @example
   #
@@ -183,14 +188,24 @@ class Sinclair
   #   end
   #
   #   Purchase.new(2.3, 5).total_price # returns 11.5
+  # @return [Array<MethodDefinition>]
   def eval_and_add_method(name, &block)
     add_method(name, instance_eval(&block))
   end
 
   private
 
+  # @api private
+  # @private
   attr_reader :klass
 
+  # @private
+  #
+  # @api private
+  #
+  # List of mthod definitions
+  #
+  # @return [Array<MethodDefinition>]
   def definitions
     @definitions ||= []
   end

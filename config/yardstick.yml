@@ -1,4 +1,4 @@
-threshold: 54.6
+threshold: 100
 require_exact_threshold: false
 rules:
   ApiTag::Presence:
@@ -15,13 +15,34 @@ rules:
     exclude: []
   ExampleTag:
     enabled: true
-    exclude: []
+    exclude:
+      - Sinclair::OptionsParser#options
+      - Sinclair::OptionsParser#options_object
   ReturnTag:
     enabled: true
-    exclude: []
+    exclude:
+      - Sinclair#klass
+      - Sinclair::Matchers::AddMethod#method
+      - Sinclair::Matchers::AddMethodTo#method
+      - Sinclair::Matchers::AddMethodTo#instance
+      - Sinclair::MethodDefinition#name
+      - Sinclair::MethodDefinition#code
+      - Sinclair::MethodDefinition#block
+      - Sinclair::OptionsParser#options
+      - Sinclair::OptionsParser#options_object
+      - Sinclair::Matchers::AddMethodTo#raise_block_syntax_error
   Summary::Presence:
     enabled: true
-    exclude: []
+    exclude:
+      - Sinclair#klass
+      - Sinclair::Matchers::AddMethod#method
+      - Sinclair::Matchers::AddMethodTo#method
+      - Sinclair::Matchers::AddMethodTo#instance
+      - Sinclair::MethodDefinition#name
+      - Sinclair::MethodDefinition#code
+      - Sinclair::MethodDefinition#block
+      - Sinclair::OptionsParser#options
+      - Sinclair::OptionsParser#options_object
   Summary::Length:
     enabled: true
     exclude: []
