@@ -33,6 +33,7 @@ class Sinclair
     # DSL to AddMethod
     #
     # @example (see Sinclair::Matchers)
+    # @example (see Sinclair::Matchers::AddMethod#to)
     #
     # @return [AddMethod] RSpec Matcher
     def add_method(method)
