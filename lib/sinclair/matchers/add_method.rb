@@ -33,6 +33,8 @@ class Sinclair
         other.method == method
       end
 
+      alias == equal?
+
       # definition needed for block matchers
       def supports_block_expectations?
         true

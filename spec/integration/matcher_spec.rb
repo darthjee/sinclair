@@ -33,6 +33,7 @@ describe 'matchers' do
       before do
         block.call
       end
+
       it 'raises expectation error' do
         expect { expectation }.to raise_error(
           RSpec::Expectations::ExpectationNotMetError,

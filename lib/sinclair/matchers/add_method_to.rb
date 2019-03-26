@@ -83,6 +83,10 @@ class Sinclair
           other.instance == instance
       end
 
+      alias == equal?
+      alias failure_message failure_message_for_should
+      alias failure_message_when_negated failure_message_for_should_not
+
       protected
 
       attr_reader :method, :instance
