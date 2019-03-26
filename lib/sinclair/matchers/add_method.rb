@@ -99,6 +99,8 @@ class Sinclair
 
       protected
 
+      # @api private
+      # @private
       attr_reader :method
     end
   end

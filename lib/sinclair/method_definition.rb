@@ -41,6 +41,7 @@ class Sinclair
 
     private
 
+    # @private
     attr_reader :name, :code, :block
 
     # @private

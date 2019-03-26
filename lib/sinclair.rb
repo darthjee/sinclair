@@ -195,6 +195,8 @@ class Sinclair
 
   private
 
+  # @api private
+  # @private
   attr_reader :klass
 
   # @private

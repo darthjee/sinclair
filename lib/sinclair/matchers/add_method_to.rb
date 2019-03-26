@@ -117,6 +117,8 @@ class Sinclair
 
       protected
 
+      # @api private
+      # @private
       attr_reader :method, :instance
 
       private

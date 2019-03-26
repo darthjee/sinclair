@@ -32,9 +32,10 @@ class Sinclair
 
     private
 
+    # @!visibility public
     attr_reader :options
 
-    # @private
+    # @!visibility public
     #
     # Builds an openstruct of the Hash
     #
