@@ -2,6 +2,7 @@
 
 class Sinclair
   module Matchers
+    # @author darthjee
     # AddMethod is able to build an instance of Sinclair::Matchers::AddMethodTo
     class AddMethod < RSpec::Matchers::BuiltIn::BaseMatcher
       # @api private

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Sinclair
+  # @author darthjee
+  #
   # Concern for easily adding options
   #
   # @example

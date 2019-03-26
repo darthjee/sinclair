@@ -4,6 +4,7 @@ require 'active_support'
 require 'active_support/all'
 
 # @api public
+# @author darthjee
 #
 # Builder that add instance methods to a class
 #

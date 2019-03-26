@@ -2,6 +2,8 @@
 
 class Sinclair
   module Matchers
+    # @author darthjee
+    #
     # AddMethodTo checks whether a method was or not added by the call of a block
     #
     # This is used with a RSpec DSL method add_method(method_name).to(class_object)

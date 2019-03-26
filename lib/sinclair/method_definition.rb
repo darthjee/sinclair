@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Sinclair
+  # @author darthjee
+  #
   # Definition of the code or block to be aded as method
   class MethodDefinition
     # @overload initialize(name, code)

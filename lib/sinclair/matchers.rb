@@ -2,6 +2,7 @@
 
 class Sinclair
   # @api public
+  # @author darthjee
   #
   # Matchers module will have the DSL to be included in RSpec in order to have
   # access to the matchers
