@@ -1,18 +1,23 @@
-version: '2'
+version: '3'
 services:
   base: &base
-    image: ruby:2.4.0
-    working_dir: /home/app/sinclair
+    image: sinclair
+    working_dir: /home/app/app
     volumes:
-      - .:/home/app/sinclair
-      - sinclair_gems_2_4_0:/usr/local/bundle
+      - .:/home/app/app
 
-  #################### CONTAINERS ####################
+  base_build:
+    <<: *base
+    build: .
+    command: echo done
 
   sinclair:
     <<: *base
     container_name: sinclair
-    command: /bin/bash -c 'bundle install && bundle exec rspec'
+    depends_on: [base_build]
+    command: /bin/bash -c 'rspec'
 
-volumes:
-  sinclair_gems_2_4_0:
+  test_all:
+    <<: *base
+    depends_on: [base_build]
+    command: /bin/bash -c 'rspec && yard && rake yardstick_measure && rake verify_measurements'
