@@ -113,12 +113,12 @@ class Sinclair
   #   builder.build
   #
   #   Person.new('john', 'wick').bond_name # returns 'wick, john wick'
+  # @return [Array<MethodDefinition>]
   def add_method(name, code = nil, &block)
     definitions << MethodDefinition.new(name, code, &block)
   end
 
-  # evaluetes a block which will result in a [String] to be
-  # then used as code for the method
+  # Evaluetes a block which will result in a String, the method code
   #
   # @example
   #
@@ -187,6 +187,7 @@ class Sinclair
   #   end
   #
   #   Purchase.new(2.3, 5).total_price # returns 11.5
+  # @return [Array<MethodDefinition>]
   def eval_and_add_method(name, &block)
     add_method(name, instance_eval(&block))
   end
@@ -195,6 +196,13 @@ class Sinclair
 
   attr_reader :klass
 
+  # @private
+  #
+  # @api private
+  #
+  # List of mthod definitions
+  #
+  # @return [Array<MethodDefinition>]
   def definitions
     @definitions ||= []
   end
