@@ -29,7 +29,7 @@ Installation
 
 Yard Documentation
 -------------------
-https://www.rubydoc.info/gems/sinclair/1.1.2
+https://www.rubydoc.info/gems/sinclair/1.1.3
 
 Usage
 ---------------
