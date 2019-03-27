@@ -38,6 +38,39 @@ class Sinclair
     # Adds the method to given klass
     #
     # @param klass [Class] class which will receive the new method
+    # 
+    # @example Using string method with no options
+    #   class MyModel
+    #   end
+    #
+    #   instance = MyModel.new
+    #
+    #   method_definition = Sinclair::MethodDefinition.new(
+    #     :sequence, '@x = @x.to_i ** 2 + 1'
+    #   )
+    #
+    #  method_definition.build(klass)  # adds instance_method :sequence to
+    #                                  # MyModel instances
+    #
+    #  instance.sequence               # returns 1
+    #  instance.sequence               # returns 2
+    #  instance.sequence               # returns 5
+    #
+    # @example Using string method with no options
+    #   class MyModel
+    #   end
+    #
+    #   instance = MyModel.new
+    #
+    #   method_definition = Sinclair::MethodDefinition.new(:sequence) do
+    #     @x = @x.to_i ** 2 + 1
+    #   end
+    #
+    #  method_definition.build(klass)  # adds instance_method :sequence to
+    #                                  # MyModel instances
+    #
+    #  instance.sequence               # returns 1
+    #  instance.sequence               # returns 1 (cached value)
     #
     # @return [Symbol] name of the created method
     def build(klass)
