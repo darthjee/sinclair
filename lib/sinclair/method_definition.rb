@@ -7,6 +7,7 @@ class Sinclair
   # Definition of the code or block to be aded as method
   class MethodDefinition
     include Sinclair::OptionsParser
+    # Default options of initialization
     DEFAULT_OPTIONS = {
       cached: false
     }.freeze
@@ -14,17 +15,19 @@ class Sinclair
     # Returns a new instance of MethodDefinition
     #
     # @overload initialize(name, code)
+    #   @example
+    #     Sinclair::MethodDefinition.new(:name, '@name')
+    #
     # @overload initialize(name, &block)
+    #   @example
+    #     Sinclair::MethodDefinition.new(:name) { @name }
     #
-    # @param name  [String,Symbol] name of the method
-    # @param code  [String] code to be evaluated as method
-    # @param block [Proc] block with code to be added as method
-    #
-    # @example
-    #   Sinclair::MethodDefinition.new(:name, '@name')
-    #
-    # @example
-    #   Sinclair::MethodDefinition.new(:name) { @name }
+    # @param name    [String,Symbol] name of the method
+    # @param code    [String] code to be evaluated as method
+    # @param block   [Proc] block with code to be added as method
+    # @param options [Hash] Options of construction
+    # @option options cached [Boolean] Flag telling to create
+    #   a method with cache
     def initialize(name, code = nil, **options, &block)
       @name =    name
       @code =    code
@@ -50,6 +53,12 @@ class Sinclair
     # @private
     attr_reader :name, :code, :block
     delegate :cached, to: :options_object
+
+    # @private
+    #
+    # Flag telling to use cached method
+    #
+    # @return [Boolean]
     alias cached? cached
 
     # @private
@@ -61,6 +70,11 @@ class Sinclair
       klass.send(:define_method, name, method_block)
     end
 
+    # @private
+    #
+    # Returns the block that will be used for method creattion
+    #
+    # @return [Proc]
     def method_block
       return block unless cached?
 
