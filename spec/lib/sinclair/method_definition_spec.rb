@@ -17,7 +17,12 @@ shared_examples 'MethodDefinition#build' do
     end
 
     it 'evaluates return of the method within the instance context' do
-      expect(instance.the_method).to eq("Self ==> #{instance}")
+      expect(instance.the_method).to eq(1)
+    end
+
+    it 'creates a dynamic method' do
+      expect { instance.the_method }.to change { instance.the_method }
+        .from(1).to(3)
     end
   end
 end
@@ -30,7 +35,7 @@ describe Sinclair::MethodDefinition do
     let(:method_name) { :the_method }
 
     context 'when method was defined with an string' do
-      let(:code) { '"Self ==> " + self.to_s' }
+      let(:code) { '@x = @x.to_i + 1' }
 
       subject(:method_definition) do
         described_class.new(method_name, code)
@@ -42,7 +47,7 @@ describe Sinclair::MethodDefinition do
     context 'when method was defined with a block' do
       subject(:method_definition) do
         described_class.new(method_name) do
-          'Self ==> ' + to_s
+          @x = @x.to_i + 1
         end
       end
 
