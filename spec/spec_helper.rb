@@ -9,6 +9,7 @@ end
 SimpleCov.start 'gem'
 
 require 'sinclair'
+require 'sinclair/matchers'
 require 'pry-nav'
 
 support_files = File.expand_path('spec/support/**/*.rb')
