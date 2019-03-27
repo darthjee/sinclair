@@ -6,6 +6,11 @@ class Sinclair
   #
   # Definition of the code or block to be aded as method
   class MethodDefinition
+    include Sinclair::OptionsParser
+    DEFAULT_OPTIONS = {
+      cached: false
+    }
+
     # Returns a new instance of MethodDefinition
     #
     # @overload initialize(name, code)
@@ -20,10 +25,11 @@ class Sinclair
     #
     # @example
     #   Sinclair::MethodDefinition.new(:name) { @name }
-    def initialize(name, code = nil, **_options, &block)
-      @name = name
-      @code = code
-      @block = block
+    def initialize(name, code = nil, **options, &block)
+      @name =    name
+      @code =    code
+      @options = DEFAULT_OPTIONS.merge(options)
+      @block =   block
     end
 
     # Adds the method to given klass
@@ -43,6 +49,8 @@ class Sinclair
 
     # @private
     attr_reader :name, :code, :block
+    delegate :cached, to: :options_object
+    alias cached? cached
 
     # @private
     #
