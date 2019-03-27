@@ -58,18 +58,21 @@ class Sinclair
     #
     # @return [Symbol] name of the created method
     def build_block_method(klass)
-      if cached?
-        inner_block = block
-        method_name = name
-        klass.send(:define_method, name) do |*args|
-          instance_variable_get("@#{method_name}") ||
-            instance_variable_set(
-              "@#{method_name}",
-              inner_block.call(*args)
-            )
-        end
-      else
-        klass.send(:define_method, name, block)
+      klass.send(:define_method, name, method_block)
+    end
+
+    def method_block
+      return block unless cached?
+
+      inner_block = block
+      method_name = name
+
+      proc do |*args|
+        instance_variable_get("@#{method_name}") ||
+          instance_variable_set(
+            "@#{method_name}",
+            inner_block.call(*args)
+          )
       end
     end
 
