@@ -19,11 +19,6 @@ shared_examples 'MethodDefinition#build' do
     it 'evaluates return of the method within the instance context' do
       expect(instance.the_method).to eq(1)
     end
-
-    it 'creates a dynamic method' do
-      expect { instance.the_method }.to change { instance.the_method }
-        .from(1).to(3)
-    end
   end
 end
 
@@ -34,7 +29,7 @@ describe Sinclair::MethodDefinition do
   describe '#build' do
     let(:method_name) { :the_method }
 
-    context 'when method was defined with an string' do
+    context 'when method was defined with a string' do
       let(:code) { '@x = @x.to_i + 1' }
 
       subject(:method_definition) do
@@ -42,6 +37,25 @@ describe Sinclair::MethodDefinition do
       end
 
       it_behaves_like 'MethodDefinition#build'
+
+      it 'creates a dynamic method' do
+        method_definition.build(klass)
+        expect { instance.the_method }.to change { instance.the_method }
+          .from(1).to(3)
+      end
+
+      context 'whith cached options' do
+        subject(:method_definition) do
+          described_class.new(method_name, code, cached: true)
+        end
+
+        it_behaves_like 'MethodDefinition#build'
+
+        it 'creates a semi-dynamic method' do
+          method_definition.build(klass)
+          expect { instance.the_method }.not_to change { instance.the_method }
+        end
+      end
     end
 
     context 'when method was defined with a block' do
@@ -52,6 +66,12 @@ describe Sinclair::MethodDefinition do
       end
 
       it_behaves_like 'MethodDefinition#build'
+
+      it 'creates a dynamic method' do
+        method_definition.build(klass)
+        expect { instance.the_method }.to change { instance.the_method }
+          .from(1).to(3)
+      end
     end
   end
 end

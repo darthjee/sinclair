@@ -9,7 +9,7 @@ class Sinclair
     include Sinclair::OptionsParser
     DEFAULT_OPTIONS = {
       cached: false
-    }
+    }.freeze
 
     # Returns a new instance of MethodDefinition
     #
@@ -76,9 +76,10 @@ class Sinclair
     #
     # @return [String]
     def code_definition
+      code_line = cached? ? "@#{name} ||= #{code}" : code
       <<-CODE
       def #{name}
-        #{code}
+        #{code_line}
       end
       CODE
     end
