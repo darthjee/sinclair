@@ -44,7 +44,7 @@ describe Sinclair::MethodDefinition do
           .from(1).to(3)
       end
 
-      context 'whith cached options' do
+      context 'with cached options' do
         subject(:method_definition) do
           described_class.new(method_name, code, cached: true)
         end
@@ -71,6 +71,21 @@ describe Sinclair::MethodDefinition do
         method_definition.build(klass)
         expect { instance.the_method }.to change { instance.the_method }
           .from(1).to(3)
+      end
+
+      context 'with cached options' do
+        subject(:method_definition) do
+          described_class.new(method_name, cached: true) do
+            @x = @x.to_i + 1
+          end
+        end
+
+        it_behaves_like 'MethodDefinition#build'
+
+        it 'creates a dynamic method' do
+          method_definition.build(klass)
+          expect { instance.the_method }.not_to change { instance.the_method }
+        end
       end
     end
   end
