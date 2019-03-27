@@ -16,10 +16,10 @@ class Sinclair
     # @param block [Proc] block with code to be added as method
     #
     # @example
-    #   Sinclair::Method.new(:name, '@name')
+    #   Sinclair::MethodDefinition.new(:name, '@name')
     #
     # @example
-    #   Sinclair::Method.new(:name) { @name }
+    #   Sinclair::MethodDefinition.new(:name) { @name }
     def initialize(name, code = nil, **options, &block)
       @name = name
       @code = code
