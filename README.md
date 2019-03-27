@@ -181,6 +181,7 @@ You can use the provided matcher to check that your builder is adding a method c
     end
   end
 
+  require 'sinclair/matchers'
   RSpec.configure do |config|
     config.include Sinclair::Matchers
   end
