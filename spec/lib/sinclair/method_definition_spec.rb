@@ -2,6 +2,20 @@
 
 require 'spec_helper'
 
+shared_examples 'MethodDefinition#build' do
+  before do
+    subject.build(klass)
+  end
+
+  it 'adds the method to the klass instance' do
+    expect(instance).to respond_to(method_name)
+  end
+
+  it 'evaluates return of the method within the instance context' do
+    expect(instance.the_method).to eq("Self ==> #{instance}")
+  end
+end
+
 describe Sinclair::MethodDefinition do
   let(:klass) { Class.new }
   let(:instance) { klass.new }
@@ -14,17 +28,7 @@ describe Sinclair::MethodDefinition do
 
       subject { described_class.new(method_name, code) }
 
-      before do
-        subject.build(klass)
-      end
-
-      it 'adds the method to the klass instance' do
-        expect(instance).to respond_to(method_name)
-      end
-
-      it 'evaluates return of the method within the instance context' do
-        expect(instance.the_method).to eq("Self ==> #{instance}")
-      end
+      it_behaves_like 'MethodDefinition#build'
     end
 
     context 'when method was defined with a block' do
@@ -34,17 +38,7 @@ describe Sinclair::MethodDefinition do
         end
       end
 
-      before do
-        subject.build(klass)
-      end
-
-      it 'adds the method to the klass instance' do
-        expect(instance).to respond_to(method_name)
-      end
-
-      it 'evaluates return of the method within the instance context' do
-        expect(instance.the_method).to eq("Self ==> #{instance}")
-      end
+      it_behaves_like 'MethodDefinition#build'
     end
   end
 end
