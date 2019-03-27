@@ -20,7 +20,7 @@ class Sinclair
     #
     # @example
     #   Sinclair::Method.new(:name) { @name }
-    def initialize(name, code = nil, &block)
+    def initialize(name, code = nil, **options, &block)
       @name = name
       @code = code
       @block = block
