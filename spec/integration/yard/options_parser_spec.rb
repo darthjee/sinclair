@@ -4,8 +4,9 @@ require 'spec_helper'
 
 describe 'yard' do
   describe Sinclair::OptionsParser do
-    let(:options) { { switch: false, option_1: 10, option_2: 20 } }
     subject { described_class::Dummy.new(options) }
+
+    let(:options) { { switch: false, option_1: 10, option_2: 20 } }
 
     describe '#the_method' do
       it 'returns the value for option given' do

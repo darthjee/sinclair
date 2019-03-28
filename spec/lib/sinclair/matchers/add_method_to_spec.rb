@@ -15,13 +15,13 @@ describe Sinclair::Matchers::AddMethodTo do
     end
 
     context 'when a method is added' do
-      it { expect(subject.matches?(event_proc)).to be_truthy }
+      it { expect(subject).to be_matches(event_proc) }
     end
 
     context 'when a method is not added' do
       let(:event_proc) { proc {} }
 
-      it { expect(subject.matches?(event_proc)).to be_falsey }
+      it { expect(subject).not_to be_matches(event_proc) }
     end
 
     context 'when the wrong method is added' do
@@ -29,14 +29,14 @@ describe Sinclair::Matchers::AddMethodTo do
         proc { klass.send(:define_method, :another_method) {} }
       end
 
-      it { expect(subject.matches?(event_proc)).to be_falsey }
+      it { expect(subject).not_to be_matches(event_proc) }
     end
 
     context 'when initializing with class' do
       subject { described_class.new(klass, method) }
 
       context 'when a method is added' do
-        it { expect(subject.matches?(event_proc)).to be_truthy }
+        it { expect(subject).to be_matches(event_proc) }
       end
     end
   end

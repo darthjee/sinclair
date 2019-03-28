@@ -4,9 +4,10 @@ require 'spec_helper'
 
 describe MyClass do
   subject { klass.new(attributes) }
-  let(:klass) { MyClass }
-  let(:name) { 'name' }
-  let(:age) { 20 }
+
+  let(:klass) { described_class }
+  let(:name)  { 'name' }
+  let(:age)   { 20 }
   let(:attributes) do
     {
       name: name,
@@ -37,6 +38,7 @@ describe MyClass do
 
     context 'when a string attribute is a symbol' do
       let(:name) { :name }
+
       it do
         expect(subject).not_to be_valid
       end
@@ -44,6 +46,7 @@ describe MyClass do
 
     context 'when an attribute is nil' do
       let(:age) { nil }
+
       it do
         expect(subject).not_to be_valid
       end

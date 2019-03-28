@@ -29,24 +29,24 @@ shared_examples 'MethodDefinition#build' do
 end
 
 describe Sinclair::MethodDefinition do
-  let(:klass) { Class.new }
+  let(:klass)    { Class.new }
   let(:instance) { klass.new }
 
   describe '#build' do
     let(:method_name) { :the_method }
 
     context 'when method was defined with a string' do
-      let(:code) { '@x = @x.to_i + 1' }
-
       subject(:method_definition) do
         described_class.new(method_name, code)
       end
+
+      let(:code) { '@x = @x.to_i + 1' }
 
       it_behaves_like 'MethodDefinition#build'
 
       it 'creates a dynamic method' do
         method_definition.build(klass)
-        expect { instance.the_method }.to change { instance.the_method }
+        expect { instance.the_method }.to change(instance, :the_method)
           .from(1).to(3)
       end
 
@@ -59,7 +59,7 @@ describe Sinclair::MethodDefinition do
 
         it 'creates a semi-dynamic method' do
           method_definition.build(klass)
-          expect { instance.the_method }.not_to change { instance.the_method }
+          expect { instance.the_method }.not_to change(instance, :the_method)
         end
       end
     end
@@ -75,7 +75,7 @@ describe Sinclair::MethodDefinition do
 
       it 'creates a dynamic method' do
         method_definition.build(klass)
-        expect { instance.the_method }.to change { instance.the_method }
+        expect { instance.the_method }.to change(instance, :the_method)
           .from(1).to(3)
       end
 
@@ -90,7 +90,7 @@ describe Sinclair::MethodDefinition do
 
         it 'creates a dynamic method' do
           method_definition.build(klass)
-          expect { instance.the_method }.not_to change { instance.the_method }
+          expect { instance.the_method }.not_to change(instance, :the_method)
         end
 
         it 'sets the instance variable' do

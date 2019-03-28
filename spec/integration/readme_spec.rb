@@ -4,8 +4,8 @@ require 'spec_helper'
 
 describe 'Stand Alone' do
   let(:instance) { klass.new }
-  let(:klass) { Class.new }
-  let(:builder) { Sinclair.new(klass) }
+  let(:klass)    { Class.new }
+  let(:builder)  { Sinclair.new(klass) }
 
   before do
     builder.add_method(:twenty, '10 + 10')

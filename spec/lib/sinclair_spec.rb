@@ -3,11 +3,12 @@
 require 'spec_helper'
 
 describe Sinclair do
-  let(:options) { {} }
-  let(:instance) { dummy_class.new }
-  let(:dummy_class) { Class.new }
-  let(:builder_class) { described_class }
   subject { builder_class.new(dummy_class, options) }
+
+  let(:options)       { {} }
+  let(:instance)      { dummy_class.new }
+  let(:dummy_class)   { Class.new }
+  let(:builder_class) { described_class }
 
   describe '#add_method' do
     context 'when extending the class' do
@@ -33,6 +34,7 @@ describe Sinclair do
 
       context 'when passing options' do
         let(:options) { { increment: 2 } }
+
         it 'parses the options' do
           expect(instance.defined).to eq(2)
           expect(instance.defined).to eq(4)

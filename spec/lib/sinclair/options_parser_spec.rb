@@ -3,14 +3,14 @@
 require 'spec_helper'
 
 describe Sinclair::OptionsParser do
-  let(:klass) { described_class::Dummy }
-  let(:switched) { true }
-  let(:value_1) { 'value1' }
-  let(:options) { { switch: switched, option_1: value_1, option_2: 2 } }
-
   subject do
     klass.new(options)
   end
+
+  let(:klass)    { described_class::Dummy }
+  let(:switched) { true }
+  let(:value_1)  { 'value1' }
+  let(:options)  { { switch: switched, option_1: value_1, option_2: 2 } }
 
   it 'enables the given options to be acced' do
     expect(subject.the_method).to eq('The value is value1')
@@ -48,6 +48,7 @@ describe Sinclair::OptionsParser do
 
     context 'when the option value is another object on its own' do
       let(:value_1) { { key: 'value' } }
+
       before do
         subject
         options[:option_1][:key] = 100

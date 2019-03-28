@@ -48,7 +48,7 @@ describe Sinclair::MethodDefinition do
           expect { instance.sequence }
             .to change { instance.instance_variable_get(:@x) }
             .from(nil).to 1
-          expect { instance.sequence }.not_to change { instance.sequence }
+          expect { instance.sequence }.not_to change(instance, :sequence)
           expect(instance.instance_variable_get(:@sequence)).to eq(1)
         end
       end

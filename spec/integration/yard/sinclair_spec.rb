@@ -4,9 +4,9 @@ require 'spec_helper'
 
 describe 'yarn' do
   describe Sinclair do
-    let(:klass)    { Class.new(MyModel) }
-    let(:instance) { klass.new }
-    let(:builder)  { Sinclair.new(klass) }
+    let(:klass)         { Class.new(MyModel) }
+    let(:instance)      { klass.new }
+    let(:builder)       { Sinclair.new(klass) }
     let(:default_value) { 10 }
 
     describe '#initialize' do
@@ -65,6 +65,7 @@ describe 'yarn' do
 
       context 'after the build' do
         before { builder.build }
+
         it 'creates the expected methods' do
           expect(instance.value).to eq(10)
         end
