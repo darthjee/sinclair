@@ -3,6 +3,7 @@ Sinclair
 [![Code Climate](https://codeclimate.com/github/darthjee/sinclair/badges/gpa.svg)](https://codeclimate.com/github/darthjee/sinclair)
 [![Test Coverage](https://codeclimate.com/github/darthjee/sinclair/badges/coverage.svg)](https://codeclimate.com/github/darthjee/sinclair/coverage)
 [![Issue Count](https://codeclimate.com/github/darthjee/sinclair/badges/issue_count.svg)](https://codeclimate.com/github/darthjee/sinclair)
+[![Gem Version](https://badge.fury.io/rb/sinclair.svg)](https://badge.fury.io/rb/sinclair)
 
 
 ![sinclair](https://raw.githubusercontent.com/darthjee/sinclair/master/sinclair.jpg)
@@ -29,7 +30,7 @@ Installation
 
 Yard Documentation
 -------------------
-https://www.rubydoc.info/gems/sinclair/1.1.3
+https://www.rubydoc.info/gems/sinclair/1.2.0
 
 Usage
 ---------------

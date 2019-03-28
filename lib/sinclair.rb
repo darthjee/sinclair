@@ -114,8 +114,8 @@ class Sinclair
   #
   #   Person.new('john', 'wick').bond_name # returns 'wick, john wick'
   # @return [Array<MethodDefinition>]
-  def add_method(name, code = nil, &block)
-    definitions << MethodDefinition.new(name, code, &block)
+  def add_method(name, code = nil, **options, &block)
+    definitions << MethodDefinition.new(name, code, **options, &block)
   end
 
   # Evaluetes a block which will result in a String, the method code
