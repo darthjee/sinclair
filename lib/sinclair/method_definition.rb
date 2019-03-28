@@ -38,7 +38,7 @@ class Sinclair
     # Adds the method to given klass
     #
     # @param klass [Class] class which will receive the new method
-    # 
+    #
     # @example Using string method with no options
     #   class MyModel
     #   end
@@ -49,12 +49,18 @@ class Sinclair
     #     :sequence, '@x = @x.to_i ** 2 + 1'
     #   )
     #
-    #  method_definition.build(klass)  # adds instance_method :sequence to
+    #   method_definition.build(klass)  # adds instance_method :sequence to
     #                                  # MyModel instances
     #
-    #  instance.sequence               # returns 1
-    #  instance.sequence               # returns 2
-    #  instance.sequence               # returns 5
+    #   instance.instance_variable_get(:@sequence) # returns nil
+    #   instance.instance_variable_get(:@x)        # returns nil
+    #
+    #   instance.sequence               # returns 1
+    #   instance.sequence               # returns 2
+    #   instance.sequence               # returns 5
+    #
+    #   instance.instance_variable_get(:@sequence) # returns nil
+    #   instance.instance_variable_get(:@x)        # returns 5
     #
     # @example Using string method with no options
     #   class MyModel
@@ -66,11 +72,17 @@ class Sinclair
     #     @x = @x.to_i ** 2 + 1
     #   end
     #
-    #  method_definition.build(klass)  # adds instance_method :sequence to
+    #   method_definition.build(klass)  # adds instance_method :sequence to
     #                                  # MyModel instances
     #
-    #  instance.sequence               # returns 1
-    #  instance.sequence               # returns 1 (cached value)
+    #   instance.instance_variable_get(:@sequence) # returns nil
+    #   instance.instance_variable_get(:@x)        # returns nil
+    #
+    #   instance.sequence               # returns 1
+    #   instance.sequence               # returns 1 (cached value)
+    #
+    #   instance.instance_variable_get(:@sequence) # returns 1
+    #   instance.instance_variable_get(:@x)        # returns 1
     #
     # @return [Symbol] name of the created method
     def build(klass)
@@ -114,11 +126,11 @@ class Sinclair
       inner_block = block
       method_name = name
 
-      proc do |*args|
+      proc do
         instance_variable_get("@#{method_name}") ||
           instance_variable_set(
             "@#{method_name}",
-            inner_block.call(*args)
+            instance_eval(&inner_block)
           )
       end
     end

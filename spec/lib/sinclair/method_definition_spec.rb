@@ -19,6 +19,12 @@ shared_examples 'MethodDefinition#build' do
     it 'evaluates return of the method within the instance context' do
       expect(instance.the_method).to eq(1)
     end
+
+    it 'evaluates in the context of the instance' do
+      expect { instance.the_method }
+        .to change { instance.instance_variable_get(:@x) }
+        .from(nil).to(1)
+    end
   end
 end
 
@@ -85,6 +91,13 @@ describe Sinclair::MethodDefinition do
         it 'creates a dynamic method' do
           method_definition.build(klass)
           expect { instance.the_method }.not_to change { instance.the_method }
+        end
+
+        it 'sets the instance variable' do
+          method_definition.build(klass)
+          expect { instance.the_method }
+            .to change { instance.instance_variable_get("@#{method_name}") }
+            .from(nil).to(1)
         end
       end
     end
