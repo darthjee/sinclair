@@ -17,3 +17,8 @@ Lint/AmbiguousBlockAssociation:
 
 RSpec/AlignLeftLetBrace:
   Enabled: true
+
+RSpec/InstanceVariable:
+  Exclude:
+    - 'spec/integration/yard/sinclair/method_definition_spec.rb'
+    - 'spec/lib/sinclair/method_definition_spec.rb'

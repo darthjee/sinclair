@@ -15,13 +15,6 @@ RSpec/DescribeClass:
     - 'spec/integration/yard/sinclair/options_parser_spec.rb'
     - 'spec/integration/yard/sinclair/sinclair_spec.rb'
 
-# Offense count: 3
-# Configuration parameters: AssignmentOnly.
-RSpec/InstanceVariable:
-  Exclude:
-    - 'spec/integration/yard/sinclair/method_definition_spec.rb'
-    - 'spec/lib/sinclair/method_definition_spec.rb'
-
 # Offense count: 7
 # Configuration parameters: AggregateFailuresByDefault.
 RSpec/MultipleExpectations:
