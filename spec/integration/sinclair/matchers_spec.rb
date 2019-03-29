@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'matchers' do
+describe Sinclair::Matchers do
   describe 'add_method_to' do
     let(:method)   { :the_method }
     let(:klass)    { Class.new }

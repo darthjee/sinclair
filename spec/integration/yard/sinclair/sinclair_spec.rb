@@ -2,11 +2,11 @@
 
 require 'spec_helper'
 
-describe 'yarn' do
-  describe Sinclair do
+describe Sinclair do
+  describe 'yarn' do
     let(:klass)         { Class.new(MyModel) }
     let(:instance)      { klass.new }
-    let(:builder)       { Sinclair.new(klass) }
+    let(:builder)       { described_class.new(klass) }
     let(:default_value) { 10 }
 
     describe '#initialize' do
@@ -22,7 +22,7 @@ describe 'yarn' do
         end
 
         context 'without options' do
-          subject(:builder) { Sinclair.new(klass, rescue_error: true) }
+          subject(:builder) { described_class.new(klass, rescue_error: true) }
 
           let(:klass) { Class.new(Purchase) }
           let(:instance) { klass.new(2.3, 5) }
@@ -33,7 +33,7 @@ describe 'yarn' do
         end
 
         context 'with options' do
-          subject(:model) { Sinclair.new(klass) }
+          subject(:model) { described_class.new(klass) }
 
           let(:klass) { Class.new(Purchase) }
           let(:instance) { klass.new(2.3, 5) }
