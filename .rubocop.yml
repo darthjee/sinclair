@@ -1,3 +1,4 @@
+require: rubocop-rspec
 inherit_from: .rubocop_todo.yml
 
 AllCops:
@@ -13,3 +14,21 @@ Metrics/LineLength:
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*_spec.rb'
+
+RSpec/AlignLeftLetBrace:
+  Enabled: true
+
+RSpec/InstanceVariable:
+  Exclude:
+    - 'spec/integration/yard/sinclair/method_definition_spec.rb'
+    - 'spec/lib/sinclair/method_definition_spec.rb'
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/integration/yard/sinclair/method_definition_spec.rb
+    - spec/lib/sinclair_spec.rb
+
+RSpec/NestedGroups:
+  Max: 4
+  Exclude:
+    - spec/integration/yard/**/*.rb

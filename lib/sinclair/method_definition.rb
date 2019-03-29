@@ -52,14 +52,12 @@ class Sinclair
     #   method_definition.build(klass)  # adds instance_method :sequence to
     #                                  # MyModel instances
     #
-    #   instance.instance_variable_get(:@sequence) # returns nil
     #   instance.instance_variable_get(:@x)        # returns nil
     #
     #   instance.sequence               # returns 1
     #   instance.sequence               # returns 2
     #   instance.sequence               # returns 5
     #
-    #   instance.instance_variable_get(:@sequence) # returns nil
     #   instance.instance_variable_get(:@x)        # returns 5
     #
     # @example Using string method with no options

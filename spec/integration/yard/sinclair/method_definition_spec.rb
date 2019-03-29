@@ -16,11 +16,9 @@ describe Sinclair::MethodDefinition do
         it 'adds a dynamic method' do
           expect { method_definition.build(klass) }.to add_method(name).to(instance)
           expect { instance.sequence }
-            .to change { instance.instance_variable_get(:@x) }
-            .from(nil).to 1
+            .to change { instance.instance_variable_get(:@x) }.from(nil).to 1
           expect(instance.sequence).to eq(2)
           expect(instance.sequence).to eq(5)
-          expect(instance.instance_variable_get(:@sequence)).to be_nil
         end
 
         it 'changes instance variable' do
@@ -46,9 +44,8 @@ describe Sinclair::MethodDefinition do
         it 'adds a dynamic method' do
           expect { method_definition.build(klass) }.to add_method(name).to(instance)
           expect { instance.sequence }
-            .to change { instance.instance_variable_get(:@x) }
-            .from(nil).to 1
-          expect { instance.sequence }.not_to change { instance.sequence }
+            .to change { instance.instance_variable_get(:@x) }.from(nil).to 1
+          expect { instance.sequence }.not_to change(instance, :sequence)
           expect(instance.instance_variable_get(:@sequence)).to eq(1)
         end
       end
