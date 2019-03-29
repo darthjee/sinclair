@@ -83,15 +83,15 @@ describe 'matchers' do
       expect { block.call }.to add_method(method)
     end
     let(:block) { proc { klass.send(:define_method, method) {} } }
+    let(:expected_error) do
+      'You should specify which instance the method is being added to' \
+        "add_method(:#{method}).to(instance)"
+    end
 
     context 'when not calling to' do
       it 'raises error' do
-        expect do
-          expectation
-        end.to raise_error(
-          SyntaxError,
-          'You should specify which instance the method is being added to' \
-          "add_method(:#{method}).to(instance)"
+        expect { expectation }.to raise_error(
+          SyntaxError, expected_error
         )
       end
     end

@@ -21,12 +21,11 @@ describe Sinclair::Matchers::AddMethod do
 
   describe '#matches?' do
     it do
-      expect do
-        subject.matches?(proc {})
-      end.to raise_error(
-        SyntaxError, 'You should specify which instance the method is being added to' \
+      expect { subject.matches?(proc {}) }
+        .to raise_error(
+          SyntaxError, 'You should specify which instance the method is being added to' \
           "add_method(:#{method}).to(instance)"
-      )
+        )
     end
   end
 end
