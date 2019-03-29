@@ -113,9 +113,6 @@ describe 'yarn' do
           expect(instance.bond_name).to eq('wick, john wick')
         end
       end
-
-      describe '#bond_style' do
-      end
     end
 
     describe '#eval_and_add_method' do
