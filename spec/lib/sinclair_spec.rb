@@ -67,29 +67,27 @@ describe Sinclair do
         end
       end
 
-      context 'when declaring a method using string or block' do
-        context 'when declaring the block first' do
-          before do
-            builder.add_method(:value) { 1 }
-            builder.add_method(:value, '2')
-            builder.build
-          end
-
-          it 'respect the order of method addtion' do
-            expect(instance.value).to eq(2)
-          end
+      context 'when declaring block and string' do
+        before do
+          builder.add_method(:value) { 1 }
+          builder.add_method(:value, '2')
+          builder.build
         end
 
-        context 'when declaring the string first' do
-          before do
-            builder.add_method(:value, '1')
-            builder.add_method(:value) { 2 }
-            builder.build
-          end
+        it 'respect the order of method addtion' do
+          expect(instance.value).to eq(2)
+        end
+      end
 
-          it 'respect the order of method addtion' do
-            expect(instance.value).to eq(2)
-          end
+      context 'when declaring string and block' do
+        before do
+          builder.add_method(:value, '1')
+          builder.add_method(:value) { 2 }
+          builder.build
+        end
+
+        it 'respect the order of method addtion' do
+          expect(instance.value).to eq(2)
         end
       end
     end
