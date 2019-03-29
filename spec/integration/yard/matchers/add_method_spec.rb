@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe Sinclair::Matchers::AddMethod do
   describe 'yard' do
     describe '#to' do
-      context 'checking against Class' do
+      context 'when checking against Class' do
         let(:clazz)   { Class.new }
         let(:builder) { Sinclair.new(clazz) }
 
@@ -18,7 +18,7 @@ RSpec.describe Sinclair::Matchers::AddMethod do
         end
       end
 
-      context 'checking against instance' do
+      context 'when checking against instance' do
         let(:clazz)    { Class.new }
         let(:builder)  { Sinclair.new(clazz) }
         let(:instance) { clazz.new }

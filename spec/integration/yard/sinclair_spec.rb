@@ -63,7 +63,7 @@ describe 'yarn' do
         builder.add_method(:value=) { |val| @value = val }
       end
 
-      context 'after the build' do
+      describe 'after the build' do
         before { builder.build }
 
         it 'creates the expected methods' do
@@ -81,7 +81,7 @@ describe 'yarn' do
         end
       end
 
-      context 'calling the build' do
+      context 'when calling the build' do
         it do
           expect do
             builder.build

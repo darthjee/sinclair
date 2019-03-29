@@ -6,14 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 4
-# Configuration parameters: Prefixes.
-# Prefixes: when, with, without
-RSpec/ContextWording:
-  Exclude:
-    - 'spec/integration/yard/matchers/add_method_spec.rb'
-    - 'spec/integration/yard/sinclair_spec.rb'
-
 # Offense count: 5
 RSpec/DescribeClass:
   Exclude:
