@@ -12,17 +12,17 @@ describe 'yarn' do
     describe '#initialize' do
       describe '#total_price' do
         before do
-          subject.eval_and_add_method(:total_price) do
+          builder.eval_and_add_method(:total_price) do
             code = 'self.value * self.quantity'
             code.concat ' rescue 0' if options_object.rescue_error
             code
           end
 
-          subject.build
+          builder.build
         end
 
         context 'without options' do
-          subject { Sinclair.new(klass, rescue_error: true) }
+          subject(:builder) { Sinclair.new(klass, rescue_error: true) }
 
           let(:klass) { Class.new(Purchase) }
           let(:instance) { klass.new(2.3, 5) }
@@ -33,7 +33,7 @@ describe 'yarn' do
         end
 
         context 'with options' do
-          subject { Sinclair.new(klass) }
+          subject(:model) { Sinclair.new(klass) }
 
           let(:klass) { Class.new(Purchase) }
           let(:instance) { klass.new(2.3, 5) }
@@ -116,7 +116,7 @@ describe 'yarn' do
     end
 
     describe '#eval_and_add_method' do
-      subject { klass.new }
+      subject(:builder) { klass.new }
 
       let(:klass) do
         Class.new do
@@ -129,18 +129,18 @@ describe 'yarn' do
       describe '#age' do
         context 'when it has not been initialized' do
           it do
-            expect(subject.age).to eq(20)
+            expect(builder.age).to eq(20)
           end
         end
 
         context 'when it has been initialized' do
           before do
-            subject.age
-            subject.age = 30
+            builder.age
+            builder.age = 30
           end
 
           it do
-            expect(subject.age).to eq(30)
+            expect(builder.age).to eq(30)
           end
         end
       end

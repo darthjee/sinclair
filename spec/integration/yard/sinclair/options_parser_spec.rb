@@ -4,13 +4,13 @@ require 'spec_helper'
 
 describe 'yard' do
   describe Sinclair::OptionsParser do
-    subject { described_class::Dummy.new(options) }
+    subject(:model) { described_class::Dummy.new(options) }
 
     let(:options) { { switch: false, option_1: 10, option_2: 20 } }
 
     describe '#the_method' do
       it 'returns the value for option given' do
-        expect(subject.the_method).to eq('The value is not 10 but 20')
+        expect(model.the_method).to eq('The value is not 10 but 20')
       end
     end
   end

@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe Sinclair do
-  subject { builder_class.new(dummy_class, options) }
+  subject(:builder) { builder_class.new(dummy_class, options) }
 
   let(:options)       { {} }
   let(:instance)      { dummy_class.new }
@@ -15,8 +15,8 @@ describe Sinclair do
       let(:builder_class) { described_class::DummyBuilder }
 
       before do
-        subject.init
-        subject.build
+        builder.init
+        builder.build
       end
 
       context 'when describing a method with block' do
@@ -45,9 +45,9 @@ describe Sinclair do
     context 'when using the builder without extending' do
       context 'when declaring a method with a block' do
         before do
-          subject.add_method(:blocked) { 1 }
-          subject.add_method(:blocked) { 2 }
-          subject.build
+          builder.add_method(:blocked) { 1 }
+          builder.add_method(:blocked) { 2 }
+          builder.build
         end
 
         it 'respect the order of method addtion' do
@@ -57,9 +57,9 @@ describe Sinclair do
 
       context 'when declaring a method string' do
         before do
-          subject.add_method(:string, '1')
-          subject.add_method(:string, '2')
-          subject.build
+          builder.add_method(:string, '1')
+          builder.add_method(:string, '2')
+          builder.build
         end
 
         it 'respect the order of method addtion' do
@@ -70,9 +70,9 @@ describe Sinclair do
       context 'when declaring a method using string or block' do
         context 'when declaring the block first' do
           before do
-            subject.add_method(:value) { 1 }
-            subject.add_method(:value, '2')
-            subject.build
+            builder.add_method(:value) { 1 }
+            builder.add_method(:value, '2')
+            builder.build
           end
 
           it 'respect the order of method addtion' do
@@ -82,9 +82,9 @@ describe Sinclair do
 
         context 'when declaring the string first' do
           before do
-            subject.add_method(:value, '1')
-            subject.add_method(:value) { 2 }
-            subject.build
+            builder.add_method(:value, '1')
+            builder.add_method(:value) { 2 }
+            builder.build
           end
 
           it 'respect the order of method addtion' do
@@ -98,11 +98,11 @@ describe Sinclair do
   describe '#eval_and_add_method' do
     context 'when defining the method once' do
       before do
-        subject.add_method(:value, '@value ||= 0')
-        subject.eval_and_add_method(:defined) do
+        builder.add_method(:value, '@value ||= 0')
+        builder.eval_and_add_method(:defined) do
           "@value = value + #{options_object.increment || 1}"
         end
-        subject.build
+        builder.build
       end
 
       it 'creates a method using the string definition' do
@@ -122,12 +122,12 @@ describe Sinclair do
 
     context 'when redefining a method already added' do
       before do
-        subject.add_method(:value,   '@value ||= 0')
-        subject.add_method(:defined, '100')
-        subject.eval_and_add_method(:defined) do
+        builder.add_method(:value,   '@value ||= 0')
+        builder.add_method(:defined, '100')
+        builder.eval_and_add_method(:defined) do
           "@value = value + #{options_object.increment || 1}"
         end
-        subject.build
+        builder.build
       end
 
       it 'redefines it' do
@@ -138,12 +138,12 @@ describe Sinclair do
 
     context 'when readding it' do
       before do
-        subject.add_method(:value, '@value ||= 0')
-        subject.eval_and_add_method(:defined) do
+        builder.add_method(:value, '@value ||= 0')
+        builder.eval_and_add_method(:defined) do
           "@value = value + #{options_object.increment || 1}"
         end
-        subject.add_method(:defined, '100')
-        subject.build
+        builder.add_method(:defined, '100')
+        builder.build
       end
 
       it 'redefines it' do
