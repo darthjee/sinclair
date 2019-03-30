@@ -11,11 +11,9 @@ class MyBuilder < Sinclair
 
   def add_safe_method
     add_method(:symbolize) do
-      begin
-        @variable.to_sym
-      rescue StandardError
-        :default
-      end
+      @variable.to_sym
+    rescue StandardError
+      :default
     end
   end
 end
