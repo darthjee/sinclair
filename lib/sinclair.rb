@@ -8,7 +8,7 @@ require 'active_support/all'
 #
 # Builder that add instance methods to a class
 #
-# @example
+# @example Stand alone usage
 #   class MyModel
 #   end
 #
@@ -38,7 +38,7 @@ class Sinclair
   # @param options [Hash] open hash options to be used by builders inheriting from Sinclair
   #   through the Sinclair::OptionsParser concern
   #
-  # @example
+  # @example Preparing builder
   #
   #   class Purchase
   #     def initialize(value, quantity)
@@ -49,9 +49,39 @@ class Sinclair
   #
   #   builder = Sinclair.new(Purchase)
   #
-  # @example
+  # @example Passing building options (Used on subclasses)
   #
-  #   builder = Sinclair.new(Purchase, rescue_error: true)
+  #   class MyBuilder < Sinclair
+  #     def add_methods
+  #       if options_object.rescue_error
+  #         add_safe_method
+  #       else
+  #         add_method(:symbolize) { @variable.to_sym }
+  #       end
+  #     end
+  #
+  #     def add_safe_method
+  #       add_method(:symbolize) do
+  #         begin
+  #           @variable.to_sym
+  #         rescue StandardError
+  #           :default
+  #         end
+  #       end
+  #     end
+  #   end
+  #
+  #   class MyModel
+  #   end
+  #
+  #   builder = MyBuilder.new(MyModel, rescue_error: true)
+  #
+  #   builder.add_method
+  #   builder.build
+  #
+  #   instance = MyModel.new
+  #
+  #   instance.symbolize # returns :default
   def initialize(klass, options = {})
     @klass = klass
     @options = options
@@ -59,7 +89,7 @@ class Sinclair
 
   # builds all the methods added into the klass
   #
-  # @example
+  # @example Adding a default value method
   #
   #   class MyModel
   #   end
@@ -120,7 +150,7 @@ class Sinclair
 
   # Evaluetes a block which will result in a String, the method code
   #
-  # @example
+  # @example Building a initial value class method
   #
   #   module InitialValuer
   #     extend ActiveSupport::Concern
@@ -147,7 +177,7 @@ class Sinclair
   #   object.age = 30
   #   object.age # 30
   #
-  # @example
+  # @example Adding option for rescue
   #
   #   class Purchase
   #     def initialize(value, quantity)
@@ -168,7 +198,7 @@ class Sinclair
   #
   #   Purchase.new(2.3, 5).total_price # raises error
   #
-  # @example
+  # @example Using option for rescue
   #
   #   builder = Sinclair.new(Purchase, rescue_error: true)
   #

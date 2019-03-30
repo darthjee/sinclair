@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
-class DefaultValue
-  delegate :build, to: :builder
-  attr_reader :klass, :method, :value
-
-  def initialize(klass, method, value)
-    @klass = klass
-    @method = method
-    @value = value
+class MyBuilder < Sinclair
+  def add_methods
+    if options_object.rescue_error
+      add_safe_method
+    else
+      add_method(:symbolize) { @variable.to_sym }
+    end
   end
 
-  private
-
-  def builder
-    @builder ||= Sinclair.new(klass).tap do |b|
-      b.add_method(method) { value }
+  def add_safe_method
+    add_method(:symbolize) do
+      begin
+        @variable.to_sym
+      rescue StandardError
+        :default
+      end
     end
   end
 end
