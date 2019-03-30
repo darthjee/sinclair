@@ -10,6 +10,10 @@ Sinclair
 
 This gem helps the creation of complex concern with class methods
 
+Yard Documentation
+-------------------
+https://www.rubydoc.info/gems/sinclair/1.2.0
+
 Installation
 ---------------
   - Install it
@@ -27,10 +31,6 @@ Installation
 ```bash
   bundle install sinclair
 ```
-
-Yard Documentation
--------------------
-https://www.rubydoc.info/gems/sinclair/1.1.3
 
 Usage
 ---------------
