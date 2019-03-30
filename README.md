@@ -12,7 +12,7 @@ This gem helps the creation of complex concern with class methods
 
 Yard Documentation
 -------------------
-https://www.rubydoc.info/gems/sinclair/1.2.0
+https://www.rubydoc.info/gems/sinclair/1.2.1
 
 Installation
 ---------------
