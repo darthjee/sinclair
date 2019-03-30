@@ -14,19 +14,19 @@ Installation
 ---------------
   - Install it
 
-  ```ruby
-    gem install sinclair
-  ```
+```ruby
+  gem install sinclair
+```
 
   - Or add Sinclairn to your `Gemfile` and `bundle install`:
 
-  ```ruby
-    gem 'sinclair'
-  ```
+```ruby
+  gem 'sinclair'
+```
 
-  ```bash
-    bundle install sinclair
-  ```
+```bash
+  bundle install sinclair
+```
 
 Yard Documentation
 -------------------
@@ -39,93 +39,87 @@ adding methods to your class or by extending it for more complex logics
 
  - Stand Alone usage:
 
-  ```ruby
+```ruby
 
-    class Clazz
-    end
+  class Clazz
+  end
 
-    builder = Sinclair.new(Clazz)
+  builder = Sinclair.new(Clazz)
 
-    builder.add_method(:twenty, '10 + 10')
-    builder.add_method(:eighty) { 4 * twenty }
-    builder.build
+  builder.add_method(:twenty, '10 + 10')
+  builder.add_method(:eighty) { 4 * twenty }
+  builder.build
 
-    instance = Clazz.new
+  instance = Clazz.new
 
-    puts "Twenty => #{instance.twenty}"
-    puts "Eighty => #{instance.eighty}"
-  ```
-
-  ```string
-
-    Twenty => 20
-    Eighty => 80
-  ```
+  puts "Twenty => #{instance.twenty}" # Twenty => 20
+  puts "Eighty => #{instance.eighty}" # Eighty => 80
+```
 
  - Extending the builder
 
-  ```ruby
+```ruby
 
-    class ValidationBuilder < Sinclair
-      delegate :expected, to: :options_object
+  class ValidationBuilder < Sinclair
+    delegate :expected, to: :options_object
 
-      def initialize(klass, options={})
-        super
+    def initialize(klass, options={})
+      super
+    end
+
+    def add_validation(field)
+      add_method("#{field}_valid?", "#{field}.is_a?#{expected}")
+    end
+
+    def add_accessors(fields)
+      klass.send(:attr_accessor, *fields)
+    end
+  end
+
+  module MyConcern
+    extend ActiveSupport::Concern
+
+    class_methods do
+      def validate(*fields, expected_class)
+        builder = ::ValidationBuilder.new(self, expected: expected_class)
+
+        validatable_fields.concat(fields)
+        builder.add_accessors(fields)
+
+        fields.each do |field|
+          builder.add_validation(field)
+        end
+
+        builder.build
       end
 
-      def add_validation(field)
-        add_method("#{field}_valid?", "#{field}.is_a?#{expected}")
-      end
-
-      def add_accessors(fields)
-        klass.send(:attr_accessor, *fields)
+      def validatable_fields
+        @validatable_fields ||= []
       end
     end
 
-    module MyConcern
-      extend ActiveSupport::Concern
-
-      class_methods do
-        def validate(*fields, expected_class)
-          builder = ::ValidationBuilder.new(self, expected: expected_class)
-
-          validatable_fields.concat(fields)
-          builder.add_accessors(fields)
-
-          fields.each do |field|
-            builder.add_validation(field)
-          end
-
-          builder.build
-        end
-
-        def validatable_fields
-          @validatable_fields ||= []
-        end
-      end
-
-      def valid?
-        self.class.validatable_fields.all? do |field|
-          public_send("#{field}_valid?")
-        end
+    def valid?
+      self.class.validatable_fields.all? do |field|
+        public_send("#{field}_valid?")
       end
     end
+  end
 
-    class MyClass
-      include MyConcern
-      validate :name, :surname, String
-      validate :age, :legs, Integer
+  class MyClass
+    include MyConcern
+    validate :name, :surname, String
+    validate :age, :legs, Integer
 
-      def initialize(name: nil, surname: nil, age: nil, legs: nil)
-        @name = name
-        @surname = surname
-        @age = age
-        @legs = legs
-      end
+    def initialize(name: nil, surname: nil, age: nil, legs: nil)
+      @name = name
+      @surname = surname
+      @age = age
+      @legs = legs
     end
+  end
 
-    instance = MyClass.new
-  ```
+  instance = MyClass.new
+```
 
   the instance will respond to the methods
   ```name``` ```name=``` ```name_valid?```
@@ -134,34 +128,62 @@ adding methods to your class or by extending it for more complex logics
   ```legs``` ```legs=``` ```legs_valid?```
   ```valid?```.
 
-  ```ruby
+```ruby
+  valid_object = MyClass.new(
+    name: :name,
+    surname: 'surname',
+    age: 20,
+    legs: 2
+  )
+  valid_object.valid? # returns true
+```
 
-    valid_object = MyClass.new(
-      name: :name,
-      surname: 'surname',
-      age: 20,
-      legs: 2
-    )
-    valid_object.valid? # returns true
-  ```
+```ruby
 
-  ```ruby
+  invalid_object = MyClass.new(
+    name: 'name',
+    surname: 'surname',
+    age: 20,
+    legs: 2
+  )
+  invalid_object.valid? # returns false
+```
 
-    invalid_object = MyClass.new(
-      name: 'name',
-      surname: 'surname',
-      age: 20,
-      legs: 2
-    )
-    invalid_object.valid? # returns false
-  ```
+  - Caching the result
+    If wanted, the result of the method can be stored in an
+    instance variable with the same name
+
+```ruby
+  class MyModel
+    attr_accessor :base, :expoent
+  end
+
+  builder = Sinclair.new(MyModel)
+
+  builder.add_method(:cached_power, cached: true) do
+    base ** expoent
+  end
+
+  # equivalent of builder.add_method(:cached_power) do
+  #   @cached_power ||= base ** expoent
+  # end
+
+  builder.build
+
+  model.base    = 3
+  model.expoent = 2
+
+  model.cached_power # returns 9
+  model.expoent = 3
+  model.cached_power # returns 9 (from cache)
+```
 
 RSspec matcher
 ---------------
 
 You can use the provided matcher to check that your builder is adding a method correctly
 
-  ```ruby
+```ruby
 
   class DefaultValue
     delegate :build, to: :builder
@@ -210,19 +232,19 @@ You can use the provided matcher to check that your builder is adding a method c
       end
     end
   end
-  ```
+```
 
-  ```bash
+```bash
 
-  > bundle exec rspec
-  ```
+> bundle exec rspec
+```
 
-  ```string
+```string
 
-  DefaultValue
-    when the builder runs
-        should add method 'the_method' to #<Class:0x0000000146c160> instances
-    when the builder runs
-        should add method 'the_method' to #<Class:0x0000000143a1b0> instances
+DefaultValue
+  when the builder runs
+      should add method 'the_method' to #<Class:0x0000000146c160> instances
+  when the builder runs
+      should add method 'the_method' to #<Class:0x0000000143a1b0> instances
 
-  ```
+```
