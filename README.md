@@ -248,3 +248,9 @@ DefaultValue
       should add method 'the_method' to #<Class:0x0000000143a1b0> instances
 
 ```
+
+Projects Using
+---------------
+
+- [Arstotzka](https://github.com/darthjee/arstotzka)
+
