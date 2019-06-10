@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: darthjee/circleci_ruby_gems:0.0.1
+      - image: darthjee/circleci_ruby_gems:0.1.0
     steps:
       - checkout
       - run:
@@ -26,3 +26,6 @@ jobs:
       - run:
           name: Check version documentation
           command: scripts/check_readme.sh
+      - run:
+          name: Rubycritcs check
+          command: scripts/rubycritic.sh
