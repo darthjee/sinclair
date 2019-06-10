@@ -1,7 +1,11 @@
 class Sinclair
   module Configurable
     def config
-      Sinclair::Config.new
+      @config ||= Sinclair::Config.new
+    end
+
+    def reset
+      @config = nil
     end
   end
 end
