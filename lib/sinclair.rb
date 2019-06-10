@@ -29,6 +29,8 @@ class Sinclair
 
   autoload :VERSION,          'sinclair/version'
   autoload :MethodDefinition, 'sinclair/method_definition'
+  autoload :Config,           'sinclair/config'
+  autoload :Configurable,     'sinclair/configurable'
 
   include OptionsParser
 
