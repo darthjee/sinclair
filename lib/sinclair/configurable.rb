@@ -1,12 +1,6 @@
 class Sinclair
   module Configurable
-    def config
-      @config ||= config_factory.build
-    end
-
-    def reset
-      @config = nil
-    end
+    delegate :config, :reset, to: :config_factory
 
     private
 

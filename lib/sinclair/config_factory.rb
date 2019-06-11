@@ -1,7 +1,11 @@
 class Sinclair
   class ConfigFactory
-    def build
-      Config.new
+    def config
+      @config ||= Config.new
+    end
+
+    def reset
+      @config = nil
     end
   end
 end
