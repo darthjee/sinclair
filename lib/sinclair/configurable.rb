@@ -7,5 +7,10 @@ class Sinclair
     def reset
       @config = nil
     end
+
+    private
+
+    def configurable_with(*attributes)
+    end
   end
 end
