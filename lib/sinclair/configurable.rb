@@ -1,7 +1,7 @@
 class Sinclair
   module Configurable
     def config
-      @config ||= Sinclair::Config.new
+      @config ||= config_factory.build
     end
 
     def reset
