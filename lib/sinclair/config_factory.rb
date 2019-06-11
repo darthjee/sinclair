@@ -8,6 +8,10 @@ class Sinclair
       @config = nil
     end
 
+    def add_configs(*attributes)
+      config_class.attr_accessor *attributes
+    end
+
     private
 
     def config_class

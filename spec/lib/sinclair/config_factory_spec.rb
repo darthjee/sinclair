@@ -24,7 +24,7 @@ describe Sinclair::ConfigFactory do
     end
   end
 
-  describe '.reset' do
+  describe '#reset' do
     let(:old_instance) { factory.config }
 
     it 'resets instance' do
@@ -36,6 +36,18 @@ describe Sinclair::ConfigFactory do
     it 'forces regeneration of instance' do
       expect { factory.reset }
         .not_to change { factory.config.class }
+    end
+  end
+
+  describe '#add_configs' do
+    it do
+      expect { factory.add_configs(:name) }
+        .to add_method(:name).to(factory.config)
+    end
+
+    it 'does not change Sinclair::Config class' do
+      expect { factory.add_configs(:name) }
+        .not_to add_method(:name).to(Sinclair::Config.new)
     end
   end
 end

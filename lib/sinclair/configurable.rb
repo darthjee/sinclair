@@ -5,6 +5,7 @@ class Sinclair
     private
 
     def configurable_with(*attributes)
+      config_factory.add_configs(*attributes)
     end
 
     def config_factory
