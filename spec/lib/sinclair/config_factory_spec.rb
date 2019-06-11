@@ -54,11 +54,11 @@ describe Sinclair::ConfigFactory do
   describe '#configure' do
     let(:config) { factory.config }
 
-    before { factory.add_configs(:name) }
+    before { factory.add_configs(:user) }
 
     it do
-      expect { factory.configure { |c| c.name 'Bob' } }
-        .to change(config, :name)
+      expect { factory.configure { |c| c.user 'Bob' } }
+        .to change(config, :user)
         .from(nil).to('Bob')
     end
   end

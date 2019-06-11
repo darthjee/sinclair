@@ -1,6 +1,6 @@
 class Sinclair
   module Configurable
-    delegate :config, :reset, to: :config_factory
+    delegate :config, :reset, :configure, to: :config_factory
 
     private
 

@@ -55,4 +55,14 @@ describe Sinclair::Configurable do
         .not_to add_method(:name).to(Sinclair::Config.new)
     end
   end
+
+  describe '.configure' do
+    let(:config) { configurable.config }
+
+    it do
+      expect { configurable.configure { |c| c.user 'Bob' } }
+        .to change(config, :user)
+        .from(nil).to('Bob')
+    end
+  end
 end
