@@ -50,4 +50,16 @@ describe Sinclair::ConfigFactory do
         .not_to add_method(:name).to(Sinclair::Config.new)
     end
   end
+
+  describe '#configure' do
+    let(:config) { factory.config }
+
+    before { factory.add_configs(:name) }
+
+    it do
+      expect { factory.configure { |c| c.name 'Bob' } }
+        .to change(config, :name)
+        .from(nil).to('Bob')
+    end
+  end
 end

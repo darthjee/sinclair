@@ -12,6 +12,14 @@ class Sinclair
       config_class.attr_accessor *attributes
     end
 
+    def configure(&block)
+      instance_eval(&block)
+    end
+
+    def method_missing(method_name, *args)
+      config.public_send("#{method_name}=", *args)
+    end
+
     private
 
     def config_class
