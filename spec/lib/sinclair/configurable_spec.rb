@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Sinclair::Configurable do
-  subject(:configurable) { DummyConfigurable }
+  subject(:configurable) { Class.new(DummyConfigurable) }
 
   describe '.config' do
     it do
