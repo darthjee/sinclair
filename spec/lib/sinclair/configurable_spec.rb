@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Sinclair::Configurable do
@@ -15,7 +17,7 @@ describe Sinclair::Configurable do
       end
     end
 
-    context 'after reset' do
+    context 'when calling after reset' do
       before { configurable.reset }
 
       it do

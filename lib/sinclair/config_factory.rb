@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Sinclair
   class ConfigFactory
     def initialize(config_class: Class.new(Config))
@@ -13,7 +15,7 @@ class Sinclair
     end
 
     def add_configs(*attributes)
-      config_class.attr_accessor *attributes
+      config_class.attr_accessor(*attributes)
     end
 
     def configure(&block)
@@ -33,4 +35,3 @@ class Sinclair
     end
   end
 end
-

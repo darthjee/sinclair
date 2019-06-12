@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Sinclair::ConfigFactory do
@@ -18,7 +20,7 @@ describe Sinclair::ConfigFactory do
       end
     end
 
-    context 'after reset' do
+    context 'when calling after reset' do
       before { factory.reset }
 
       it do
@@ -33,7 +35,7 @@ describe Sinclair::ConfigFactory do
         expect(factory.config).to be_a(DummyConfig)
       end
 
-      context 'after reset' do
+      context 'when calling after reset' do
         before { factory.reset }
 
         it do
@@ -73,7 +75,7 @@ describe Sinclair::ConfigFactory do
 
       it 'does not affect other factories' do
         expect { factory.reset }
-          .not_to change { other_factory.config }
+          .not_to change(other_factory, :config)
       end
     end
   end

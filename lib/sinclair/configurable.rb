@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Sinclair
   module Configurable
     delegate :config, :reset, :configure, to: :config_factory
@@ -5,7 +7,11 @@ class Sinclair
     protected
 
     def config_factory
-      @config_factory ||= superclass.is_a?(Configurable) ? superclass.config_factory.child : ConfigFactory.new
+      @config_factory ||= if superclass.is_a?(Configurable)
+                            superclass.config_factory.child
+                          else
+                            ConfigFactory.new
+                          end
     end
 
     private
