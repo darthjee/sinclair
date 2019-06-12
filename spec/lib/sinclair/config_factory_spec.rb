@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Sinclair::ConfigFactory do
   subject(:factory) { described_class.new }
 
+  let(:config) { factory.config }
+
   describe '#config' do
     it do
       expect(factory.config).to be_a(Sinclair::Config)
@@ -49,11 +51,12 @@ describe Sinclair::ConfigFactory do
       expect { factory.add_configs(:name) }
         .not_to add_method(:name).to(Sinclair::Config.new)
     end
+
+    xit 'changes subclasses of config' do
+    end
   end
 
   describe '#configure' do
-    let(:config) { factory.config }
-
     before { factory.add_configs(:user) }
 
     it do
