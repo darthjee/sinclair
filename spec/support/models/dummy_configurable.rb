@@ -3,5 +3,5 @@
 class DummyConfigurable
   extend Sinclair::Configurable
 
-  configurable_with :user
+  configurable_with :user, 'password'
 end

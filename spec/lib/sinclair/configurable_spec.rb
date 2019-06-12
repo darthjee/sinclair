@@ -66,5 +66,13 @@ describe Sinclair::Configurable do
         .to change(config, :user)
         .from(nil).to('Bob')
     end
+
+    context 'when it was defined using string' do
+      it do
+        expect { configurable.configure { |c| c.password '123456' } }
+          .to change(config, :password)
+          .from(nil).to('123456')
+      end
+    end
   end
 end

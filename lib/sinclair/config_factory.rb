@@ -17,7 +17,7 @@ class Sinclair
 
     def add_configs(*attributes)
       config_class.attr_accessor(*attributes)
-      config_attributes.concat(attributes)
+      config_attributes.concat(attributes.map(&:to_sym))
     end
 
     def configure(&block)
