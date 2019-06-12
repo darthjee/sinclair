@@ -56,6 +56,13 @@ describe Sinclair::Configurable do
       expect { configurable.send(:configurable_with, :name) }
         .not_to add_method(:name).to(Sinclair::Config.new)
     end
+
+    it 'does not mess with configurable methods' do
+      configurable.send(:configurable_with, :reset)
+      configurable.configure { |c| c.reset true }
+      configurable.reset
+      expect(configurable.config).to be_a(Sinclair::Config)
+    end
   end
 
   describe '.configure' do
@@ -72,6 +79,13 @@ describe Sinclair::Configurable do
         expect { configurable.configure { |c| c.password '123456' } }
           .to change(config, :password)
           .from(nil).to('123456')
+      end
+    end
+
+    context 'when calling a method that was not defined' do
+      it do
+        expect { configurable.configure { |c| c.nope '123456' } }
+          .to raise_error(NoMethodError)
       end
     end
   end

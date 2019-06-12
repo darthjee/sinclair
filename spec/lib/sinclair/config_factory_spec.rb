@@ -105,6 +105,13 @@ describe Sinclair::ConfigFactory do
           .not_to add_method(:name).to(other_factory.config)
       end
     end
+
+    it 'does not mess with configurable methods' do
+      factory.add_configs(:reset)
+      factory.configure { |c| c.reset true }
+      factory.reset
+      expect(factory.config).to be_a(Sinclair::Config)
+    end
   end
 
   describe '#configure' do
@@ -121,6 +128,13 @@ describe Sinclair::ConfigFactory do
         expect { factory.configure { |c| c.password '123456' } }
           .to change(config, :password)
           .from(nil).to('123456')
+      end
+    end
+
+    context 'when calling a method that was not defined' do
+      it do
+        expect { factory.configure { |c| c.nope '123456' } }
+          .to raise_error(NoMethodError)
       end
     end
   end
