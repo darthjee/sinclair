@@ -20,13 +20,13 @@ class Sinclair
       instance_eval(&block)
     end
 
-    def method_missing(method_name, *args)
-      config.public_send("#{method_name}=", *args)
-    end
-
     private
 
     attr_reader :config_class
+
+    def method_missing(method_name, *args)
+      config.public_send("#{method_name}=", *args)
+    end
   end
 end
 
