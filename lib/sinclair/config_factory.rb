@@ -19,7 +19,7 @@ class Sinclair
     end
 
     def configure(&block)
-      instance_eval(&block)
+      config_builder.instance_eval(&block)
     end
 
     def child
@@ -30,8 +30,8 @@ class Sinclair
 
     attr_reader :config_class
 
-    def method_missing(method_name, *args)
-      config.public_send("#{method_name}=", *args)
+    def config_builder
+      ConfigBuilder.new(config)
     end
   end
 end
