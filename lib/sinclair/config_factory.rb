@@ -1,5 +1,9 @@
 class Sinclair
   class ConfigFactory
+    def initialize(config_class: Class.new(Config))
+      @config_class = config_class
+    end
+
     def config
       @config ||= config_class.new
     end
@@ -22,9 +26,7 @@ class Sinclair
 
     private
 
-    def config_class
-      @config_class ||= Class.new(Config)
-    end
+    attr_reader :config_class
   end
 end
 
