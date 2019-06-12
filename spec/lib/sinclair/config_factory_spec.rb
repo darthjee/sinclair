@@ -114,4 +114,16 @@ describe Sinclair::ConfigFactory do
         .from(nil).to('Bob')
     end
   end
+
+  describe '#child' do
+    it { expect(factory.child).to be_a(described_class) }
+
+    it 'generates factory capable of generating config subclasses' do
+      expect(factory.child.config).to be_a(factory.config.class)
+    end
+
+    it 'generates factory that does not generate same config class' do
+      expect(factory.child.config.class).not_to eq(factory.config.class)
+    end
+  end
 end

@@ -20,6 +20,10 @@ class Sinclair
       instance_eval(&block)
     end
 
+    def child
+      self.class.new(config_class: Class.new(config_class))
+    end
+
     private
 
     attr_reader :config_class
