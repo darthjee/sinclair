@@ -81,9 +81,14 @@ describe Sinclair::ConfigFactory do
   end
 
   describe '#add_configs' do
-    it do
+    it 'adds reader to config' do
       expect { factory.add_configs(:name) }
         .to add_method(:name).to(factory.config)
+    end
+
+    it 'does not add setter to config' do
+      expect { factory.add_configs(:name) }
+        .not_to add_method(:name=).to(factory.config)
     end
 
     it 'does not change Sinclair::Config class' do

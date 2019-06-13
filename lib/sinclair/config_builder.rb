@@ -12,7 +12,7 @@ class Sinclair
     def method_missing(method_name, *args)
       return super unless @config_attributes.include?(method_name)
 
-      @config.public_send("#{method_name}=", *args)
+      @config.instance_variable_set("@#{method_name}", *args)
     end
   end
 end

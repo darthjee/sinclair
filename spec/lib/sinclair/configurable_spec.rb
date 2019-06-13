@@ -42,9 +42,14 @@ describe Sinclair::Configurable do
   end
 
   describe '.configurable_with' do
-    it do
+    it 'adds reader to config' do
       expect { configurable.send(:configurable_with, :name) }
         .to add_method(:name).to(configurable.config)
+    end
+
+    it 'does not add setter to config' do
+      expect { configurable.send(:configurable_with, :name) }
+        .not_to add_method(:name=).to(configurable.config)
     end
 
     it 'does not change parent class configuration' do
