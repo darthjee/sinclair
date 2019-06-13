@@ -91,7 +91,9 @@ describe Sinclair::ConfigFactory do
         .not_to add_method(:name).to(Sinclair::Config.new)
     end
 
-    xit 'changes subclasses of config' do
+    it 'changes subclasses of config' do
+      expect { factory.add_configs(:name) }
+        .to add_method(:name).to(factory.child.config)
     end
 
     context 'when initializing with custom config class' do
