@@ -5,8 +5,10 @@ class Sinclair
   #
   # Module capable of giving configuration capability
   #
-  # By extending Configurable, class receives the methods
-  # +#config+, +#reset_config+ and +#configure+
+  # By extending Configurable, class receives the methods public
+  # {ConfigFactory#config .config}, {ConfigFactory#reset_config .reset_config}
+  # and {ConfigFactory#configure .configure}
+  # and the private {#configurable_with .configurable_with}
   #
   # @see ConfigFactory
   # @see ConfigBuilder
