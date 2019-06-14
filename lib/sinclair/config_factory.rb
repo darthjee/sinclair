@@ -20,7 +20,7 @@ class Sinclair
     # @param config_attributes [Array<Symbol,String>] list of possible configurations
     def initialize(config_class: Class.new(Config), config_attributes: [])
       @config_class = config_class
-      @config_attributes = config_attributes
+      @config_attributes = config_attributes.dup
     end
 
     # Returns current instance of config
@@ -130,7 +130,7 @@ class Sinclair
     def child
       self.class.new(
         config_class: Class.new(config_class),
-        config_attributes: config_attributes.dup
+        config_attributes: config_attributes
       )
     end
 
