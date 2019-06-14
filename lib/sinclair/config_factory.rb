@@ -36,7 +36,7 @@ class Sinclair
     attr_reader :config_class, :config_attributes
 
     def config_builder
-      ConfigBuilder.new(config, config_attributes)
+      ConfigBuilder.new(config, *config_attributes)
     end
   end
 end

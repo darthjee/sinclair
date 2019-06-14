@@ -12,7 +12,7 @@ class Sinclair
   #
   #   config = MyConfig.new
   #
-  #   builder = Sinclair::ConfigBuilder.new(config, [:name])
+  #   builder = Sinclair::ConfigBuilder.new(config, :name)
   #
   #   builder.instance_eval { |c| c.name 'John' }
   #
@@ -27,7 +27,7 @@ class Sinclair
     # @param config_attributes [Array<Symbol>] list of attributes
     #   that can be set on config (expecting that config has
     #   the right attribute readers)
-    def initialize(config, config_attributes)
+    def initialize(config, *config_attributes)
       @config = config
       @config_attributes = config_attributes
     end

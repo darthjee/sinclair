@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Sinclair::ConfigBuilder do
-  subject(:builder) { described_class.new(config, config_attributes) }
+  subject(:builder) { described_class.new(config, *config_attributes) }
 
   let(:config) { MyConfig.new }
 
