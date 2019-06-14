@@ -2,7 +2,7 @@
 
 class Sinclair
   module Configurable
-    delegate :config, :reset, :configure, to: :config_factory
+    delegate :config, :reset_config, :configure, to: :config_factory
 
     protected
 

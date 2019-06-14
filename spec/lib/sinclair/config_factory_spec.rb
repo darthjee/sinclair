@@ -20,8 +20,8 @@ describe Sinclair::ConfigFactory do
       end
     end
 
-    context 'when calling after reset' do
-      before { factory.reset }
+    context 'when calling after reset_config' do
+      before { factory.reset_config }
 
       it do
         expect(factory.config).to be_a(Sinclair::Config)
@@ -35,8 +35,8 @@ describe Sinclair::ConfigFactory do
         expect(factory.config).to be_a(DummyConfig)
       end
 
-      context 'when calling after reset' do
-        before { factory.reset }
+      context 'when calling after reset_config' do
+        before { factory.reset_config }
 
         it do
           expect(factory.config).to be_a(DummyConfig)
@@ -45,36 +45,36 @@ describe Sinclair::ConfigFactory do
     end
   end
 
-  describe '#reset' do
+  describe '#reset_config' do
     let(:old_instance) { factory.config }
 
-    it 'resets instance' do
-      expect { factory.reset }
+    it 'reset_configs instance' do
+      expect { factory.reset_config }
         .to change { factory.config.eql?(old_instance) }
         .from(true).to(false)
     end
 
     it 'forces regeneration of instance' do
-      expect { factory.reset }
+      expect { factory.reset_config }
         .not_to change { factory.config.class }
     end
 
     context 'when initializing with custom config class' do
       subject(:factory) { described_class.new(config_class: DummyConfig) }
 
-      it 'resets instance' do
-        expect { factory.reset }
+      it 'reset_configs instance' do
+        expect { factory.reset_config }
           .to change { factory.config.eql?(old_instance) }
           .from(true).to(false)
       end
 
       it 'forces regeneration of instance' do
-        expect { factory.reset }
+        expect { factory.reset_config }
           .not_to change { factory.config.class }
       end
 
       it 'does not affect other factories' do
-        expect { factory.reset }
+        expect { factory.reset_config }
           .not_to change(other_factory, :config)
       end
     end
@@ -114,9 +114,9 @@ describe Sinclair::ConfigFactory do
     end
 
     it 'does not mess with configurable methods' do
-      factory.add_configs(:reset)
-      factory.configure { |c| c.reset true }
-      factory.reset
+      factory.add_configs(:reset_config)
+      factory.configure { |c| c.reset_config true }
+      factory.reset_config
       expect(factory.config).to be_a(Sinclair::Config)
     end
   end

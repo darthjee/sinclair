@@ -17,8 +17,8 @@ describe Sinclair::Configurable do
       end
     end
 
-    context 'when calling after reset' do
-      before { configurable.reset }
+    context 'when calling after reset_config' do
+      before { configurable.reset_config }
 
       it do
         expect(configurable.config).to be_a(Sinclair::Config)
@@ -26,17 +26,17 @@ describe Sinclair::Configurable do
     end
   end
 
-  describe '.reset' do
+  describe '.reset_config' do
     let(:old_instance) { configurable.config }
 
-    it 'resets instance' do
-      expect { configurable.reset }
+    it 'reset_configs instance' do
+      expect { configurable.reset_config }
         .to change { configurable.config.eql?(old_instance) }
         .from(true).to(false)
     end
 
     it 'forces regeneration of instance' do
-      expect { configurable.reset }
+      expect { configurable.reset_config }
         .not_to change { configurable.config.class }
     end
   end
@@ -63,9 +63,9 @@ describe Sinclair::Configurable do
     end
 
     it 'does not mess with configurable methods' do
-      configurable.send(:configurable_with, :reset)
-      configurable.configure { |c| c.reset true }
-      configurable.reset
+      configurable.send(:configurable_with, :reset_config)
+      configurable.configure { |c| c.reset_config true }
+      configurable.reset_config
       expect(configurable.config).to be_a(Sinclair::Config)
     end
   end
