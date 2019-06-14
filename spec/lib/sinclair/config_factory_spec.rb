@@ -96,9 +96,20 @@ describe Sinclair::ConfigFactory do
         .not_to add_method(:name).to(Sinclair::Config.new)
     end
 
+    it 'allows config_builder to handle method missing' do
+      factory.add_configs(:name)
+      expect { factory.configure { name 'John' } }.not_to raise_error
+    end
+
     it 'changes subclasses of config' do
       expect { factory.add_configs(:name) }
         .to add_method(:name).to(factory.child.config)
+    end
+
+    it 'does not mess with parent config_builder' do
+      factory.child.add_configs(:name)
+      expect { factory.configure { name 'John' } }
+        .to raise_error(NoMethodError)
     end
 
     context 'when initializing with custom config class' do
