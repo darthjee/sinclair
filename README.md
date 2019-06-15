@@ -8,7 +8,8 @@ Sinclair
 
 ![sinclair](https://raw.githubusercontent.com/darthjee/sinclair/master/sinclair.jpg)
 
-This gem helps the creation of complex concern with class methods
+This gem helps the creation of complex concern with class methods that generates new
+methods on the fly.
 
 Yard Documentation
 -------------------
@@ -22,7 +23,7 @@ Installation
   gem install sinclair
 ```
 
-  - Or add Sinclairn to your `Gemfile` and `bundle install`:
+  - Or add Sinclair to your `Gemfile` and `bundle install`:
 
 ```ruby
   gem 'sinclair'
@@ -34,7 +35,7 @@ Installation
 
 Usage
 ---------------
-The concern builder can actully be used in two ways, as an stand alone object capable of
+Sinclair can actully be used in two ways, as an stand alone object capable of
 adding methods to your class or by extending it for more complex logics
 
  - Stand Alone usage:
@@ -56,18 +57,76 @@ adding methods to your class or by extending it for more complex logics
   puts "Eighty => #{instance.eighty}" # Eighty => 80
 ```
 
- - Extending the builder
-
 ```ruby
+  class HttpJsonModel
+    attr_reader :json
 
-  class ValidationBuilder < Sinclair
-    delegate :expected, to: :options_object
+    class << self
+      def parse(attribute, path: [])
+        builder = Sinclair.new(self)
 
-    def initialize(klass, options={})
-      super
+        keys = (path + [ attribute ]).map(&:to_s)
+
+        builder.add_method(attribute) do
+          keys.inject(hash) { |h, key| h[key] }
+        end
+
+        builder.build
+      end
     end
 
-    def add_validation(field)
+    def initialize(json)
+      @json = json
+    end
+
+    def hash
+      @hash ||= JSON.parse(json)
+    end
+  end
+
+  class HttpPerson < HttpJsonModel
+    parse :uid
+    parse :name,     path: [:personal_information]
+    parse :age,      path: [:personal_information]
+    parse :username, path: [:digital_information]
+    parse :email,    path: [:digital_information]
+  end
+
+  json = <<-JSON
+    {
+      "uid": "12sof511",
+      "personal_information":{
+        "name":"Bob",
+        "age": 21
+      },
+      "digital_information":{
+        "username":"lordbob",
+        "email":"lord@bob.com"
+      }
+    }
+  JSON
+
+  person = HttpPerson.new(json)
+
+  person.uid      # returns '12sof511'
+  person.name     # returns 'Bob'
+  person.age      # returns 21
+  person.username # returns 'lordbob'
+  person.email    # returns 'lord@bob.com'
+```
+
+ -  Extending the builder
+
+``` ruby
+
+  c lass ValidationBuilder < Sinclair
+     delegate :expected, to: :options_object
+
+     def initialize(klass, options={})
+       super
+     end
+
+     def add_validation(field)
       add_method("#{field}_valid?", "#{field}.is_a?#{expected}")
     end
 
