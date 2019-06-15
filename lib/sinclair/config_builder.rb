@@ -51,5 +51,16 @@ class Sinclair
 
       @config.instance_variable_set("@#{method_name}", *args)
     end
+
+    # @private
+    #
+    # Checks if method missing will catch the method called
+    #
+    # @return [TrueClass,FalseClass]
+    #
+    # @see #method_missing
+    def respond_to_missing?(method_name, include_private)
+      @config_attributes.include?(method_name) || super
+    end
   end
 end

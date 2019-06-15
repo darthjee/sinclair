@@ -3,7 +3,20 @@
 describe Sinclair::ConfigBuilder do
   subject(:builder) { described_class.new(config, *config_attributes) }
 
-  let(:config) { MyConfig.new }
+  let(:config)            { MyConfig.new }
+  let(:config_attributes) { [:name] }
+
+  it 'changes responds to given config' do
+    expect(builder).to respond_to(:name)
+  end
+
+  it 'does not respond to othr configs' do
+    expect(builder).not_to respond_to(:other_method)
+  end
+
+  it 'responds to other parent methods' do
+    expect(builder).to respond_to(:to_s)
+  end
 
   context 'when builder was configuratd with the method called' do
     let(:config_attributes) { [:name] }
