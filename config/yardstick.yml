@@ -31,6 +31,9 @@ rules:
       - Sinclair::OptionsParser#options
       - Sinclair::OptionsParser#options_object
       - Sinclair::Matchers::AddMethodTo#raise_block_syntax_error
+      - Sinclair::ConfigFactory#initialize
+      - Sinclair::ConfigFactory#config_class
+      - Sinclair::ConfigFactory#config_attributes
   Summary::Presence:
     enabled: true
     exclude:
@@ -43,6 +46,9 @@ rules:
       - Sinclair::MethodDefinition#block
       - Sinclair::OptionsParser#options
       - Sinclair::OptionsParser#options_object
+      - Sinclair::ConfigFactory#initialize
+      - Sinclair::ConfigFactory#config_class
+      - Sinclair::ConfigFactory#config_attributes
   Summary::Length:
     enabled: true
     exclude: []

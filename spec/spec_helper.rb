@@ -22,7 +22,6 @@ RSpec.configure do |config|
 
   config.order = 'random'
   config.include Sinclair::Matchers
-
-  config.before do
-  end
 end
+
+RSpec::Matchers.define_negated_matcher :not_change, :change
