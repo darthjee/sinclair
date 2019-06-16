@@ -26,4 +26,28 @@ shared_examples 'MethodDefinition#build' do
   end
 end
 
+shared_examples 'MethodDefinition#build without cache' do
+  it_behaves_like 'MethodDefinition#build'
 
+  it 'creates a dynamic method' do
+    method_definition.build(klass)
+    expect { instance.the_method }.to change(instance, :the_method)
+      .from(1).to(3)
+  end
+end
+
+shared_examples 'MethodDefinition#build with cache' do
+  it_behaves_like 'MethodDefinition#build'
+
+  it 'creates a semi-dynamic method' do
+    method_definition.build(klass)
+    expect { instance.the_method }.not_to change(instance, :the_method)
+  end
+
+  it 'sets the instance variable' do
+    method_definition.build(klass)
+    expect { instance.the_method }
+      .to change { instance.instance_variable_get("@#{method_name}") }
+      .from(nil).to(1)
+  end
+end
