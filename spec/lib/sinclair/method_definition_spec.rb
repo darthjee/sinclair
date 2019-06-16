@@ -11,7 +11,7 @@ describe Sinclair::MethodDefinition do
 
     context 'when method was defined with a string' do
       subject(:method_definition) do
-        described_class.new(method_name, code)
+        described_class.from(method_name, code)
       end
 
       let(:code) { '@x = @x.to_i + 1' }
@@ -20,7 +20,7 @@ describe Sinclair::MethodDefinition do
 
       context 'with cached options' do
         subject(:method_definition) do
-          described_class.new(method_name, code, cached: true)
+          described_class.from(method_name, code, cached: true)
         end
 
         it_behaves_like 'MethodDefinition#build with cache'
@@ -29,7 +29,7 @@ describe Sinclair::MethodDefinition do
 
     context 'when method was defined with a block' do
       subject(:method_definition) do
-        described_class.new(method_name) do
+        described_class.from(method_name) do
           @x = @x.to_i + 1
         end
       end
@@ -38,7 +38,7 @@ describe Sinclair::MethodDefinition do
 
       context 'with cached options' do
         subject(:method_definition) do
-          described_class.new(method_name, cached: true) do
+          described_class.from(method_name, cached: true) do
             @x = @x.to_i + 1
           end
         end

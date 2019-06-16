@@ -12,6 +12,10 @@ class Sinclair
       cached: false
     }.freeze
 
+    def self.from(name, code = nil, **options, &block)
+      new(name, code, **options, &block)
+    end
+
     # Returns a new instance of MethodDefinition
     #
     # @overload initialize(name, code)
@@ -45,7 +49,7 @@ class Sinclair
     #
     #   instance = MyModel.new
     #
-    #   method_definition = Sinclair::MethodDefinition.new(
+    #   method_definition = Sinclair::MethodDefinition.from(
     #     :sequence, '@x = @x.to_i ** 2 + 1'
     #   )
     #
@@ -66,7 +70,7 @@ class Sinclair
     #
     #   instance = MyModel.new
     #
-    #   method_definition = Sinclair::MethodDefinition.new(:sequence) do
+    #   method_definition = Sinclair::MethodDefinition.from(:sequence) do
     #     @x = @x.to_i ** 2 + 1
     #   end
     #
