@@ -69,7 +69,7 @@ or by extending it for more complex logics
       def parse(attribute, path: [])
         builder = Sinclair.new(self)
 
-        keys = (path + [ attribute ]).map(&:to_s)
+        keys = (path + [attribute]).map(&:to_s)
 
         builder.add_method(attribute) do
           keys.inject(hash) { |h, key| h[key] }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './spec/support/models/http_json_model'
 
 class HttpPerson < HttpJsonModel
