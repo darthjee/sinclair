@@ -60,6 +60,11 @@ class Sinclair
         cached_method_proc(name, block)
       end
 
+      # @private
+      #
+      # Returns proc block when cache when {#cached?}
+      #
+      # @return [Proc]
       def cached_method_proc(method_name, inner_block)
         proc do
           instance_variable_get("@#{method_name}") ||

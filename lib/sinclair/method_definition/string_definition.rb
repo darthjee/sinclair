@@ -64,6 +64,11 @@ class Sinclair
         CODE
       end
 
+      # @private
+      #
+      # Returns string code when {#cached?}
+      #
+      # @return [String]
       def code_with_cache
         "@#{name} ||= #{code}"
       end
