@@ -2,6 +2,7 @@
 
 class Sinclair
   class MethodDefinition
+    # Define a method from string
     class StringDefinition < MethodDefinition
       # @param name    [String,Symbol] name of the method
       # @param code    [String] code to be evaluated as method
@@ -13,6 +14,14 @@ class Sinclair
         super(name, **options)
       end
 
+      # Adds the method to given klass
+      #
+      # @param klass [Class] class which will receive the new method
+      #
+      # @see MethodDefinition#build
+      #
+      # @return [Symbol] name of the created method
+      #
       def build(klass)
         klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
       end
