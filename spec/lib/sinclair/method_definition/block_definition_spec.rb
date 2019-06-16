@@ -19,12 +19,12 @@ describe Sinclair::MethodDefinition::BlockDefinition do
 
     context 'with cached options' do
       subject(:method_definition) do
-        described_class.from(method_name, cached: true) do
+        described_class.from(method_name, cached: cached_option) do
           @x = @x.to_i + 1
         end
       end
 
-      it_behaves_like 'MethodDefinition#build with cache'
+      it_behaves_like 'MethodDefinition#build with cache options'
     end
   end
 end

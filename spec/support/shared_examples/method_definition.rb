@@ -51,3 +51,17 @@ shared_examples 'MethodDefinition#build with cache' do
       .from(nil).to(1)
   end
 end
+
+shared_examples 'MethodDefinition#build with cache options' do
+  context 'when cached is true' do
+    let(:cached_option) { true }
+
+    it_behaves_like 'MethodDefinition#build with cache'
+  end
+
+  context 'when cached is false' do
+    let(:cached_option) { false }
+
+    it_behaves_like 'MethodDefinition#build without cache'
+  end
+end
