@@ -121,9 +121,10 @@ class Sinclair
     def method_block
       return block unless cached?
 
-      inner_block = block
-      method_name = name
+      cached_method_proc(name, block)
+    end
 
+    def cached_method_proc(method_name, inner_block)
       proc do
         instance_variable_get("@#{method_name}") ||
           instance_variable_set(
