@@ -104,5 +104,16 @@ class Sinclair
     #
     # @return [Boolean]
     alias cached? cached
+
+    # @private
+    #
+    # type of cache chosen
+    #
+    # @return [Symbol]
+    def cache_type
+      return unless cached?
+      return :simple unless cached == :full
+      cached
+    end
   end
 end
