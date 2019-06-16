@@ -42,7 +42,7 @@ class Sinclair
     #
     # This should be implemented on child classes
     #
-    # @param klass [Class] class which will receive the new method
+    # @param _klass [Class] class which will receive the new method
     #
     # @example Using string method with no options
     #   class MyModel

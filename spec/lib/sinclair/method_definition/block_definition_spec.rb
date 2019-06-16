@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 
-# rubocop:disable  RSpec/InstanceVariable
 describe Sinclair::MethodDefinition::BlockDefinition do
   let(:klass)    { Class.new }
   let(:instance) { klass.new }
@@ -29,4 +28,3 @@ describe Sinclair::MethodDefinition::BlockDefinition do
     end
   end
 end
-# rubocop:enable  RSpec/InstanceVariable
