@@ -76,7 +76,7 @@ class Sinclair
             instance_variable_set(
               "@#{method_name}",
               instance_eval(&inner_block)
-          )
+            )
         end
       end
 
