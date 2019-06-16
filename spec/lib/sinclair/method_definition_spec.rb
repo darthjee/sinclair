@@ -9,6 +9,17 @@ describe Sinclair::MethodDefinition do
   describe '#build' do
     let(:method_name) { :the_method }
 
+    context 'when instantiating the class itself' do
+      subject(:method_definition) do
+        described_class.new(method_name)
+      end
+
+      it do
+        expect { method_definition.build(klass) }
+          .to raise_error(RuntimeError, 'Not implemented yet')
+      end
+    end
+
     context 'when method was defined with a string' do
       subject(:method_definition) do
         described_class.from(method_name, code)
