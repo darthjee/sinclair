@@ -8,8 +8,9 @@ Sinclair
 
 ![sinclair](https://raw.githubusercontent.com/darthjee/sinclair/master/sinclair.jpg)
 
-This gem helps the creation of complex concern with class methods that generates new
-methods on the fly.
+This gem helps the creation of complex gems/concerns
+that enables creation of methods on the fly through class
+methods
 
 Yard Documentation
 -------------------
@@ -35,10 +36,11 @@ Installation
 
 Usage
 ---------------
-Sinclair can actully be used in two ways, as an stand alone object capable of
-adding methods to your class or by extending it for more complex logics
+Sinclair can actully be used in several ways, as an stand alone object capable of
+adding methods to your class on the fly, as a builder inside a class method
+or by extending it for more complex logics
 
- - Stand Alone usage:
+ - Stand Alone usage creating methods on the fly:
 
 ```ruby
 
@@ -56,6 +58,8 @@ adding methods to your class or by extending it for more complex logics
   puts "Twenty => #{instance.twenty}" # Twenty => 20
   puts "Eighty => #{instance.eighty}" # Eighty => 80
 ```
+
+ - Builder in class method:
 
 ```ruby
   class HttpJsonModel
@@ -117,7 +121,7 @@ adding methods to your class or by extending it for more complex logics
 
  -  Extending the builder
 
-``` ruby
+```ruby
 
   c lass ValidationBuilder < Sinclair
      delegate :expected, to: :options_object
