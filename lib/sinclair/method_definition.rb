@@ -149,12 +149,17 @@ class Sinclair
     #
     # @return [String]
     def code_definition
-      code_line = cached? ? "@#{name} ||= #{code}" : code
+      code_line = cached? ? code_with_cache : code
+
       <<-CODE
       def #{name}
         #{code_line}
       end
       CODE
+    end
+
+    def code_with_cache
+      "@#{name} ||= #{code}"
     end
   end
 end
