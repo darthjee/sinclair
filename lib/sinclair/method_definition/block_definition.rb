@@ -22,7 +22,7 @@ class Sinclair
       #
       # @return [Symbol] name of the created method
       #
-      # @example Using string method with no options
+      # @example Using block method with no options
       #   class MyModel
       #   end
       #
@@ -43,7 +43,6 @@ class Sinclair
       #
       #   instance.instance_variable_get(:@sequence) # returns 1
       #   instance.instance_variable_get(:@x)        # returns 1
-      #
       def build(klass)
         klass.send(:define_method, name, method_block)
       end

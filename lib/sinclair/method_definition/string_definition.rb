@@ -22,6 +22,27 @@ class Sinclair
       #
       # @return [Symbol] name of the created method
       #
+      # @example With no options
+      #   class MyModel
+      #   end
+      #
+      #   instance = MyModel.new
+      #
+      #   method_definition = Sinclair::MethodDefinition.from(
+      #     :sequence, '@x = @x.to_i ** 2 + 1'
+      #   )
+      #
+      #   method_definition.build(klass)      # adds instance_method :sequence to
+      #                                       # MyModel instances
+      #
+      #   instance.instance_variable_get(:@x) # returns nil
+      #
+      #   instance.sequence                   # returns 1
+      #   instance.sequence                   # returns 2
+      #   instance.sequence                   # returns 5
+      #
+      #   instance.instance_variable_get(:@x) # returns 5
+      #
       def build(klass)
         klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
       end

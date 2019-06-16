@@ -44,7 +44,7 @@ class Sinclair
     #
     # @param _klass [Class] class which will receive the new method
     #
-    # @example Using string method with no options
+    # @example Using block method with no options
     #   class MyModel
     #   end
     #
