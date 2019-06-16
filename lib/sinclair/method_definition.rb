@@ -7,13 +7,21 @@ class Sinclair
   # Definition of the code or block to be aded as method
   class MethodDefinition
     include Sinclair::OptionsParser
+
+    autoload :BlockDefinition, 'sinclair/method_definition/block_definition'
+    autoload :StringDefinition, 'sinclair/method_definition/string_definition'
+
     # Default options of initialization
     DEFAULT_OPTIONS = {
       cached: false
     }.freeze
 
     def self.from(name, code = nil, **options, &block)
-      new(name, code, **options, &block)
+      if block
+        BlockDefinition.new(name, **options, &block)
+      else
+        StringDefinition.new(name, code, **options)
+      end
     end
 
     # Returns a new instance of MethodDefinition
