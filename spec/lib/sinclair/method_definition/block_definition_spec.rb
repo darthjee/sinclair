@@ -2,18 +2,19 @@
 
 require 'spec_helper'
 
+# rubocop:disable  RSpec/InstanceVariable
 describe Sinclair::MethodDefinition::BlockDefinition do
   let(:klass)    { Class.new }
   let(:instance) { klass.new }
 
   describe '#build' do
-    let(:method_name) { :the_method }
-
     subject(:method_definition) do
       described_class.new(method_name) do
         @x = @x.to_i + 1
       end
     end
+
+    let(:method_name) { :the_method }
 
     it_behaves_like 'MethodDefinition#build without cache'
 
@@ -28,3 +29,4 @@ describe Sinclair::MethodDefinition::BlockDefinition do
     end
   end
 end
+# rubocop:enable  RSpec/InstanceVariable

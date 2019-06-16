@@ -7,11 +7,11 @@ describe Sinclair::MethodDefinition::StringDefinition do
   let(:instance) { klass.new }
 
   describe '#build' do
-    let(:method_name) { :the_method }
-
     subject(:method_definition) do
       described_class.new(method_name, code)
     end
+
+    let(:method_name) { :the_method }
 
     let(:code) { '@x = @x.to_i + 1' }
 

@@ -24,27 +24,13 @@ class Sinclair
       end
     end
 
-    # Returns a new instance of MethodDefinition
-    #
-    # @overload initialize(name, code)
-    #   @example
-    #     Sinclair::MethodDefinition.new(:name, '@name')
-    #
-    # @overload initialize(name, &block)
-    #   @example
-    #     Sinclair::MethodDefinition.new(:name) { @name }
-    #
     # @param name    [String,Symbol] name of the method
-    # @param code    [String] code to be evaluated as method
-    # @param block   [Proc] block with code to be added as method
     # @param options [Hash] Options of construction
     # @option options cached [Boolean] Flag telling to create
     #   a method with cache
-    def initialize(name, code = nil, **options, &block)
+    def initialize(name, **options)
       @name =    name
-      @code =    code
       @options = DEFAULT_OPTIONS.merge(options)
-      @block =   block
     end
 
     # Adds the method to given klass
@@ -95,12 +81,8 @@ class Sinclair
     #   instance.instance_variable_get(:@x)        # returns 1
     #
     # @return [Symbol] name of the created method
-    def build(klass)
-      if code.is_a?(String)
-        build_code_method(klass)
-      else
-        build_block_method(klass)
-      end
+    def build(_klass)
+      raise 'Not implemented yet'
     end
 
     private
@@ -115,63 +97,5 @@ class Sinclair
     #
     # @return [Boolean]
     alias cached? cached
-
-    # @private
-    #
-    # Add method from block
-    #
-    # @return [Symbol] name of the created method
-    def build_block_method(klass)
-      klass.send(:define_method, name, method_block)
-    end
-
-    # @private
-    #
-    # Returns the block that will be used for method creattion
-    #
-    # @return [Proc]
-    def method_block
-      return block unless cached?
-
-      cached_method_proc(name, block)
-    end
-
-    def cached_method_proc(method_name, inner_block)
-      proc do
-        instance_variable_get("@#{method_name}") ||
-          instance_variable_set(
-            "@#{method_name}",
-            instance_eval(&inner_block)
-          )
-      end
-    end
-
-    # @private
-    #
-    # Add method from String code
-    #
-    # @return [Symbol] name of the created method
-    def build_code_method(klass)
-      klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
-    end
-
-    # @private
-    #
-    # Builds full code of method
-    #
-    # @return [String]
-    def code_definition
-      code_line = cached? ? code_with_cache : code
-
-      <<-CODE
-      def #{name}
-        #{code_line}
-      end
-      CODE
-    end
-
-    def code_with_cache
-      "@#{name} ||= #{code}"
-    end
   end
 end
