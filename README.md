@@ -36,6 +36,7 @@ Installation
 
 Usage
 ---------------
+# Sinvlair
 Sinclair can actully be used in several ways, as an stand alone object capable of
 adding methods to your class on the fly, as a builder inside a class method
 or by extending it for more complex logics
@@ -239,6 +240,35 @@ or by extending it for more complex logics
   model.cached_power # returns 9
   model.expoent = 3
   model.cached_power # returns 9 (from cache)
+```
+
+# Sinclair::Configurable
+
+Configurable is a module that, when used, can add configurations
+to your classes/modules.
+
+Configurations are read-only objects that can only be set using
+the `configurable#configure` method
+
+```ruby
+  class MyConfigurable
+    extend Sinclair::Configurable
+  
+    configurable_with :host, :port
+  end
+
+  MyConfigurable.configure do |config|
+    config.host 'interstella.art'
+    config.port 5555
+  end
+
+  MyConfigurable.config.host # returns 'interstella.art'
+  MyConfigurable.config.port # returns 5555
+
+  MyConfigurable.reset_config
+
+  MyConfigurable.config.host # returns nil
+  MyConfigurable.config.port # returns nil
 ```
 
 RSspec matcher
