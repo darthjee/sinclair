@@ -41,9 +41,12 @@ rules:
       - Sinclair::Matchers::AddMethod#method
       - Sinclair::Matchers::AddMethodTo#method
       - Sinclair::Matchers::AddMethodTo#instance
+      - Sinclair::MethodDefinition#initialize
       - Sinclair::MethodDefinition#name
       - Sinclair::MethodDefinition#code
       - Sinclair::MethodDefinition#block
+      - Sinclair::MethodDefinition::BlockDefinition#initialize
+      - Sinclair::MethodDefinition::StringDefinition#initialize
       - Sinclair::OptionsParser#options
       - Sinclair::OptionsParser#options_object
       - Sinclair::ConfigFactory#initialize

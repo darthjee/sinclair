@@ -7,45 +7,50 @@ class Sinclair
   # Definition of the code or block to be aded as method
   class MethodDefinition
     include Sinclair::OptionsParser
+
+    autoload :BlockDefinition, 'sinclair/method_definition/block_definition'
+    autoload :StringDefinition, 'sinclair/method_definition/string_definition'
+
     # Default options of initialization
     DEFAULT_OPTIONS = {
       cached: false
     }.freeze
 
-    # Returns a new instance of MethodDefinition
+    # Creates a new instance based on arguments
     #
-    # @overload initialize(name, code)
-    #   @example
-    #     Sinclair::MethodDefinition.new(:name, '@name')
-    #
-    # @overload initialize(name, &block)
-    #   @example
-    #     Sinclair::MethodDefinition.new(:name) { @name }
-    #
+    # @return [MethodDefinition] When block is given, a
+    #   new instance of {BlockDefinition} is returned,
+    #   otherwise {StringDefinition} is returned
+    def self.from(name, code = nil, **options, &block)
+      if block
+        BlockDefinition.new(name, **options, &block)
+      else
+        StringDefinition.new(name, code, **options)
+      end
+    end
+
     # @param name    [String,Symbol] name of the method
-    # @param code    [String] code to be evaluated as method
-    # @param block   [Proc] block with code to be added as method
     # @param options [Hash] Options of construction
     # @option options cached [Boolean] Flag telling to create
     #   a method with cache
-    def initialize(name, code = nil, **options, &block)
+    def initialize(name, **options)
       @name =    name
-      @code =    code
       @options = DEFAULT_OPTIONS.merge(options)
-      @block =   block
     end
 
     # Adds the method to given klass
     #
-    # @param klass [Class] class which will receive the new method
+    # This should be implemented on child classes
     #
-    # @example Using string method with no options
+    # @param _klass [Class] class which will receive the new method
+    #
+    # @example Using block method with no options
     #   class MyModel
     #   end
     #
     #   instance = MyModel.new
     #
-    #   method_definition = Sinclair::MethodDefinition.new(
+    #   method_definition = Sinclair::MethodDefinition.from(
     #     :sequence, '@x = @x.to_i ** 2 + 1'
     #   )
     #
@@ -66,7 +71,7 @@ class Sinclair
     #
     #   instance = MyModel.new
     #
-    #   method_definition = Sinclair::MethodDefinition.new(:sequence) do
+    #   method_definition = Sinclair::MethodDefinition.from(:sequence) do
     #     @x = @x.to_i ** 2 + 1
     #   end
     #
@@ -83,12 +88,8 @@ class Sinclair
     #   instance.instance_variable_get(:@x)        # returns 1
     #
     # @return [Symbol] name of the created method
-    def build(klass)
-      if code.is_a?(String)
-        build_code_method(klass)
-      else
-        build_block_method(klass)
-      end
+    def build(_klass)
+      raise 'Not implemented yet'
     end
 
     private
@@ -103,57 +104,5 @@ class Sinclair
     #
     # @return [Boolean]
     alias cached? cached
-
-    # @private
-    #
-    # Add method from block
-    #
-    # @return [Symbol] name of the created method
-    def build_block_method(klass)
-      klass.send(:define_method, name, method_block)
-    end
-
-    # @private
-    #
-    # Returns the block that will be used for method creattion
-    #
-    # @return [Proc]
-    def method_block
-      return block unless cached?
-
-      inner_block = block
-      method_name = name
-
-      proc do
-        instance_variable_get("@#{method_name}") ||
-          instance_variable_set(
-            "@#{method_name}",
-            instance_eval(&inner_block)
-          )
-      end
-    end
-
-    # @private
-    #
-    # Add method from String code
-    #
-    # @return [Symbol] name of the created method
-    def build_code_method(klass)
-      klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
-    end
-
-    # @private
-    #
-    # Builds full code of method
-    #
-    # @return [String]
-    def code_definition
-      code_line = cached? ? "@#{name} ||= #{code}" : code
-      <<-CODE
-      def #{name}
-        #{code_line}
-      end
-      CODE
-    end
   end
 end
