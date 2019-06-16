@@ -36,7 +36,7 @@ Installation
 
 Usage
 ---------------
-# Sinvlair
+# Sinclair
 Sinclair can actully be used in several ways, as an stand alone object capable of
 adding methods to your class on the fly, as a builder inside a class method
 or by extending it for more complex logics
@@ -124,7 +124,7 @@ or by extending it for more complex logics
 
 ```ruby
 
-  c lass ValidationBuilder < Sinclair
+  class ValidationBuilder < Sinclair
      delegate :expected, to: :options_object
 
      def initialize(klass, options={})
