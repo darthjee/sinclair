@@ -9,6 +9,10 @@ describe Sinclair::Configurable do
       end
     end
 
+    after do
+      MyConfigurable.reset_config
+    end
+
     it 'sets right value for config host' do
       expect(MyConfigurable.config.host)
         .to eq('interstella.com')

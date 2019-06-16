@@ -22,4 +22,44 @@ describe Sinclair do
       expect("Eighty => #{instance.eighty}").to eq('Eighty => 80')
     end
   end
+
+  describe 'Stand Alone concern' do
+    subject(:person) { HttpPerson.new(json) }
+
+    let(:json) do
+      <<-JSON
+        {
+          "uid": "12sof511",
+          "personal_information":{
+            "name":"Bob",
+            "age": 21
+          },
+          "digital_information":{
+            "username":"lordbob",
+            "email":"lord@bob.com"
+          }
+        }
+      JSON
+    end
+
+    it 'adds uid method' do
+      expect(person.uid).to eq('12sof511')
+    end
+
+    it 'adds name method' do
+      expect(person.name).to eq('Bob')
+    end
+
+    it 'adds age method' do
+      expect(person.age).to eq(21)
+    end
+
+    it 'adds username method' do
+      expect(person.username).to eq('lordbob')
+    end
+
+    it 'adds email method' do
+      expect(person.email).to eq('lord@bob.com')
+    end
+  end
 end

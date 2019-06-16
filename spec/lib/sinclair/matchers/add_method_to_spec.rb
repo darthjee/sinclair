@@ -39,6 +39,16 @@ describe Sinclair::Matchers::AddMethodTo do
         it { expect(matcher).to be_matches(event_proc) }
       end
     end
+
+    context 'when a block is given' do
+      it do
+        expect { matcher.matches?(event_proc) { 1 } }
+          .to raise_error(
+            SyntaxError, 'Block not received by the `add_method_to` matcher. ' \
+          'Perhaps you want to use `{ ... }` instead of do/end?'
+          )
+      end
+    end
   end
 
   describe '#failure_message_for_should' do
