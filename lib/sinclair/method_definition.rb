@@ -16,6 +16,11 @@ class Sinclair
       cached: false
     }.freeze
 
+    # Creates a new instance based on arguments
+    #
+    # @return [MethodDefinition] When block is given, a
+    #   new instance of {BlockDefinition} is returned,
+    #   otherwise {StringDefinition} is returned
     def self.from(name, code = nil, **options, &block)
       if block
         BlockDefinition.new(name, **options, &block)
@@ -34,6 +39,8 @@ class Sinclair
     end
 
     # Adds the method to given klass
+    #
+    # This should be implemented on child classes
     #
     # @param klass [Class] class which will receive the new method
     #
