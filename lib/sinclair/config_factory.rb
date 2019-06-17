@@ -83,7 +83,7 @@ class Sinclair
       builder = Sinclair.new(config_class)
 
       defaults.each do |method, value|
-        builder.add_method(method, cached: true) { value }
+        builder.add_method(method, cached: :full) { value }
       end
 
       builder.build

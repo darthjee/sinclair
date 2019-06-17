@@ -33,6 +33,14 @@ shared_examples 'a config factory adding config' do
     expect(factory.config.name).to eq('John')
   end
 
+  it 'adds reader for configuration accepting nil values' do
+    code_block.call
+    factory.configure { name 'John' }
+    factory.configure { name nil }
+
+    expect(factory.config.name).to be_nil
+  end
+
   it 'changes subclasses of config' do
     expect(&code_block)
       .to add_method(:name).to(factory.child.config)
