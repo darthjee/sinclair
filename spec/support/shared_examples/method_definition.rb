@@ -51,3 +51,45 @@ shared_examples 'MethodDefinition#build with cache' do
       .from(nil).to(1)
   end
 end
+
+shared_examples 'MethodDefinition#build with cache options' do
+  context 'when cached is true' do
+    let(:cached_option) { true }
+
+    it_behaves_like 'MethodDefinition#build with cache'
+
+    context 'when instance variable has been set as nil' do
+      before do
+        method_definition.build(klass)
+        instance.instance_variable_set(:@the_method, nil)
+      end
+
+      it 'returns a new value' do
+        expect(instance.the_method).to eq(1)
+      end
+    end
+  end
+
+  context 'when cached is full' do
+    let(:cached_option) { :full }
+
+    it_behaves_like 'MethodDefinition#build with cache'
+
+    context 'when instance variable has been set as nil' do
+      before do
+        method_definition.build(klass)
+        instance.instance_variable_set(:@the_method, nil)
+      end
+
+      it 'returns always nil' do
+        expect(instance.the_method).to be_nil
+      end
+    end
+  end
+
+  context 'when cached is false' do
+    let(:cached_option) { false }
+
+    it_behaves_like 'MethodDefinition#build without cache'
+  end
+end

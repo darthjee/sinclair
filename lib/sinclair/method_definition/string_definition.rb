@@ -70,7 +70,12 @@ class Sinclair
       #
       # @return [String]
       def code_with_cache
-        "@#{name} ||= #{code}"
+        case cached
+        when :full
+          "defined?(@#{name}) ? @#{name} : (@#{name} = #{code})"
+        else
+          "@#{name} ||= #{code}"
+        end
       end
     end
   end

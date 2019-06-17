@@ -14,7 +14,7 @@ methods
 
 Yard Documentation
 -------------------
-https://www.rubydoc.info/gems/sinclair/1.3.0
+https://www.rubydoc.info/gems/sinclair/1.3.1
 
 Installation
 ---------------
@@ -213,9 +213,12 @@ or by extending it for more complex logics
   invalid_object.valid? # returns false
 ```
 
-  - Caching the result
-    If wanted, the result of the method can be stored in an
-    instance variable with the same name
+## Caching the result
+If wanted, the result of the method can be stored in an
+instance variable with the same name.
+
+When caching, you can cache with type `:full` so that even `nil`
+values are cached
 
 ```ruby
   class MyModel
@@ -242,6 +245,63 @@ or by extending it for more complex logics
   model.cached_power # returns 9 (from cache)
 ```
 
+```ruby
+  module DefaultValueable
+    def default_reader(*methods, value:, accept_nil: false)
+      DefaultValueBuilder.new(
+        self, value: value, accept_nil: accept_nil
+      ).add_default_values(*methods)
+    end
+  end
+
+  class DefaultValueBuilder < Sinclair
+    def add_default_values(*methods)
+      default_value = value
+
+      methods.each do |method|
+        add_method(method, cached: cache_type) { default_value }
+      end
+
+      build
+    end
+
+    private
+
+    delegate :accept_nil, :value, to: :options_object
+
+    def cache_type
+      accept_nil ? :full : :simple
+    end
+  end
+
+  class Server
+    extend DefaultValueable
+
+    attr_writer :host, :port
+
+    default_reader :host, value: 'server.com', accept_nil: false
+    default_reader :port, value: 80,           accept_nil: true
+
+    def url
+      return "http://#{host}" unless port
+
+      "http://#{host}:#{port}"
+    end
+  end
+
+  server = Server.new
+
+  server.url # returns 'http://server.com:80'
+
+  server.host = 'interstella.com'
+  server.port = 5555
+  server.url # returns 'http://interstella.com:5555'
+
+  server.host = nil
+  server.port = nil
+  server.url # return 'http://server.com'
+```
+
 # Sinclair::Configurable
 
 Configurable is a module that, when used, can add configurations
@@ -253,7 +313,7 @@ the `configurable#configure` method
 ```ruby
   class MyConfigurable
     extend Sinclair::Configurable
-  
+
     configurable_with :host, :port
   end
 
