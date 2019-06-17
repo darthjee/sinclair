@@ -15,8 +15,11 @@ describe Sinclair::MethodDefinition do
       end
 
       it do
-        expect { method_definition.build(klass) }
-          .to raise_error(RuntimeError, 'Not implemented yet')
+        expect { method_definition.build(klass) }.to raise_error(
+          RuntimeError,
+          'Build is implemented in subclasses. ' \
+          "Use #{described_class}.from to initialize a proper object"
+        )
       end
     end
 
