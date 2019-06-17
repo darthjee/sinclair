@@ -22,7 +22,15 @@ shared_examples 'a config factory adding config' do
   it 'allows config_builder to handle method missing' do
     code_block.call
 
-    expect { factory.configure { name 'John' } }.not_to raise_error
+    expect { factory.configure { name 'John' } }
+      .not_to raise_error
+  end
+
+  it 'adds reader for configuration' do
+    code_block.call
+    factory.configure { name 'John' }
+
+    expect(factory.config.name).to eq('John')
   end
 
   it 'changes subclasses of config' do
