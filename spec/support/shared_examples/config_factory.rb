@@ -1,4 +1,6 @@
-shared_examples "a config factory adding config" do
+# frozen_string_literal: true
+
+shared_examples 'a config factory adding config' do
   let(:code_block) do
     proc { factory.instance_eval(&method_call) }
   end

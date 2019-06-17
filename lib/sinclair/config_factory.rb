@@ -77,9 +77,19 @@ class Sinclair
     #
     #   config.respond_to? :active
     #   # returns true
-    def add_configs(*attributes)
+    def add_configs(*attributes, **defaults)
       config_class.attr_reader(*attributes)
+
+      builder = Sinclair.new(config_class)
+
+      defaults.each do |method, value|
+        builder.add_method(method) { value }
+      end
+
+      builder.build
+
       config_attributes.concat(attributes.map(&:to_sym))
+      config_attributes.concat(defaults.keys.map(&:to_sym))
     end
 
     # Set the values in the config

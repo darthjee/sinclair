@@ -81,8 +81,14 @@ describe Sinclair::ConfigFactory do
   end
 
   describe '#add_configs' do
-    it_behaves_like "a config factory adding config" do
+    it_behaves_like 'a config factory adding config' do
       let(:method_call) { proc { add_configs(:name) } }
+
+      it 'does not set a default value' do
+        code_block.call
+
+        expect(factory.config.name).to be_nil
+      end
     end
 
     it 'does not mess with configurable methods' do
@@ -90,6 +96,18 @@ describe Sinclair::ConfigFactory do
       factory.configure { |c| c.reset_config true }
       factory.reset_config
       expect(factory.config).to be_a(Sinclair::Config)
+    end
+
+    context 'when passing a hash' do
+      it_behaves_like 'a config factory adding config' do
+        let(:method_call) { proc { add_configs(name: 'Bobby') } }
+
+        it 'sets a default value' do
+          code_block.call
+
+          expect(factory.config.name).to eq('Bobby')
+        end
+      end
     end
   end
 
