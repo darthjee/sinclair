@@ -81,47 +81,8 @@ describe Sinclair::ConfigFactory do
   end
 
   describe '#add_configs' do
-    it 'adds reader to config' do
-      expect { factory.add_configs(:name) }
-        .to add_method(:name).to(factory.config)
-    end
-
-    it 'does not add setter to config' do
-      expect { factory.add_configs(:name) }
-        .not_to add_method(:name=).to(factory.config)
-    end
-
-    it 'does not change Sinclair::Config class' do
-      expect { factory.add_configs(:name) }
-        .not_to add_method(:name).to(Sinclair::Config.new)
-    end
-
-    it 'allows config_builder to handle method missing' do
-      factory.add_configs(:name)
-      expect { factory.configure { name 'John' } }.not_to raise_error
-    end
-
-    it 'changes subclasses of config' do
-      expect { factory.add_configs(:name) }
-        .to add_method(:name).to(factory.child.config)
-    end
-
-    it 'does not mess with parent config_builder' do
-      factory.child.add_configs(:name)
-      expect { factory.configure { name 'John' } }
-        .to raise_error(NoMethodError)
-    end
-
-    context 'when initializing with custom config class' do
-      it do
-        expect { factory.add_configs(:name) }
-          .to add_method(:name).to(factory.config)
-      end
-
-      it 'does not change other config classes' do
-        expect { factory.add_configs(:name) }
-          .not_to add_method(:name).to(other_factory.config)
-      end
+    it_behaves_like "a config factory adding config" do
+      let(:method_call) { proc { add_configs(:name) } }
     end
 
     it 'does not mess with configurable methods' do

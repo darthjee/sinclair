@@ -64,7 +64,7 @@ class Sinclair
 
     private
 
-    # @visibility public
+    # @!visibility public
     #
     # Adds a configuration option to config class
     #
