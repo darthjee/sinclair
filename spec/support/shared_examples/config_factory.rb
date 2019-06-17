@@ -66,10 +66,18 @@ shared_examples 'a config factory adding config' do
 end
 
 shared_examples 'configure a config' do
-  it do
+  it 'sets value on config' do
     expect { factory.configure { |c| c.user 'Bob' } }
-      .to change(config, :user)
-      .to('Bob')
+      .to change(config, :user).to('Bob')
+  end
+
+  context 'when re-seting the value to nil' do
+    before { factory.configure { |c| c.user 'Bob' } }
+
+    it 'sets nil value on config' do
+      expect { factory.configure { |c| c.user nil } }
+        .to change(config, :user).to(nil)
+    end
   end
 
   context 'when calling a method that was not defined' do
