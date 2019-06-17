@@ -112,27 +112,26 @@ describe Sinclair::ConfigFactory do
   end
 
   describe '#configure' do
-    before { factory.add_configs(:user, 'password') }
+    context 'when factory was not initialized with defaults' do
+      before { factory.add_configs(:user, 'password') }
 
-    it do
-      expect { factory.configure { |c| c.user 'Bob' } }
-        .to change(config, :user)
-        .from(nil).to('Bob')
-    end
+      it_behaves_like 'configure a config'
 
-    context 'when it was defined using string' do
-      it do
-        expect { factory.configure { |c| c.password '123456' } }
-          .to change(config, :password)
-          .from(nil).to('123456')
+      context 'when it was defined using string' do
+        it do
+          expect { factory.configure { |c| c.password '123456' } }
+            .to change(config, :password)
+            .to('123456')
+        end
       end
     end
 
-    context 'when calling a method that was not defined' do
-      it do
-        expect { factory.configure { |c| c.nope '123456' } }
-          .to raise_error(NoMethodError)
+    context 'when factory initialized with defaults' do
+      before do
+        factory.add_configs({ user: 'Jack' })
       end
+
+      it_behaves_like 'configure a config'
     end
   end
 

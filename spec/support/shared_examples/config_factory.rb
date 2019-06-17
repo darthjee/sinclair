@@ -64,3 +64,18 @@ shared_examples 'a config factory adding config' do
     end
   end
 end
+
+shared_examples 'configure a config' do
+  it do
+    expect { factory.configure { |c| c.user 'Bob' } }
+      .to change(config, :user)
+      .to('Bob')
+  end
+
+  context 'when calling a method that was not defined' do
+    it do
+      expect { factory.configure { |c| c.nope '123456' } }
+        .to raise_error(NoMethodError)
+    end
+  end
+end
