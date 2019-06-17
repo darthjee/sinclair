@@ -24,6 +24,61 @@ require 'active_support/all'
 #   instance.value # returns 10
 #   instance.value = 20
 #   instance.value # returns 20
+#
+# @example Usin cache
+#   module DefaultValueable
+#     def default_reader(*methods, value:, accept_nil: false)
+#       DefaultValueBuilder.new(
+#         self, value: value, accept_nil: accept_nil
+#       ).add_default_values(*methods)
+#     end
+#   end
+#
+#   class DefaultValueBuilder < Sinclair
+#     def add_default_values(*methods)
+#       default_value = value
+#
+#       methods.each do |method|
+#         add_method(method, cached: cache_type) { default_value }
+#       end
+#
+#       build
+#     end
+#
+#     private
+#
+#     delegate :accept_nil, :value, to: :options_object
+#
+#     def cache_type
+#       accept_nil ? :full : :simple
+#     end
+#   end
+#
+#   class Server
+#     extend DefaultValueable
+#
+#     attr_writer :host, :port
+#
+#     default_reader :host, value: 'server.com', accept_nil: false
+#     default_reader :port, value: 80,           accept_nil: true
+#
+#     def url
+#       return "http://#{host}" unless port
+#
+#       "http://#{host}:#{port}"
+#     end
+#   end
+#   server = Server.new
+#
+#   server.url # returns 'http://server.com:80'
+#
+#   server.host = 'interstella.com'
+#   server.port = 5555
+#   server.url # returns 'http://interstella.com:5555'
+#
+#   server.host = nil
+#   server.port = nil
+#   server.url # return 'http://server.com'
 class Sinclair
   require 'sinclair/options_parser'
 

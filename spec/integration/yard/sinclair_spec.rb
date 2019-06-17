@@ -9,6 +9,36 @@ describe Sinclair do
     let(:builder)       { described_class.new(klass) }
     let(:default_value) { 10 }
 
+    describe 'Using cache' do
+      subject(:server) { Server.new }
+
+      it 'returns default url' do
+        expect(server.url).to eq('http://server.com:80')
+      end
+
+      context 'when new values are set' do
+        before do
+          server.host = 'interstella.com'
+          server.port = 5555
+        end
+
+        it 'returns custom url' do
+          expect(server.url).to eq('http://interstella.com:5555')
+        end
+
+        context 'when values are nullified' do
+          before do
+            server.host = nil
+            server.port = nil
+          end
+
+          it 'returns url with default + custom nil values' do
+            expect(server.url).to eq('http://server.com')
+          end
+        end
+      end
+    end
+
     describe '#initialize' do
       describe '#total_price' do
         before do
