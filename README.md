@@ -213,9 +213,12 @@ or by extending it for more complex logics
   invalid_object.valid? # returns false
 ```
 
-  - Caching the result
-    If wanted, the result of the method can be stored in an
-    instance variable with the same name
+## Caching the result
+If wanted, the result of the method can be stored in an
+instance variable with the same name.
+
+When caching, you can cache with type `:full` so that even `nil`
+values are cached
 
 ```ruby
   class MyModel
