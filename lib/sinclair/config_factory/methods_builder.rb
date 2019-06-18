@@ -3,13 +3,16 @@
 class Sinclair
   class ConfigFactory
     class MethodsBuilder < Sinclair
-      def initialize(klass, *arguments)
+      def initialize(klass, *names)
         super(klass)
-        @arguments = arguments
+
+        @names = names
+        @defaults = names.find { |arg| arg.is_a?(Hash) } || {}
+        names.delete(defaults)
       end
 
       def build
-        hash.each do |method, value|
+        config_hash.each do |method, value|
           add_method(method, cached: :full) { value }
         end
 
@@ -17,33 +20,19 @@ class Sinclair
       end
 
       def config_names
-        hash.keys
+        config_hash.keys
       end
 
       private
 
-      attr_reader :arguments
+      attr_reader :names, :defaults
 
-      def hash
-        @hash ||= name_hash.merge!(default_hash)
+      def config_hash
+        @config_hash ||= names_as_hash.merge!(defaults)
       end
 
-      def default_hash
-        hash_arguments.inject({}) do |hash, argument|
-          hash.merge! argument
-        end
-      end
-
-      def name_hash
-        Hash[name_arguments.map { |a| [a] }]
-      end
-
-      def hash_arguments
-        arguments.select { |arg| arg.is_a?(Hash) }
-      end
-
-      def name_arguments
-        arguments.reject { |arg| arg.is_a?(Hash) }
+      def names_as_hash
+        Hash[names.map { |*name| name }]
       end
     end
   end
