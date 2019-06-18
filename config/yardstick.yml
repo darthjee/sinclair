@@ -34,6 +34,8 @@ rules:
       - Sinclair::ConfigFactory#initialize
       - Sinclair::ConfigFactory#config_class
       - Sinclair::ConfigFactory#config_attributes
+      - Sinclair::ConfigFactory::MethodsBuilder#names
+      - Sinclair::ConfigFactory::MethodsBuilder#defaults
   Summary::Presence:
     enabled: true
     exclude:
@@ -52,6 +54,9 @@ rules:
       - Sinclair::ConfigFactory#initialize
       - Sinclair::ConfigFactory#config_class
       - Sinclair::ConfigFactory#config_attributes
+      - Sinclair::ConfigFactory::MethodsBuilder#initialize
+      - Sinclair::ConfigFactory::MethodsBuilder#names
+      - Sinclair::ConfigFactory::MethodsBuilder#defaults
   Summary::Length:
     enabled: true
     exclude: []

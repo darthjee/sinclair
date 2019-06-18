@@ -36,7 +36,23 @@ class Sinclair
   #   MyConfigurable.config.host
   #   # returns nil
   module Configurable
-    delegate :config, :reset_config, :configure, to: :config_factory
+    # (see ConfigFactory#config)
+    # @see ConfigFactory#config
+    def config
+      config_factory.config
+    end
+
+    # (see ConfigFactory#reset_config)
+    # @see ConfigFactory#reset_config
+    def reset_config
+      config_factory.reset_config
+    end
+
+    # (see ConfigFactory#configure)
+    # @see ConfigFactory#configure
+    def configure(&block)
+      config_factory.configure(&block)
+    end
 
     protected
 
