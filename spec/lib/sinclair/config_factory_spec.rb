@@ -128,7 +128,7 @@ describe Sinclair::ConfigFactory do
 
     context 'when factory initialized with defaults' do
       before do
-        factory.add_configs({ user: 'Jack' })
+        factory.add_configs(user: 'Jack')
       end
 
       it_behaves_like 'configure a config'

@@ -77,19 +77,19 @@ class Sinclair
     #
     #   config.respond_to? :active
     #   # returns true
-    def add_configs(*attributes, **defaults)
-      config_class.attr_reader(*attributes)
+    def add_configs(*names, **defaults)
+      attributes = Hash[names.map { |n| [n] }]
+      attributes.merge!(defaults)
 
       builder = Sinclair.new(config_class)
 
-      defaults.each do |method, value|
+      attributes.each do |method, value|
         builder.add_method(method, cached: :full) { value }
       end
 
       builder.build
 
-      config_attributes.concat(attributes.map(&:to_sym))
-      config_attributes.concat(defaults.keys.map(&:to_sym))
+      config_attributes.concat(attributes.keys.map(&:to_sym))
     end
 
     # Set the values in the config
