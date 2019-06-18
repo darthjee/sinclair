@@ -14,5 +14,17 @@ describe Sinclair::ConfigFactory::MethodsBuilder do
         let(:code_block) { proc { builder.build } }
       end
     end
+
+    context 'when initializing defaults' do
+      subject(:builder) do
+        described_class.new(
+          config_class, name: 'Bobby', 'password' => 'abcdef'
+        )
+      end
+
+      it_behaves_like 'a config methods builder adding config' do
+        let(:code_block) { proc { builder.build } }
+      end
+    end
   end
 end
