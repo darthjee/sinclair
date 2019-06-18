@@ -6,12 +6,12 @@ shared_examples 'a config factory adding config' do
   end
 
   it 'adds reader to config' do
-    expect(&code_block).to add_method(:name).to(factory.config)
+    expect(&code_block).to add_method(:name).to(config)
   end
 
   it 'does not add setter to config' do
     expect(&code_block)
-      .not_to add_method(:name=).to(factory.config)
+      .not_to add_method(:name=).to(config)
   end
 
   it 'does not change Sinclair::Config class' do

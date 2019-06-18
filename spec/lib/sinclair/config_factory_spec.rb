@@ -81,6 +81,8 @@ describe Sinclair::ConfigFactory do
   end
 
   describe '#add_configs' do
+    let(:config) { factory.config }
+
     it_behaves_like 'a config factory adding config' do
       let(:method_call) { proc { add_configs(:name) } }
 
