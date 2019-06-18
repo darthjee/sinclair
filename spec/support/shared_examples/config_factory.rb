@@ -86,4 +86,12 @@ shared_examples 'configure a config' do
         .to raise_error(NoMethodError)
     end
   end
+
+  context 'when it was defined using string' do
+    it do
+      expect { factory.configure { |c| c.password '123456' } }
+        .to change(config, :password)
+        .to('123456')
+    end
+  end
 end
