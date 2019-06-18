@@ -132,6 +132,14 @@ describe Sinclair::ConfigFactory do
       end
 
       it_behaves_like 'configure a config'
+
+      xcontext 'when it was defined using string' do
+        it do
+          expect { factory.configure { |c| c.password '123456' } }
+            .to change(config, :password)
+            .to('123456')
+        end
+      end
     end
   end
 
