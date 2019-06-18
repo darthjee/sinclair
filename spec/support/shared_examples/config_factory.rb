@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-shared_examples 'a config factory adding config' do
-  let(:code_block) do
-    proc { factory.instance_eval(&method_call) }
-  end
-
+shared_examples 'a config methods builder adding config' do
   it 'adds reader to config' do
     expect(&code_block).to add_method(:name).to(config)
   end
@@ -16,8 +12,16 @@ shared_examples 'a config factory adding config' do
 
   it 'does not change Sinclair::Config class' do
     expect(&code_block)
-      .not_to add_method(:name).to(Sinclair::Config.new)
+      .not_to add_method(:name).to(Sinclair::Config)
   end
+end
+
+shared_examples 'a config factory adding config' do
+  let(:code_block) do
+    proc { factory.instance_eval(&method_call) }
+  end
+
+  it_behaves_like 'a config methods builder adding config'
 
   it 'allows config_builder to handle method missing' do
     code_block.call
