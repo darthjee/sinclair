@@ -14,36 +14,32 @@ shared_examples 'a config methods builder adding config' do
     expect(&code_block)
       .not_to add_method(:name).to(Sinclair::Config)
   end
-end
-
-shared_examples 'a config factory adding config' do
-  let(:code_block) do
-    proc { factory.instance_eval(&method_call) }
-  end
-
-  it_behaves_like 'a config methods builder adding config'
 
   it 'allows config_builder to handle method missing' do
     code_block.call
 
-    expect { factory.configure { name 'John' } }
+    expect { setter_block.call('John') }
       .not_to raise_error
   end
 
   it 'adds reader for configuration' do
     code_block.call
-    factory.configure { name 'John' }
+    setter_block.call('John')
 
-    expect(factory.config.name).to eq('John')
+    expect(config.name).to eq('John')
   end
 
   it 'adds reader for configuration accepting nil values' do
     code_block.call
-    factory.configure { name 'John' }
-    factory.configure { name nil }
+    setter_block.call('John')
+    setter_block.call(nil)
 
-    expect(factory.config.name).to be_nil
+    expect(config.name).to be_nil
   end
+end
+
+shared_examples 'a config factory adding config' do
+  it_behaves_like 'a config methods builder adding config'
 
   it 'changes subclasses of config' do
     expect(&code_block)

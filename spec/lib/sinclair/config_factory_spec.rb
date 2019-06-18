@@ -83,6 +83,14 @@ describe Sinclair::ConfigFactory do
   describe '#add_configs' do
     let(:config) { factory.config }
 
+    let(:code_block) do
+      proc { factory.instance_eval(&method_call) }
+    end
+
+    let(:setter_block) do
+      proc { |value| factory.configure { name value } }
+    end
+
     it_behaves_like 'a config factory adding config' do
       let(:method_call) { proc { add_configs(:name) } }
 
