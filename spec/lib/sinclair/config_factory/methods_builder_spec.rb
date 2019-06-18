@@ -18,6 +18,12 @@ describe Sinclair::ConfigFactory::MethodsBuilder do
       subject(:builder) { described_class.new(config_class, :name, 'password') }
 
       it_behaves_like 'a config methods builder adding config'
+
+      it 'does not set a default value' do
+        code_block.call
+
+        expect(config.name).to be_nil
+      end
     end
 
     context 'when initializing defaults' do
@@ -28,6 +34,12 @@ describe Sinclair::ConfigFactory::MethodsBuilder do
       end
 
       it_behaves_like 'a config methods builder adding config'
+
+      it 'sets a default value' do
+        code_block.call
+
+        expect(config.name).to eq('Bobby')
+      end
     end
 
     context 'when mixing names and hash' do
@@ -39,14 +51,26 @@ describe Sinclair::ConfigFactory::MethodsBuilder do
 
       it_behaves_like 'a config methods builder adding config'
 
+      it 'does not set a default value' do
+        code_block.call
+
+        expect(config.name).to be_nil
+      end
+
       context 'when name and hash define same config' do
         subject(:builder) do
           described_class.new(
-            config_class, :name, name: 'abcdef'
+            config_class, :name, name: 'Bobby'
           )
         end
 
         it_behaves_like 'a config methods builder adding config'
+
+        it 'sets a default value' do
+          code_block.call
+
+          expect(config.name).to eq('Bobby')
+        end
       end
     end
   end
