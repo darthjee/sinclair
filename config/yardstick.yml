@@ -18,6 +18,9 @@ rules:
     exclude:
       - Sinclair::OptionsParser#options
       - Sinclair::OptionsParser#options_object
+      - Sinclair::Configurable#config
+      - Sinclair::Configurable#reset_config
+      - Sinclair::Configurable#configure
   ReturnTag:
     enabled: true
     exclude:
@@ -34,6 +37,11 @@ rules:
       - Sinclair::ConfigFactory#initialize
       - Sinclair::ConfigFactory#config_class
       - Sinclair::ConfigFactory#config_attributes
+      - Sinclair::ConfigFactory::MethodsBuilder#names
+      - Sinclair::ConfigFactory::MethodsBuilder#defaults
+      - Sinclair::Configurable#config
+      - Sinclair::Configurable#reset_config
+      - Sinclair::Configurable#configure
   Summary::Presence:
     enabled: true
     exclude:
@@ -52,6 +60,9 @@ rules:
       - Sinclair::ConfigFactory#initialize
       - Sinclair::ConfigFactory#config_class
       - Sinclair::ConfigFactory#config_attributes
+      - Sinclair::ConfigFactory::MethodsBuilder#initialize
+      - Sinclair::ConfigFactory::MethodsBuilder#names
+      - Sinclair::ConfigFactory::MethodsBuilder#defaults
   Summary::Length:
     enabled: true
     exclude: []

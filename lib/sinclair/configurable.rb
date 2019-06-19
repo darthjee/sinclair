@@ -17,7 +17,8 @@ class Sinclair
   #   class MyConfigurable
   #     extend Sinclair::Configurable
   #
-  #     configurable_with :host, :port
+  #     # port is defaulted to 80
+  #     configurable_with :host, port: 80
   #   end
   #
   #   MyConfigurable.configure do
@@ -31,12 +32,31 @@ class Sinclair
   #   MyConfigurable.config.port
   #   # returns 5555
   #
-  #   MyConfigurable.reset
+  #   MyConfigurable.reset_config
   #
   #   MyConfigurable.config.host
   #   # returns nil
+  #
+  #   MyConfigurable.config.port
+  #   # returns 80
   module Configurable
-    delegate :config, :reset_config, :configure, to: :config_factory
+    # (see ConfigFactory#config)
+    # @see ConfigFactory#config
+    def config
+      config_factory.config
+    end
+
+    # (see ConfigFactory#reset_config)
+    # @see ConfigFactory#reset_config
+    def reset_config
+      config_factory.reset_config
+    end
+
+    # (see ConfigFactory#configure)
+    # @see ConfigFactory#configure
+    def configure(&block)
+      config_factory.configure(&block)
+    end
 
     protected
 
@@ -64,7 +84,7 @@ class Sinclair
 
     private
 
-    # @visibility public
+    # @!visibility public
     #
     # Adds a configuration option to config class
     #

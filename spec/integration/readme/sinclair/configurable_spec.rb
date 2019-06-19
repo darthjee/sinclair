@@ -36,8 +36,7 @@ describe Sinclair::Configurable do
       end
 
       it 'resets configuration port' do
-        expect(MyConfigurable.config.port)
-          .to be_nil
+        expect(MyConfigurable.config.port).to eq(80)
       end
     end
   end

@@ -27,8 +27,11 @@ describe Sinclair::Configurable do
       before { MyConfigurable.reset_config }
 
       it 'returns initial value for host' do
-        expect(MyConfigurable.config.host)
-          .to be_nil
+        expect(MyConfigurable.config.host).to be_nil
+      end
+
+      it 'returns initial value for port' do
+        expect(MyConfigurable.config.port).to eq(80)
       end
     end
   end

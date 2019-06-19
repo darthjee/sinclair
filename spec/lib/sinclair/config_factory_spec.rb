@@ -81,46 +81,23 @@ describe Sinclair::ConfigFactory do
   end
 
   describe '#add_configs' do
-    it 'adds reader to config' do
-      expect { factory.add_configs(:name) }
-        .to add_method(:name).to(factory.config)
+    let(:config) { factory.config }
+
+    let(:code_block) do
+      proc { factory.instance_eval(&method_call) }
     end
 
-    it 'does not add setter to config' do
-      expect { factory.add_configs(:name) }
-        .not_to add_method(:name=).to(factory.config)
+    let(:setter_block) do
+      proc { |value| factory.configure { name value } }
     end
 
-    it 'does not change Sinclair::Config class' do
-      expect { factory.add_configs(:name) }
-        .not_to add_method(:name).to(Sinclair::Config.new)
-    end
+    it_behaves_like 'a config factory adding config' do
+      let(:method_call) { proc { add_configs(:name) } }
 
-    it 'allows config_builder to handle method missing' do
-      factory.add_configs(:name)
-      expect { factory.configure { name 'John' } }.not_to raise_error
-    end
+      it 'does not set a default value' do
+        code_block.call
 
-    it 'changes subclasses of config' do
-      expect { factory.add_configs(:name) }
-        .to add_method(:name).to(factory.child.config)
-    end
-
-    it 'does not mess with parent config_builder' do
-      factory.child.add_configs(:name)
-      expect { factory.configure { name 'John' } }
-        .to raise_error(NoMethodError)
-    end
-
-    context 'when initializing with custom config class' do
-      it do
-        expect { factory.add_configs(:name) }
-          .to add_method(:name).to(factory.config)
-      end
-
-      it 'does not change other config classes' do
-        expect { factory.add_configs(:name) }
-          .not_to add_method(:name).to(other_factory.config)
+        expect(factory.config.name).to be_nil
       end
     end
 
@@ -130,30 +107,33 @@ describe Sinclair::ConfigFactory do
       factory.reset_config
       expect(factory.config).to be_a(Sinclair::Config)
     end
+
+    context 'when passing a hash' do
+      it_behaves_like 'a config factory adding config' do
+        let(:method_call) { proc { add_configs(name: 'Bobby') } }
+
+        it 'sets a default value' do
+          code_block.call
+
+          expect(factory.config.name).to eq('Bobby')
+        end
+      end
+    end
   end
 
   describe '#configure' do
-    before { factory.add_configs(:user, 'password') }
+    context 'when factory was not initialized with defaults' do
+      before { factory.add_configs(:user, 'password') }
 
-    it do
-      expect { factory.configure { |c| c.user 'Bob' } }
-        .to change(config, :user)
-        .from(nil).to('Bob')
+      it_behaves_like 'configure a config'
     end
 
-    context 'when it was defined using string' do
-      it do
-        expect { factory.configure { |c| c.password '123456' } }
-          .to change(config, :password)
-          .from(nil).to('123456')
+    context 'when factory initialized with defaults' do
+      before do
+        factory.add_configs(user: 'Jack', 'password' => 'abcdef')
       end
-    end
 
-    context 'when calling a method that was not defined' do
-      it do
-        expect { factory.configure { |c| c.nope '123456' } }
-          .to raise_error(NoMethodError)
-      end
+      it_behaves_like 'configure a config'
     end
   end
 

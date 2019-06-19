@@ -16,6 +16,8 @@ class Sinclair
   #   factory.config.equal?(config) # returns true
   #   config.name                   # returns 'John'
   class ConfigFactory
+    autoload :MethodsBuilder, 'sinclair/config_factory/methods_builder'
+
     # @param config_class [Class] configuration class to be used
     # @param config_attributes [Array<Symbol,String>] list of possible configurations
     def initialize(config_class: Class.new(Config), config_attributes: [])
@@ -77,9 +79,12 @@ class Sinclair
     #
     #   config.respond_to? :active
     #   # returns true
-    def add_configs(*attributes)
-      config_class.attr_reader(*attributes)
-      config_attributes.concat(attributes.map(&:to_sym))
+    def add_configs(*args)
+      builder = MethodsBuilder.new(config_class, *args)
+
+      builder.build
+
+      config_attributes.concat(builder.config_names.map(&:to_sym))
     end
 
     # Set the values in the config

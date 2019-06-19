@@ -14,7 +14,7 @@ methods
 
 Yard Documentation
 -------------------
-https://www.rubydoc.info/gems/sinclair/1.3.1
+https://www.rubydoc.info/gems/sinclair/1.3.2
 
 Installation
 ---------------
@@ -314,7 +314,8 @@ the `configurable#configure` method
   class MyConfigurable
     extend Sinclair::Configurable
 
-    configurable_with :host, :port
+    # port is defaulted to 80
+    configurable_with :host, port: 80
   end
 
   MyConfigurable.configure do |config|
@@ -328,7 +329,7 @@ the `configurable#configure` method
   MyConfigurable.reset_config
 
   MyConfigurable.config.host # returns nil
-  MyConfigurable.config.port # returns nil
+  MyConfigurable.config.port # returns 80
 ```
 
 RSspec matcher

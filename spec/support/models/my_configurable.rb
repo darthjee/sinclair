@@ -3,5 +3,6 @@
 class MyConfigurable
   extend Sinclair::Configurable
 
-  configurable_with :host, :port
+  # port is defaulted to 80
+  configurable_with :host, port: 80
 end
