@@ -314,7 +314,8 @@ the `configurable#configure` method
   class MyConfigurable
     extend Sinclair::Configurable
 
-    configurable_with :host, :port
+    # port is defaulted to 80
+    configurable_with :host, port: 80
   end
 
   MyConfigurable.configure do |config|
@@ -328,7 +329,7 @@ the `configurable#configure` method
   MyConfigurable.reset_config
 
   MyConfigurable.config.host # returns nil
-  MyConfigurable.config.port # returns nil
+  MyConfigurable.config.port # returns 80
 ```
 
 RSspec matcher
