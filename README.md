@@ -14,7 +14,7 @@ methods
 
 Yard Documentation
 -------------------
-https://www.rubydoc.info/gems/sinclair/1.3.1
+https://www.rubydoc.info/gems/sinclair/1.3.2
 
 Installation
 ---------------
