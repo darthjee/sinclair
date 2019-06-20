@@ -97,5 +97,13 @@ class Sinclair
     def configurable_with(*attributes)
       config_factory.add_configs(*attributes)
     end
+
+    # @!visibility public
+    def configurable_by(config_class, *attributes)
+      @config_factory = ConfigFactory.new(
+        config_class: config_class,
+        config_attributes: attributes.map(&:to_sym)
+      )
+    end
   end
 end

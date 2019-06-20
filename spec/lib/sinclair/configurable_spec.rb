@@ -70,6 +70,52 @@ describe Sinclair::Configurable do
     end
   end
 
+  describe '#configurable_by' do
+    let(:config_class) { ServerConfig }
+
+    it 'changes config class' do
+      expect { configurable.send(:configurable_by, config_class) }
+        .to change { configurable.config.class }
+        .to(ServerConfig)
+    end
+
+    context 'when config attributes are not given' do
+      it 'raises error with any configuration' do
+        expect { configurable.configure { host 'myhost' } }
+          .to raise_error(NoMethodError)
+      end
+    end
+
+    context 'when config attributes are given' do
+      let(:attributes) { [:host, 'port'] }
+
+      let(:block) do
+        proc do
+          configurable.send(
+            :configurable_by, config_class, *attributes
+          )
+        end
+      end
+
+      it 'does not add symbol methods config object' do
+        expect(&block)
+          .not_to add_method(:host).to(configurable.config)
+      end
+
+      it 'does not add string methods config object' do
+        expect(&block)
+          .not_to add_method(:port).to(configurable.config)
+      end
+
+      it 'does not raises error on configuration of given attributes' do
+        block.call
+
+        expect { configurable.configure { host 'myhost'; port 90 } }
+          .not_to raise_error
+      end
+    end
+  end
+
   describe '.configure' do
     let(:config) { configurable.config }
 
