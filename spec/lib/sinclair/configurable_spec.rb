@@ -107,10 +107,17 @@ describe Sinclair::Configurable do
           .not_to add_method(:port).to(configurable.config)
       end
 
-      it 'does not raises error on configuration of given attributes' do
+      it 'does not raises error on configuration of given symbol attributes' do
         block.call
 
-        expect { configurable.configure { host 'myhost'; port 90 } }
+        expect { configurable.configure { host 'myhost' } }
+          .not_to raise_error
+      end
+
+      it 'does not raises error on configuration of given string attributes' do
+        block.call
+
+        expect { configurable.configure { port 90 } }
           .not_to raise_error
       end
     end
