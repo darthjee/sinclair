@@ -92,7 +92,7 @@ describe Sinclair::Configurable do
       let(:block) do
         proc do
           configurable.send(
-            :configurable_by, config_class, *attributes
+            :configurable_by, config_class, with: attributes
           )
         end
       end
@@ -145,7 +145,7 @@ describe Sinclair::Configurable do
 
       before do
         configurable.send(
-          :configurable_by, config_class, *[:host, 'port']
+          :configurable_by, config_class, with: [:host, 'port']
         )
       end
 

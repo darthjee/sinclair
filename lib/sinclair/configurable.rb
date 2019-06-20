@@ -99,10 +99,10 @@ class Sinclair
     end
 
     # @!visibility public
-    def configurable_by(config_class, *attributes)
+    def configurable_by(config_class, with: [])
       @config_factory = ConfigFactory.new(
         config_class: config_class,
-        config_attributes: attributes.map(&:to_sym)
+        config_attributes: with.map(&:to_sym)
       )
     end
   end
