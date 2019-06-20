@@ -42,6 +42,11 @@ describe Sinclair::Configurable do
   end
 
   describe '.configurable_with' do
+    it do
+      expect(configurable.send(:configurable_with, :name, 'host'))
+        .to all(be_a(Symbol))
+    end
+
     it 'adds reader to config' do
       expect { configurable.send(:configurable_with, :name) }
         .to add_method(:name).to(configurable.config)
@@ -72,6 +77,11 @@ describe Sinclair::Configurable do
 
   describe '#configurable_by' do
     let(:config_class) { ServerConfig }
+
+    it do
+      expect(configurable.send(:configurable_by, config_class))
+        .to be_a(Sinclair::ConfigFactory)
+    end
 
     it 'changes config class' do
       expect { configurable.send(:configurable_by, config_class) }
