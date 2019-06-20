@@ -139,5 +139,43 @@ describe Sinclair::Configurable do
           .to raise_error(NoMethodError)
       end
     end
+
+    context 'when it was configured by custom class' do
+      let(:config_class) { ServerConfig }
+
+      before do
+        configurable.send(
+          :configurable_by, config_class, *[:host, 'port']
+        )
+      end
+
+      context 'when config class has the methods' do
+        it do
+          expect { configurable.configure { |c| c.host 'myhost' } }
+            .not_to raise_error
+        end
+
+        it 'sets variable' do
+          expect { configurable.configure { |c| c.host 'myhost' } }
+            .to change(config, :host)
+            .from(nil).to('myhost')
+        end
+      end
+
+      context 'when config class does not have the methods' do
+        let(:config_class) { Class.new(Sinclair::Config) }
+
+        it do
+          expect { configurable.configure { |c| c.host 'myhost' } }
+            .not_to raise_error
+        end
+
+        it 'sets variable' do
+          expect { configurable.configure { |c| c.host 'myhost' } }
+            .to change { config.instance_variable_get(:@host) }
+            .from(nil).to('myhost')
+        end
+      end
+    end
   end
 end
