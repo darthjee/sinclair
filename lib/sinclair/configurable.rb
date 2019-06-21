@@ -69,7 +69,7 @@ class Sinclair
     #
     # @see ConfigFactory#add_configs
     #
-    # @example
+    # @example Configuring with common class
     #   class MyConfigurable
     #     extend Sinclair::Configurable
     #
@@ -113,6 +113,35 @@ class Sinclair
     # {#configure_with}
     #
     # @return [ConfigFactory]
+    #
+    # @example Configured by custom config class
+    #   class MyServerConfig
+    #     def url
+    #       if @port
+    #         "http://#{@host}:#{@port}"
+    #       else
+    #         "http://#{@host}"
+    #       end
+    #     end
+    #   end
+    #
+    #   class Client
+    #     extend Sinclair::Configurable
+    #
+    #     configurable_by MyServerConfig, with: %i[host port]
+    #   end
+    #
+    #   Client.configure do
+    #     host 'interstella.com'
+    #   end
+    #
+    #   Client.config.url # returns 'http://interstella.com'
+    #
+    #   Client.configure do |config|
+    #     config.port 8080
+    #   end
+    #
+    #   Client.config.url # returns 'http://interstella.com:8080'
     def configurable_by(config_class, with: [])
       @config_factory = ConfigFactory.new(
         config_class: config_class,
