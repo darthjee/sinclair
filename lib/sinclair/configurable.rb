@@ -8,7 +8,8 @@ class Sinclair
   # By extending Configurable, class receives the methods public
   # {ConfigFactory#config .config}, {ConfigFactory#reset_config .reset_config}
   # and {ConfigFactory#configure .configure}
-  # and the private {#configurable_with .configurable_with}
+  # and the private methods {#configurable_with .configurable_with}
+  # and {#configurable_by .configurable_by}
   #
   # @see ConfigFactory
   # @see ConfigBuilder
@@ -69,7 +70,7 @@ class Sinclair
     #
     # @see ConfigFactory#add_configs
     #
-    # @example Configuring with common class
+    # @example Configuring with common {Sinclair::Config} class
     #   class MyConfigurable
     #     extend Sinclair::Configurable
     #
@@ -110,7 +111,7 @@ class Sinclair
     #
     # configurable_with does not add methods to config_class.
     # If needed, those can be added by a subsequent call to
-    # {#configure_with}
+    # {#configurable_with}
     #
     # @return [ConfigFactory]
     #
