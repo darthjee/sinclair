@@ -332,6 +332,38 @@ the `configurable#configure` method
   MyConfigurable.config.port # returns 80
 ```
 
+Configurations can also be done through custom classes
+
+```ruby
+  class MyServerConfig
+    def url
+      if @port
+        "http://#{@host}:#{@port}"
+      else
+        "http://#{@host}"
+      end
+    end
+  end
+
+  class Client
+    extend Sinclair::Configurable
+
+    configurable_by MyServerConfig, with: %i[host port]
+  end
+
+  Client.configure do
+    host 'interstella.com'
+  end
+
+  Client.config.url # returns 'http://interstella.com'
+
+  Client.configure do |config|
+    config.port 8080
+  end
+
+  Client.config.url # returns 'http://interstella.com:8080'
+```
+
 RSspec matcher
 ---------------
 
