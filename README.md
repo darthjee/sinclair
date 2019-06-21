@@ -14,7 +14,7 @@ methods
 
 Yard Documentation
 -------------------
-https://www.rubydoc.info/gems/sinclair/1.3.3
+https://www.rubydoc.info/gems/sinclair/1.3.4
 
 Installation
 ---------------
@@ -311,7 +311,7 @@ Configurations are read-only objects that can only be set using
 the `configurable#configure` method
 
 ```ruby
-  class MyConfigurable
+  module MyConfigurable
     extend Sinclair::Configurable
 
     # port is defaulted to 80

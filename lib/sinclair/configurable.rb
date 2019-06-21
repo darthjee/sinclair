@@ -52,7 +52,7 @@ class Sinclair
     #
     # @return [ConfigFactory]
     def config_factory
-      @config_factory ||= if superclass.is_a?(Configurable)
+      @config_factory ||= if is_a?(Class) && superclass.is_a?(Configurable)
                             superclass.config_factory.child
                           else
                             ConfigFactory.new
@@ -71,7 +71,7 @@ class Sinclair
     # @see ConfigFactory#add_configs
     #
     # @example Configuring with common {Sinclair::Config} class
-    #   class MyConfigurable
+    #   module MyConfigurable
     #     extend Sinclair::Configurable
     #
     #     # port is defaulted to 80
