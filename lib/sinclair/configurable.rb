@@ -71,7 +71,7 @@ class Sinclair
     # @see ConfigFactory#add_configs
     #
     # @example Configuring with common {Sinclair::Config} class
-    #   class MyConfigurable
+    #   module MyConfigurable
     #     extend Sinclair::Configurable
     #
     #     # port is defaulted to 80

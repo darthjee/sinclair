@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MyConfigurable
+module MyConfigurable
   extend Sinclair::Configurable
 
   # port is defaulted to 80

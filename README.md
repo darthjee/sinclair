@@ -311,7 +311,7 @@ Configurations are read-only objects that can only be set using
 the `configurable#configure` method
 
 ```ruby
-  class MyConfigurable
+  module MyConfigurable
     extend Sinclair::Configurable
 
     # port is defaulted to 80
