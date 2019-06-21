@@ -25,6 +25,8 @@ class Sinclair
       @config_attributes = config_attributes.dup
     end
 
+    # @api public
+    #
     # Returns current instance of config
     #
     # the method returns the same instance until +reset_config+
@@ -41,6 +43,8 @@ class Sinclair
       @config ||= config_class.new
     end
 
+    # @api public
+    #
     # Cleans the current config instance
     #
     # After cleaning it, {#config} will generate a new
@@ -87,6 +91,8 @@ class Sinclair
       config_attributes.concat(builder.config_names.map(&:to_sym))
     end
 
+    # @api public
+    #
     # Set the values in the config
     #
     # The block given is evaluated by the {ConfigBuilder}

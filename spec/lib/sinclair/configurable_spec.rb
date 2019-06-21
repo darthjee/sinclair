@@ -42,6 +42,11 @@ describe Sinclair::Configurable do
   end
 
   describe '.configurable_with' do
+    it do
+      expect(configurable.send(:configurable_with, :name, 'host'))
+        .to all(be_a(Symbol))
+    end
+
     it 'adds reader to config' do
       expect { configurable.send(:configurable_with, :name) }
         .to add_method(:name).to(configurable.config)
@@ -70,6 +75,64 @@ describe Sinclair::Configurable do
     end
   end
 
+  describe '#configurable_by' do
+    let(:config_class) { ServerConfig }
+
+    it do
+      expect(configurable.send(:configurable_by, config_class))
+        .to be_a(Sinclair::ConfigFactory)
+    end
+
+    it 'changes config class' do
+      expect { configurable.send(:configurable_by, config_class) }
+        .to change { configurable.config.class }
+        .to(ServerConfig)
+    end
+
+    context 'when config attributes are not given' do
+      it 'raises error with any configuration' do
+        expect { configurable.configure { host 'myhost' } }
+          .to raise_error(NoMethodError)
+      end
+    end
+
+    context 'when config attributes are given' do
+      let(:attributes) { [:host, 'port'] }
+
+      let(:block) do
+        proc do
+          configurable.send(
+            :configurable_by, config_class, with: attributes
+          )
+        end
+      end
+
+      it 'does not add symbol methods config object' do
+        expect(&block)
+          .not_to add_method(:host).to(configurable.config)
+      end
+
+      it 'does not add string methods config object' do
+        expect(&block)
+          .not_to add_method(:port).to(configurable.config)
+      end
+
+      it 'does not raises error on configuration of given symbol attributes' do
+        block.call
+
+        expect { configurable.configure { host 'myhost' } }
+          .not_to raise_error
+      end
+
+      it 'does not raises error on configuration of given string attributes' do
+        block.call
+
+        expect { configurable.configure { port 90 } }
+          .not_to raise_error
+      end
+    end
+  end
+
   describe '.configure' do
     let(:config) { configurable.config }
 
@@ -91,6 +154,44 @@ describe Sinclair::Configurable do
       it do
         expect { configurable.configure { |c| c.nope '123456' } }
           .to raise_error(NoMethodError)
+      end
+    end
+
+    context 'when it was configured by custom class' do
+      let(:config_class) { ServerConfig }
+
+      before do
+        configurable.send(
+          :configurable_by, config_class, with: [:host, 'port']
+        )
+      end
+
+      context 'when config class has the methods' do
+        it do
+          expect { configurable.configure { |c| c.host 'myhost' } }
+            .not_to raise_error
+        end
+
+        it 'sets variable' do
+          expect { configurable.configure { |c| c.host 'myhost' } }
+            .to change(config, :host)
+            .from(nil).to('myhost')
+        end
+      end
+
+      context 'when config class does not have the methods' do
+        let(:config_class) { Class.new(Sinclair::Config) }
+
+        it do
+          expect { configurable.configure { |c| c.host 'myhost' } }
+            .not_to raise_error
+        end
+
+        it 'sets variable' do
+          expect { configurable.configure { |c| c.host 'myhost' } }
+            .to change { config.instance_variable_get(:@host) }
+            .from(nil).to('myhost')
+        end
       end
     end
   end
