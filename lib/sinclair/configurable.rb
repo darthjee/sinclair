@@ -52,7 +52,7 @@ class Sinclair
     #
     # @return [ConfigFactory]
     def config_factory
-      @config_factory ||= if superclass.is_a?(Configurable)
+      @config_factory ||= if is_a?(Class) && superclass.is_a?(Configurable)
                             superclass.config_factory.child
                           else
                             ConfigFactory.new

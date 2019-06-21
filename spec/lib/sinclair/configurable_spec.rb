@@ -73,6 +73,22 @@ describe Sinclair::Configurable do
       configurable.reset_config
       expect(configurable.config).to be_a(Sinclair::Config)
     end
+
+    context 'when configurable is a module' do
+      subject(:configurable) do
+        Module.new { extend Sinclair::Configurable }
+      end
+
+      it do
+        expect { configurable.send(:configurable_with, :name) }
+          .not_to raise_error
+      end
+
+      it 'adds reader to config' do
+        expect { configurable.send(:configurable_with, :name) }
+          .to add_method(:name).to(configurable.config)
+      end
+    end
   end
 
   describe '#configurable_by' do
