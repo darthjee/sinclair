@@ -4,7 +4,7 @@ DIFF_LIST=$(git diff --name-only $CIRCLE_SHA1 $(git merge-base $CIRCLE_SHA1 orig
 
 if [ ! -z "$DIFF_LIST" ]; then
   mkdir -p tmp/rubycritic/compare
-  bundle exec rubycritic --format console --branch origin/master -t 0 $DIFF_LIST
+  bundle exec rubycritic --format console --branch origin/master -t 0  --maximum-decrease 1 $DIFF_LIST
 else
   echo "No changes detected. Skipping rubycritic..."
 fi
