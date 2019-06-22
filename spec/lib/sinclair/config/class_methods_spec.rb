@@ -96,16 +96,30 @@ describe Sinclair::Config::ClassMethods do
   end
 
   describe 'attributes' do
-    context 'after adding attributes' do
-      xit 'returns added attributes'
+    let(:attributes) { [:username, 'password', :key] }
+
+    context 'when attributes have been added' do
+      before { klass.add_attributes(*attributes) }
+
+      it 'returns added attributes' do
+        expect(klass.attributes).to eq(%i[username password key])
+      end
     end
 
     context 'when parent class has attributes' do
-      xit 'returns parents attributes also'
+      before { klass.add_attributes(*attributes) }
+
+      it 'returns parents attributes also' do
+        expect(child_klass.attributes).to eq(%i[username password key])
+      end
     end
 
     context 'when parent class changes its attributes' do
-      xit 'returns adds new attributes to self'
+      it 'returns adds new attributes to self' do
+        expect { klass.add_attributes(*attributes) }
+          .to change(child_klass, :attributes)
+          .from([]).to(%i[username password key])
+      end
     end
   end
 end
