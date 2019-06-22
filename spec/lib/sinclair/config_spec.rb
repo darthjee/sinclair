@@ -2,12 +2,10 @@
 
 require 'spec_helper'
 
-describe Sinclair::Config::ClassMethods do
+describe Sinclair::Config do
   subject(:child_klass) { Class.new(klass) }
 
-  let(:klass) do
-    Class.new { extend Sinclair::Config::ClassMethods }
-  end
+  let(:klass) { Class.new(described_class) }
 
   describe '.add_attributes' do
     it_behaves_like 'a config class with .add_attributes method'
