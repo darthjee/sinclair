@@ -40,5 +40,33 @@ describe Sinclair::Config::ClassMethods do
           .to(%i[username password key])
       end
     end
+
+    context 'when there is a child class' do
+      xit 'adds attributes to child class'
+    end
+
+    context 'when there is a parent class' do
+      xit 'does not add attributes to parent class'
+    end
+
+    context 'when sperclass already has attributes' do
+      xit 'adds only attributes that had not been defined before'
+
+      xit 'does not change parent class'
+    end
+  end
+
+  describe 'attributes' do
+    context 'after adding attributes' do
+      xit 'returns added attributes'
+    end
+
+    context 'when parent class has attributes' do
+      xit 'returns parents attributes also'
+    end
+
+    context 'when parent class changes its attributes' do
+      xit 'returns adds new attributes to self'
+    end
   end
 end
