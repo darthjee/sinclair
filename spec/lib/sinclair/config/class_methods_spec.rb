@@ -3,7 +3,9 @@
 require 'spec_helper'
 
 describe Sinclair::Config::ClassMethods do
-  subject(:klass) do
+  subject(:child_klass) { Class.new(klass) }
+
+  let(:klass) do
     Class.new { extend Sinclair::Config::ClassMethods }
   end
 
@@ -42,17 +44,54 @@ describe Sinclair::Config::ClassMethods do
     end
 
     context 'when there is a child class' do
-      xit 'adds attributes to child class'
+      it 'adds attributes to child class' do
+        expect { klass.add_attributes(*attributes) }
+          .to change(child_klass, :attributes)
+          .from([]).to(%i[username password key])
+      end
+
+      context 'when child class already has attributes' do
+        before do
+          child_klass.add_attributes('email')
+        end
+
+        it 'adds new attributes to child class' do
+          expect { klass.add_attributes(*attributes) }
+            .to change(child_klass, :attributes)
+            .from([:email]).to(%i[username password key email])
+        end
+      end
+
+      context 'when child class already has one of the attributes' do
+        before do
+          child_klass.add_attributes(:email, 'username')
+        end
+
+        it 'adds new attributes to child class' do
+          expect { klass.add_attributes(*attributes) }
+            .to change(child_klass, :attributes)
+            .from(%i[email username]).to(%i[username password key email])
+        end
+      end
     end
 
     context 'when there is a parent class' do
-      xit 'does not add attributes to parent class'
-    end
+      it 'does not add attributes to parent class' do
+        expect { child_klass.add_attributes(*attributes) }
+          .not_to change(klass, :attributes)
+      end
 
-    context 'when sperclass already has attributes' do
-      xit 'adds only attributes that had not been defined before'
+      context 'when parent already has attributes' do
+        before do
+          klass.add_attributes(:email, 'username')
+        end
 
-      xit 'does not change parent class'
+        it 'adds only attributes that had not been defined before' do
+          expect { child_klass.add_attributes(*attributes) }
+            .to change(child_klass, :attributes)
+            .from(%i[email username]).to(%i[email username password key])
+        end
+      end
     end
   end
 

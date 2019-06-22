@@ -5,11 +5,21 @@ class Sinclair
     module ClassMethods
       def add_attributes(*attributes)
         new_attributes = attributes.map(&:to_sym) - self.attributes
-        self.attributes.concat(new_attributes)
+        config_attributes.concat(new_attributes)
       end
 
       def attributes
-        @attributes ||= []
+        if superclass.is_a?(Config::ClassMethods)
+          (superclass.attributes + config_attributes).uniq
+        else
+          config_attributes
+        end
+      end
+
+      private
+
+      def config_attributes
+        @config_attributes ||= []
       end
     end
   end
