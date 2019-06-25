@@ -7,6 +7,10 @@ class Sinclair
     # Class responsible for adding method to configuration
     # classes
     class MethodsBuilder < Sinclair
+      def self.build(klass, *names)
+        new(klass, *names).tap(&:build)
+      end
+
       # @param klass [Class] class inheriting from {Sinclair::Config}
       #  that will receive the methods
       # @overload initialize(klass, *names, default)

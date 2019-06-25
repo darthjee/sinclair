@@ -16,6 +16,10 @@ class Sinclair
         end
       end
 
+      def add_configs(*args)
+        Config::MethodsBuilder.build(self, *args)
+      end
+
       private
 
       def config_attributes

@@ -119,6 +119,34 @@ describe Sinclair::ConfigFactory do
         end
       end
     end
+
+    context 'when config class was set from common class' do
+      subject(:factory) { described_class.new(config_class: config_class) }
+
+      let(:config_class) { Class.new }
+
+      it_behaves_like 'a config factory adding config' do
+        let(:method_call) { proc { add_configs(:name) } }
+
+        it 'does not set a default value' do
+          code_block.call
+
+          expect(factory.config.name).to be_nil
+        end
+      end
+
+      context 'when passing a hash' do
+        it_behaves_like 'a config factory adding config' do
+          let(:method_call) { proc { add_configs(name: 'Bobby') } }
+
+          it 'sets a default value' do
+            code_block.call
+
+            expect(factory.config.name).to eq('Bobby')
+          end
+        end
+      end
+    end
   end
 
   describe '#configure' do

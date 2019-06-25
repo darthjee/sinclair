@@ -12,9 +12,8 @@ class Sinclair
     extend ClassMethods
 
     def as_json
-      self.class.attributes.inject({}) do |hash, attribute|
+      self.class.attributes.each_with_object({}) do |attribute, hash|
         hash[attribute.to_s] = nil
-        hash
       end
     end
   end

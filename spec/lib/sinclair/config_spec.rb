@@ -3,9 +3,11 @@
 require 'spec_helper'
 
 describe Sinclair::Config do
-  subject(:child_klass) { Class.new(klass) }
-  subject(:klass) { Class.new(described_class) }
   subject(:config) { klass.new }
+
+  let(:child_klass) { Class.new(klass) }
+
+  let(:klass) { Class.new(described_class) }
 
   describe '.add_attributes' do
     it_behaves_like 'a config class with .add_attributes method'
@@ -27,9 +29,9 @@ describe Sinclair::Config do
       end
 
       it 'uses given attributes to create json' do
-        expect(config.as_json).to eq({
+        expect(config.as_json).to eq(
           'username' => nil, 'password' => nil
-        })
+        )
       end
 
       context 'when the method called sets instance variable' do
