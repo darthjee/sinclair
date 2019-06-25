@@ -7,7 +7,8 @@ class Sinclair
   #
   # The instance variables will be set by {ConfigBuilder}
   class Config
-    autoload :ClassMethods, 'sinclair/config/class_methods'
+    autoload :ClassMethods,   'sinclair/config/class_methods'
+    autoload :MethodsBuilder, 'sinclair/config/methods_builder'
     extend ClassMethods
 
     def as_json

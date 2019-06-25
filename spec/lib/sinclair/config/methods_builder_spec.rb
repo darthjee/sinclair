@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Sinclair::ConfigFactory::MethodsBuilder do
+describe Sinclair::Config::MethodsBuilder do
   describe '#build' do
     let(:config_class) { Class.new(Sinclair::Config) }
     let(:config)       { config_class.new }

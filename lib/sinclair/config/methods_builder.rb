@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Sinclair
-  class ConfigFactory
+  class Config
     # @api private
     #
     # Class responsible for adding method to configuration
