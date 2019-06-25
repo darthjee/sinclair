@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MyServerConfig
+class MyServerConfig < Sinclair::Config
   def url
     if @port
       "http://#{@host}:#{@port}"

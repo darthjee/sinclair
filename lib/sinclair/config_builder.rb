@@ -7,6 +7,8 @@ class Sinclair
   #
   # @example
   #   class MyConfig
+  #     extend Sinclair::Config::ClassMethods
+  #
   #     attr_reader :name, :config
   #   end
   #

@@ -335,7 +335,7 @@ the `configurable#configure` method
 Configurations can also be done through custom classes
 
 ```ruby
-  class MyServerConfig
+  class MyServerConfig < Sinclair::Config
     def url
       if @port
         "http://#{@host}:#{@port}"

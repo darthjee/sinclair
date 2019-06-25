@@ -21,6 +21,10 @@ class Sinclair
     def initialize(config_class: Class.new(Config), config_attributes: [])
       @config_class = config_class
       @config_attributes = config_attributes.dup
+
+      return if config_class.is_a?(Config::ClassMethods)
+      warn 'Config class is expected to be Config::ClassMethods.' \
+        'In future releases this will be enforced'
     end
 
     # @api public
@@ -107,6 +111,8 @@ class Sinclair
     #
     # @example Setting name on config
     #   class MyConfig
+    #     extend Sinclair::Config::ClassMethods
+    #
     #     attr_reader :name
     #   end
     #

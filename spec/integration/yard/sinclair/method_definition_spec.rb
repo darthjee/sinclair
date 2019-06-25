@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'spec_helper'
+
 describe Sinclair::MethodDefinition do
   describe 'yard' do
     describe '#build' do

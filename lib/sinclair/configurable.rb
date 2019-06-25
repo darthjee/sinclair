@@ -116,7 +116,7 @@ class Sinclair
     # @return [ConfigFactory]
     #
     # @example Configured by custom config class
-    #   class MyServerConfig
+    #   class MyServerConfig < Sinclair::Config
     #     def url
     #       if @port
     #         "http://#{@host}:#{@port}"

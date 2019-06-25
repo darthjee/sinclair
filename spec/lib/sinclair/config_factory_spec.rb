@@ -28,11 +28,42 @@ describe Sinclair::ConfigFactory do
       end
     end
 
-    context 'when initializing with custom config class' do
+    context 'when initializing with custom config class that extends class_methods' do
+      subject(:factory) { described_class.new(config_class: MyConfig) }
+
+      it do
+        expect(factory.config).to be_a(MyConfig)
+      end
+
+      context 'when calling after reset_config' do
+        before { factory.reset_config }
+
+        it do
+          expect(factory.config).to be_a(MyConfig)
+        end
+      end
+    end
+
+    context 'when initializing with custom config class that does not extend class_methods' do
       subject(:factory) { described_class.new(config_class: DummyConfig) }
+
+      # rubocop:disable RSpec/AnyInstance
+      before do
+        allow_any_instance_of(described_class)
+          .to receive(:warn)
+      end
+      # rubocop:enable RSpec/AnyInstance
 
       it do
         expect(factory.config).to be_a(DummyConfig)
+      end
+
+      it 'warns about class use' do
+        factory.config
+
+        expect(factory).to have_received(:warn)
+          .with 'Config class is expected to be Config::ClassMethods.' \
+        'In future releases this will be enforced'
       end
 
       context 'when calling after reset_config' do
@@ -60,7 +91,7 @@ describe Sinclair::ConfigFactory do
     end
 
     context 'when initializing with custom config class' do
-      subject(:factory) { described_class.new(config_class: DummyConfig) }
+      subject(:factory) { described_class.new(config_class: MyConfig) }
 
       it 'reset_configs instance' do
         expect { factory.reset_config }
@@ -125,6 +156,13 @@ describe Sinclair::ConfigFactory do
 
       let(:config_class) { Class.new }
 
+      # rubocop:disable RSpec/AnyInstance
+      before do
+        allow_any_instance_of(described_class)
+          .to receive(:warn)
+      end
+      # rubocop:enable RSpec/AnyInstance
+
       it_behaves_like 'a config factory adding config' do
         let(:method_call) { proc { add_configs(:name) } }
 
@@ -132,6 +170,14 @@ describe Sinclair::ConfigFactory do
           code_block.call
 
           expect(factory.config.name).to be_nil
+        end
+
+        it 'warns about class use' do
+          code_block.call
+
+          expect(factory).to have_received(:warn)
+            .with 'Config class is expected to be Config::ClassMethods.' \
+          'In future releases this will be enforced'
         end
       end
 
@@ -143,6 +189,14 @@ describe Sinclair::ConfigFactory do
             code_block.call
 
             expect(factory.config.name).to eq('Bobby')
+          end
+
+          it 'warns about class use' do
+            code_block.call
+
+            expect(factory).to have_received(:warn)
+              .with 'Config class is expected to be Config::ClassMethods.' \
+            'In future releases this will be enforced'
           end
         end
       end
