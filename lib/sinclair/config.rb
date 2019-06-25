@@ -9,5 +9,12 @@ class Sinclair
   class Config
     autoload :ClassMethods, 'sinclair/config/class_methods'
     extend ClassMethods
+
+    def as_json
+      self.class.attributes.inject({}) do |hash, attribute|
+        hash[attribute.to_s] = nil
+        hash
+      end
+    end
   end
 end
