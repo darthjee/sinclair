@@ -86,6 +86,7 @@ class Sinclair
     #   config.respond_to? :active
     #   # returns true
     def add_configs(*args)
+      # TODO: remove this once only Config::ClassMethods are accepted
       builder = if config_class.is_a?(Sinclair::Config::ClassMethods)
                   config_class.add_configs(*args)
                 else
