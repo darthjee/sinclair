@@ -37,8 +37,8 @@ rules:
       - Sinclair::ConfigFactory#initialize
       - Sinclair::ConfigFactory#config_class
       - Sinclair::ConfigFactory#config_attributes
-      - Sinclair::ConfigFactory::MethodsBuilder#names
-      - Sinclair::ConfigFactory::MethodsBuilder#defaults
+      - Sinclair::Config::MethodsBuilder#names
+      - Sinclair::Config::MethodsBuilder#defaults
       - Sinclair::Configurable#config
       - Sinclair::Configurable#reset_config
       - Sinclair::Configurable#configure
@@ -60,9 +60,9 @@ rules:
       - Sinclair::ConfigFactory#initialize
       - Sinclair::ConfigFactory#config_class
       - Sinclair::ConfigFactory#config_attributes
-      - Sinclair::ConfigFactory::MethodsBuilder#initialize
-      - Sinclair::ConfigFactory::MethodsBuilder#names
-      - Sinclair::ConfigFactory::MethodsBuilder#defaults
+      - Sinclair::Config::MethodsBuilder#initialize
+      - Sinclair::Config::MethodsBuilder#names
+      - Sinclair::Config::MethodsBuilder#defaults
   Summary::Length:
     enabled: true
     exclude: []
