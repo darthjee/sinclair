@@ -62,10 +62,12 @@ class Sinclair
     #
     # @see #method_missing
     def respond_to_missing?(method_name, include_private)
-      @config_attributes.include?(method_name) || super
+      method_included?(method_name) || super
     end
 
     def method_included?(method_name)
+      # TODO: get rid of @config_attributes when only
+      # Sinclair::Config::ClassMethods are accepted
       @config_attributes.include?(method_name) ||
         @config.class.is_a?(Sinclair::Config::ClassMethods) &&
           @config.class.attributes.include?(method_name)
