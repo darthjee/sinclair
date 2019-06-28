@@ -11,6 +11,9 @@ class Sinclair
     autoload :MethodsBuilder, 'sinclair/config/methods_builder'
     extend ClassMethods
 
+    # Return all the current configurations in a hash
+    #
+    # @return [Hash]
     def to_hash
       self.class.attributes.each_with_object({}) do |attribute, hash|
         hash[attribute.to_s] = public_send(attribute)
