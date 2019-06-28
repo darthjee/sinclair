@@ -29,9 +29,8 @@ describe Sinclair::Config do
       end
 
       it 'uses given attributes to create json' do
-        expect(config.as_json).to eq(
-          'username' => nil, 'password' => nil
-        )
+        expect(config.as_json)
+          .to eq('username' => nil, 'password' => nil)
       end
 
       context 'when the method called sets instance variable' do
@@ -44,6 +43,22 @@ describe Sinclair::Config do
             'name' => 'John', 'username' => nil, 'password' => nil
           )
         end
+      end
+    end
+
+    context 'when passing options' do
+      before do
+        klass.add_configs(username: 'john', password: '123456')
+      end
+
+      it 'accpes only option' do
+        expect(config.as_json(only: 'username'))
+          .to eq('username' => 'john')
+      end
+
+      it 'accepts except options' do
+        expect(config.as_json(except: 'password'))
+          .to eq('username' => 'john')
       end
     end
   end
@@ -60,9 +75,8 @@ describe Sinclair::Config do
       end
 
       it 'uses given attributes to create json' do
-        expect(config.to_json).to eq(
-          '{"username":null,"password":null}'
-        )
+        expect(config.to_json)
+          .to eq('{"username":null,"password":null}')
       end
 
       context 'when the method called sets instance variable' do
@@ -75,6 +89,22 @@ describe Sinclair::Config do
             '{"username":null,"password":null,"name":"John"}'
           )
         end
+      end
+    end
+
+    context 'when passing options' do
+      before do
+        klass.add_configs(username: 'john', password: '123456')
+      end
+
+      it 'accpes only option' do
+        expect(config.to_json(only: 'username'))
+          .to eq('{"username":"john"}')
+      end
+
+      it 'accepts except options' do
+        expect(config.to_json(except: 'password'))
+          .to eq('{"username":"john"}')
       end
     end
   end
