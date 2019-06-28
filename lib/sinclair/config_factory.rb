@@ -73,6 +73,8 @@ class Sinclair
     #   {ConfigBuilder} is able to set those values when invoked
     #
     # @return [Array<Symbol>] all known config attributes
+    # @todo remove class check once only
+    #   Config::ClassMethods are accepted
     #
     # @example Adding configuration name
     #   factory = Sinclair::ConfigFactory.new
@@ -86,7 +88,6 @@ class Sinclair
     #   config.respond_to? :active
     #   # returns true
     def add_configs(*args)
-      # TODO: remove this once only Config::ClassMethods are accepted
       builder = if config_class.is_a?(Sinclair::Config::ClassMethods)
                   config_class.add_configs(*args)
                 else
