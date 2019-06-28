@@ -47,4 +47,35 @@ describe Sinclair::Config do
       end
     end
   end
+
+  describe '#to_json' do
+    it 'returns empty json' do
+      expect(config.to_json).to eq('{}')
+    end
+
+    context 'when attributes have been defined' do
+      before do
+        klass.add_attributes(:username, :password)
+        klass.attr_reader(:username, :password)
+      end
+
+      it 'uses given attributes to create json' do
+        expect(config.to_json).to eq(
+          '{"username":null,"password":null}'
+        )
+      end
+
+      context 'when the method called sets instance variable' do
+        before do
+          klass.add_configs(name: 'John')
+        end
+
+        it 'returns the value' do
+          expect(config.to_json).to eq(
+            '{"username":null,"password":null,"name":"John"}'
+          )
+        end
+      end
+    end
+  end
 end
