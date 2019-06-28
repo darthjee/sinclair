@@ -33,7 +33,11 @@ class Sinclair
       #
       # @return [Array<Symbol>]
       def attributes
-        config_attributes
+        if superclass.is_a?(Config::ClassMethods)
+          (superclass.attributes + config_attributes).uniq
+        else
+          config_attributes
+        end
       end
 
       # Add a config attribute
@@ -66,11 +70,7 @@ class Sinclair
       #
       # @return [Array<Symbol>]
       def config_attributes
-        @config_attributes ||= if superclass.is_a?(Config::ClassMethods)
-                                 superclass.attributes + []
-                               else
-                                 []
-        end
+        @config_attributes ||= []
       end
     end
   end

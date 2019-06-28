@@ -36,9 +36,33 @@ shared_examples 'a config class with .add_attributes method' do
 
   context 'when there is a child class' do
     it 'adds attributes to child class' do
-      klass.add_attributes(*attributes)
-      expect(child_klass.attributes)
-        .to eq(%i[username password key])
+      expect { klass.add_attributes(*attributes) }
+        .to change(child_klass, :attributes)
+        .from([]).to(%i[username password key])
+    end
+
+    context 'when child class already has attributes' do
+      before do
+        child_klass.add_attributes('email')
+      end
+
+      it 'adds new attributes to child class' do
+        expect { klass.add_attributes(*attributes) }
+          .to change(child_klass, :attributes)
+          .from([:email]).to(%i[username password key email])
+      end
+    end
+
+    context 'when child class already has one of the attributes' do
+      before do
+        child_klass.add_attributes(:email, 'username')
+      end
+
+      it 'adds new attributes to child class' do
+        expect { klass.add_attributes(*attributes) }
+          .to change(child_klass, :attributes)
+          .from(%i[email username]).to(%i[username password key email])
+      end
     end
   end
 
@@ -82,9 +106,10 @@ shared_examples 'a config class with .attributes method' do
   end
 
   context 'when parent class changes its attributes' do
-    it 'does not change child class' do
+    it 'returns adds new attributes to self' do
       expect { klass.add_attributes(*attributes) }
-        .not_to change(child_klass, :attributes)
+        .to change(child_klass, :attributes)
+        .from([]).to(%i[username password key])
     end
   end
 end
