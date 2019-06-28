@@ -2,12 +2,36 @@
 
 class Sinclair
   class Config
+    # Module with all class methods for {Config}
+    #
+    # Any class that will be used as configuration class
+    # should extend {ClassMethods} as {#attributes}
+    # is used to check what configurations have been added
     module ClassMethods
+      # Adds an attribute to the list of attributes
+      #
+      # The list of attributes represent attribute
+      # readers that class instances can respond to
+      #
+      # This method does not add the method or .attr_reader
+      #
+      # @param attributes [Array<Symbol,String>] list of
+      #   attributes the instances should respond to
+      #
+      # @return [Array<Symbol>] all attributes the class have
+      #
+      # @see #attributes
       def add_attributes(*attributes)
         new_attributes = attributes.map(&:to_sym) - self.attributes
         config_attributes.concat(new_attributes)
       end
 
+      # List of all attributes the instances responds to
+      #
+      # Subclasses will respond to the same attributes as the
+      # parent class plus it's own
+      #
+      # @return [Array<Symbol>]
       def attributes
         if superclass.is_a?(Config::ClassMethods)
           (superclass.attributes + config_attributes).uniq
@@ -16,6 +40,20 @@ class Sinclair
         end
       end
 
+      # Add a config attribute
+      #
+      # This method adds an attribute (see {#add_attributes})
+      # and the method readers
+      #
+      # @overload add_configs(*names, default)
+      #   @param names [Array<Symbol,String>] List of configuration names
+      #   to be added
+      #   @param default [Hash] Configurations that will receive a default
+      #   value when not configured
+      #
+      # @return [MethodsBuilder]
+      #
+      # @see MethodsBuilder#build
       def add_configs(*args)
         Config::MethodsBuilder.new(self, *args).tap do |builder|
           builder.build
@@ -26,6 +64,11 @@ class Sinclair
 
       private
 
+      # @private
+      #
+      # List of attributes defined for this class only
+      #
+      # @return [Array<Symbol>]
       def config_attributes
         @config_attributes ||= []
       end
