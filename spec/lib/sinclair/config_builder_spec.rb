@@ -5,7 +5,8 @@ require 'spec_helper'
 describe Sinclair::ConfigBuilder do
   subject(:builder) { described_class.new(config, *config_attributes) }
 
-  let(:config)            { MyConfig.new }
+  let(:config_class)      { MyConfig }
+  let(:config)            { config_class.new }
   let(:config_attributes) { [:name] }
 
   it 'changes responds to given config' do
@@ -37,6 +38,18 @@ describe Sinclair::ConfigBuilder do
       expect { builder.name 'John' }
         .to raise_error(NoMethodError)
         .and not_change(config, :name)
+    end
+
+    context 'with config class that has been configured with it' do
+      let(:config_class) { Class.new(Sinclair::Config) }
+
+      before { config_class.add_configs(:name) }
+
+      it 'sets the instance variable' do
+        expect { builder.name 'John' }
+          .to change(config, :name)
+          .from(nil).to('John')
+      end
     end
   end
 

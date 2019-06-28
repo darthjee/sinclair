@@ -49,7 +49,7 @@ class Sinclair
     #
     # @return [Object]
     def method_missing(method_name, *args)
-      return super unless @config_attributes.include?(method_name)
+      return super unless method_included?(method_name)
 
       @config.instance_variable_set("@#{method_name}", *args)
     end
@@ -63,6 +63,12 @@ class Sinclair
     # @see #method_missing
     def respond_to_missing?(method_name, include_private)
       @config_attributes.include?(method_name) || super
+    end
+
+    def method_included?(method_name)
+      @config_attributes.include?(method_name) ||
+        @config.class.is_a?(Sinclair::Config::ClassMethods) &&
+          @config.class.attributes.include?(method_name)
     end
   end
 end
