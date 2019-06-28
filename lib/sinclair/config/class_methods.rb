@@ -10,6 +10,8 @@ class Sinclair
     # should extend {ClassMethods} as {#attributes}
     # is used to check what configurations have been added
     module ClassMethods
+      # @api private
+      #
       # Adds an attribute to the list of attributes
       #
       # The list of attributes represent attribute
@@ -28,6 +30,8 @@ class Sinclair
         config_attributes.concat(new_attributes)
       end
 
+      # @api private
+      #
       # List of all attributes the instances responds to
       #
       # Subclasses will respond to the same attributes as the
