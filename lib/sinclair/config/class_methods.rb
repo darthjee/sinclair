@@ -2,6 +2,8 @@
 
 class Sinclair
   class Config
+    # @api public
+    #
     # Module with all class methods for {Config}
     #
     # Any class that will be used as configuration class
@@ -47,9 +49,9 @@ class Sinclair
       #
       # @overload add_configs(*names, default)
       #   @param names [Array<Symbol,String>] List of configuration names
-      #   to be added
+      #     to be added
       #   @param default [Hash] Configurations that will receive a default
-      #   value when not configured
+      #     value when not configured
       #
       # @return [MethodsBuilder]
       #
@@ -64,6 +66,8 @@ class Sinclair
 
       private
 
+      # @api private
+      #
       # @private
       #
       # List of attributes defined for this class only

@@ -7,6 +7,17 @@ class Sinclair
     # Class responsible for adding method to configuration
     # classes
     class MethodsBuilder < Sinclair
+      # Instantiate method builder and build the methods
+      #
+      # @param (see #initialize)
+      #
+      # @overload build(klass, *names, default)
+      #   @param names [Array<Symbol,String>] List of configuration names
+      #     to be added
+      #   @param default [Hash] Configurations that will receive a default
+      #     value when not configured
+      #
+      # @return [MethodsBuilder]
       def self.build(klass, *names)
         new(klass, *names).tap(&:build)
       end
@@ -15,9 +26,9 @@ class Sinclair
       #  that will receive the methods
       # @overload initialize(klass, *names, default)
       #   @param names [Array<Symbol,String>] List of configuration names
-      #   to be added
+      #     to be added
       #   @param default [Hash] Configurations that will receive a default
-      #   value when not configured
+      #     value when not configured
       def initialize(klass, *names)
         super(klass)
 

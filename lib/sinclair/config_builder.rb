@@ -65,6 +65,12 @@ class Sinclair
       method_included?(method_name) || super
     end
 
+    # Checks if a method is included in the methods defined
+    #
+    # @param method_name [Symbol] name of the method called
+    #
+    # @return [TrueClass,FalseClass]
+    #
     # @todo get rid of @config_attributes when only
     #   Sinclair::Config::ClassMethods are accepted
     def method_included?(method_name)
