@@ -9,6 +9,8 @@ class Sinclair
     # Any class that will be used as configuration class
     # should extend {ClassMethods} as {#attributes}
     # is used to check what configurations have been added
+    #
+    # @example (see #add_configs)
     module ClassMethods
       # @api private
       #
