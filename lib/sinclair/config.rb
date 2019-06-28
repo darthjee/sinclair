@@ -13,7 +13,7 @@ class Sinclair
 
     def as_json
       self.class.attributes.each_with_object({}) do |attribute, hash|
-        hash[attribute.to_s] = nil
+        hash[attribute.to_s] = public_send(attribute)
       end
     end
   end

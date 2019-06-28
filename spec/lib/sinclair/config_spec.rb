@@ -35,7 +35,14 @@ describe Sinclair::Config do
       end
 
       context 'when the method called sets instance variable' do
+        before do
+          klass.add_configs(name: 'John')
+        end
+
         it 'returns the value' do
+          expect(config.as_json).to eq(
+            'name' => 'John', 'username' => nil, 'password' => nil
+          )
         end
       end
     end
