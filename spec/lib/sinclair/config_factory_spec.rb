@@ -28,7 +28,7 @@ describe Sinclair::ConfigFactory do
       end
     end
 
-    context 'when initializing with custom config class that extends class_methods' do
+    context 'when initializing with custom config class that extends config_class' do
       subject(:factory) { described_class.new(config_class: MyConfig) }
 
       it do
@@ -44,7 +44,7 @@ describe Sinclair::ConfigFactory do
       end
     end
 
-    context 'when initializing with custom config class that does not extend class_methods' do
+    context 'when initializing with custom config class that does not extend config_class' do
       subject(:factory) { described_class.new(config_class: DummyConfig) }
 
       # rubocop:disable RSpec/AnyInstance
@@ -62,7 +62,7 @@ describe Sinclair::ConfigFactory do
         factory.config
 
         expect(factory).to have_received(:warn)
-          .with 'Config class is expected to be Config::ClassMethods.' \
+          .with 'Config class is expected to be Config::ConfigClass.' \
         'In future releases this will be enforced'
       end
 
@@ -176,7 +176,7 @@ describe Sinclair::ConfigFactory do
           code_block.call
 
           expect(factory).to have_received(:warn)
-            .with 'Config class is expected to be Config::ClassMethods.' \
+            .with 'Config class is expected to be Config::ConfigClass.' \
           'In future releases this will be enforced'
         end
       end
@@ -195,7 +195,7 @@ describe Sinclair::ConfigFactory do
             code_block.call
 
             expect(factory).to have_received(:warn)
-              .with 'Config class is expected to be Config::ClassMethods.' \
+              .with 'Config class is expected to be Config::ConfigClass.' \
             'In future releases this will be enforced'
           end
         end

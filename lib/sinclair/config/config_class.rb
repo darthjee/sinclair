@@ -7,11 +7,11 @@ class Sinclair
     # Module with all class methods for {Config}
     #
     # Any class that will be used as configuration class
-    # should extend {ClassMethods} as {#attributes}
+    # should extend {ConfigClass} as {#attributes}
     # is used to check what configurations have been added
     #
     # @example (see #add_configs)
-    module ClassMethods
+    module ConfigClass
       # @api private
       #
       # Adds an attribute to the list of attributes
@@ -41,7 +41,7 @@ class Sinclair
       #
       # @return [Array<Symbol>]
       def attributes
-        if superclass.is_a?(Config::ClassMethods)
+        if superclass.is_a?(Config::ConfigClass)
           (superclass.attributes + config_attributes).uniq
         else
           config_attributes
@@ -65,7 +65,7 @@ class Sinclair
       #
       # @example Adding configurations to config class
       #   class AppConfig
-      #     extend Sinclair::Config::ClassMethods
+      #     extend Sinclair::Config::ConfigClass
       #
       #     add_configs :secret, app_name: 'MyApp'
       #   end

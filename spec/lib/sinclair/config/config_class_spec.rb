@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-describe Sinclair::Config::ClassMethods do
+describe Sinclair::Config::ConfigClass do
   subject(:klass) do
-    Class.new { extend Sinclair::Config::ClassMethods }
+    Class.new { extend Sinclair::Config::ConfigClass }
   end
 
   let(:child_klass) { Class.new(klass) }
