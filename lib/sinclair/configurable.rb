@@ -117,6 +117,8 @@ class Sinclair
     #
     # @example Configured by custom config class
     #   class MyServerConfig < Sinclair::Config
+    #     add_attributes :host, :port
+    #
     #     def url
     #       if @port
     #         "http://#{@host}:#{@port}"
@@ -129,7 +131,7 @@ class Sinclair
     #   class Client
     #     extend Sinclair::Configurable
     #
-    #     configurable_by MyServerConfig, with: %i[host port]
+    #     configurable_by MyServerConfig
     #   end
     #
     #   Client.configure do

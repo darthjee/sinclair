@@ -336,6 +336,8 @@ Configurations can also be done through custom classes
 
 ```ruby
   class MyServerConfig < Sinclair::Config
+    add_attributes :host, :port
+
     def url
       if @port
         "http://#{@host}:#{@port}"
@@ -348,7 +350,7 @@ Configurations can also be done through custom classes
   class Client
     extend Sinclair::Configurable
 
-    configurable_by MyServerConfig, with: %i[host port]
+    configurable_by MyServerConfig
   end
 
   Client.configure do
