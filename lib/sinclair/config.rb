@@ -7,7 +7,6 @@ class Sinclair
   #
   # The instance variables will be set by {ConfigBuilder}
   class Config
-    autoload :ConfigClass, 'sinclair/config/config_class'
     autoload :MethodsBuilder, 'sinclair/config/methods_builder'
     extend ConfigClass
 

@@ -29,7 +29,7 @@ describe Sinclair::ConfigBuilder do
         expect(builder).not_to respond_to(:name)
       end
 
-      context 'when class is a Config::ConfigClass and has been configured' do
+      context 'when class is a ConfigClass and has been configured' do
         let(:config_class) { Class.new(Sinclair::Config) }
 
         before { config_class.add_attributes(:name) }

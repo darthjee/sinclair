@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Sinclair::Config::ConfigClass do
+describe Sinclair::ConfigClass do
   describe 'yard' do
     describe '.add_configs' do
       subject(:config) { AppConfig.new }

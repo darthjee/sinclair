@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MyConfig
-  extend Sinclair::Config::ConfigClass
+  extend Sinclair::ConfigClass
 
   attr_reader :name, :config
 end

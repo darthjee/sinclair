@@ -22,8 +22,8 @@ class Sinclair
       @config_class = config_class
       @config_attributes = config_attributes.dup
 
-      return if config_class.is_a?(Config::ConfigClass)
-      warn 'Config class is expected to be Config::ConfigClass.' \
+      return if config_class.is_a?(ConfigClass)
+      warn 'Config class is expected to be ConfigClass.' \
         'In future releases this will be enforced'
     end
 
@@ -74,7 +74,7 @@ class Sinclair
     #
     # @return [Array<Symbol>] all known config attributes
     # @todo remove class check once only
-    #   Config::ConfigClass are accepted
+    #   ConfigClass are accepted
     #
     # @example Adding configuration name
     #   factory = Sinclair::ConfigFactory.new
@@ -88,7 +88,7 @@ class Sinclair
     #   config.respond_to? :active
     #   # returns true
     def add_configs(*args)
-      builder = if config_class.is_a?(Sinclair::Config::ConfigClass)
+      builder = if config_class.is_a?(Sinclair::ConfigClass)
                   config_class.add_configs(*args)
                 else
                   Config::MethodsBuilder.build(config_class, *args)
@@ -113,7 +113,7 @@ class Sinclair
     #
     # @example Setting name on config
     #   class MyConfig
-    #     extend Sinclair::Config::ConfigClass
+    #     extend Sinclair::ConfigClass
     #
     #     attr_reader :name
     #   end

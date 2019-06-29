@@ -62,7 +62,7 @@ describe Sinclair::ConfigFactory do
         factory.config
 
         expect(factory).to have_received(:warn)
-          .with 'Config class is expected to be Config::ConfigClass.' \
+          .with 'Config class is expected to be ConfigClass.' \
         'In future releases this will be enforced'
       end
 
@@ -176,7 +176,7 @@ describe Sinclair::ConfigFactory do
           code_block.call
 
           expect(factory).to have_received(:warn)
-            .with 'Config class is expected to be Config::ConfigClass.' \
+            .with 'Config class is expected to be ConfigClass.' \
           'In future releases this will be enforced'
         end
       end
@@ -195,7 +195,7 @@ describe Sinclair::ConfigFactory do
             code_block.call
 
             expect(factory).to have_received(:warn)
-              .with 'Config class is expected to be Config::ConfigClass.' \
+              .with 'Config class is expected to be ConfigClass.' \
             'In future releases this will be enforced'
           end
         end

@@ -7,7 +7,7 @@ class Sinclair
   #
   # @example
   #   class MyConfig
-  #     extend Sinclair::Config::ConfigClass
+  #     extend Sinclair::ConfigClass
   #
   #     attr_reader :name, :config
   #   end
@@ -72,10 +72,10 @@ class Sinclair
     # @return [TrueClass,FalseClass]
     #
     # @todo get rid of @config_attributes when only
-    #   Sinclair::Config::ConfigClass are accepted
+    #   Sinclair::ConfigClass are accepted
     def method_included?(method_name)
       @config_attributes.include?(method_name) ||
-        @config.class.is_a?(Sinclair::Config::ConfigClass) &&
+        @config.class.is_a?(Sinclair::ConfigClass) &&
           @config.class.attributes.include?(method_name)
     end
   end
