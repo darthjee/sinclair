@@ -27,8 +27,7 @@ class Sinclair
     #
     # @see #attributes
     def add_attributes(*attributes)
-      new_attributes = attributes.map(&:to_sym) - self.attributes
-      config_attributes.concat(new_attributes)
+      config_attributes(*attributes)
     end
 
     # @api private
@@ -40,10 +39,22 @@ class Sinclair
     #
     # @return [Array<Symbol>]
     def attributes
+      config_attributes
+    end
+
+    # @return [Array<Symbol>]
+    def config_attributes(*attributes)
+      @config_attributes ||= []
+
+      if attributes.present?
+        new_attributes = attributes.map(&:to_sym) - @config_attributes
+        @config_attributes.concat(new_attributes)
+      end
+
       if superclass.is_a?(ConfigClass)
-        (superclass.attributes + config_attributes).uniq
+        (superclass.config_attributes.dup + @config_attributes).uniq
       else
-        config_attributes
+        @config_attributes
       end
     end
 
@@ -93,19 +104,6 @@ class Sinclair
 
         add_attributes(*builder.config_names)
       end
-    end
-
-    private
-
-    # @api private
-    #
-    # @private
-    #
-    # List of attributes defined for this class only
-    #
-    # @return [Array<Symbol>]
-    def config_attributes
-      @config_attributes ||= []
     end
   end
 end
