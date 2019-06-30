@@ -23,8 +23,8 @@ class Sinclair
     CONFIG_CLASS_WARNING = 'Config classes attributes should ' \
       'be defined inside the class or through the usage of ' \
       "configurable_with.\n"
-      "In future releases this will be enforced.\n" \
-      'see more on https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes'
+    "In future releases this will be enforced.\n" \
+    'see more on https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes'
     # (see ConfigFactory#config)
     # @see ConfigFactory#config
     def config
@@ -125,7 +125,7 @@ class Sinclair
     #
     # @example Configured by custom config class
     #   class MyServerConfig < Sinclair::Config
-    #     add_attributes :host, :port
+    #     config_attributes :host, :port
     #
     #     def url
     #       if @port

@@ -76,7 +76,7 @@ class Sinclair
     def method_included?(method_name)
       @config_attributes.include?(method_name) ||
         @config.class.is_a?(Sinclair::ConfigClass) &&
-          @config.class.attributes.include?(method_name)
+          @config.class.config_attributes.include?(method_name)
     end
   end
 end

@@ -30,7 +30,7 @@ class Sinclair
     #   config.to_json
     #   # returns '{"password":null,"username":"bob"}'
     def to_hash
-      self.class.attributes.each_with_object({}) do |attribute, hash|
+      self.class.config_attributes.each_with_object({}) do |attribute, hash|
         hash[attribute.to_s] = public_send(attribute)
       end
     end

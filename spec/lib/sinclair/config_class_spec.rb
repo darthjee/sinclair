@@ -11,12 +11,8 @@ describe Sinclair::ConfigClass do
 
   let(:config)      { klass.new }
 
-  describe '.add_attributes' do
-    it_behaves_like 'a config class with .add_attributes method'
-  end
-
-  describe 'attributes' do
-    it_behaves_like 'a config class with .attributes method'
+  describe '.config_attributes' do
+    it_behaves_like 'a config class with .config_attributes method'
   end
 
   describe '.add_configs' do
@@ -33,7 +29,7 @@ describe Sinclair::ConfigClass do
       end
 
       it 'adds attributes to class' do
-        expect(&code_block).to change(klass, :attributes)
+        expect(&code_block).to change(klass, :config_attributes)
           .from([]).to(%i[name])
       end
     end
@@ -48,7 +44,7 @@ describe Sinclair::ConfigClass do
         end
 
         it 'adds attributes to class' do
-          expect(&code_block).to change(klass, :attributes)
+          expect(&code_block).to change(klass, :config_attributes)
             .from([]).to(%i[name])
         end
       end

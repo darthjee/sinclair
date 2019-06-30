@@ -18,6 +18,9 @@ class Sinclair
     # The list of attributes represent attribute
     # readers that class instances can respond to
     #
+    # Subclasses will respond to the same attributes as the
+    # parent class plus it's own
+    #
     # This method does not add the method or .attr_reader
     #
     # @param attributes [Array<Symbol,String>] list of
@@ -26,23 +29,6 @@ class Sinclair
     # @return [Array<Symbol>] all attributes the class have
     #
     # @see #attributes
-    def add_attributes(*attributes)
-      config_attributes(*attributes)
-    end
-
-    # @api private
-    #
-    # List of all attributes the instances responds to
-    #
-    # Subclasses will respond to the same attributes as the
-    # parent class plus it's own
-    #
-    # @return [Array<Symbol>]
-    def attributes
-      config_attributes
-    end
-
-    # @return [Array<Symbol>]
     def config_attributes(*attributes)
       @config_attributes ||= []
 
@@ -60,7 +46,7 @@ class Sinclair
 
     # Add a config attribute
     #
-    # This method adds an attribute (see {#add_attributes})
+    # This method adds an attribute (see {#config_attributes})
     # and the method readers
     #
     # @overload add_configs(*names, default)
@@ -102,7 +88,7 @@ class Sinclair
       Config::MethodsBuilder.new(self, *args).tap do |builder|
         builder.build
 
-        add_attributes(*builder.config_names)
+        config_attributes(*builder.config_names)
       end
     end
   end

@@ -336,7 +336,7 @@ Configurations can also be done through custom classes
 
 ```ruby
   class MyServerConfig < Sinclair::Config
-    add_attributes :host, :port
+    config_attributes :host, :port
 
     def url
       if @port

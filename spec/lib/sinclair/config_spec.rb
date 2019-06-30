@@ -9,12 +9,8 @@ describe Sinclair::Config do
 
   let(:klass) { Class.new(described_class) }
 
-  describe '.add_attributes' do
-    it_behaves_like 'a config class with .add_attributes method'
-  end
-
-  describe 'attributes' do
-    it_behaves_like 'a config class with .attributes method'
+  describe '.config_attributes' do
+    it_behaves_like 'a config class with .config_attributes method'
   end
 
   describe '#to_hash' do
@@ -24,7 +20,7 @@ describe Sinclair::Config do
 
     context 'when attributes have been defined' do
       before do
-        klass.add_attributes(:username, :password)
+        klass.config_attributes(:username, :password)
         klass.attr_reader(:username, :password)
       end
 
@@ -70,7 +66,7 @@ describe Sinclair::Config do
 
     context 'when attributes have been defined' do
       before do
-        klass.add_attributes(:username, :password)
+        klass.config_attributes(:username, :password)
         klass.attr_reader(:username, :password)
       end
 

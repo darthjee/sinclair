@@ -44,7 +44,7 @@ being able to extend it through the usage of
 class MyConfig
   extend Sinclair::ConfigClass
 
-  add_attributes :host, :port
+  config_attributes :host, :port
 
   def url
     if @port
