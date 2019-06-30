@@ -6,7 +6,7 @@ class Sinclair
   # Module with all class methods for {Config}
   #
   # Any class that will be used as configuration class
-  # should extend {ConfigClass} as {#attributes}
+  # should extend {ConfigClass} as {#config_attributes}
   # is used to check what configurations have been added
   #
   # @example (see #add_configs)
