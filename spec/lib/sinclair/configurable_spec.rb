@@ -123,6 +123,12 @@ describe Sinclair::Configurable do
         end
       end
 
+      before do
+        allow(configurable)
+          .to receive(:warn)
+          .with(described_class::CONFIG_CLASS_WARNING)
+      end
+
       it 'does not add symbol methods config object' do
         expect(&block)
           .not_to add_method(:host).to(configurable.config)
@@ -131,6 +137,12 @@ describe Sinclair::Configurable do
       it 'does not add string methods config object' do
         expect(&block)
           .not_to add_method(:port).to(configurable.config)
+      end
+
+      it 'sends deprecation warning' do
+        expect(configurable).to receive(:warn)
+
+        block.call
       end
 
       it 'does not raises error on configuration of given symbol attributes' do
@@ -177,6 +189,9 @@ describe Sinclair::Configurable do
       let(:config_class) { ServerConfig }
 
       before do
+        allow(configurable)
+          .to receive(:warn)
+          .with(described_class::CONFIG_CLASS_WARNING)
         configurable.send(
           :configurable_by, config_class, with: [:host, 'port']
         )
