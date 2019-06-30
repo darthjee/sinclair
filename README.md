@@ -14,7 +14,7 @@ methods
 
 Yard Documentation
 -------------------
-https://www.rubydoc.info/gems/sinclair/1.3.4
+https://www.rubydoc.info/gems/sinclair/1.4.0
 
 Installation
 ---------------
@@ -335,7 +335,9 @@ the `configurable#configure` method
 Configurations can also be done through custom classes
 
 ```ruby
-  class MyServerConfig
+  class MyServerConfig < Sinclair::Config
+    config_attributes :host, :port
+
     def url
       if @port
         "http://#{@host}:#{@port}"
@@ -348,7 +350,7 @@ Configurations can also be done through custom classes
   class Client
     extend Sinclair::Configurable
 
-    configurable_by MyServerConfig, with: %i[host port]
+    configurable_by MyServerConfig
   end
 
   Client.configure do

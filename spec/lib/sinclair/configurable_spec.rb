@@ -123,6 +123,14 @@ describe Sinclair::Configurable do
         end
       end
 
+      before do
+        # rubocop:disable RSpec/SubjectStub
+        allow(configurable)
+          .to receive(:warn)
+          .with(described_class::CONFIG_CLASS_WARNING)
+        # rubocop:enable RSpec/SubjectStub
+      end
+
       it 'does not add symbol methods config object' do
         expect(&block)
           .not_to add_method(:host).to(configurable.config)
@@ -131,6 +139,11 @@ describe Sinclair::Configurable do
       it 'does not add string methods config object' do
         expect(&block)
           .not_to add_method(:port).to(configurable.config)
+      end
+
+      it 'sends deprecation warning' do
+        block.call
+        expect(configurable).to have_received(:warn)
       end
 
       it 'does not raises error on configuration of given symbol attributes' do
@@ -177,6 +190,11 @@ describe Sinclair::Configurable do
       let(:config_class) { ServerConfig }
 
       before do
+        # rubocop:disable RSpec/SubjectStub
+        allow(configurable)
+          .to receive(:warn)
+          .with(described_class::CONFIG_CLASS_WARNING)
+        # rubocop:enable RSpec/SubjectStub
         configurable.send(
           :configurable_by, config_class, with: [:host, 'port']
         )

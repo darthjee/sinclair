@@ -17,6 +17,14 @@ class Sinclair
   # @example (see #configurable_with)
   # @example (see #configurable_by)
   module Configurable
+    # @api private
+    # Deprecation warning message
+    # @see https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes
+    CONFIG_CLASS_WARNING = 'Config classes attributes should ' \
+      'be defined inside the class or through the usage of ' \
+      "configurable_with.\n" \
+      "In future releases this will be enforced.\n" \
+      'see more on https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes'
     # (see ConfigFactory#config)
     # @see ConfigFactory#config
     def config
@@ -116,7 +124,9 @@ class Sinclair
     # @return [ConfigFactory]
     #
     # @example Configured by custom config class
-    #   class MyServerConfig
+    #   class MyServerConfig < Sinclair::Config
+    #     config_attributes :host, :port
+    #
     #     def url
     #       if @port
     #         "http://#{@host}:#{@port}"
@@ -129,7 +139,7 @@ class Sinclair
     #   class Client
     #     extend Sinclair::Configurable
     #
-    #     configurable_by MyServerConfig, with: %i[host port]
+    #     configurable_by MyServerConfig
     #   end
     #
     #   Client.configure do
@@ -144,6 +154,8 @@ class Sinclair
     #
     #   Client.config.url # returns 'http://interstella.com:8080'
     def configurable_by(config_class, with: [])
+      warn CONFIG_CLASS_WARNING if with.present?
+
       @config_factory = ConfigFactory.new(
         config_class: config_class,
         config_attributes: with.map(&:to_sym)

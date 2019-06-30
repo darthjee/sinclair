@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class MyConfig
+class AppConfig
   extend Sinclair::ConfigClass
 
-  attr_reader :name, :config
+  add_configs :secret, app_name: 'MyApp'
 end

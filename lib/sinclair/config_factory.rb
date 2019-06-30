@@ -16,13 +16,20 @@ class Sinclair
   #   factory.config.equal?(config) # returns true
   #   config.name                   # returns 'John'
   class ConfigFactory
-    autoload :MethodsBuilder, 'sinclair/config_factory/methods_builder'
-
+    # @api private
+    # Deprecation warning message
+    # @see https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes
+    CONFIG_CLASS_WARNING = 'Config class is expected to be ConfigClass. ' \
+      "In future releases this will be enforced.\n" \
+      'see more on https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes'
     # @param config_class [Class] configuration class to be used
     # @param config_attributes [Array<Symbol,String>] list of possible configurations
     def initialize(config_class: Class.new(Config), config_attributes: [])
       @config_class = config_class
       @config_attributes = config_attributes.dup
+
+      return if config_class.is_a?(ConfigClass)
+      warn CONFIG_CLASS_WARNING
     end
 
     # @api public
@@ -71,6 +78,8 @@ class Sinclair
     #   {ConfigBuilder} is able to set those values when invoked
     #
     # @return [Array<Symbol>] all known config attributes
+    # @todo remove class check once only
+    #   ConfigClass are accepted
     #
     # @example Adding configuration name
     #   factory = Sinclair::ConfigFactory.new
@@ -84,9 +93,11 @@ class Sinclair
     #   config.respond_to? :active
     #   # returns true
     def add_configs(*args)
-      builder = MethodsBuilder.new(config_class, *args)
-
-      builder.build
+      builder = if config_class.is_a?(Sinclair::ConfigClass)
+                  config_class.add_configs(*args)
+                else
+                  Config::MethodsBuilder.build(config_class, *args)
+                end
 
       config_attributes.concat(builder.config_names.map(&:to_sym))
     end
@@ -107,6 +118,8 @@ class Sinclair
     #
     # @example Setting name on config
     #   class MyConfig
+    #     extend Sinclair::ConfigClass
+    #
     #     attr_reader :name
     #   end
     #
