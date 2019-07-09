@@ -94,4 +94,10 @@ shared_examples 'configure a config' do
         .to('123456')
     end
   end
+
+  context 'when no block is given' do
+    it do
+      expect { factory.configure }.not_to raise_error
+    end
+  end
 end

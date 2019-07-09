@@ -134,7 +134,7 @@ class Sinclair
     #
     #   config.name # returns 'John'
     def configure(&block)
-      config_builder.instance_eval(&block)
+      config_builder.instance_eval(&block) if block
     end
 
     # Returns a new instance of ConfigFactory
