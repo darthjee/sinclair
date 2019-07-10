@@ -55,7 +55,7 @@ class Sinclair
     #
     # @see ConfigFactory#reset_config
 
-    # @method configure
+    # @method configure(config_hash = {}, &block)
     #
     # @api public
     #
