@@ -133,8 +133,14 @@ class Sinclair
     #   factory.configure { name 'John' }
     #
     #   config.name # returns 'John'
-    def configure(&block)
+    def configure(hash = {}, &block)
       config_builder.instance_eval(&block) if block
+
+      config_builder.instance_eval do
+        hash.each do |key, value|
+          public_send(key, value)
+        end
+      end
     end
 
     # Returns a new instance of ConfigFactory
