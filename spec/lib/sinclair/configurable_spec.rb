@@ -165,24 +165,49 @@ describe Sinclair::Configurable do
   describe '.configure' do
     let(:config) { configurable.config }
 
-    it do
-      expect { configurable.configure { |c| c.user 'Bob' } }
-        .to change(config, :user)
-        .from(nil).to('Bob')
-    end
-
-    context 'when it was defined using string' do
+    context 'when configuring using a block' do
       it do
-        expect { configurable.configure { |c| c.password '123456' } }
-          .to change(config, :password)
-          .from(nil).to('123456')
+        expect { configurable.configure { |c| c.user 'Bob' } }
+          .to change(config, :user)
+          .from(nil).to('Bob')
+      end
+
+      context 'when it was defined using string' do
+        it do
+          expect { configurable.configure { |c| c.password '123456' } }
+            .to change(config, :password)
+            .from(nil).to('123456')
+        end
+      end
+
+      context 'when calling a method that was not defined' do
+        it do
+          expect { configurable.configure { |c| c.nope '123456' } }
+            .to raise_error(NoMethodError)
+        end
       end
     end
 
-    context 'when calling a method that was not defined' do
+    context 'when configuring using a hash' do
       it do
-        expect { configurable.configure { |c| c.nope '123456' } }
-          .to raise_error(NoMethodError)
+        expect { configurable.configure(user: 'Bob') }
+          .to change(config, :user)
+          .from(nil).to('Bob')
+      end
+
+      context 'when it was defined using string' do
+        it do
+          expect { configurable.configure(password: '123456') }
+            .to change(config, :password)
+            .from(nil).to('123456')
+        end
+      end
+
+      context 'when calling a method that was not defined' do
+        it do
+          expect { configurable.configure(nope: '123456') }
+            .to raise_error(NoMethodError)
+        end
       end
     end
 

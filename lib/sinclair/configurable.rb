@@ -25,23 +25,57 @@ class Sinclair
       "configurable_with.\n" \
       "In future releases this will be enforced.\n" \
       'see more on https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes'
-    # (see ConfigFactory#config)
+
+    # @method config
+    #
+    # @api public
+    #
+    # Returns current instance of config
+    #
+    # the method returns the same instance until +reset_config+
+    # is called
+    #
+    # @return [Config,Object] the instance of given
+    #   config_class. by default, this returns
+    #   +Class.new(Config).new+
+    #
+    # @see #reset_config
     # @see ConfigFactory#config
-    def config
-      config_factory.config
-    end
 
-    # (see ConfigFactory#reset_config)
+    # @method reset_config
+    #
+    # @api public
+    #
+    # Cleans the current config instance
+    #
+    # After cleaning it, {#config} will generate a new
+    # instance
+    #
+    # @return [NilClass]
+    #
     # @see ConfigFactory#reset_config
-    def reset_config
-      config_factory.reset_config
-    end
 
-    # (see ConfigFactory#configure)
+    # @method configure(config_hash = {}, &block)
+    #
+    # @api public
+    #
+    # Set the values in the config
+    #
+    # The block given is evaluated by the {ConfigBuilder}
+    # where each method missed will be used to set a variable
+    # in the config
+    #
+    # @param config_hash [Hash] hash with keys and values for
+    #   the configuration
+    #
+    # @yield [ConfigBuilder] methods called in the block
+    #   that are not present in {ConfigBuilder} are
+    #   then set as instance variables of the config
+    #
+    # @return [Object] the result of the block
+    #
     # @see ConfigFactory#configure
-    def configure(&block)
-      config_factory.configure(&block)
-    end
+    delegate :config, :reset_config, :configure, to: :config_factory
 
     protected
 

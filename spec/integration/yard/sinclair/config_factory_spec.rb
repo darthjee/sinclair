@@ -68,12 +68,22 @@ describe Sinclair::ConfigFactory do
     end
 
     describe '#configure' do
-      let(:config_class) { MyConfig }
+      let(:config_class)      { MyConfig }
+      let(:email)             { 'john@server.com' }
+      let(:config_attributes) { %i[name email] }
 
-      it 'sets variable on config' do
-        expect { factory.configure { name 'John' } }
-          .to change(config, :name)
-          .from(nil).to('John')
+      describe 'Setting name with hash and block' do
+        it 'sets name on config' do
+          expect { factory.configure(email: email) { name 'John' } }
+            .to change(config, :name)
+            .from(nil).to('John')
+        end
+
+        it 'sets email on config' do
+          expect { factory.configure(email: email) { name 'John' } }
+            .to change(config, :email)
+            .from(nil).to(email)
+        end
       end
     end
   end

@@ -6,9 +6,8 @@ describe Sinclair::Configurable do
   describe 'README' do
     describe 'Configured with' do
       before do
-        MyConfigurable.configure do |config|
+        MyConfigurable.configure(port: 5555) do |config|
           config.host 'interstella.art'
-          config.port 5555
         end
       end
 

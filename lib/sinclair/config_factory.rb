@@ -32,45 +32,6 @@ class Sinclair
       warn CONFIG_CLASS_WARNING
     end
 
-    # @api public
-    #
-    # Returns current instance of config
-    #
-    # the method returns the same instance until +reset_config+
-    # is called
-    #
-    # @return [Config,Object] the instance of given
-    #   config_class. by default, this returns
-    #   +Class.new(Config).new+
-    #
-    # @see #reset_config
-    #
-    # @example (see ConfigFactory)
-    def config
-      @config ||= config_class.new
-    end
-
-    # @api public
-    #
-    # Cleans the current config instance
-    #
-    # After cleaning it, {#config} will generate a new
-    # instance
-    #
-    # @return [NilClass]
-    #
-    # @example
-    #   factory = Sinclair::ConfigFactory.new
-    #
-    #   config = factory.config
-    #
-    #   factory.reset_config
-    #
-    #   factory.config == config # returns false
-    def reset_config
-      @config = nil
-    end
-
     # Adds possible configurations
     #
     # It change the configuration class adding methods
@@ -102,39 +63,59 @@ class Sinclair
       config_attributes.concat(builder.config_names.map(&:to_sym))
     end
 
-    # @api public
+    # (see Configurable#config)
     #
-    # Set the values in the config
+    # @see #reset_config
     #
-    # The block given is evaluated by the {ConfigBuilder}
-    # where each method missed will be used to set a variable
-    # in the config
+    # @example (see ConfigFactory)
+    def config
+      @config ||= config_class.new
+    end
+
+    # (see Configurable#reset_config)
     #
-    # @yield [ConfigBuilder] methods called in the block
-    #   that are not present in {ConfigBuilder} are
-    #   then set as instance variables of the config
+    # @example
+    #   factory = Sinclair::ConfigFactory.new
     #
-    # @return [Object] the result of the block
+    #   config = factory.config
+    #
+    #   factory.reset_config
+    #
+    #   factory.config == config # returns false
+    def reset_config
+      @config = nil
+    end
+
+    # (see Configurable#configure)
     #
     # @example Setting name on config
     #   class MyConfig
     #     extend Sinclair::ConfigClass
     #
-    #     attr_reader :name
+    #     attr_reader :name, :email
     #   end
     #
     #   factory = Sinclair::ConfigFactory.new(
     #     config_class: MyConfig,
-    #     config_attributes: [:name]
+    #     config_attributes: %i[name email]
     #   )
     #
     #   config = factory.config
     #
-    #   factory.configure { name 'John' }
+    #   factory.configure(email: 'john@server.com') do
+    #     name 'John'
+    #   end
     #
-    #   config.name # returns 'John'
-    def configure(&block)
-      config_builder.instance_eval(&block)
+    #   config.name  # returns 'John'
+    #   config.email # returns 'john@server.com'
+    def configure(config_hash = {}, &block)
+      config_builder.instance_eval(&block) if block
+
+      config_builder.instance_eval do
+        config_hash.each do |key, value|
+          public_send(key, value)
+        end
+      end
     end
 
     # Returns a new instance of ConfigFactory

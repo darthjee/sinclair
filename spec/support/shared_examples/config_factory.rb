@@ -66,32 +66,71 @@ shared_examples 'a config factory adding config' do
 end
 
 shared_examples 'configure a config' do
-  it 'sets value on config' do
-    expect { factory.configure { |c| c.user 'Bob' } }
-      .to change(config, :user).to('Bob')
-  end
+  context 'when a block is given' do
+    it 'sets value on config' do
+      expect { factory.configure { |c| c.user 'Bob' } }
+        .to change(config, :user).to('Bob')
+    end
 
-  context 'when re-seting the value to nil' do
-    before { factory.configure { |c| c.user 'Bob' } }
+    context 'when re-seting the value to nil' do
+      before { factory.configure { |c| c.user 'Bob' } }
 
-    it 'sets nil value on config' do
-      expect { factory.configure { |c| c.user nil } }
-        .to change(config, :user).to(nil)
+      it 'sets nil value on config' do
+        expect { factory.configure { |c| c.user nil } }
+          .to change(config, :user).to(nil)
+      end
+    end
+
+    context 'when calling a method that was not defined' do
+      it do
+        expect { factory.configure { |c| c.nope '123456' } }
+          .to raise_error(NoMethodError)
+      end
+    end
+
+    context 'when it was defined using string' do
+      it do
+        expect { factory.configure { |c| c.password '123456' } }
+          .to change(config, :password)
+          .to('123456')
+      end
     end
   end
 
-  context 'when calling a method that was not defined' do
+  context 'when no block nor hash is given' do
     it do
-      expect { factory.configure { |c| c.nope '123456' } }
-        .to raise_error(NoMethodError)
+      expect { factory.configure }.not_to raise_error
     end
   end
 
-  context 'when it was defined using string' do
-    it do
-      expect { factory.configure { |c| c.password '123456' } }
-        .to change(config, :password)
-        .to('123456')
+  context 'when a hash is given' do
+    it 'sets value on config' do
+      expect { factory.configure(user: 'Bob') }
+        .to change(config, :user).to('Bob')
+    end
+
+    context 'when re-seting the value to nil' do
+      before { factory.configure(user: 'Bob') }
+
+      it 'sets nil value on config' do
+        expect { factory.configure(user: nil) }
+          .to change(config, :user).to(nil)
+      end
+    end
+
+    context 'when setting a variable that was not defined' do
+      it do
+        expect { factory.configure(nope: '123456') }
+          .to raise_error(NoMethodError)
+      end
+    end
+
+    context 'when it was defined using string' do
+      it do
+        expect { factory.configure(password: '123456') }
+          .to change(config, :password)
+          .to('123456')
+      end
     end
   end
 end
