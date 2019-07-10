@@ -32,29 +32,6 @@ class Sinclair
       warn CONFIG_CLASS_WARNING
     end
 
-    # (see Configurable#config)
-    #
-    # @see #reset_config
-    #
-    # @example (see ConfigFactory)
-    def config
-      @config ||= config_class.new
-    end
-
-    # (see Configurable#reset_config)
-    #
-    # @example
-    #   factory = Sinclair::ConfigFactory.new
-    #
-    #   config = factory.config
-    #
-    #   factory.reset_config
-    #
-    #   factory.config == config # returns false
-    def reset_config
-      @config = nil
-    end
-
     # Adds possible configurations
     #
     # It change the configuration class adding methods
@@ -84,6 +61,29 @@ class Sinclair
                 end
 
       config_attributes.concat(builder.config_names.map(&:to_sym))
+    end
+
+    # (see Configurable#config)
+    #
+    # @see #reset_config
+    #
+    # @example (see ConfigFactory)
+    def config
+      @config ||= config_class.new
+    end
+
+    # (see Configurable#reset_config)
+    #
+    # @example
+    #   factory = Sinclair::ConfigFactory.new
+    #
+    #   config = factory.config
+    #
+    #   factory.reset_config
+    #
+    #   factory.config == config # returns false
+    def reset_config
+      @config = nil
     end
 
     # (see Configurable#configure)
