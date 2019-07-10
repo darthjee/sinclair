@@ -3,5 +3,5 @@
 class MyConfig
   extend Sinclair::ConfigClass
 
-  attr_reader :name, :config
+  attr_reader :name, :email, :config
 end

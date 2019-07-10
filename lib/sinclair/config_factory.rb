@@ -110,6 +110,9 @@ class Sinclair
     # where each method missed will be used to set a variable
     # in the config
     #
+    # @param config_hash [Hash] hash with keys and values for
+    #   the configuration
+    #
     # @yield [ConfigBuilder] methods called in the block
     #   that are not present in {ConfigBuilder} are
     #   then set as instance variables of the config
@@ -120,24 +123,27 @@ class Sinclair
     #   class MyConfig
     #     extend Sinclair::ConfigClass
     #
-    #     attr_reader :name
+    #     attr_reader :name, :email
     #   end
     #
     #   factory = Sinclair::ConfigFactory.new(
     #     config_class: MyConfig,
-    #     config_attributes: [:name]
+    #     config_attributes: %i[name email]
     #   )
     #
     #   config = factory.config
     #
-    #   factory.configure { name 'John' }
+    #   factory.configure(email: 'john@server.com') do
+    #     name 'John'
+    #   end
     #
-    #   config.name # returns 'John'
-    def configure(hash = {}, &block)
+    #   config.name  # returns 'John'
+    #   config.email # returns 'john@server.com'
+    def configure(config_hash = {}, &block)
       config_builder.instance_eval(&block) if block
 
       config_builder.instance_eval do
-        hash.each do |key, value|
+        config_hash.each do |key, value|
           public_send(key, value)
         end
       end
