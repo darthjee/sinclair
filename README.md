@@ -308,7 +308,8 @@ Configurable is a module that, when used, can add configurations
 to your classes/modules.
 
 Configurations are read-only objects that can only be set using
-the `configurable#configure` method
+the `configurable#configure` method which accepts a block or
+hash
 
 ```ruby
   module MyConfigurable
@@ -318,9 +319,8 @@ the `configurable#configure` method
     configurable_with :host, port: 80
   end
 
-  MyConfigurable.configure do |config|
+  MyConfigurable.configure(port: 5555) do |config|
     config.host 'interstella.art'
-    config.port 5555
   end
 
   MyConfigurable.config.host # returns 'interstella.art'
