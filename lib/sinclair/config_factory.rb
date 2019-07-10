@@ -32,16 +32,7 @@ class Sinclair
       warn CONFIG_CLASS_WARNING
     end
 
-    # @api public
-    #
-    # Returns current instance of config
-    #
-    # the method returns the same instance until +reset_config+
-    # is called
-    #
-    # @return [Config,Object] the instance of given
-    #   config_class. by default, this returns
-    #   +Class.new(Config).new+
+    # (see Configurable#config)
     #
     # @see #reset_config
     #
@@ -50,14 +41,7 @@ class Sinclair
       @config ||= config_class.new
     end
 
-    # @api public
-    #
-    # Cleans the current config instance
-    #
-    # After cleaning it, {#config} will generate a new
-    # instance
-    #
-    # @return [NilClass]
+    # (see Configurable#reset_config)
     #
     # @example
     #   factory = Sinclair::ConfigFactory.new
@@ -102,22 +86,7 @@ class Sinclair
       config_attributes.concat(builder.config_names.map(&:to_sym))
     end
 
-    # @api public
-    #
-    # Set the values in the config
-    #
-    # The block given is evaluated by the {ConfigBuilder}
-    # where each method missed will be used to set a variable
-    # in the config
-    #
-    # @param config_hash [Hash] hash with keys and values for
-    #   the configuration
-    #
-    # @yield [ConfigBuilder] methods called in the block
-    #   that are not present in {ConfigBuilder} are
-    #   then set as instance variables of the config
-    #
-    # @return [Object] the result of the block
+    # (see Configurable#configure)
     #
     # @example Setting name on config
     #   class MyConfig
