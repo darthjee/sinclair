@@ -23,7 +23,9 @@ RSpec/InstanceVariable:
   Exclude:
     - spec/integration/yard/sinclair/method_definition_spec.rb
     - spec/integration/yard/sinclair/method_definition/instance_block_definition_spec.rb
+    - spec/integration/yard/sinclair/method_definition/class_block_definition_spec.rb
     - spec/lib/sinclair/method_definition/instance_block_definition_spec.rb
+    - spec/lib/sinclair/method_definition/class_block_definition_spec.rb
     - spec/lib/sinclair/method_definition_spec.rb
 
 RSpec/MultipleExpectations:

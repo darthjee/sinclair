@@ -14,7 +14,7 @@ class Sinclair
       end
 
       def build(klass)
-        #klass.send(:define_method, name, method_block)
+        # klass.send(:define_method, name, method_block)
       end
 
       private
@@ -70,4 +70,3 @@ class Sinclair
     end
   end
 end
-

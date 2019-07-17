@@ -28,4 +28,3 @@ xdescribe Sinclair::MethodDefinition::InstanceBlockDefinition do
     end
   end
 end
-

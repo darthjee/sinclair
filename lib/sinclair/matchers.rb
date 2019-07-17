@@ -28,8 +28,10 @@ class Sinclair
   #    end
   #  end
   module Matchers
-    autoload :AddMethod,   'sinclair/matchers/add_method'
-    autoload :AddMethodTo, 'sinclair/matchers/add_method_to'
+    autoload :AddMethod,        'sinclair/matchers/add_method'
+    autoload :AddClassMethod,   'sinclair/matchers/add_class_method'
+    autoload :AddMethodTo,      'sinclair/matchers/add_method_to'
+    autoload :AddClassMethodTo, 'sinclair/matchers/add_class_method_to'
 
     # DSL to AddMethod
     #
