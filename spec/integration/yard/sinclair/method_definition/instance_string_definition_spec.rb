@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Sinclair::MethodDefinition::StringDefinition do
+describe Sinclair::MethodDefinition::InstanceStringDefinition do
   describe 'yard' do
     describe '#build' do
       subject(:method_definition) do

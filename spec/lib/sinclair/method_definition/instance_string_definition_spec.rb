@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Sinclair::MethodDefinition::StringDefinition do
+describe Sinclair::MethodDefinition::InstanceStringDefinition do
   let(:klass)    { Class.new }
   let(:instance) { klass.new }
 

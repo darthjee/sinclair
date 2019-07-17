@@ -3,7 +3,7 @@
 class Sinclair
   class MethodDefinition
     # Define a method from string
-    class StringDefinition < MethodDefinition
+    class InstanceStringDefinition < MethodDefinition
       # @param name    [String,Symbol] name of the method
       # @param code    [String] code to be evaluated as method
       # @param options [Hash] Options of construction

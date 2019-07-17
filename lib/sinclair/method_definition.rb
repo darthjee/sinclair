@@ -9,7 +9,7 @@ class Sinclair
     include Sinclair::OptionsParser
 
     autoload :InstanceBlockDefinition, 'sinclair/method_definition/instance_block_definition'
-    autoload :StringDefinition, 'sinclair/method_definition/string_definition'
+    autoload :InstanceStringDefinition, 'sinclair/method_definition/instance_string_definition'
 
     # Default options of initialization
     DEFAULT_OPTIONS = {
@@ -20,12 +20,12 @@ class Sinclair
     #
     # @return [MethodDefinition] When block is given, a
     #   new instance of {InstanceBlockDefinition} is returned,
-    #   otherwise {StringDefinition} is returned
+    #   otherwise {InstanceStringDefinition} is returned
     def self.from(name, code = nil, **options, &block)
       if block
         InstanceBlockDefinition.new(name, **options, &block)
       else
-        StringDefinition.new(name, code, **options)
+        InstanceStringDefinition.new(name, code, **options)
       end
     end
 

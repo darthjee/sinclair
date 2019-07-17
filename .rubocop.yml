@@ -30,7 +30,7 @@ RSpec/MultipleExpectations:
   Exclude:
     - spec/integration/yard/sinclair/method_definition_spec.rb
     - spec/integration/yard/sinclair/method_definition/instance_block_definition_spec.rb
-    - spec/integration/yard/sinclair/method_definition/string_definition_spec.rb
+    - spec/integration/yard/sinclair/method_definition/instance_string_definition_spec.rb
     - spec/lib/sinclair_spec.rb
     - spec/integration/readme/my_model_spec.rb
 
