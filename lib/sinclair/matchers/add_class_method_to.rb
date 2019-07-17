@@ -5,50 +5,18 @@ class Sinclair
     # @api private
     # @author darthjee
     #
-    # AddMethodTo checks whether a method was or not added by the call of a block
+    # AddClassMethodTo checks whether a method was
+    # or not added to a class by the call of a block
     #
-    # This is used with a RSpec DSL method add_method(method_name).to(class_object)
-    #
-    # @example
-    #  RSpec.configure do |config|
-    #    config.include Sinclair::Matchers
-    #  end
-    #
-    #  class MyModel
-    #  end
-    #
-    #  RSpec.describe 'my test' do
-    #    let(:klass)   { Class.new(MyModel) }
-    #    let(:builder) { Sinclair.new(klass) }
-    #
-    #    before do
-    #      builder.add_method(:class_name, 'self.class.name')
-    #    end
-    #
-    #    it do
-    #      expect { builder.build }.to add_method(:class_name).to(klass)
-    #    end
-    #  end
-    class AddMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
-      # @private
+    # This is used with a RSpec DSL method
+    # add_class_method(method_name).to(class_object)
+    class AddClassMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
+      # @param [Class] klass
+      #   class where the method should be added to
       #
-      # Returns a new instance of AddMethodTo
-      #
-      # @overload initialize(klass, method)
-      #   @param [Class] klass
-      #     class where the method should be added to
-      #
-      # @overload initialize(instance, method)
-      #   @param [Object] klass
-      #     instance of the class where the method should be added to
-      #
-      # @param method [Symbol,String] method name
+      # @param method [SYmbol,String] method name
       def initialize(target, method)
-        if target.is_a?(Class)
-          @klass = target
-        else
-          @instance = target
-        end
+        @klass = target
         @method = method
       end
 
@@ -58,7 +26,7 @@ class Sinclair
       #
       # @return [String]
       def description
-        "add method '#{method}' to #{klass} instances"
+        "add method class_method '#{method}' to #{klass}"
       end
 
       # @private
@@ -67,7 +35,7 @@ class Sinclair
       #
       # @return [String]
       def failure_message_for_should
-        "expected '#{method}' to be added to #{klass} but " \
+        "expected class_method '#{method}' to be added to #{klass} but " \
           "#{@initial_state ? 'it already existed' : "it didn't"}"
       end
 
@@ -77,7 +45,7 @@ class Sinclair
       #
       # @return [String]
       def failure_message_for_should_not
-        "expected '#{method}' not to be added to #{klass} but it was"
+        "expected class_method '#{method}' not to be added to #{klass} but it was"
       end
 
       # @private
@@ -116,7 +84,7 @@ class Sinclair
 
       # @api private
       # @private
-      attr_reader :method, :instance
+      attr_reader :method, :klass
 
       private
 
@@ -151,22 +119,14 @@ class Sinclair
 
       # @private
       #
-      # Class to be analised
-      #
-      # @return [Class]
-      def klass
-        @klass ||= instance.class
-      end
-
-      # @private
-      #
       # Raises when block was not given
       #
       # @raise SyntaxError
       def raise_block_syntax_error
-        raise SyntaxError, 'Block not received by the `add_method_to` matcher. ' \
+        raise SyntaxError, 'Block not received by the `add_class_method_to` matcher. ' \
           'Perhaps you want to use `{ ... }` instead of do/end?'
       end
     end
   end
 end
+
