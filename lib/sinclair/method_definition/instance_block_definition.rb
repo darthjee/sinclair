@@ -3,7 +3,7 @@
 class Sinclair
   class MethodDefinition
     # Define a method from block
-    class BlockDefinition < MethodDefinition
+    class InstanceBlockDefinition < MethodDefinition
       # @param name    [String,Symbol] name of the method
       # @param block   [Proc] block with code to be added as method
       # @param options [Hash] Options of construction
@@ -28,7 +28,7 @@ class Sinclair
       #
       #   instance = MyModel.new
       #
-      #   method_definition = Sinclair::MethodDefinition::BlockDefinition.new(:sequence) do
+      #   method_definition = Sinclair::MethodDefinition::InstanceBlockDefinition.new(:sequence) do
       #     @x = @x.to_i ** 2 + 1
       #   end
       #
