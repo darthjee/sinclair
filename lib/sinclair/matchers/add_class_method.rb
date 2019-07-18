@@ -8,11 +8,11 @@ class Sinclair
     class AddClassMethod < RSpec::Matchers::BuiltIn::BaseMatcher
       # @abstract
       #
-      # Raise a warning on the usage as this is only a builder for AddMethodTo
+      # Raise a warning on the usage as this is only a builder for AddClassMethodTo
       #
       # @raise SyntaxError
       def matches?(_actual)
-        raise SyntaxError, 'You should specify which instance the method is being added to' \
+        raise SyntaxError, 'You should specify which class the method is being added to' \
           "add_class_method(:#{method}).to(klass)"
       end
 
@@ -28,7 +28,7 @@ class Sinclair
       # @param [Class] klass
       #   class where the method should be added to
       #
-      # @return [AddMethodTo] the correct matcher
+      # @return [AddClassMethodTo] the correct matcher
       def to(target = nil)
         AddClassMethodTo.new(target, method)
       end

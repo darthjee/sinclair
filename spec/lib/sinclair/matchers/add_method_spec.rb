@@ -11,11 +11,12 @@ describe Sinclair::Matchers::AddMethod do
 
   describe '#to' do
     it do
-      expect(matcher.to(klass.new)).to be_a(Sinclair::Matchers::AddMethodTo)
+      expect(matcher.to(klass.new)).to be_a(Sinclair::Matchers::AddInstanceMethodTo)
     end
 
-    it 'returns an add_method_to' do
-      expect(matcher.to(instance)).to eq(Sinclair::Matchers::AddMethodTo.new(instance, method))
+    it 'returns an add_instance_method_to' do
+      expect(matcher.to(instance))
+        .to eq(Sinclair::Matchers::AddInstanceMethodTo.new(instance, method))
     end
   end
 

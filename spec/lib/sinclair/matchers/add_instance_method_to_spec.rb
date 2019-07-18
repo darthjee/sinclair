@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Sinclair::Matchers::AddMethodTo do
+describe Sinclair::Matchers::AddInstanceMethodTo do
   subject(:matcher) { described_class.new(instance, method) }
 
   let(:method)   { :the_method }
@@ -44,7 +44,7 @@ describe Sinclair::Matchers::AddMethodTo do
       it do
         expect { matcher.matches?(event_proc) { 1 } }
           .to raise_error(
-            SyntaxError, 'Block not received by the `add_method_to` matcher. ' \
+            SyntaxError, 'Block not received by the `add_instance_method_to` matcher. ' \
           'Perhaps you want to use `{ ... }` instead of do/end?'
           )
       end

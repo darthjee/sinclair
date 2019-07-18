@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Sinclair::Matchers::AddMethodTo do
+describe Sinclair::Matchers::AddInstanceMethodTo do
   describe 'yard' do
     let(:klass)   { Class.new(MyModel) }
     let(:builder) { Sinclair.new(klass) }

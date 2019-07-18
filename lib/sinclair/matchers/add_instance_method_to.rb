@@ -5,7 +5,7 @@ class Sinclair
     # @api private
     # @author darthjee
     #
-    # AddMethodTo checks whether a method was or not added by the call of a block
+    # AddInstanceMethodTo checks whether a method was or not added by the call of a block
     #
     # This is used with a RSpec DSL method add_method(method_name).to(class_object)
     #
@@ -29,8 +29,8 @@ class Sinclair
     #      expect { builder.build }.to add_method(:class_name).to(klass)
     #    end
     #  end
-    class AddMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
-      # Returns a new instance of AddMethodTo
+    class AddInstanceMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
+      # Returns a new instance of AddInstanceMethodTo
       #
       # @overload initialize(klass, method)
       #   @param [Class] klass
@@ -152,7 +152,7 @@ class Sinclair
       #
       # @raise SyntaxError
       def raise_block_syntax_error
-        raise SyntaxError, 'Block not received by the `add_method_to` matcher. ' \
+        raise SyntaxError, 'Block not received by the `add_instance_method_to` matcher. ' \
           'Perhaps you want to use `{ ... }` instead of do/end?'
       end
     end

@@ -13,7 +13,7 @@ describe Sinclair::Matchers::AddClassMethod do
       expect(matcher.to(klass.new)).to be_a(Sinclair::Matchers::AddClassMethodTo)
     end
 
-    it 'returns an add_method_to' do
+    it 'returns an add_class_method_to' do
       expect(matcher.to(klass)).to eq(Sinclair::Matchers::AddClassMethodTo.new(klass, method))
     end
   end
@@ -22,7 +22,7 @@ describe Sinclair::Matchers::AddClassMethod do
     it do
       expect { matcher.matches?(proc {}) }
         .to raise_error(
-          SyntaxError, 'You should specify which instance the method is being added to' \
+          SyntaxError, 'You should specify which class the method is being added to' \
           "add_class_method(:#{method}).to(klass)"
         )
     end

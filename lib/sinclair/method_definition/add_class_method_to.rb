@@ -6,7 +6,7 @@ class Sinclair
     class AddClassMethod < RSpec::Matchers::BuiltIn::BaseMatcher
       # @abstract
       #
-      # Raise a warning on the usage as this is only a builder for AddMethodTo
+      # Raise a warning on the usage as this is only a builder for AddInstanceMethodTo
       #
       # @raise SyntaxError
       def matches?(_actual)

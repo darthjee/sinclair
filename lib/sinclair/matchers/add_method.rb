@@ -4,11 +4,11 @@ class Sinclair
   module Matchers
     # @api private
     # @author darthjee
-    # AddMethod is able to build an instance of {Sinclair::Matchers::AddMethodTo}
+    # AddMethod is able to build an instance of {Sinclair::Matchers::AddInstanceMethodTo}
     class AddMethod < RSpec::Matchers::BuiltIn::BaseMatcher
       # @abstract
       #
-      # Raise a warning on the usage as this is only a builder for AddMethodTo
+      # Raise a warning on the usage as this is only a builder for AddInstanceMethodTo
       #
       # @raise SyntaxError
       def matches?(_actual)
@@ -23,7 +23,7 @@ class Sinclair
         @method = method
       end
 
-      # Creates a matcher AddMethodTo
+      # Creates a matcher AddInstanceMethodTo
       #
       # @overload to(klass)
       #   @param [Class] klass
@@ -67,9 +67,9 @@ class Sinclair
       #   # Outputs
       #   # 'should add method 'the_method' to #<Class:0x000056441bf46608> instances'
       #
-      # @return [AddMethodTo] the correct matcher
+      # @return [AddInstanceMethodTo] the correct matcher
       def to(target = nil)
-        AddMethodTo.new(target, method)
+        AddInstanceMethodTo.new(target, method)
       end
 
       # definition needed for block matchers
