@@ -4,7 +4,7 @@ class Sinclair
   module Matchers
     # @api private
     # @author darthjee
-    # AddMethod is able to build an instance of {Sinclair::Matchers::AddClassMethodTo}
+    # AddInstanceMethod is able to build an instance of {Sinclair::Matchers::AddClassMethodTo}
     class AddClassMethod < RSpec::Matchers::BuiltIn::BaseMatcher
       # @abstract
       #
@@ -16,7 +16,7 @@ class Sinclair
           "add_class_method(:#{method}).to(klass)"
       end
 
-      # Returns a new instance of AddMethod
+      # Returns a new instance of AddInstanceMethod
       #
       # @param method [String,Symbol] the method, to be checked, name
       def initialize(method)

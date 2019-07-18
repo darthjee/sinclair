@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Sinclair::Matchers::AddMethod do
+RSpec.describe Sinclair::Matchers::AddInstanceMethod do
   describe 'yard' do
     describe '#to' do
       context 'when checking against Class' do
