@@ -2,7 +2,7 @@
 
 class Sinclair
   class MethodDefinition
-    class ClassBlockDefinition < MethodDefinition
+    class ClassBlockDefinition < ClassMethodDefinition
       # @param name    [String,Symbol] name of the method
       # @param block   [Proc] block with code to be added as method
       # @param options [Hash] Options of construction
