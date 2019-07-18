@@ -22,17 +22,17 @@ class Sinclair
       #
       # @return [Symbol] name of the created method
       #
-      # @example With no options
+      # @example Using instance block method with options
       #   class MyModel
       #   end
       #
       #   instance = MyModel.new
       #
-      #   method_definition = Sinclair::MethodDefinition.from(
+      #   method_definition = Sinclair::MethodDefinition::InstanceStringDefinition.new(
       #     :sequence, '@x = @x.to_i ** 2 + 1'
       #   )
       #
-      #   method_definition.build(klass)      # adds instance_method :sequence to
+      #   method_definition.build(MyModel)    # adds instance_method :sequence to
       #                                       # MyModel instances
       #
       #   instance.instance_variable_get(:@x) # returns nil
