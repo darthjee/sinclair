@@ -19,7 +19,7 @@ describe Sinclair::MethodDefinition::InstanceBlockDefinition do
 
     context 'with cached options' do
       subject(:method_definition) do
-        described_class.from(method_name, cached: cached_option) do
+        described_class.new(method_name, cached: cached_option) do
           @x = @x.to_i + 1
         end
       end

@@ -2,7 +2,7 @@
 
 class Sinclair
   class MethodDefinition
-    class InstanceBlockDefinition < MethodDefinition
+    class ClassBlockDefinition < MethodDefinition
       # @param name    [String,Symbol] name of the method
       # @param block   [Proc] block with code to be added as method
       # @param options [Hash] Options of construction
@@ -14,7 +14,7 @@ class Sinclair
       end
 
       def build(klass)
-        # klass.send(:define_method, name, method_block)
+        klass.send(:define_singleton_method, name, method_block)
       end
 
       private
