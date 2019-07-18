@@ -20,7 +20,7 @@ class Sinclair
         @method = method
       end
 
-      # Returnst expectaton description
+      # Return expectaton description
       #
       # @return [String]
       def description
