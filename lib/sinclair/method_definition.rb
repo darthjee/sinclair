@@ -13,6 +13,7 @@ class Sinclair
     autoload :InstanceStringDefinition, 'sinclair/method_definition/instance_string_definition'
     autoload :ClassMethodDefinition,    'sinclair/method_definition/class_method_definition'
     autoload :ClassBlockDefinition,     'sinclair/method_definition/class_block_definition'
+    autoload :ClassStringDefinition,    'sinclair/method_definition/class_string_definition'
 
     # Default options of initialization
     DEFAULT_OPTIONS = {

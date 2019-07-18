@@ -22,21 +22,21 @@ describe Sinclair::MethodDefinition::ClassMethodDefinition do
       end
     end
 
-    xcontext 'when method was defined with a string' do
+    context 'when method was defined with a string' do
       subject(:method_definition) do
         described_class.from(method_name, code)
       end
 
       let(:code) { '@x = @x.to_i + 1' }
 
-      it_behaves_like 'MethodDefinition#build without cache'
+      it_behaves_like 'ClassMethodDefinition#build without cache'
 
       context 'with cached options' do
         subject(:method_definition) do
           described_class.from(method_name, code, cached: cached_option)
         end
 
-        it_behaves_like 'MethodDefinition#build with cache options'
+        it_behaves_like 'ClassMethodDefinition#build with cache options'
       end
     end
 
