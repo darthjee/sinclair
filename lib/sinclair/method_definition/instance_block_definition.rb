@@ -3,7 +3,7 @@
 class Sinclair
   class MethodDefinition
     # Define a method from block
-    class InstanceBlockDefinition < MethodDefinition
+    class InstanceBlockDefinition < InstanceMethodDefinition
       # @param name    [String,Symbol] name of the method
       # @param block   [Proc] block with code to be added as method
       # @param options [Hash] Options of construction
