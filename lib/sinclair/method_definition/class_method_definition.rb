@@ -5,7 +5,7 @@ class Sinclair
     # @api private
     # @author darthjee
     #
-    # Builder capable of adding methods to instances
+    # Builder capable of adding methods to the class
     class ClassMethodDefinition < MethodDefinition
       include Sinclair::OptionsParser
 
@@ -41,6 +41,45 @@ class Sinclair
       # This should be implemented on child classes
       #
       # @param _klass [Class] class which will receive the new method
+      #
+      # @example Using block method with no options
+      #   class MyModel
+      #   end
+      #
+      #   method_definition = Sinclair::ClassMethodDefinition.from(
+      #     :sequence, '@x = @x.to_i ** 2 + 1'
+      #   )
+      #
+      #   method_definition.build(MyModel) # adds class_method :sequence to
+      #                                    # MyModel
+      #
+      #   MyModel.instance_variable_get(:@x) # returns nil
+      #
+      #   MyModel.sequence               # returns 1
+      #   MyModel.sequence               # returns 2
+      #   MyModel.sequence               # returns 5
+      #
+      #   MyModel.instance_variable_get(:@x)  # returns 5
+      #
+      # @example Using string method with no options
+      #   class MyModel
+      #   end
+      #
+      #   method_definition = Sinclair::ClassMethodDefinition.from(:sequence) do
+      #     @x = @x.to_i ** 2 + 1
+      #   end
+      #
+      #   method_definition.build(MyModel) # adds instance_method :sequence to
+      #                                    # MyModel instances
+      #
+      #   MyModel.instance_variable_get(:@sequence) # returns nil
+      #   MyModel.instance_variable_get(:@x)        # returns nil
+      #
+      #   MyModel.sequence               # returns 1
+      #   MyModel.sequence               # returns 1 (cached value)
+      #
+      #   MyModel.instance_variable_get(:@sequence) # returns 1
+      #   MyModel.instance_variable_get(:@x)        # returns 1
       #
       # @return [Symbol] name of the created method
       def build(_klass)

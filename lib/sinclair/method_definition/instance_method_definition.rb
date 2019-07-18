@@ -52,8 +52,8 @@ class Sinclair
       #     :sequence, '@x = @x.to_i ** 2 + 1'
       #   )
       #
-      #   method_definition.build(klass)  # adds instance_method :sequence to
-      #                                   # MyModel instances
+      #   method_definition.build(MyModel) # adds instance_method :sequence to
+      #                                    # MyModel instances
       #
       #   instance.instance_variable_get(:@x)        # returns nil
       #
@@ -73,8 +73,8 @@ class Sinclair
       #     @x = @x.to_i ** 2 + 1
       #   end
       #
-      #   method_definition.build(klass)  # adds instance_method :sequence to
-      #                                   # MyModel instances
+      #   method_definition.build(MyModel) # adds instance_method :sequence to
+      #                                    # MyModel instances
       #
       #   instance.instance_variable_get(:@sequence) # returns nil
       #   instance.instance_variable_get(:@x)        # returns nil
