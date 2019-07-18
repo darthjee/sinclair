@@ -7,13 +7,6 @@ class Sinclair
     #
     # Builder capable of adding methods to the class
     class ClassMethodDefinition < MethodDefinition
-      include Sinclair::OptionsParser
-
-      # Default options of initialization
-      DEFAULT_OPTIONS = {
-        cached: false
-      }.freeze
-
       # Creates a new instance based on arguments
       #
       # @return [ClassMethodDefinition] When block is given, a
@@ -25,15 +18,6 @@ class Sinclair
         else
           ClassStringDefinition.new(name, code, **options)
         end
-      end
-
-      # @param name    [String,Symbol] name of the method
-      # @param options [Hash] Options of construction
-      # @option options cached [Boolean] Flag telling to create
-      #   a method with cache
-      def initialize(name, **options)
-        @name =    name
-        @options = DEFAULT_OPTIONS.merge(options)
       end
 
       # Adds the class method to given klass
@@ -86,19 +70,6 @@ class Sinclair
         raise 'Build is implemented in subclasses. ' \
           "Use #{self.class}.from to initialize a proper object"
       end
-
-      private
-
-      # @private
-      attr_reader :name, :code, :block
-      delegate :cached, to: :options_object
-
-      # @private
-      #
-      # Flag telling to use cached method
-      #
-      # @return [Boolean]
-      alias cached? cached
     end
   end
 end
