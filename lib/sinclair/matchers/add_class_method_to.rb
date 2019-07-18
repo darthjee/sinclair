@@ -97,7 +97,7 @@ class Sinclair
       #
       # @return [Boolean]
       def method_defined?
-        klass.method_defined?(method)
+        klass.methods(false).include?(method.to_sym)
       end
 
       # Raises when block was not given

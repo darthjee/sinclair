@@ -10,7 +10,7 @@ describe Sinclair::Matchers::AddClassMethodTo do
 
   describe '#matches?' do
     let(:event_proc) do
-      proc { klass.send(:define_method, method) {} }
+      proc { klass.send(:define_singleton_method, method) {} }
     end
 
     context 'when a method is added' do
@@ -25,7 +25,7 @@ describe Sinclair::Matchers::AddClassMethodTo do
 
     context 'when the wrong method is added' do
       let(:event_proc) do
-        proc { klass.send(:define_method, :another_method) {} }
+        proc { klass.send(:define_singleton_method, :another_method) {} }
       end
 
       it { expect(matcher).not_to be_matches(event_proc) }
@@ -50,7 +50,7 @@ describe Sinclair::Matchers::AddClassMethodTo do
 
     context 'when method already exited' do
       before do
-        klass.send(:define_method, method) {}
+        klass.send(:define_singleton_method, method) {}
         matcher.matches?(proc {})
       end
 
