@@ -42,5 +42,15 @@ class Sinclair
     def add_method(method)
       Sinclair::Matchers::AddMethod.new(method)
     end
+
+    # DSL to AddClassMethod
+    #
+    # @example (see Sinclair::Matchers)
+    # @example (see Sinclair::Matchers::AddClassMethod#to)
+    #
+    # @return [AddClassMethod] RSpec Matcher
+    def add_class_method(method)
+      Sinclair::Matchers::AddClassMethod.new(method)
+    end
   end
 end
