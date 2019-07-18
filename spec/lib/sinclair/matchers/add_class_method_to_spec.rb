@@ -75,4 +75,3 @@ describe Sinclair::Matchers::AddClassMethodTo do
     end
   end
 end
-

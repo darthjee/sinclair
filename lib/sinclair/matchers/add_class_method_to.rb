@@ -110,4 +110,3 @@ class Sinclair
     end
   end
 end
-

@@ -27,5 +27,10 @@ describe Sinclair::Matchers::AddClassMethod do
         )
     end
   end
-end
 
+  describe '#supports_block_expectations?' do
+    it do
+      expect(matcher).to be_supports_block_expectations
+    end
+  end
+end
