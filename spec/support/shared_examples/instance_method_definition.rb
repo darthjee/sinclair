@@ -26,7 +26,6 @@ shared_examples 'MethodDefinition#build' do
   end
 end
 
-
 shared_examples 'MethodDefinition#build without cache' do
   it_behaves_like 'MethodDefinition#build'
 

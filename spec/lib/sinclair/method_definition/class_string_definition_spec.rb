@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe Sinclair::MethodDefinition::ClassStringDefinition do
-  let(:klass)    { Class.new }
+  let(:klass) { Class.new }
 
   describe '#build' do
     subject(:method_definition) do

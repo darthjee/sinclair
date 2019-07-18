@@ -53,7 +53,7 @@ class Sinclair
       #   )
       #
       #   method_definition.build(klass)  # adds instance_method :sequence to
-      #                                  # MyModel instances
+      #                                   # MyModel instances
       #
       #   instance.instance_variable_get(:@x)        # returns nil
       #
@@ -74,7 +74,7 @@ class Sinclair
       #   end
       #
       #   method_definition.build(klass)  # adds instance_method :sequence to
-      #                                  # MyModel instances
+      #                                   # MyModel instances
       #
       #   instance.instance_variable_get(:@sequence) # returns nil
       #   instance.instance_variable_get(:@x)        # returns nil
