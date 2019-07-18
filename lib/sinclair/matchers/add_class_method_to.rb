@@ -63,7 +63,7 @@ class Sinclair
       def equal?(other)
         return unless other.class == self.class
         other.method == method &&
-          other.instance == instance
+          other.klass == klass
       end
 
       alias == equal?

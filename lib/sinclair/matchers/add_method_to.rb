@@ -93,7 +93,8 @@ class Sinclair
       def equal?(other)
         return unless other.class == self.class
         other.method == method &&
-          other.instance == instance
+          other.instance == instance &&
+          other.klass == klass
       end
 
       alias == equal?
@@ -104,6 +105,15 @@ class Sinclair
 
       # @private
       attr_reader :method, :instance
+
+      # @private
+      #
+      # Class to be analised
+      #
+      # @return [Class]
+      def klass
+        @klass ||= instance.class
+      end
 
       private
 
@@ -134,15 +144,6 @@ class Sinclair
       # @return [Boolean]
       def method_defined?
         klass.method_defined?(method)
-      end
-
-      # @private
-      #
-      # Class to be analised
-      #
-      # @return [Class]
-      def klass
-        @klass ||= instance.class
       end
 
       # @private
