@@ -30,8 +30,6 @@ class Sinclair
     #    end
     #  end
     class AddMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
-      # @private
-      #
       # Returns a new instance of AddMethodTo
       #
       # @overload initialize(klass, method)
@@ -52,8 +50,6 @@ class Sinclair
         @method = method
       end
 
-      # @private
-      #
       # Returnst expectaton description
       #
       # @return [String]
@@ -61,8 +57,6 @@ class Sinclair
         "add method '#{method}' to #{klass} instances"
       end
 
-      # @private
-      #
       # Returns message on expectation failure
       #
       # @return [String]
@@ -71,8 +65,6 @@ class Sinclair
           "#{@initial_state ? 'it already existed' : "it didn't"}"
       end
 
-      # @private
-      #
       # Returns message on expectation failure for negative expectation
       #
       # @return [String]
@@ -80,8 +72,6 @@ class Sinclair
         "expected '#{method}' not to be added to #{klass} but it was"
       end
 
-      # @private
-      #
       # Checks if expectation is true or not
       #
       # @return [Boolean] expectation check
@@ -97,8 +87,6 @@ class Sinclair
         true
       end
 
-      # @api private
-      #
       # Checkes if another instnce is equal self
       #
       # @return [Boolean]
@@ -114,7 +102,6 @@ class Sinclair
 
       protected
 
-      # @api private
       # @private
       attr_reader :method, :instance
 

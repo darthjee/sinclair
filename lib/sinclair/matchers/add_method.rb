@@ -2,10 +2,10 @@
 
 class Sinclair
   module Matchers
+    # @api private
     # @author darthjee
     # AddMethod is able to build an instance of Sinclair::Matchers::AddMethodTo
     class AddMethod < RSpec::Matchers::BuiltIn::BaseMatcher
-      # @api private
       # @abstract
       #
       # Raise a warning on the usage as this is only a builder for AddMethodTo
@@ -16,8 +16,6 @@ class Sinclair
           "add_method(:#{method}).to(instance)"
       end
 
-      # @api private
-      #
       # Returns a new instance of AddMethod
       #
       # @param method [String,Symbol] the method, to be checked, name
@@ -25,8 +23,6 @@ class Sinclair
         @method = method
       end
 
-      # @api public
-      #
       # Creates a matcher AddMethodTo
       #
       # @overload to(klass)
@@ -76,8 +72,6 @@ class Sinclair
         AddMethodTo.new(target, method)
       end
 
-      # @api private
-      #
       # definition needed for block matchers
       #
       # @return [Boolean]
@@ -85,8 +79,6 @@ class Sinclair
         true
       end
 
-      # @api private
-      #
       # Checkes if another instnce is equal self
       #
       # @return [Boolean]
@@ -99,7 +91,6 @@ class Sinclair
 
       protected
 
-      # @api private
       # @private
       attr_reader :method
     end

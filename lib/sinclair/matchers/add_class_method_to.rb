@@ -20,8 +20,6 @@ class Sinclair
         @method = method
       end
 
-      # @private
-      #
       # Returnst expectaton description
       #
       # @return [String]
@@ -29,8 +27,6 @@ class Sinclair
         "add method class_method '#{method}' to #{klass}"
       end
 
-      # @private
-      #
       # Returns message on expectation failure
       #
       # @return [String]
@@ -39,8 +35,6 @@ class Sinclair
           "#{@initial_state ? 'it already existed' : "it didn't"}"
       end
 
-      # @private
-      #
       # Returns message on expectation failure for negative expectation
       #
       # @return [String]
@@ -48,8 +42,6 @@ class Sinclair
         "expected class_method '#{method}' not to be added to #{klass} but it was"
       end
 
-      # @private
-      #
       # Checks if expectation is true or not
       #
       # @return [Boolean] expectation check
@@ -65,8 +57,6 @@ class Sinclair
         true
       end
 
-      # @api private
-      #
       # Checkes if another instnce is equal self
       #
       # @return [Boolean]
@@ -82,14 +72,11 @@ class Sinclair
 
       protected
 
-      # @api private
       # @private
       attr_reader :method, :klass
 
       private
 
-      # @private
-      #
       # Checks if a method was added (didn't exist before)
       #
       # @return Boolean
@@ -97,8 +84,6 @@ class Sinclair
         !@initial_state && @final_state
       end
 
-      # @private
-      #
       # Call block to check if it aded a method or not
       #
       # @return [Boolan]
@@ -108,8 +93,6 @@ class Sinclair
         @final_state = method_defined?
       end
 
-      # @private
-      #
       # Checks if class has instance method defined
       #
       # @return [Boolean]
@@ -117,8 +100,6 @@ class Sinclair
         klass.method_defined?(method)
       end
 
-      # @private
-      #
       # Raises when block was not given
       #
       # @raise SyntaxError
