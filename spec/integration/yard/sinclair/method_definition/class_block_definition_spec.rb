@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+require 'spec_helper'
+
 describe Sinclair::MethodDefinition::ClassBlockDefinition do
   describe 'yard' do
     describe '#build' do
       subject(:method_definition) do
-        described_class.from(name) do
+        described_class.new(name) do
           @x = @x.to_i**2 + 1
         end
       end
