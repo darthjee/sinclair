@@ -21,6 +21,29 @@ class Sinclair
       # @see MethodDefinition#build
       #
       # @return [Symbol] name of the created method
+      #
+      # @example Using class string method with cache options
+      #   class MyModel
+      #   end
+      #
+      #   method_definition = Sinclair::MethodDefinition::ClassStringDefinition.new(
+      #     :sequence,
+      #     '@x = @x.to_i ** 2 + 1',
+      #     cached: true
+      #   )
+      #
+      #   method_definition.build(MyModel) # adds instance_method :sequence to
+      #                                    # MyModel instances
+      #
+      #   MyModel.instance_variable_get(:@sequence) # returns nil
+      #   MyModel.instance_variable_get(:@x)        # returns nil
+      #
+      #   MyModel.sequence               # returns 1
+      #   MyModel.sequence               # returns 1 (cached value)
+      #
+      #   MyModel.instance_variable_get(:@sequence) # returns 1
+      #   MyModel.instance_variable_get(:@x)        # returns 1
+
       def build(klass)
         klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
       end

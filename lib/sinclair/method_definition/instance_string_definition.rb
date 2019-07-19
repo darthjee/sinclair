@@ -2,7 +2,7 @@
 
 class Sinclair
   class MethodDefinition
-    # Define a method from string
+    # Define an instance method from string
     class InstanceStringDefinition < InstanceMethodDefinition
       # @param name    [String,Symbol] name of the method
       # @param code    [String] code to be evaluated as method
@@ -22,7 +22,7 @@ class Sinclair
       #
       # @return [Symbol] name of the created method
       #
-      # @example Using instance block method with options
+      # @example Using instance string method with no options
       #   class MyModel
       #   end
       #
@@ -42,7 +42,6 @@ class Sinclair
       #   instance.sequence                   # returns 5
       #
       #   instance.instance_variable_get(:@x) # returns 5
-      #
       def build(klass)
         klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
       end

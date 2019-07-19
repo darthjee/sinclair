@@ -22,13 +22,15 @@ class Sinclair
       #
       # @return [Symbol] name of the created method
       #
-      # @example Using instance block method with no options
+      # @example Using instance block method with cached options
       #   class MyModel
       #   end
       #
       #   instance = MyModel.new
       #
-      #   method_definition = Sinclair::MethodDefinition::InstanceBlockDefinition.new(:sequence) do
+      #   method_definition = Sinclair::MethodDefinition::InstanceBlockDefinition.new(
+      #     :sequence, cached: true
+      #   ) do
       #     @x = @x.to_i ** 2 + 1
       #   end
       #
