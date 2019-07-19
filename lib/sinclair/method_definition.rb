@@ -54,9 +54,8 @@ class Sinclair
     # @param _klass [Class] class which will receive the new method
     #
     # @example (see MethodDefinition::InstanceBlockDefinition#build)
-    # @example (see MethodDefinition::InstanceStringDefinition#build)
     # @example (see MethodDefinition::ClassBlockDefinition#build)
-    # @example (see MethodDefinition::ClassStringDefinition#build)
+    # @example (see MethodDefinition::StringDefinition#build)
     #
     # @return [Symbol] name of the created method
     def build(_klass)
