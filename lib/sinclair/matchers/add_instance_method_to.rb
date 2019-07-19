@@ -29,7 +29,7 @@ class Sinclair
     #      expect { builder.build }.to add_method(:class_name).to(klass)
     #    end
     #  end
-    class AddInstanceMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
+    class AddInstanceMethodTo < AddMethodTo
       # Returns a new instance of AddInstanceMethodTo
       #
       # @overload initialize(klass, method)
@@ -72,39 +72,13 @@ class Sinclair
         "expected '#{method}' not to be added to #{klass} but it was"
       end
 
-      # Checks if expectation is true or not
-      #
-      # @return [Boolean] expectation check
-      def matches?(event_proc)
-        return false unless event_proc.is_a?(Proc)
-        raise_block_syntax_error if block_given?
-        perform_change(event_proc)
-        added?
-      end
-
-      # definition needed for block matchers
-      def supports_block_expectations?
-        true
-      end
-
-      # Checkes if another instnce is equal self
-      #
-      # @return [Boolean]
-      def equal?(other)
-        return unless other.class == self.class
-        other.method == method &&
-          other.instance == instance &&
-          other.klass == klass
-      end
-
-      alias == equal?
       alias failure_message failure_message_for_should
       alias failure_message_when_negated failure_message_for_should_not
 
       protected
 
       # @private
-      attr_reader :method, :instance
+      attr_reader :instance
 
       # @private
       #
@@ -116,26 +90,6 @@ class Sinclair
       end
 
       private
-
-      # @private
-      #
-      # Checks if a method was added (didn't exist before)
-      #
-      # @return Boolean
-      def added?
-        !@initial_state && @final_state
-      end
-
-      # @private
-      #
-      # Call block to check if it aded a method or not
-      #
-      # @return [Boolan]
-      def perform_change(event_proc)
-        @initial_state = method_defined?
-        event_proc.call
-        @final_state = method_defined?
-      end
 
       # @private
       #

@@ -5,7 +5,7 @@ class Sinclair
     # @api private
     # @author darthjee
     #
-    # AddInstanceMethod is able to build an instance of {Sinclair::Matchers::AddClassMethodTo}
+    # AddClassMethod is able to build an instance of {Sinclair::Matchers::AddClassMethodTo}
     class AddClassMethod < AddMethod
       # @abstract
       #
