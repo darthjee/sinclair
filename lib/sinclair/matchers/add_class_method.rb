@@ -6,7 +6,7 @@ class Sinclair
     # @author darthjee
     #
     # AddInstanceMethod is able to build an instance of {Sinclair::Matchers::AddClassMethodTo}
-    class AddClassMethod < RSpec::Matchers::BuiltIn::BaseMatcher
+    class AddClassMethod < AddMethod
       # @abstract
       #
       # Raise a warning on the usage as this is only a builder for AddClassMethodTo
@@ -15,11 +15,6 @@ class Sinclair
       def matches?(_actual)
         raise SyntaxError, 'You should specify which class the method is being added to' \
           "add_class_method(:#{method}).to(klass)"
-      end
-
-      # @param method [String,Symbol] the method, to be checked, name
-      def initialize(method)
-        @method = method
       end
 
       # Creates a matcher AddClassMethodTo
@@ -31,28 +26,6 @@ class Sinclair
       def to(target = nil)
         AddClassMethodTo.new(target, method)
       end
-
-      # definition needed for block matchers
-      #
-      # @return [Boolean]
-      def supports_block_expectations?
-        true
-      end
-
-      # Checkes if another instnce is equal self
-      #
-      # @return [Boolean]
-      def equal?(other)
-        return unless other.class == self.class
-        other.method == method
-      end
-
-      alias == equal?
-
-      protected
-
-      # @private
-      attr_reader :method
     end
   end
 end

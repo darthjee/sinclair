@@ -28,6 +28,7 @@ class Sinclair
   #    end
   #  end
   module Matchers
+    autoload :AddMethod,           'sinclair/matchers/add_method'
     autoload :AddInstanceMethod,   'sinclair/matchers/add_instance_method'
     autoload :AddClassMethod,      'sinclair/matchers/add_class_method'
     autoload :AddInstanceMethodTo, 'sinclair/matchers/add_instance_method_to'
