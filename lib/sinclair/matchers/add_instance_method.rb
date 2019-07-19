@@ -9,7 +9,7 @@ class Sinclair
     class AddInstanceMethod < AddMethod
       # @abstract
       #
-      # Raise a warning on the usage as this is only a builder for AddInstanceMethodTo
+      # Raise a warning on the usage as this is only a builder for {AddInstanceMethodTo}
       #
       # @raise SyntaxError
       def matches?(_actual)
