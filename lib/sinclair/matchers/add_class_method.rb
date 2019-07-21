@@ -6,6 +6,24 @@ class Sinclair
     # @author darthjee
     #
     # AddClassMethod is able to build an instance of {Sinclair::Matchers::AddClassMethodTo}
+    #
+    # @example
+    #   RSpec.describe 'MyBuilder' do
+    #     let(:clazz)   { Class.new }
+    #
+    #     let(:block) do
+    #       proc do
+    #         clazz.define_singleton_method(:new_method) { 2 }
+    #       end
+    #     end
+    #
+    #     it do
+    #       expect(&block).to add_class_method(:new_method).to(clazz)
+    #     end
+    #   end
+    #
+    #   # outputs
+    #   # should add method class_method 'new_method' to #<Class:0x000055b4d0a25c80>
     class AddClassMethod < AddMethod
       # @abstract
       #
