@@ -8,8 +8,15 @@ class Sinclair
     # AddClassMethod is able to build an instance of {Sinclair::Matchers::AddClassMethodTo}
     #
     # @example
+    #   RSpec.configure do |config|
+    #     config.include Sinclair::Matchers
+    #   end
+    #
+    #   class MyModel
+    #   end
+    #
     #   RSpec.describe 'MyBuilder' do
-    #     let(:clazz)   { Class.new }
+    #     let(:clazz)   { Class.new(MyModel) }
     #
     #     let(:block) do
     #       proc do

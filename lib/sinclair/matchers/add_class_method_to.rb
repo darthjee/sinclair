@@ -18,6 +18,7 @@ class Sinclair
     #
     #   class MyModel
     #   end
+    #
     #   describe 'my test' do
     #     let(:klass)   { Class.new(MyModel) }
     #

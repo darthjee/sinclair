@@ -6,7 +6,7 @@ RSpec.describe Sinclair::Matchers::AddClassMethod do
   describe 'yard' do
     describe '#to' do
       context 'when checking against Class' do
-        let(:clazz) { Class.new }
+        let(:clazz) { Class.new(MyModel) }
 
         let(:block) do
           proc do

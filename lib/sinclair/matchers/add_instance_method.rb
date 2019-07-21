@@ -8,8 +8,15 @@ class Sinclair
     # AddInstanceMethod is able to build an instance of {Sinclair::Matchers::AddInstanceMethodTo}
     #
     # @example Using inside RSpec and checking Class
+    #   RSpec.configure do |config|
+    #     config.include Sinclair::Matchers
+    #   end
+    #
+    #   class MyModel
+    #   end
+    #
     #   RSpec.describe "MyBuilder" do
-    #     let(:clazz)   { Class.new }
+    #     let(:clazz)   { Class.new(MyModel) }
     #     let(:builder) { Sinclair.new(clazz) }
     #
     #     before do
@@ -23,9 +30,17 @@ class Sinclair
     #
     #   # Outputs
     #   # 'should add method 'new_method' to #<Class:0x000056441bf46608> instances'
+    #
     # @example Using inside RSpec and checking instance
+    #   RSpec.configure do |config|
+    #     config.include Sinclair::Matchers
+    #   end
+    #
+    #   class MyModel
+    #   end
+    #
     #   RSpec.describe "MyBuilder" do
-    #     let(:clazz)    { Class.new }
+    #     let(:clazz)    { Class.new(MyModel) }
     #     let(:builder)  { Sinclair.new(clazz) }
     #     let(:instance) { clazz.new }
     #

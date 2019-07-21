@@ -6,7 +6,7 @@ RSpec.describe Sinclair::Matchers::AddInstanceMethod do
   describe 'yard' do
     describe '#to' do
       context 'when checking against Class' do
-        let(:clazz)   { Class.new }
+        let(:clazz)   { Class.new(MyModel) }
         let(:builder) { Sinclair.new(clazz) }
 
         before do
@@ -19,7 +19,7 @@ RSpec.describe Sinclair::Matchers::AddInstanceMethod do
       end
 
       context 'when checking against instance' do
-        let(:clazz)    { Class.new }
+        let(:clazz)    { Class.new(MyModel) }
         let(:builder)  { Sinclair.new(clazz) }
         let(:instance) { clazz.new }
 
