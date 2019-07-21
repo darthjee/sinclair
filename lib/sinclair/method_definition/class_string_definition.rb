@@ -6,7 +6,14 @@ class Sinclair
     class ClassStringDefinition < StringDefinition
       private
 
-      def code_name
+      # @private
+      #
+      # String used when defining method
+      #
+      # Class definition appends +self.+ to method name
+      #
+      # @return [String]
+      def method_name
         "self.#{name}"
       end
     end

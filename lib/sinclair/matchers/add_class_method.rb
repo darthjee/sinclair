@@ -17,9 +17,9 @@ class Sinclair
           "add_class_method(:#{method}).to(klass)"
       end
 
-      # Creates a matcher AddClassMethodTo
+      # Creates a matcher {AddClassMethodTo}
       #
-      # @param [Class] klass
+      # @param target [Class]
       #   class where the method should be added to
       #
       # @return [AddClassMethodTo] the correct matcher

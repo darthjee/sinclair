@@ -7,7 +7,7 @@ class Sinclair
     class AddMethod < RSpec::Matchers::BuiltIn::BaseMatcher
       # @param method [String,Symbol] the method, to be checked, name
       def initialize(method)
-        @method = method
+        @method = method.to_sym
       end
 
       # definition needed for block matchers
@@ -29,7 +29,12 @@ class Sinclair
 
       protected
 
+      # @method method
       # @private
+      #
+      # The method, to be checked, name
+      #
+      # @return [Symbol]
       attr_reader :method
     end
   end

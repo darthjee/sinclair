@@ -6,7 +6,14 @@ class Sinclair
     class InstanceStringDefinition < StringDefinition
       private
 
-      def code_name
+      # @private
+      #
+      # String used when defining method
+      #
+      # Instance definition always returns +name+
+      #
+      # @return [String]
+      def method_name
         name
       end
     end

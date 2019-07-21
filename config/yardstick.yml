@@ -27,13 +27,14 @@ rules:
       - Sinclair#klass
       - Sinclair::Matchers::AddMethod#method
       - Sinclair::Matchers::AddMethodTo#method
-      - Sinclair::Matchers::AddMethodTo#instance
+      - Sinclair::Matchers::AddInstanceMethodTo#instance
       - Sinclair::MethodDefinition#name
       - Sinclair::MethodDefinition#code
       - Sinclair::MethodDefinition#block
       - Sinclair::OptionsParser#options
       - Sinclair::OptionsParser#options_object
-      - Sinclair::Matchers::AddMethodTo#raise_block_syntax_error
+      - Sinclair::Matchers::AddClassMethodTo#raise_block_syntax_error
+      - Sinclair::Matchers::AddInstanceMethodTo#raise_block_syntax_error
       - Sinclair::ConfigFactory#initialize
       - Sinclair::ConfigFactory#config_class
       - Sinclair::ConfigFactory#config_attributes
@@ -46,9 +47,11 @@ rules:
     enabled: true
     exclude:
       - Sinclair#klass
-      - Sinclair::Matchers::AddMethod#method
-      - Sinclair::Matchers::AddMethodTo#method
-      - Sinclair::Matchers::AddMethodTo#instance
+      - Sinclair::Config::MethodsBuilder#initialize
+      - Sinclair::ConfigFactory#initialize
+      - Sinclair::Matchers::AddClassMethodTo#initialize
+      - Sinclair::Matchers::AddInstanceMethodTo#instance
+      - Sinclair::Matchers::AddMethod#initialize
       - Sinclair::MethodDefinition#initialize
       - Sinclair::MethodDefinition#name
       - Sinclair::MethodDefinition#code
@@ -56,13 +59,6 @@ rules:
       - Sinclair::MethodDefinition::BlockDefinition#initialize
       - Sinclair::MethodDefinition::StringDefinition#initialize
       - Sinclair::OptionsParser#options
-      - Sinclair::OptionsParser#options_object
-      - Sinclair::ConfigFactory#initialize
-      - Sinclair::ConfigFactory#config_class
-      - Sinclair::ConfigFactory#config_attributes
-      - Sinclair::Config::MethodsBuilder#initialize
-      - Sinclair::Config::MethodsBuilder#names
-      - Sinclair::Config::MethodsBuilder#defaults
   Summary::Length:
     enabled: true
     exclude: []

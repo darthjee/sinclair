@@ -33,7 +33,12 @@ class Sinclair
 
       protected
 
+      # @method method
       # @private
+      #
+      # The method, to be checked, name
+      #
+      # @return [Symbol]
       attr_reader :method
 
       private

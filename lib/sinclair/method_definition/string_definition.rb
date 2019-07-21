@@ -79,7 +79,7 @@ class Sinclair
         code_line = cached? ? code_with_cache : code
 
         <<-CODE
-          def #{code_name}
+          def #{method_name}
             #{code_line}
           end
         CODE

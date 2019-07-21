@@ -12,11 +12,11 @@ class Sinclair
     # add_class_method(method_name).to(class_object)
     class AddClassMethodTo < AddMethodTo
       # @param [Class] klass
-      #   class where the method should be added to
+      #   Class where the class method should be added to
       #
       # @param method [SYmbol,String] method name
-      def initialize(target, method)
-        @klass = target
+      def initialize(klass, method)
+        @klass = klass
         @method = method
       end
 
@@ -47,7 +47,12 @@ class Sinclair
 
       protected
 
+      # @method klass
       # @private
+      #
+      # Class where class method should be added to
+      #
+      # @return [Class]
       attr_reader :klass
 
       private

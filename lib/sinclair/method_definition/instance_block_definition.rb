@@ -6,6 +6,11 @@ class Sinclair
     class InstanceBlockDefinition < BlockDefinition
       private
 
+      # @private
+      #
+      # Method used to define an instance method
+      #
+      # @return [Symbol] Always :define_method
       def method_definer
         :define_method
       end
