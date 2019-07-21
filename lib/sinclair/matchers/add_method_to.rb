@@ -5,6 +5,11 @@ class Sinclair
     # @api private
     # @author darthjee
     class AddMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
+      # @param method [SYmbol,String] method name
+      def initialize(method)
+        @method = method
+      end
+
       # Checks if expectation is true or not
       #
       # @return [Boolean] expectation check

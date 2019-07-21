@@ -52,6 +52,7 @@ rules:
       - Sinclair::Matchers::AddClassMethodTo#initialize
       - Sinclair::Matchers::AddInstanceMethodTo#instance
       - Sinclair::Matchers::AddMethod#initialize
+      - Sinclair::Matchers::AddMethodTo#initialize
       - Sinclair::MethodDefinition#initialize
       - Sinclair::MethodDefinition#name
       - Sinclair::MethodDefinition#code

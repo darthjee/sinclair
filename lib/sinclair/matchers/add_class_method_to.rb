@@ -17,7 +17,7 @@ class Sinclair
       # @param method [SYmbol,String] method name
       def initialize(klass, method)
         @klass = klass
-        @method = method
+        super(method)
       end
 
       # Return expectaton description

@@ -47,7 +47,7 @@ class Sinclair
         else
           @instance = target
         end
-        @method = method
+        super(method)
       end
 
       # Returnst expectaton description
