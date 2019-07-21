@@ -61,8 +61,13 @@ class Sinclair
 
     private
 
+    # @method name
     # @private
-    attr_reader :name, :code, :block
+    #
+    # name of the method
+    #
+    # @return [String,Symbol]
+    attr_reader :name
     delegate :cached, to: :options_object
 
     # @private

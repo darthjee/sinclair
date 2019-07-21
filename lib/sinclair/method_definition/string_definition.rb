@@ -70,6 +70,14 @@ class Sinclair
 
       private
 
+      # @method code
+      # @private
+      #
+      # Code to be evaluated as method
+      #
+      # @return [String]
+      attr_reader :code
+
       # @private
       #
       # Builds full code of method

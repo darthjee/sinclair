@@ -37,7 +37,7 @@ class Sinclair
       #     class where the method should be added to
       #
       # @overload initialize(instance, method)
-      #   @param [Object] klass
+      #   @param [Object] instance
       #     instance of the class where the method should be added to
       #
       # @param method [Symbol,String] method name
@@ -77,7 +77,12 @@ class Sinclair
 
       protected
 
+      # @method instance
       # @private
+      #
+      # Instance of the class where the method should be added
+      #
+      # @return [Object]
       attr_reader :instance
 
       # @private

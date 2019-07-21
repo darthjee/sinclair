@@ -70,6 +70,13 @@ class Sinclair
 
       private
 
+      # @method block
+      # @private
+      #
+      # Block with code to be added as method
+      # @return [Proc]
+      attr_reader :block
+
       # @private
       #
       # Returns the block that will be used for method creattion
