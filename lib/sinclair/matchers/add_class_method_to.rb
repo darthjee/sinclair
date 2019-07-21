@@ -10,6 +10,27 @@ class Sinclair
     #
     # This is used with a RSpec DSL method
     # add_class_method(method_name).to(class_object)
+    #
+    # @example
+    #   RSpec.configure do |config|
+    #     config.include Sinclair::Matchers
+    #   end
+    #
+    #   class MyModel
+    #   end
+    #   describe 'my test' do
+    #     let(:klass)   { Class.new(MyModel) }
+    #
+    #     let(:block) do
+    #       proc do
+    #         klass.define_singleton_method(:parent_name) { superclass.name }
+    #       end
+    #     end
+    #
+    #     it do
+    #       expect(&block).to add_class_method(:parent_name).to(klass)
+    #     end
+    #   end
     class AddClassMethodTo < AddMethodTo
       # @param [Class] klass
       #   Class where the class method should be added to
