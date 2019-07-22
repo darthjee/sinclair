@@ -30,6 +30,7 @@ class Sinclair
       @config_attributes = config_attributes.dup
 
       return if config_class.is_a?(ConfigClass)
+
       warn CONFIG_CLASS_WARNING
     end
 
