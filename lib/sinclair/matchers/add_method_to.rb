@@ -15,6 +15,7 @@ class Sinclair
       # @return [Boolean] expectation check
       def matches?(event_proc)
         return false unless event_proc.is_a?(Proc)
+
         raise_block_syntax_error if block_given?
         perform_change(event_proc)
         added?
@@ -30,6 +31,7 @@ class Sinclair
       # @return [Boolean]
       def equal?(other)
         return unless other.class == self.class
+
         other.method == method &&
           other.klass == klass
       end
