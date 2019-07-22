@@ -2,7 +2,7 @@
 
 class Sinclair
   class MethodDefinition
-    # Define a method from string
+    # Define an instance method from string
     class StringDefinition < MethodDefinition
       # @param name    [String,Symbol] name of the method
       # @param code    [String] code to be evaluated as method
@@ -22,17 +22,17 @@ class Sinclair
       #
       # @return [Symbol] name of the created method
       #
-      # @example With no options
+      # @example Using instance string method with no options
       #   class MyModel
       #   end
       #
       #   instance = MyModel.new
       #
-      #   method_definition = Sinclair::MethodDefinition.from(
+      #   method_definition = Sinclair::MethodDefinition::InstanceStringDefinition.new(
       #     :sequence, '@x = @x.to_i ** 2 + 1'
       #   )
       #
-      #   method_definition.build(klass)      # adds instance_method :sequence to
+      #   method_definition.build(MyModel)    # adds instance_method :sequence to
       #                                       # MyModel instances
       #
       #   instance.instance_variable_get(:@x) # returns nil
@@ -43,11 +43,40 @@ class Sinclair
       #
       #   instance.instance_variable_get(:@x) # returns 5
       #
+      # @example Using class string method with cache options
+      #   class MyModel
+      #   end
+      #
+      #   method_definition = Sinclair::MethodDefinition::ClassStringDefinition.new(
+      #     :sequence,
+      #     '@x = @x.to_i ** 2 + 1',
+      #     cached: true
+      #   )
+      #
+      #   method_definition.build(MyModel) # adds instance_method :sequence to
+      #                                    # MyModel instances
+      #
+      #   MyModel.instance_variable_get(:@sequence) # returns nil
+      #   MyModel.instance_variable_get(:@x)        # returns nil
+      #
+      #   MyModel.sequence               # returns 1
+      #   MyModel.sequence               # returns 1 (cached value)
+      #
+      #   MyModel.instance_variable_get(:@sequence) # returns 1
+      #   MyModel.instance_variable_get(:@x)        # returns 1
       def build(klass)
         klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
       end
 
       private
+
+      # @method code
+      # @private
+      #
+      # Code to be evaluated as method
+      #
+      # @return [String]
+      attr_reader :code
 
       # @private
       #
@@ -58,7 +87,7 @@ class Sinclair
         code_line = cached? ? code_with_cache : code
 
         <<-CODE
-          def #{name}
+          def #{method_name}
             #{code_line}
           end
         CODE

@@ -8,8 +8,12 @@ class Sinclair
   class MethodDefinition
     include Sinclair::OptionsParser
 
-    autoload :BlockDefinition, 'sinclair/method_definition/block_definition'
-    autoload :StringDefinition, 'sinclair/method_definition/string_definition'
+    autoload :BlockDefinition,          'sinclair/method_definition/block_definition'
+    autoload :StringDefinition,         'sinclair/method_definition/string_definition'
+    autoload :InstanceBlockDefinition,  'sinclair/method_definition/instance_block_definition'
+    autoload :InstanceStringDefinition, 'sinclair/method_definition/instance_string_definition'
+    autoload :ClassBlockDefinition,     'sinclair/method_definition/class_block_definition'
+    autoload :ClassStringDefinition,    'sinclair/method_definition/class_string_definition'
 
     # Default options of initialization
     DEFAULT_OPTIONS = {
@@ -19,13 +23,13 @@ class Sinclair
     # Creates a new instance based on arguments
     #
     # @return [MethodDefinition] When block is given, a
-    #   new instance of {BlockDefinition} is returned,
-    #   otherwise {StringDefinition} is returned
+    #   new instance of {InstanceBlockDefinition} is returned,
+    #   otherwise {InstanceStringDefinition} is returned
     def self.from(name, code = nil, **options, &block)
       if block
-        BlockDefinition.new(name, **options, &block)
+        InstanceBlockDefinition.new(name, **options, &block)
       else
-        StringDefinition.new(name, code, **options)
+        InstanceStringDefinition.new(name, code, **options)
       end
     end
 
@@ -38,54 +42,16 @@ class Sinclair
       @options = DEFAULT_OPTIONS.merge(options)
     end
 
+    # @abstract
+    #
     # Adds the method to given klass
     #
     # This should be implemented on child classes
     #
     # @param _klass [Class] class which will receive the new method
     #
-    # @example Using block method with no options
-    #   class MyModel
-    #   end
-    #
-    #   instance = MyModel.new
-    #
-    #   method_definition = Sinclair::MethodDefinition.from(
-    #     :sequence, '@x = @x.to_i ** 2 + 1'
-    #   )
-    #
-    #   method_definition.build(klass)  # adds instance_method :sequence to
-    #                                  # MyModel instances
-    #
-    #   instance.instance_variable_get(:@x)        # returns nil
-    #
-    #   instance.sequence               # returns 1
-    #   instance.sequence               # returns 2
-    #   instance.sequence               # returns 5
-    #
-    #   instance.instance_variable_get(:@x)        # returns 5
-    #
-    # @example Using string method with no options
-    #   class MyModel
-    #   end
-    #
-    #   instance = MyModel.new
-    #
-    #   method_definition = Sinclair::MethodDefinition.from(:sequence) do
-    #     @x = @x.to_i ** 2 + 1
-    #   end
-    #
-    #   method_definition.build(klass)  # adds instance_method :sequence to
-    #                                  # MyModel instances
-    #
-    #   instance.instance_variable_get(:@sequence) # returns nil
-    #   instance.instance_variable_get(:@x)        # returns nil
-    #
-    #   instance.sequence               # returns 1
-    #   instance.sequence               # returns 1 (cached value)
-    #
-    #   instance.instance_variable_get(:@sequence) # returns 1
-    #   instance.instance_variable_get(:@x)        # returns 1
+    # @example (see MethodDefinition::StringDefinition#build)
+    # @example (see MethodDefinition::BlockDefinition#build)
     #
     # @return [Symbol] name of the created method
     def build(_klass)
@@ -95,8 +61,13 @@ class Sinclair
 
     private
 
+    # @method name
     # @private
-    attr_reader :name, :code, :block
+    #
+    # name of the method
+    #
+    # @return [String,Symbol]
+    attr_reader :name
     delegate :cached, to: :options_object
 
     # @private

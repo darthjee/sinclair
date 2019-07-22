@@ -94,7 +94,7 @@ class Sinclair
 
   # Returns a new instance of Sinclair
   #
-  # @param klass [Class] to receive the methods
+  # @param klass [Class] Class that will receive the methods
   # @param options [Hash] open hash options to be used by builders inheriting from Sinclair
   #   through the Sinclair::OptionsParser concern
   #
@@ -284,8 +284,13 @@ class Sinclair
 
   private
 
+  # @method klass
   # @api private
   # @private
+  #
+  # Class that will receive the methods
+  #
+  # @return [Class]
   attr_reader :klass
 
   # @private
