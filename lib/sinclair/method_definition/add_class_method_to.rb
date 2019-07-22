@@ -40,6 +40,7 @@ class Sinclair
       # @return [Boolean]
       def equal?(other)
         return unless other.class == self.class
+
         other.method == method
       end
 
