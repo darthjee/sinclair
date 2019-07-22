@@ -10,25 +10,25 @@ class Sinclair
     # This is used with a RSpec DSL method add_method(method_name).to(class_object)
     #
     # @example
-    #  RSpec.configure do |config|
-    #    config.include Sinclair::Matchers
-    #  end
+    #   RSpec.configure do |config|
+    #     config.include Sinclair::Matchers
+    #   end
     #
-    #  class MyModel
-    #  end
+    #   class MyModel
+    #   end
     #
-    #  RSpec.describe 'my test' do
-    #    let(:klass)   { Class.new(MyModel) }
-    #    let(:builder) { Sinclair.new(klass) }
+    #   RSpec.describe 'my test' do
+    #     let(:klass)   { Class.new(MyModel) }
+    #     let(:builder) { Sinclair.new(klass) }
     #
-    #    before do
-    #      builder.add_method(:class_name, 'self.class.name')
-    #    end
+    #     before do
+    #       builder.add_method(:class_name, 'self.class.name')
+    #     end
     #
-    #    it do
-    #      expect { builder.build }.to add_method(:class_name).to(klass)
-    #    end
-    #  end
+    #     it do
+    #       expect { builder.build }.to add_method(:class_name).to(klass)
+    #     end
+    #   end
     class AddInstanceMethodTo < AddMethodTo
       # Returns a new instance of AddInstanceMethodTo
       #
