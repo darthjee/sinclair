@@ -208,6 +208,10 @@ class Sinclair
     definitions << MethodDefinition.from(name, code, **options, &block)
   end
 
+  def add_class_method(name, code = nil, **options, &block)
+    definitions << MethodDefinition.from_class(name, code, **options, &block)
+  end
+
   # Evaluetes a block which will result in a String, the method code
   #
   # @example Building a initial value class method

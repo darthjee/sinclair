@@ -33,6 +33,14 @@ class Sinclair
       end
     end
 
+    def self.from_class(name, code = nil, **options, &block)
+      if block
+        ClassBlockDefinition.new(name, **options, &block)
+      else
+        ClassStringDefinition.new(name, code, **options)
+      end
+    end
+
     # @param name    [String,Symbol] name of the method
     # @param options [Hash] Options of construction
     # @option options cached [Boolean] Flag telling to create
