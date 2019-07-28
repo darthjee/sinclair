@@ -25,19 +25,19 @@ class Sinclair
     # @return [MethodDefinition] When block is given, a
     #   new instance of {InstanceBlockDefinition} is returned,
     #   otherwise {InstanceStringDefinition} is returned
-    def self.from(name, code = nil, **options, &block)
-      if block
-        InstanceBlockDefinition.new(name, **options, &block)
+    def self.from(name, type, code = nil, **options, &block)
+      if type == :class
+        if block
+          ClassBlockDefinition.new(name, **options, &block)
+        else
+          ClassStringDefinition.new(name, code, **options)
+        end
       else
-        InstanceStringDefinition.new(name, code, **options)
-      end
-    end
-
-    def self.from_class(name, code = nil, **options, &block)
-      if block
-        ClassBlockDefinition.new(name, **options, &block)
-      else
-        ClassStringDefinition.new(name, code, **options)
+        if block
+          InstanceBlockDefinition.new(name, **options, &block)
+        else
+          InstanceStringDefinition.new(name, code, **options)
+        end
       end
     end
 

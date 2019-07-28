@@ -23,10 +23,12 @@ describe Sinclair::MethodDefinition do
       end
     end
 
-    context 'when method was defined with a string' do
+    context 'when method was defined with a string for instance' do
       subject(:method_definition) do
-        described_class.from(method_name, code)
+        described_class.from(method_name, type, code)
       end
+
+      let(:type) { :instance }
 
       let(:code) { '@x = @x.to_i + 1' }
 
@@ -34,30 +36,74 @@ describe Sinclair::MethodDefinition do
 
       context 'with cached options' do
         subject(:method_definition) do
-          described_class.from(method_name, code, cached: cached_option)
+          described_class.from(method_name, type, code, cached: cached_option)
         end
 
         it_behaves_like 'MethodDefinition#build with cache options'
       end
     end
 
-    context 'when method was defined with a block' do
+    context 'when method was defined with a block for instance' do
       subject(:method_definition) do
-        described_class.from(method_name) do
+        described_class.from(method_name, type) do
           @x = @x.to_i + 1
         end
       end
+
+      let(:type) { :instance }
 
       it_behaves_like 'MethodDefinition#build without cache'
 
       context 'with cached options' do
         subject(:method_definition) do
-          described_class.from(method_name, cached: cached_option) do
+          described_class.from(method_name, type, cached: cached_option) do
             @x = @x.to_i + 1
           end
         end
 
         it_behaves_like 'MethodDefinition#build with cache options'
+      end
+    end
+
+    context 'when method was defined with a string for class' do
+      subject(:method_definition) do
+        described_class.from(method_name, type, code)
+      end
+
+      let(:type) { :class }
+
+      let(:code) { '@x = @x.to_i + 1' }
+
+      it_behaves_like 'ClassMethodDefinition#build without cache'
+
+      context 'with cached options' do
+        subject(:method_definition) do
+          described_class.from(method_name, type, code, cached: cached_option)
+        end
+
+        it_behaves_like 'ClassMethodDefinition#build with cache options'
+      end
+    end
+
+    context 'when method was defined with a block for class' do
+      subject(:method_definition) do
+        described_class.from(method_name, type) do
+          @x = @x.to_i + 1
+        end
+      end
+
+      let(:type) { :class }
+
+      it_behaves_like 'ClassMethodDefinition#build without cache'
+
+      context 'with cached options' do
+        subject(:method_definition) do
+          described_class.from(method_name, type, cached: cached_option) do
+            @x = @x.to_i + 1
+          end
+        end
+
+        it_behaves_like 'ClassMethodDefinition#build with cache options'
       end
     end
   end
