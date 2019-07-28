@@ -8,6 +8,8 @@ class Sinclair
   class MethodDefinition
     include Sinclair::OptionsParser
 
+    autoload :InstanceMethodDefinition, 'sinclair/method_definition/instance_method_definition'
+    autoload :ClassMethodDefinition,    'sinclair/method_definition/class_method_definition'
     autoload :BlockDefinition,          'sinclair/method_definition/block_definition'
     autoload :StringDefinition,         'sinclair/method_definition/string_definition'
     autoload :InstanceBlockDefinition,  'sinclair/method_definition/instance_block_definition'
@@ -27,17 +29,9 @@ class Sinclair
     #   otherwise {InstanceStringDefinition} is returned
     def self.from(name, type, code = nil, **options, &block)
       if type == :class
-        if block
-          ClassBlockDefinition.new(name, **options, &block)
-        else
-          ClassStringDefinition.new(name, code, **options)
-        end
+        ClassMethodDefinition.from(name, code, **options, &block)
       else
-        if block
-          InstanceBlockDefinition.new(name, **options, &block)
-        else
-          InstanceStringDefinition.new(name, code, **options)
-        end
+        InstanceMethodDefinition.from(name, code, **options, &block)
       end
     end
 
