@@ -7,7 +7,7 @@ describe Sinclair::MethodDefinition do
     describe '#build' do
       describe 'using string method with no options' do
         subject(:method_definition) do
-          described_class.from(name, :instance, code)
+          described_class::InstanceMethodDefinition.from(name, code)
         end
 
         let(:klass)    { Class.new }
@@ -34,7 +34,7 @@ describe Sinclair::MethodDefinition do
 
       describe 'using block with cache option' do
         subject(:method_definition) do
-          described_class.from(name, :class, cached: true) do
+          described_class::ClassMethodDefinition.from(name, cached: true) do
             @x = @x.to_i**2 + 1
           end
         end

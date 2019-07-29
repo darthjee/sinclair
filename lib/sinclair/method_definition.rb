@@ -22,19 +22,6 @@ class Sinclair
       cached: false
     }.freeze
 
-    # Creates a new instance based on arguments
-    #
-    # @return [MethodDefinition] When block is given, a
-    #   new instance of {InstanceBlockDefinition} is returned,
-    #   otherwise {InstanceStringDefinition} is returned
-    def self.from(name, type, code = nil, **options, &block)
-      if type == :class
-        ClassMethodDefinition.from(name, code, **options, &block)
-      else
-        InstanceMethodDefinition.from(name, code, **options, &block)
-      end
-    end
-
     # @param name    [String,Symbol] name of the method
     # @param options [Hash] Options of construction
     # @option options cached [Boolean] Flag telling to create

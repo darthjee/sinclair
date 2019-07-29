@@ -25,10 +25,10 @@ describe Sinclair::MethodDefinition do
 
     context 'when method was defined with a string for instance' do
       subject(:method_definition) do
-        described_class.from(method_name, type, code)
+        definition_class.new(method_name, code)
       end
 
-      let(:type) { :instance }
+      let(:definition_class) { described_class::InstanceStringDefinition }
 
       let(:code) { '@x = @x.to_i + 1' }
 
@@ -36,7 +36,7 @@ describe Sinclair::MethodDefinition do
 
       context 'with cached options' do
         subject(:method_definition) do
-          described_class.from(method_name, type, code, cached: cached_option)
+          definition_class.new(method_name, code, cached: cached_option)
         end
 
         it_behaves_like 'MethodDefinition#build with cache options'
@@ -45,18 +45,18 @@ describe Sinclair::MethodDefinition do
 
     context 'when method was defined with a block for instance' do
       subject(:method_definition) do
-        described_class.from(method_name, type) do
+        definition_class.new(method_name) do
           @x = @x.to_i + 1
         end
       end
 
-      let(:type) { :instance }
+      let(:definition_class) { described_class::InstanceBlockDefinition }
 
       it_behaves_like 'MethodDefinition#build without cache'
 
       context 'with cached options' do
         subject(:method_definition) do
-          described_class.from(method_name, type, cached: cached_option) do
+          definition_class.new(method_name, cached: cached_option) do
             @x = @x.to_i + 1
           end
         end
@@ -67,10 +67,10 @@ describe Sinclair::MethodDefinition do
 
     context 'when method was defined with a string for class' do
       subject(:method_definition) do
-        described_class.from(method_name, type, code)
+        definition_class.new(method_name, code)
       end
 
-      let(:type) { :class }
+      let(:definition_class) { described_class::ClassStringDefinition }
 
       let(:code) { '@x = @x.to_i + 1' }
 
@@ -78,7 +78,7 @@ describe Sinclair::MethodDefinition do
 
       context 'with cached options' do
         subject(:method_definition) do
-          described_class.from(method_name, type, code, cached: cached_option)
+          definition_class.new(method_name, code, cached: cached_option)
         end
 
         it_behaves_like 'ClassMethodDefinition#build with cache options'
@@ -87,18 +87,18 @@ describe Sinclair::MethodDefinition do
 
     context 'when method was defined with a block for class' do
       subject(:method_definition) do
-        described_class.from(method_name, type) do
+        definition_class.new(method_name) do
           @x = @x.to_i + 1
         end
       end
 
-      let(:type) { :class }
+      let(:definition_class) { described_class::ClassBlockDefinition }
 
       it_behaves_like 'ClassMethodDefinition#build without cache'
 
       context 'with cached options' do
         subject(:method_definition) do
-          described_class.from(method_name, type, cached: cached_option) do
+          definition_class.new(method_name, cached: cached_option) do
             @x = @x.to_i + 1
           end
         end
