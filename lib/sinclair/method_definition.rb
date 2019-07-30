@@ -8,6 +8,8 @@ class Sinclair
   class MethodDefinition
     include Sinclair::OptionsParser
 
+    autoload :InstanceMethodDefinition, 'sinclair/method_definition/instance_method_definition'
+    autoload :ClassMethodDefinition,    'sinclair/method_definition/class_method_definition'
     autoload :BlockDefinition,          'sinclair/method_definition/block_definition'
     autoload :StringDefinition,         'sinclair/method_definition/string_definition'
     autoload :InstanceBlockDefinition,  'sinclair/method_definition/instance_block_definition'
@@ -19,19 +21,6 @@ class Sinclair
     DEFAULT_OPTIONS = {
       cached: false
     }.freeze
-
-    # Creates a new instance based on arguments
-    #
-    # @return [MethodDefinition] When block is given, a
-    #   new instance of {InstanceBlockDefinition} is returned,
-    #   otherwise {InstanceStringDefinition} is returned
-    def self.from(name, code = nil, **options, &block)
-      if block
-        InstanceBlockDefinition.new(name, **options, &block)
-      else
-        InstanceStringDefinition.new(name, code, **options)
-      end
-    end
 
     # @param name    [String,Symbol] name of the method
     # @param options [Hash] Options of construction

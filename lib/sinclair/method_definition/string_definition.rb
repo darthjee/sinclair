@@ -2,6 +2,8 @@
 
 class Sinclair
   class MethodDefinition
+    # @abstract
+    #
     # Define an instance method from string
     class StringDefinition < MethodDefinition
       # @param name    [String,Symbol] name of the method

@@ -4,6 +4,9 @@ class Sinclair
   module Matchers
     # @api private
     # @author darthjee
+    # @abstract
+    #
+    # Base class for add_method matcher
     class AddMethod < RSpec::Matchers::BuiltIn::BaseMatcher
       # @param method [String,Symbol] the method, to be checked, name
       def initialize(method)

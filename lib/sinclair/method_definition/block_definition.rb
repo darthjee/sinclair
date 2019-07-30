@@ -2,6 +2,8 @@
 
 class Sinclair
   class MethodDefinition
+    # @abstract
+    #
     # Define a method from block
     class BlockDefinition < MethodDefinition
       # @param name    [String,Symbol] name of the method
