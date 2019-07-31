@@ -351,6 +351,13 @@ class Sinclair
   # @return [Class]
   attr_reader :klass
 
+  # @private
+  #
+  # @api private
+  #
+  # List of mthod definitions
+  #
+  # @return [MethodDefinitions]
   def definitions
     @definitions ||= MethodDefinitions.new
   end
