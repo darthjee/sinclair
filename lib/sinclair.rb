@@ -82,13 +82,14 @@ require 'active_support/all'
 class Sinclair
   require 'sinclair/options_parser'
 
-  autoload :VERSION,          'sinclair/version'
-  autoload :MethodDefinition, 'sinclair/method_definition'
-  autoload :Config,           'sinclair/config'
-  autoload :ConfigBuilder,    'sinclair/config_builder'
-  autoload :ConfigClass,      'sinclair/config_class'
-  autoload :ConfigFactory,    'sinclair/config_factory'
-  autoload :Configurable,     'sinclair/configurable'
+  autoload :VERSION,           'sinclair/version'
+  autoload :Config,            'sinclair/config'
+  autoload :ConfigBuilder,     'sinclair/config_builder'
+  autoload :ConfigClass,       'sinclair/config_class'
+  autoload :ConfigFactory,     'sinclair/config_factory'
+  autoload :Configurable,      'sinclair/configurable'
+  autoload :MethodDefinition,  'sinclair/method_definition'
+  autoload :MethodDefinitions, 'sinclair/method_definitions'
 
   include OptionsParser
 
@@ -215,7 +216,7 @@ class Sinclair
   #   Person.new('john', 'wick').bond_name # returns 'wick, john wick'
   # @return [Array<MethodDefinition>]
   def add_method(name, code = nil, **options, &block)
-    add_method_definition(
+    definitions.add(
       MethodDefinition::InstanceMethodDefinition,
       name, code, **options, &block
     )
@@ -259,7 +260,7 @@ class Sinclair
   #
   # @return [Array<MethodDefinition>]
   def add_class_method(name, code = nil, **options, &block)
-    add_method_definition(
+    definitions.add(
       MethodDefinition::ClassMethodDefinition,
       name, code, **options, &block
     )
@@ -341,10 +342,6 @@ class Sinclair
 
   private
 
-  def add_method_definition(definition_class, name, code = nil, **options, &block)
-    definitions << definition_class.from(name, code, **options, &block)
-  end
-
   # @method klass
   # @api private
   # @private
@@ -354,14 +351,7 @@ class Sinclair
   # @return [Class]
   attr_reader :klass
 
-  # @private
-  #
-  # @api private
-  #
-  # List of mthod definitions
-  #
-  # @return [Array<MethodDefinition>]
   def definitions
-    @definitions ||= []
+    @definitions ||= MethodDefinitions.new
   end
 end
