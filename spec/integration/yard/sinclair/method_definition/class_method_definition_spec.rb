@@ -26,4 +26,3 @@ describe Sinclair::MethodDefinition::ClassMethodDefinition do
     end
   end
 end
-

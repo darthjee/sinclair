@@ -131,16 +131,43 @@ describe Sinclair do
       end
 
       describe '#full_name' do
-        let(:klass) { Class.new(Person) }
-        let(:instance) { klass.new('john', 'wick') }
+        it 'returns the full name' do
+          expect(instance.full_name).to eq('john wick')
+        end
+      end
 
+      describe '#bond_name' do
+        it 'returns the full name, bond style' do
+          expect(instance.bond_name).to eq('wick, john wick')
+        end
+      end
+    end
+
+    describe '#add_class_method' do
+      let(:klass)       { env_fetcher }
+      let(:env_fetcher) { Class.new }
+
+      describe '#hostname' do
         before do
-          builder.add_method(:full_name, '[first_name, last_name].join(" ")')
+          builder.add_class_method(:hostname, 'ENV["HOSTNAME"]')
           builder.build
+          ENV['HOSTNAME'] = 'myhost'
         end
 
-        it 'returns the full name' do
-          expect(instance.bond_name).to eq('wick, john wick')
+        it 'returns the hostname' do
+          expect(env_fetcher.hostname).to eq('myhost')
+        end
+      end
+
+      describe '#timeout' do
+        before do
+          builder.add_class_method(:timeout) { ENV['TIMEOUT'] }
+          builder.build
+          ENV['TIMEOUT'] = '300'
+        end
+
+        it 'returns the timeout' do
+          expect(env_fetcher.timeout).to eq('300')
         end
       end
     end
