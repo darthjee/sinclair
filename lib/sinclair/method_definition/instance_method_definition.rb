@@ -5,7 +5,7 @@ class Sinclair
     # @api private
     # @author darthjee
     #
-    # Module responsible for building instance method definition
+    # Module responsible for building instance method definitions
     module InstanceMethodDefinition
       # Returns an instance method definition
       #
@@ -24,7 +24,7 @@ class Sinclair
       #   klass = Class.new
       #
       #   method_definition = Sinclair::MethodDefinition::InstanceMethodDefinition.from(
-      #     :sequence, '@x = @x.to_i ** 2 + 1', klass
+      #     :sequence, '@x = @x.to_i ** 2 + 1'
       #   )
       #
       #   method_definition.build(klass)

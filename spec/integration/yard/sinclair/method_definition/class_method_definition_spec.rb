@@ -2,12 +2,12 @@
 
 require 'spec_helper'
 
-describe Sinclair::MethodDefinition do
+describe Sinclair::MethodDefinition::ClassMethodDefinition do
   describe 'yard' do
     describe '#build' do
       describe 'using block with cache option' do
         subject(:method_definition) do
-          described_class::ClassMethodDefinition.from(name, cached: true) do
+          described_class.from(name, cached: true) do
             @x = @x.to_i**2 + 1
           end
         end
@@ -26,3 +26,4 @@ describe Sinclair::MethodDefinition do
     end
   end
 end
+
