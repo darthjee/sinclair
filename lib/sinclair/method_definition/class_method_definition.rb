@@ -36,7 +36,8 @@ class Sinclair
       #
       #   klass.instance_variable_get(:@x)        # returns 1
       #   klass.instance_variable_get(:@sequence) # returns 1
-
+      #
+      # @return MethodDefinition
       def self.from(name, code = nil, **options, &block)
         if block
           ClassBlockDefinition.new(name, **options, &block)

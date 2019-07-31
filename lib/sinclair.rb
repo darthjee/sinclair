@@ -177,42 +177,42 @@ class Sinclair
   #   @param name [String,Symbol] name of the method to be added
   #   @param code [String] code to be evaluated when the method is ran
   #
-  #   @example Using string code
-  #     class Person
-  #       attr_reader :first_name, :last_name
-  #
-  #       def initialize(first_name, last_name)
-  #         @first_name = first_name
-  #         @last_name = last_name
-  #       end
-  #     end
-  #
-  #     builder = Sinclair.new(Person)
-  #     builder.add_method(:full_name, '[first_name, last_name].join(" ")')
-  #     builder.build
-  #
-  #     Person.new('john', 'wick').full_name # returns 'john wick'
-  #
   # @overload add_method(name, &block)
   #   @param name [String,Symbol] name of the method to be added
   #   @param block [Proc]  block to be ran as method
   #
-  #   @example Using block
-  #     class Person
-  #       attr_reader :first_name, :last_name
+  # @example Using string code
+  #   class Person
+  #     attr_reader :first_name, :last_name
   #
-  #       def initialize(first_name, last_name)
-  #         @first_name = first_name
-  #         @last_name = last_name
-  #       end
+  #     def initialize(first_name, last_name)
+  #       @first_name = first_name
+  #       @last_name = last_name
   #     end
+  #   end
   #
-  #     builder = Sinclair.new(Person)
-  #     builder.add_method(:full_name, '[first_name, last_name].join(" ")')
-  #     builder.add_method(:bond_name) { "#{last_name}, #{full_name}" }
-  #     builder.build
+  #   builder = Sinclair.new(Person)
+  #   builder.add_method(:full_name, '[first_name, last_name].join(" ")')
+  #   builder.build
   #
-  #     Person.new('john', 'wick').bond_name # returns 'wick, john wick'
+  #   Person.new('john', 'wick').full_name # returns 'john wick'
+  #
+  # @example Using block
+  #   class Person
+  #     attr_reader :first_name, :last_name
+  #
+  #     def initialize(first_name, last_name)
+  #       @first_name = first_name
+  #       @last_name = last_name
+  #     end
+  #   end
+  #
+  #   builder = Sinclair.new(Person)
+  #   builder.add_method(:full_name, '[first_name, last_name].join(" ")')
+  #   builder.add_method(:bond_name) { "#{last_name}, #{full_name}" }
+  #   builder.build
+  #
+  #   Person.new('john', 'wick').bond_name # returns 'wick, john wick'
   # @return [Array<MethodDefinition>]
   def add_method(name, code = nil, **options, &block)
     add_method_definition(
@@ -227,35 +227,37 @@ class Sinclair
   #   @param name [String,Symbol] name of the method to be added
   #   @param code [String] code to be evaluated when the method is ran
   #
-  #   @example
-  #     class EnvFetcher
-  #     end
-  #
-  #     builder = Sinclair.new(EnvFetcher)
-  #
-  #     builder.add_class_method(:hostname, 'ENV["HOSTNAME"]')
-  #     builder.build
-  #
-  #     ENV['HOSTNAME'] = 'myhost'
-  #
-  #     env_fetcher.hostname # returns 'myhost'
-  #
   # @overload add_class_method(name, &block)
   #   @param name [String,Symbol] name of the method to be added
   #   @param block [Proc]  block to be ran as method
   #
-  #   @example
-  #     class EnvFetcher
-  #     end
+  # @example
+  #   class EnvFetcher
+  #   end
   #
-  #     builder = Sinclair.new(EnvFetcher)
+  #   builder = Sinclair.new(EnvFetcher)
   #
-  #     builder.add_class_method(:timeout) { ENV['TIMEOUT'] }
-  #     builder.build
+  #   builder.add_class_method(:hostname, 'ENV["HOSTNAME"]')
+  #   builder.build
   #
-  #     ENV['TIMEOUT'] = '300'
+  #   ENV['HOSTNAME'] = 'myhost'
   #
-  #     env_fetcher.timeout # returns '300'
+  #   env_fetcher.hostname # returns 'myhost'
+  #
+  # @example
+  #   class EnvFetcher
+  #   end
+  #
+  #   builder = Sinclair.new(EnvFetcher)
+  #
+  #   builder.add_class_method(:timeout) { ENV['TIMEOUT'] }
+  #   builder.build
+  #
+  #   ENV['TIMEOUT'] = '300'
+  #
+  #   env_fetcher.timeout # returns '300'
+  #
+  # @return [Array<MethodDefinition>]
   def add_class_method(name, code = nil, **options, &block)
     add_method_definition(
       MethodDefinition::ClassMethodDefinition,

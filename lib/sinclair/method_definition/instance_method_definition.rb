@@ -34,6 +34,8 @@ class Sinclair
       #   instance.sequence # returns 1
       #   instance.sequence # returns 2
       #   instance.sequence # returns 5
+      #
+      # @return MethodDefinition
       def self.from(name, code = nil, **options, &block)
         if block
           InstanceBlockDefinition.new(name, **options, &block)
