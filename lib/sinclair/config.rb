@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Sinclair
+  # @api public
+  # @author darthjee
+  #
   # Base class for configuration when using {Configurable}
   #
   # The methods will be added later by {ConfigFactory}

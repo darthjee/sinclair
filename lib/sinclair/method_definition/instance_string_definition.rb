@@ -2,6 +2,9 @@
 
 class Sinclair
   class MethodDefinition
+    # @api private
+    # @author darthjee
+    #
     # Define an instance method from string
     class InstanceStringDefinition < StringDefinition
       private

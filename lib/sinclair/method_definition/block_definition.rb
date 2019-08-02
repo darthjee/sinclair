@@ -3,6 +3,7 @@
 class Sinclair
   class MethodDefinition
     # @abstract
+    # @author darthjee
     #
     # Define a method from block
     class BlockDefinition < MethodDefinition
