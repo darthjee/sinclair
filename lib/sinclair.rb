@@ -174,12 +174,15 @@ class Sinclair
 
   # Add a method to the method list to be created on klass instances
   #
-  # @overload add_method(name, code)
-  #   @param name [String,Symbol] name of the method to be added
+  # @param name [String,Symbol] name of the method to be added
+  # @param options [Hash] Options of construction
+  # @option options cached [Boolean] Flag telling to create
+  #   a method with cache
+  #
+  # @overload add_method(name, code, **options)
   #   @param code [String] code to be evaluated when the method is ran
   #
-  # @overload add_method(name, &block)
-  #   @param name [String,Symbol] name of the method to be added
+  # @overload add_method(name, **options, &block)
   #   @param block [Proc]  block to be ran as method
   #
   # @example Using string code
@@ -224,12 +227,15 @@ class Sinclair
 
   # Add a method to the method list to be created on klass
   #
-  # @overload add_class_method(name, code)
-  #   @param name [String,Symbol] name of the method to be added
+  # @param name [String,Symbol] name of the method to be added
+  # @param options [Hash] Options of construction
+  # @option options cached [Boolean] Flag telling to create
+  #   a method with cache
+  #
+  # @overload add_class_method(name, code, **options)
   #   @param code [String] code to be evaluated when the method is ran
   #
-  # @overload add_class_method(name, &block)
-  #   @param name [String,Symbol] name of the method to be added
+  # @overload add_class_method(name, **options, &block)
   #   @param block [Proc]  block to be ran as method
   #
   # @example
