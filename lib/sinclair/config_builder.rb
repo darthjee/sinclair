@@ -2,6 +2,7 @@
 
 class Sinclair
   # @api private
+  # @author darthjee
   #
   # Class responsible for setting the values on configuration
   #

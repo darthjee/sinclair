@@ -2,6 +2,7 @@
 
 class Sinclair
   # @api public
+  # @author darthjee
   #
   # Module capable of giving configuration capability
   #

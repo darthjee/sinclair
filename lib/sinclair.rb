@@ -82,13 +82,14 @@ require 'active_support/all'
 class Sinclair
   require 'sinclair/options_parser'
 
-  autoload :VERSION,          'sinclair/version'
-  autoload :MethodDefinition, 'sinclair/method_definition'
-  autoload :Config,           'sinclair/config'
-  autoload :ConfigBuilder,    'sinclair/config_builder'
-  autoload :ConfigClass,      'sinclair/config_class'
-  autoload :ConfigFactory,    'sinclair/config_factory'
-  autoload :Configurable,     'sinclair/configurable'
+  autoload :VERSION,           'sinclair/version'
+  autoload :Config,            'sinclair/config'
+  autoload :ConfigBuilder,     'sinclair/config_builder'
+  autoload :ConfigClass,       'sinclair/config_class'
+  autoload :ConfigFactory,     'sinclair/config_factory'
+  autoload :Configurable,      'sinclair/configurable'
+  autoload :MethodDefinition,  'sinclair/method_definition'
+  autoload :MethodDefinitions, 'sinclair/method_definitions'
 
   include OptionsParser
 
@@ -173,12 +174,15 @@ class Sinclair
 
   # Add a method to the method list to be created on klass instances
   #
-  # @overload add_method(name, code)
-  #   @param name [String,Symbol] name of the method to be added
+  # @param name [String,Symbol] name of the method to be added
+  # @param options [Hash] Options of construction
+  # @option options cached [Boolean] Flag telling to create
+  #   a method with cache
+  #
+  # @overload add_method(name, code, **options)
   #   @param code [String] code to be evaluated when the method is ran
   #
-  # @overload add_method(name, &block)
-  #   @param name [String,Symbol] name of the method to be added
+  # @overload add_method(name, **options, &block)
   #   @param block [Proc]  block to be ran as method
   #
   # @example Using string code
@@ -215,7 +219,7 @@ class Sinclair
   #   Person.new('john', 'wick').bond_name # returns 'wick, john wick'
   # @return [Array<MethodDefinition>]
   def add_method(name, code = nil, **options, &block)
-    add_method_definition(
+    definitions.add(
       MethodDefinition::InstanceMethodDefinition,
       name, code, **options, &block
     )
@@ -223,12 +227,15 @@ class Sinclair
 
   # Add a method to the method list to be created on klass
   #
-  # @overload add_class_method(name, code)
-  #   @param name [String,Symbol] name of the method to be added
+  # @param name [String,Symbol] name of the method to be added
+  # @param options [Hash] Options of construction
+  # @option options cached [Boolean] Flag telling to create
+  #   a method with cache
+  #
+  # @overload add_class_method(name, code, **options)
   #   @param code [String] code to be evaluated when the method is ran
   #
-  # @overload add_class_method(name, &block)
-  #   @param name [String,Symbol] name of the method to be added
+  # @overload add_class_method(name, **options, &block)
   #   @param block [Proc]  block to be ran as method
   #
   # @example
@@ -259,7 +266,7 @@ class Sinclair
   #
   # @return [Array<MethodDefinition>]
   def add_class_method(name, code = nil, **options, &block)
-    add_method_definition(
+    definitions.add(
       MethodDefinition::ClassMethodDefinition,
       name, code, **options, &block
     )
@@ -341,10 +348,6 @@ class Sinclair
 
   private
 
-  def add_method_definition(definition_class, name, code = nil, **options, &block)
-    definitions << definition_class.from(name, code, **options, &block)
-  end
-
   # @method klass
   # @api private
   # @private
@@ -360,8 +363,8 @@ class Sinclair
   #
   # List of mthod definitions
   #
-  # @return [Array<MethodDefinition>]
+  # @return [MethodDefinitions]
   def definitions
-    @definitions ||= []
+    @definitions ||= MethodDefinitions.new
   end
 end

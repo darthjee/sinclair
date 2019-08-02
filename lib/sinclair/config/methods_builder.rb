@@ -3,6 +3,7 @@
 class Sinclair
   class Config
     # @api private
+    # @author darthjee
     #
     # Class responsible for adding method to configuration
     # classes

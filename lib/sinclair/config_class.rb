@@ -2,6 +2,7 @@
 
 class Sinclair
   # @api public
+  # @author darthjee
   #
   # Module with all class methods for {Config}
   #
