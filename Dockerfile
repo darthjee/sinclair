@@ -1,15 +1,15 @@
-FROM darthjee/ruby_gems:0.2.0 as base
-FROM darthjee/scripts:0.0.3 as scripts
+FROM darthjee/ruby_gems:0.2.1 as base
+FROM darthjee/scripts:0.1.0 as scripts
 
 ######################################
 
 FROM base as builder
 
 COPY --chown=app ./ /home/app/app/
-COPY --chown=app:app --from=scripts /home/scripts/ ./
+COPY --chown=app:app --from=scripts /home/scripts/builder/bundle_builder.sh /usr/local/sbin/
 
 ENV HOME_DIR /home/app
-RUN /bin/bash bundle_builder.sh
+RUN bundle_builder.sh
 
 #######################
 #FINAL IMAGE
