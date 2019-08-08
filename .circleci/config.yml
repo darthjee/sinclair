@@ -2,7 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: darthjee/circleci_ruby_gems:0.2.0
+      - image: darthjee/circleci_ruby_gems:0.2.1
+        environment:
+          PROJECT: sinclair
     steps:
       - checkout
       - run:
