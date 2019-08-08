@@ -82,19 +82,20 @@ require 'active_support/all'
 class Sinclair
   require 'sinclair/options_parser'
 
-  autoload :VERSION,          'sinclair/version'
-  autoload :MethodDefinition, 'sinclair/method_definition'
-  autoload :Config,           'sinclair/config'
-  autoload :ConfigBuilder,    'sinclair/config_builder'
-  autoload :ConfigClass,      'sinclair/config_class'
-  autoload :ConfigFactory,    'sinclair/config_factory'
-  autoload :Configurable,     'sinclair/configurable'
+  autoload :VERSION,           'sinclair/version'
+  autoload :Config,            'sinclair/config'
+  autoload :ConfigBuilder,     'sinclair/config_builder'
+  autoload :ConfigClass,       'sinclair/config_class'
+  autoload :ConfigFactory,     'sinclair/config_factory'
+  autoload :Configurable,      'sinclair/configurable'
+  autoload :MethodDefinition,  'sinclair/method_definition'
+  autoload :MethodDefinitions, 'sinclair/method_definitions'
 
   include OptionsParser
 
   # Returns a new instance of Sinclair
   #
-  # @param klass [Class] to receive the methods
+  # @param klass [Class] Class that will receive the methods
   # @param options [Hash] open hash options to be used by builders inheriting from Sinclair
   #   through the Sinclair::OptionsParser concern
   #
@@ -171,11 +172,18 @@ class Sinclair
     end
   end
 
-  # add a method to the method list to be created on klass
+  # Add a method to the method list to be created on klass instances
   #
-  # @overload add_method(name, code)
-  #   @param name [String,Symbol] name of the method to be added
+  # @param name [String,Symbol] name of the method to be added
+  # @param options [Hash] Options of construction
+  # @option options cached [Boolean] Flag telling to create
+  #   a method with cache
+  #
+  # @overload add_method(name, code, **options)
   #   @param code [String] code to be evaluated when the method is ran
+  #
+  # @overload add_method(name, **options, &block)
+  #   @param block [Proc]  block to be ran as method
   #
   # @example Using string code
   #   class Person
@@ -193,19 +201,75 @@ class Sinclair
   #
   #   Person.new('john', 'wick').full_name # returns 'john wick'
   #
-  # @overload add_method(name, &block)
-  #   @param name [String,Symbol] name of the method to be added
-  #   @param block [Proc]  block to be ran as method
-  #
   # @example Using block
+  #   class Person
+  #     attr_reader :first_name, :last_name
+  #
+  #     def initialize(first_name, last_name)
+  #       @first_name = first_name
+  #       @last_name = last_name
+  #     end
+  #   end
+  #
   #   builder = Sinclair.new(Person)
+  #   builder.add_method(:full_name, '[first_name, last_name].join(" ")')
   #   builder.add_method(:bond_name) { "#{last_name}, #{full_name}" }
   #   builder.build
   #
   #   Person.new('john', 'wick').bond_name # returns 'wick, john wick'
   # @return [Array<MethodDefinition>]
   def add_method(name, code = nil, **options, &block)
-    definitions << MethodDefinition.from(name, code, **options, &block)
+    definitions.add(
+      MethodDefinition::InstanceMethodDefinition,
+      name, code, **options, &block
+    )
+  end
+
+  # Add a method to the method list to be created on klass
+  #
+  # @param name [String,Symbol] name of the method to be added
+  # @param options [Hash] Options of construction
+  # @option options cached [Boolean] Flag telling to create
+  #   a method with cache
+  #
+  # @overload add_class_method(name, code, **options)
+  #   @param code [String] code to be evaluated when the method is ran
+  #
+  # @overload add_class_method(name, **options, &block)
+  #   @param block [Proc]  block to be ran as method
+  #
+  # @example
+  #   class EnvFetcher
+  #   end
+  #
+  #   builder = Sinclair.new(EnvFetcher)
+  #
+  #   builder.add_class_method(:hostname, 'ENV["HOSTNAME"]')
+  #   builder.build
+  #
+  #   ENV['HOSTNAME'] = 'myhost'
+  #
+  #   env_fetcher.hostname # returns 'myhost'
+  #
+  # @example
+  #   class EnvFetcher
+  #   end
+  #
+  #   builder = Sinclair.new(EnvFetcher)
+  #
+  #   builder.add_class_method(:timeout) { ENV['TIMEOUT'] }
+  #   builder.build
+  #
+  #   ENV['TIMEOUT'] = '300'
+  #
+  #   env_fetcher.timeout # returns '300'
+  #
+  # @return [Array<MethodDefinition>]
+  def add_class_method(name, code = nil, **options, &block)
+    definitions.add(
+      MethodDefinition::ClassMethodDefinition,
+      name, code, **options, &block
+    )
   end
 
   # Evaluetes a block which will result in a String, the method code
@@ -284,8 +348,13 @@ class Sinclair
 
   private
 
+  # @method klass
   # @api private
   # @private
+  #
+  # Class that will receive the methods
+  #
+  # @return [Class]
   attr_reader :klass
 
   # @private
@@ -294,8 +363,8 @@ class Sinclair
   #
   # List of mthod definitions
   #
-  # @return [Array<MethodDefinition>]
+  # @return [MethodDefinitions]
   def definitions
-    @definitions ||= []
+    @definitions ||= MethodDefinitions.new
   end
 end

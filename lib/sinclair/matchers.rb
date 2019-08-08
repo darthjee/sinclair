@@ -28,17 +28,31 @@ class Sinclair
   #    end
   #  end
   module Matchers
-    autoload :AddMethod,   'sinclair/matchers/add_method'
-    autoload :AddMethodTo, 'sinclair/matchers/add_method_to'
+    autoload :AddMethod,           'sinclair/matchers/add_method'
+    autoload :AddInstanceMethod,   'sinclair/matchers/add_instance_method'
+    autoload :AddClassMethod,      'sinclair/matchers/add_class_method'
+    autoload :AddMethodTo,         'sinclair/matchers/add_method_to'
+    autoload :AddInstanceMethodTo, 'sinclair/matchers/add_instance_method_to'
+    autoload :AddClassMethodTo,    'sinclair/matchers/add_class_method_to'
 
-    # DSL to AddMethod
+    # DSL to AddInstanceMethod
     #
     # @example (see Sinclair::Matchers)
-    # @example (see Sinclair::Matchers::AddMethod#to)
+    # @example (see Sinclair::Matchers::AddInstanceMethod#to)
     #
-    # @return [AddMethod] RSpec Matcher
+    # @return [AddInstanceMethod] RSpec Matcher
     def add_method(method)
-      Sinclair::Matchers::AddMethod.new(method)
+      Sinclair::Matchers::AddInstanceMethod.new(method)
+    end
+
+    # DSL to AddClassMethod
+    #
+    # @example (see Sinclair::Matchers)
+    # @example (see Sinclair::Matchers::AddClassMethod#to)
+    #
+    # @return [AddClassMethod] RSpec Matcher
+    def add_class_method(method)
+      Sinclair::Matchers::AddClassMethod.new(method)
     end
   end
 end

@@ -2,6 +2,9 @@
 
 class Sinclair
   class MethodDefinition
+    # @abstract
+    # @author darthjee
+    #
     # Define a method from block
     class BlockDefinition < MethodDefinition
       # @param name    [String,Symbol] name of the method
@@ -14,7 +17,7 @@ class Sinclair
         super(name, **options)
       end
 
-      # Adds the method to given klass
+      # Adds the instance method to given klass
       #
       # @param klass [Class] class which will receive the new method
       #
@@ -22,18 +25,20 @@ class Sinclair
       #
       # @return [Symbol] name of the created method
       #
-      # @example Using block method with no options
+      # @example Using instance block method with cached options
       #   class MyModel
       #   end
       #
       #   instance = MyModel.new
       #
-      #   method_definition = Sinclair::MethodDefinition::BlockDefinition.new(:sequence) do
+      #   method_definition = Sinclair::MethodDefinition::InstanceBlockDefinition.new(
+      #     :sequence, cached: true
+      #   ) do
       #     @x = @x.to_i ** 2 + 1
       #   end
       #
-      #   method_definition.build(klass)  # adds instance_method :sequence to
-      #                                  # MyModel instances
+      #   method_definition.build(MyModel) # adds instance_method :sequence to
+      #                                    # MyModel instances
       #
       #   instance.instance_variable_get(:@sequence) # returns nil
       #   instance.instance_variable_get(:@x)        # returns nil
@@ -43,11 +48,37 @@ class Sinclair
       #
       #   instance.instance_variable_get(:@sequence) # returns 1
       #   instance.instance_variable_get(:@x)        # returns 1
+      #
+      # @example Using class block method without options
+      #   class MyModel
+      #   end
+      #
+      #   method_definition = Sinclair::MethodDefinition::ClassBlockDefinition.new(:sequence) do
+      #     @x = @x.to_i ** 2 + 1
+      #   end
+      #
+      #   method_definition.build(MyModel)    # adds instance_method :sequence to
+      #                                       # MyModel instances
+      #
+      #   MyModel.instance_variable_get(:@x) # returns nil
+      #
+      #   MyModel.sequence                   # returns 1
+      #   MyModel.sequence                   # returns 2
+      #   MyModel.sequence                   # returns 5
+      #
+      #   MyModel.instance_variable_get(:@x) # returns 5
       def build(klass)
-        klass.send(:define_method, name, method_block)
+        klass.send(method_definer, name, method_block)
       end
 
       private
+
+      # @method block
+      # @private
+      #
+      # Block with code to be added as method
+      # @return [Proc]
+      attr_reader :block
 
       # @private
       #

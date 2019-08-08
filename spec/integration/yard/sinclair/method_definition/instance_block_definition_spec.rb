@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-describe Sinclair::MethodDefinition::BlockDefinition do
+describe Sinclair::MethodDefinition::InstanceBlockDefinition do
   describe 'yard' do
     describe '#build' do
       subject(:method_definition) do
-        described_class.from(name, cached: true) do
+        described_class.new(name, cached: true) do
           @x = @x.to_i**2 + 1
         end
       end

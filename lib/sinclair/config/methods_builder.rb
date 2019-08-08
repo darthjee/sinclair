@@ -3,6 +3,7 @@
 class Sinclair
   class Config
     # @api private
+    # @author darthjee
     #
     # Class responsible for adding method to configuration
     # classes
@@ -27,7 +28,7 @@ class Sinclair
       # @overload initialize(klass, *names, default)
       #   @param names [Array<Symbol,String>] List of configuration names
       #     to be added
-      #   @param default [Hash] Configurations that will receive a default
+      #   @param default [Hash] Configurations that will receive a default value
       #     value when not configured
       def initialize(klass, *names)
         super(klass)
@@ -69,6 +70,19 @@ class Sinclair
 
       private
 
+      # @method names
+      # @private
+      #
+      # List of configuration names
+      #
+      # @return [Array<Symbol,String>]
+
+      # @method defaults
+      # @private
+      #
+      # Configurations that will receive a default value
+      #
+      # @return [Hash]
       attr_reader :names, :defaults
 
       # @private

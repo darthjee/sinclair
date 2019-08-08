@@ -2,6 +2,7 @@
 
 class Sinclair
   # @api private
+  # @author darthjee
   #
   # Class responsible for configuring the configuration class
   #
@@ -22,6 +23,7 @@ class Sinclair
     CONFIG_CLASS_WARNING = 'Config class is expected to be ConfigClass. ' \
       "In future releases this will be enforced.\n" \
       'see more on https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes'
+
     # @param config_class [Class] configuration class to be used
     # @param config_attributes [Array<Symbol,String>] list of possible configurations
     def initialize(config_class: Class.new(Config), config_attributes: [])
@@ -29,6 +31,7 @@ class Sinclair
       @config_attributes = config_attributes.dup
 
       return if config_class.is_a?(ConfigClass)
+
       warn CONFIG_CLASS_WARNING
     end
 
@@ -141,7 +144,19 @@ class Sinclair
 
     private
 
+    # method config_class
     # @private
+    #
+    # Configuration class to be used
+    #
+    # @return [Class]
+
+    # @method config_attributes
+    # @private
+    #
+    # List of possible configurations
+    #
+    # @return [Array<Symbol,String>]
     attr_reader :config_class, :config_attributes
 
     # @private
