@@ -5,7 +5,9 @@ class Sinclair
   # @author darthjee
   #
   # Enumerator holding all method definitions
-  class MethodDefinitions < Array
+  class MethodDefinitions
+    delegate :each, to: :definitions
+
     # Builds and adds new definition
     #
     # @param definition_class [Class] class used to define method definition
@@ -22,7 +24,13 @@ class Sinclair
     #
     # @return MethodDefinitions
     def add(definition_class, name, code = nil, **options, &block)
-      self << definition_class.from(name, code, **options, &block)
+      definitions << definition_class.from(name, code, **options, &block)
+    end
+
+    private
+
+    def definitions
+      @definitions ||= []
     end
   end
 end
