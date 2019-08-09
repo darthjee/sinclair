@@ -14,9 +14,7 @@ class Sinclair
       # Method used to define an instance method
       #
       # @return [Symbol] Always :define_method
-      def method_definer
-        :define_method
-      end
+      default_value :method_definer, :define_method
     end
   end
 end

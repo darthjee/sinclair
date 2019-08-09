@@ -29,6 +29,10 @@ class Sinclair
       cached: false
     }.freeze
 
+    def self.default_value(method_name, value)
+      self.define_method(method_name) { value }
+    end
+
     # @param name    [String,Symbol] name of the method
     # @param options [Hash] Options of construction
     # @option options cached [Boolean] Flag telling to create
