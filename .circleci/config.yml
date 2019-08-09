@@ -31,3 +31,6 @@ jobs:
       - run:
           name: Rubycritcs check
           command: rubycritic.sh
+      - run:
+          name: Check unit tests
+          command: check_specs
