@@ -35,6 +35,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rubocop-rspec',      '1.33.0'
   gem.add_development_dependency 'rubycritic',         '4.1.0'
   gem.add_development_dependency 'simplecov',          '0.17.0'
-  gem.add_development_dependency 'yard',               '0.9.19'
+  gem.add_development_dependency 'yard',               '0.9.20'
   gem.add_development_dependency 'yardstick',          '0.9.9'
 end
