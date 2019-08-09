@@ -17,6 +17,13 @@ class Sinclair
     autoload :ClassBlockDefinition,     'sinclair/method_definition/class_block_definition'
     autoload :ClassStringDefinition,    'sinclair/method_definition/class_string_definition'
 
+    # @method name
+    #
+    # name of the method
+    #
+    # @return [String,Symbol]
+    attr_reader :name
+
     # Default options of initialization
     DEFAULT_OPTIONS = {
       cached: false
@@ -50,13 +57,6 @@ class Sinclair
 
     private
 
-    # @method name
-    # @private
-    #
-    # name of the method
-    #
-    # @return [String,Symbol]
-    attr_reader :name
     delegate :cached, to: :options_object
 
     # @private

@@ -73,6 +73,10 @@ class Sinclair
         klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
       end
 
+      def code_line
+        cached? ? code_with_cache : code
+      end
+
       private
 
       # @method code
@@ -89,8 +93,6 @@ class Sinclair
       #
       # @return [String]
       def code_definition
-        code_line = cached? ? code_with_cache : code
-
         <<-CODE
           def #{method_name}
             #{code_line}

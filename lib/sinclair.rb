@@ -88,6 +88,7 @@ class Sinclair
   autoload :ConfigClass,       'sinclair/config_class'
   autoload :ConfigFactory,     'sinclair/config_factory'
   autoload :Configurable,      'sinclair/configurable'
+  autoload :MethodBuilder,     'sinclair/method_builder'
   autoload :MethodDefinition,  'sinclair/method_definition'
   autoload :MethodDefinitions, 'sinclair/method_definitions'
 

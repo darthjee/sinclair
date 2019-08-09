@@ -7,6 +7,10 @@ class Sinclair
     #
     # Define an instance method from string
     class InstanceStringDefinition < StringDefinition
+      def build(klass)
+        MethodBuilder.new(klass).build_method(self)
+      end
+
       private
 
       # @private
