@@ -19,6 +19,9 @@ class Sinclair
         super(name, **options)
       end
 
+      default_value :block?, false
+      default_value :string?, true
+
       # Adds the method to given klass
       #
       # @param klass [Class] class which will receive the new method

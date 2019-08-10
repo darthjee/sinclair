@@ -7,11 +7,17 @@ class Sinclair
     end
 
     def build_method(definition)
-      string_method_builder.build_method(definition)
+      if definition.string?
+        string_method_builder.build_method(definition)
+      else
+      end
     end
 
     def build_class_method(definition)
-      string_method_builder.build_class_method(definition)
+      if definition.string?
+        string_method_builder.build_class_method(definition)
+      else
+      end
     end
 
     private
