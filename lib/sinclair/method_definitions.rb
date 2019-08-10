@@ -27,8 +27,6 @@ class Sinclair
       definitions << definition_class.from(name, code, **options, &block)
     end
 
-    private
-
     def definitions
       @definitions ||= []
     end

@@ -7,19 +7,23 @@ class Sinclair
       @klass = klass
     end
 
-    def build_method(definition)
-      if definition.string?
-        string_method_builder.build_method(definition)
-      else
-        block_method_builder.build_method(definition)
+    def build_method(*definitions)
+      definitions.each do |definition|
+        if definition.string?
+          string_method_builder.build_method(definition)
+        else
+          block_method_builder.build_method(definition)
+        end
       end
     end
 
-    def build_class_method(definition)
-      if definition.string?
-        string_method_builder.build_class_method(definition)
-      else
-        block_method_builder.build_class_method(definition)
+    def build_class_method(*definitions)
+      definitions.each do |definition|
+        if definition.string?
+          string_method_builder.build_class_method(definition)
+        else
+          block_method_builder.build_class_method(definition)
+        end
       end
     end
 

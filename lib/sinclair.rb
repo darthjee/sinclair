@@ -168,13 +168,8 @@ class Sinclair
   #
   # @return [Array<MethodDefinition>]
   def build
-    definitions.each do |definition|
-      definition.build(klass)
-    end
-
-    class_definitions.each do |definition|
-      definition.build(klass)
-    end
+    builder.build_method(*(definitions.definitions))
+    builder.build_class_method(*(class_definitions.definitions))
   end
 
   # Add a method to the method list to be created on klass instances
@@ -375,5 +370,9 @@ class Sinclair
 
   def class_definitions
     @class_definitions ||= MethodDefinitions.new
+  end
+
+  def builder
+    @builder ||= MethodBuilder.new(klass)
   end
 end
