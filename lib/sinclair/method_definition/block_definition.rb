@@ -74,17 +74,6 @@ class Sinclair
         klass.send(method_definer, name, method_block)
       end
 
-      private
-
-      # @method block
-      # @private
-      #
-      # Block with code to be added as method
-      # @return [Proc]
-      attr_reader :block
-
-      # @private
-      #
       # Returns the block that will be used for method creattion
       #
       # @return [Proc]
@@ -98,6 +87,15 @@ class Sinclair
           cached_method_proc(name, block)
         end
       end
+
+      private
+
+      # @method block
+      # @private
+      #
+      # Block with code to be added as method
+      # @return [Proc]
+      attr_reader :block
 
       # @private
       #
