@@ -171,6 +171,10 @@ class Sinclair
     definitions.each do |definition|
       definition.build(klass)
     end
+
+    class_definitions.each do |definition|
+      definition.build(klass)
+    end
   end
 
   # Add a method to the method list to be created on klass instances
@@ -267,7 +271,7 @@ class Sinclair
   #
   # @return [Array<MethodDefinition>]
   def add_class_method(name, code = nil, **options, &block)
-    definitions.add(
+    class_definitions.add(
       MethodDefinition::ClassMethodDefinition,
       name, code, **options, &block
     )
@@ -367,5 +371,9 @@ class Sinclair
   # @return [MethodDefinitions]
   def definitions
     @definitions ||= MethodDefinitions.new
+  end
+
+  def class_definitions
+    @class_definitions ||= MethodDefinitions.new
   end
 end
