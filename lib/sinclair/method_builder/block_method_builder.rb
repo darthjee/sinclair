@@ -2,6 +2,13 @@
 
 class Sinclair
   class MethodBuilder
+    # @api private
+    # @author darthjee
+    #
+    # Class responsible to build methods from
+    # block definitions
+    #
+    # @see MethodDefinition::BlockDefinition
     class BlockMethodBuilder
       def initialize(klass)
         @klass = klass

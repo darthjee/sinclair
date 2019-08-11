@@ -2,30 +2,36 @@
 
 class Sinclair
   class MethodBuilder
+    # @api private
+    # @author darthjee
+    #
+    # Class responsible to build methods from
+    # string definitions
+    #
+    # @see MethodDefinition::StringDefinition
     class StringMethodBuilder
       def initialize(klass)
         @klass = klass
       end
 
       def build_method(definition)
-        code_definition = <<-CODE
-        def #{definition.name}
-          #{definition.code_line}
-        end
-        CODE
-        klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
+        build_code(definition.code_line, definition.name)
       end
 
       def build_class_method(definition)
+        build_code(definition.code_line, "self.#{definition.name}")
+      end
+
+      private
+
+      def build_code(code, declaration)
         code_definition = <<-CODE
-        def self.#{definition.name}
-          #{definition.code_line}
+        def #{declaration}
+          #{code}
         end
         CODE
         klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
       end
-
-      private
 
       attr_reader :klass
     end
