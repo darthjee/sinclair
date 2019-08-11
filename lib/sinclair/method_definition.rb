@@ -69,8 +69,6 @@ class Sinclair
         "Use #{self.class}.from to initialize a proper object"
     end
 
-    private
-
     delegate :cached, to: :options_object
 
     # @private
