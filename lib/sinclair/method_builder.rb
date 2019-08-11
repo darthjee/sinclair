@@ -2,6 +2,7 @@
 
 class Sinclair
   class MethodBuilder
+    autoload :Base,                'sinclair/method_builder/base'
     autoload :StringMethodBuilder, 'sinclair/method_builder/string_method_builder'
     autoload :BlockMethodBuilder,  'sinclair/method_builder/block_method_builder'
 

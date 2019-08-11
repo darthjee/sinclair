@@ -9,13 +9,7 @@ class Sinclair
     # string definitions
     #
     # @see MethodDefinition::StringDefinition
-    class StringMethodBuilder
-      def initialize(klass, definition, type: :instance)
-        @klass = klass
-        @definition = definition
-        @type = type
-      end
-
+    class StringMethodBuilder < Base
       def build
         klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
       end
@@ -34,13 +28,7 @@ class Sinclair
         CODE
       end
 
-      attr_reader :klass, :definition, :type
-
       delegate :code_line, :name, to: :definition
-
-      def instance?
-        type == :instance
-      end
     end
   end
 end
