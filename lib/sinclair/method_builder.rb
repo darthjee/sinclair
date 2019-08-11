@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Sinclair
+  # @api private
+  # @author darthjee
+  #
+  # Class responsible for building methods
   class MethodBuilder
     autoload :Base,                'sinclair/method_builder/base'
     autoload :StringMethodBuilder, 'sinclair/method_builder/string_method_builder'
@@ -12,26 +16,26 @@ class Sinclair
 
     def build_method(*definitions)
       definitions.each do |definition|
-        if definition.string?
-          StringMethodBuilder.new(klass, definition).build
-        else
-          BlockMethodBuilder.new(klass, definition).build
-        end
+        build_from_definition(definition, :instance)
       end
     end
 
     def build_class_method(*definitions)
       definitions.each do |definition|
-        if definition.string?
-          StringMethodBuilder.new(klass, definition, type: :class).build
-        else
-          BlockMethodBuilder.new(klass, definition, type: :class).build
-        end
+        build_from_definition(definition, :class)
       end
     end
 
     private
 
     attr_reader :klass
+
+    def build_from_definition(definition, type)
+      if definition.string?
+        StringMethodBuilder.new(klass, definition, type: type).build
+      else
+        BlockMethodBuilder.new(klass, definition, type: type).build
+      end
+    end
   end
 end
