@@ -12,9 +12,9 @@ class Sinclair
     def build_method(*definitions)
       definitions.each do |definition|
         if definition.string?
-          string_method_builder.build_method(definition)
+          StringMethodBuilder.new(klass, definition).build
         else
-          block_method_builder.build_method(definition)
+          BlockMethodBuilder.new(klass, definition).build
         end
       end
     end
@@ -22,9 +22,9 @@ class Sinclair
     def build_class_method(*definitions)
       definitions.each do |definition|
         if definition.string?
-          string_method_builder.build_class_method(definition)
+          StringMethodBuilder.new(klass, definition, type: :class).build
         else
-          block_method_builder.build_class_method(definition)
+          BlockMethodBuilder.new(klass, definition, type: :class).build
         end
       end
     end
@@ -32,13 +32,5 @@ class Sinclair
     private
 
     attr_reader :klass
-
-    def string_method_builder
-      @string_method_builder ||= StringMethodBuilder.new(klass)
-    end
-
-    def block_method_builder
-      @block_method_builder ||= BlockMethodBuilder.new(klass)
-    end
   end
 end

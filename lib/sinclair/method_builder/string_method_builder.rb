@@ -10,30 +10,37 @@ class Sinclair
     #
     # @see MethodDefinition::StringDefinition
     class StringMethodBuilder
-      def initialize(klass)
+      def initialize(klass, definition, type: :instance)
         @klass = klass
+        @definition = definition
+        @type = type
       end
 
-      def build_method(definition)
-        build_code(definition.code_line, definition.name)
-      end
-
-      def build_class_method(definition)
-        build_code(definition.code_line, "self.#{definition.name}")
+      def build
+        klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
       end
 
       private
 
-      def build_code(code, declaration)
-        code_definition = <<-CODE
-        def #{declaration}
-          #{code}
-        end
-        CODE
-        klass.module_eval(code_definition, __FILE__, __LINE__ + 1)
+      def definition_name
+        instance? ? name : "self.#{name}"
       end
 
-      attr_reader :klass
+      def code_definition
+        <<-CODE
+          def #{definition_name}
+            #{code_line}
+          end
+        CODE
+      end
+
+      attr_reader :klass, :definition, :type
+
+      delegate :code_line, :name, to: :definition
+
+      def instance?
+        type == :instance
+      end
     end
   end
 end
