@@ -7,10 +7,6 @@ class Sinclair
     #
     # Define an class method from block
     class ClassBlockDefinition < BlockDefinition
-      def build(klass)
-        MethodBuilder.new(klass).build_class_method(self)
-      end
-
       private
 
       # @private

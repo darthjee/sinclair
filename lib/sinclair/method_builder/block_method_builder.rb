@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Sinclair
   class MethodBuilder
     class BlockMethodBuilder
@@ -19,4 +21,3 @@ class Sinclair
     end
   end
 end
-

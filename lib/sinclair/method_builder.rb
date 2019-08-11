@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Sinclair
   class MethodBuilder
     autoload :StringMethodBuilder, 'sinclair/method_builder/string_method_builder'

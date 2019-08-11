@@ -20,60 +20,6 @@ class Sinclair
       default_value :block?, true
       default_value :string?, false
 
-      # Adds the instance method to given klass
-      #
-      # @param klass [Class] class which will receive the new method
-      #
-      # @see MethodDefinition#build
-      #
-      # @return [Symbol] name of the created method
-      #
-      # @example Using instance block method with cached options
-      #   class MyModel
-      #   end
-      #
-      #   instance = MyModel.new
-      #
-      #   method_definition = Sinclair::MethodDefinition::InstanceBlockDefinition.new(
-      #     :sequence, cached: true
-      #   ) do
-      #     @x = @x.to_i ** 2 + 1
-      #   end
-      #
-      #   method_definition.build(MyModel) # adds instance_method :sequence to
-      #                                    # MyModel instances
-      #
-      #   instance.instance_variable_get(:@sequence) # returns nil
-      #   instance.instance_variable_get(:@x)        # returns nil
-      #
-      #   instance.sequence               # returns 1
-      #   instance.sequence               # returns 1 (cached value)
-      #
-      #   instance.instance_variable_get(:@sequence) # returns 1
-      #   instance.instance_variable_get(:@x)        # returns 1
-      #
-      # @example Using class block method without options
-      #   class MyModel
-      #   end
-      #
-      #   method_definition = Sinclair::MethodDefinition::ClassBlockDefinition.new(:sequence) do
-      #     @x = @x.to_i ** 2 + 1
-      #   end
-      #
-      #   method_definition.build(MyModel)    # adds instance_method :sequence to
-      #                                       # MyModel instances
-      #
-      #   MyModel.instance_variable_get(:@x) # returns nil
-      #
-      #   MyModel.sequence                   # returns 1
-      #   MyModel.sequence                   # returns 2
-      #   MyModel.sequence                   # returns 5
-      #
-      #   MyModel.instance_variable_get(:@x) # returns 5
-      def build(klass)
-        klass.send(method_definer, name, method_block)
-      end
-
       # Returns the block that will be used for method creattion
       #
       # @return [Proc]

@@ -30,7 +30,7 @@ class Sinclair
     }.freeze
 
     def self.default_value(method_name, value)
-      self.define_method(method_name) { value }
+      define_method(method_name) { value }
     end
 
     # @param name    [String,Symbol] name of the method

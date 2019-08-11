@@ -7,10 +7,6 @@ class Sinclair
     #
     # Define a method from string
     class ClassStringDefinition < StringDefinition
-      def build(klass)
-        MethodBuilder.new(klass).build_class_method(self)
-      end
-
       private
 
       # @private
