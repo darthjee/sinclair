@@ -8,14 +8,8 @@ class Sinclair
   class MethodDefinition
     include Sinclair::OptionsParser
 
-    autoload :InstanceMethodDefinition, 'sinclair/method_definition/instance_method_definition'
-    autoload :ClassMethodDefinition,    'sinclair/method_definition/class_method_definition'
     autoload :BlockDefinition,          'sinclair/method_definition/block_definition'
     autoload :StringDefinition,         'sinclair/method_definition/string_definition'
-    autoload :InstanceBlockDefinition,  'sinclair/method_definition/instance_block_definition'
-    autoload :InstanceStringDefinition, 'sinclair/method_definition/instance_string_definition'
-    autoload :ClassBlockDefinition,     'sinclair/method_definition/class_block_definition'
-    autoload :ClassStringDefinition,    'sinclair/method_definition/class_string_definition'
 
     # @method name
     #
@@ -31,6 +25,22 @@ class Sinclair
 
     def self.default_value(method_name, value)
       define_method(method_name) { value }
+    end
+
+    # @param name    [String,Symbol] name of the method
+    # @param code    [String] code to be evaluated as method
+    # @param block   [Proc] block with code to be added as method
+    # @param options [Hash] Options of construction
+    # @option options cached [Boolean] Flag telling to create a block
+    #   with cache
+    #
+    # @return MethodDefinition
+    def self.from(name, code = nil, **options, &block)
+      if block
+        BlockDefinition.new(name, **options, &block)
+      else
+        StringDefinition.new(name, code, **options)
+      end
     end
 
     # @param name    [String,Symbol] name of the method

@@ -220,7 +220,6 @@ class Sinclair
   # @return [Array<MethodDefinition>]
   def add_method(name, code = nil, **options, &block)
     definitions.add(
-      MethodDefinition::InstanceMethodDefinition,
       name, code, **options, &block
     )
   end
@@ -267,7 +266,6 @@ class Sinclair
   # @return [Array<MethodDefinition>]
   def add_class_method(name, code = nil, **options, &block)
     class_definitions.add(
-      MethodDefinition::ClassMethodDefinition,
       name, code, **options, &block
     )
   end

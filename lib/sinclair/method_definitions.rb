@@ -23,8 +23,8 @@ class Sinclair
     #   @param block [Proc]  block to be ran as method
     #
     # @return MethodDefinitions
-    def add(definition_class, name, code = nil, **options, &block)
-      definitions << definition_class.from(name, code, **options, &block)
+    def add(name, code = nil, **options, &block)
+      definitions << MethodDefinition.from(name, code, **options, &block)
     end
 
     def definitions
