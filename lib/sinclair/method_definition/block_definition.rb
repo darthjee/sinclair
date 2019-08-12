@@ -28,9 +28,9 @@ class Sinclair
 
         case cached
         when :full
-          full_cached_method_proc(name, block)
+          BlockHelper.full_cached_method_proc(name, block)
         else
-          cached_method_proc(name, block)
+          BlockHelper.cached_method_proc(name, block)
         end
       end
 
@@ -42,39 +42,6 @@ class Sinclair
       # Block with code to be added as method
       # @return [Proc]
       attr_reader :block
-
-      # @private
-      #
-      # Returns proc block when {#cached?} as simple
-      #
-      # @return [Proc]
-      def cached_method_proc(method_name, inner_block)
-        proc do
-          instance_variable_get("@#{method_name}") ||
-            instance_variable_set(
-              "@#{method_name}",
-              instance_eval(&inner_block)
-            )
-        end
-      end
-
-      # @private
-      #
-      # Returns proc block when {#cached?} as full
-      #
-      # @return [Proc]
-      def full_cached_method_proc(method_name, inner_block)
-        proc do
-          if instance_variable_defined?("@#{method_name}")
-            instance_variable_get("@#{method_name}")
-          else
-            instance_variable_set(
-              "@#{method_name}",
-              instance_eval(&inner_block)
-            )
-          end
-        end
-      end
     end
   end
 end

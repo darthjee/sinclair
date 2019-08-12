@@ -8,8 +8,9 @@ class Sinclair
   class MethodDefinition
     include Sinclair::OptionsParser
 
-    autoload :BlockDefinition,          'sinclair/method_definition/block_definition'
-    autoload :StringDefinition,         'sinclair/method_definition/string_definition'
+    autoload :BlockHelper,      'sinclair/method_definition/block_helper'
+    autoload :BlockDefinition,  'sinclair/method_definition/block_definition'
+    autoload :StringDefinition, 'sinclair/method_definition/string_definition'
 
     # @method name
     #
