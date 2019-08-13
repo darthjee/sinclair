@@ -356,20 +356,31 @@ class Sinclair
   attr_reader :klass
 
   # @private
-  #
   # @api private
   #
-  # List of mthod definitions
+  # List of instance method definitions
   #
   # @return [MethodDefinitions]
   def definitions
     @definitions ||= MethodDefinitions.new
   end
 
+  # @private
+  # @api private
+  #
+  # List of class method definitions
+  #
+  # @return [MethodDefinitions]
   def class_definitions
     @class_definitions ||= MethodDefinitions.new
   end
 
+  # @private
+  # @api private
+  #
+  # MethodBuilder binded to the class
+  #
+  # @return [MethodBuilder]
   def builder
     @builder ||= MethodBuilder.new(klass)
   end
