@@ -18,12 +18,24 @@ class Sinclair
       @klass = klass
     end
 
+    # Builds instance methods on klass
+    #
+    # @param definitions [Array<MethodDefinition>] all methods
+    #   definitions to be built
+    #
+    # @return [Array<MethodDefinition>]
     def build_method(*definitions)
       definitions.each do |definition|
         build_from_definition(definition, INSTANCE_METHOD)
       end
     end
 
+    # Builds class methods on klass
+    #
+    # @param definitions [Array<MethodDefinition>] all methods
+    #   definitions to be built
+    #
+    # @return [Array<MethodDefinition>]
     def build_class_method(*definitions)
       definitions.each do |definition|
         build_from_definition(definition, CLASS_METHOD)
@@ -34,6 +46,14 @@ class Sinclair
 
     attr_reader :klass
 
+    # @private
+    #
+    # Build one method from definition
+    #
+    # @param definition [MethodDefinition] the method definition
+    # @param type [Symbol] type of method to be built
+    #
+    # @return (see Base#build)
     def build_from_definition(definition, type)
       if definition.string?
         StringMethodBuilder.new(klass, definition, type: type).build

@@ -18,6 +18,15 @@ class Sinclair
         @type = type
       end
 
+      # Build method (should be implemented in subclass)
+      #
+      # @return [Symbol] name of the method built
+      #
+      # @raise NotImplementedYet
+      def build
+        raise 'Not implemented yet. this should be imlemented in subclasses'
+      end
+
       private
 
       attr_reader :klass, :definition, :type
