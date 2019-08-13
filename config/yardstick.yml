@@ -35,9 +35,9 @@ rules:
       - Sinclair::Matchers::AddInstanceMethodTo#instance
       - Sinclair::Matchers::AddMethod#initialize
       - Sinclair::Matchers::AddMethodTo#initialize
+      - Sinclair::MethodBuilder
+      - Sinclair::MethodBuilder::Base#initialize
       - Sinclair::MethodDefinition#initialize
-      - Sinclair::MethodsBuilder
-      - Sinclair::MethodsBuilder::Base#initialize
   Summary::Length:
     enabled: true
     exclude: []
