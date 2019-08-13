@@ -10,6 +10,7 @@ class Sinclair
     autoload :StringMethodBuilder, 'sinclair/method_builder/string_method_builder'
     autoload :BlockMethodBuilder,  'sinclair/method_builder/block_method_builder'
 
+    # @param klass [Class] class to receive the method
     def initialize(klass)
       @klass = klass
     end

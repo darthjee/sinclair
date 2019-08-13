@@ -36,6 +36,8 @@ rules:
       - Sinclair::Matchers::AddMethod#initialize
       - Sinclair::Matchers::AddMethodTo#initialize
       - Sinclair::MethodDefinition#initialize
+      - Sinclair::MethodsBuilder
+      - Sinclair::MethodsBuilder::Base#initialize
   Summary::Length:
     enabled: true
     exclude: []
