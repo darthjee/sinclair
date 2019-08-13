@@ -12,7 +12,7 @@ class Sinclair
       # @param type [Symbol] type of method to be build
       #   - +:instance+ instance methods
       #   - +:class+ class methods
-      def initialize(klass, definition, type: :instance)
+      def initialize(klass, definition, type:)
         @klass = klass
         @definition = definition
         @type = type
@@ -23,7 +23,7 @@ class Sinclair
       attr_reader :klass, :definition, :type
 
       def instance?
-        type == :instance
+        type == INSTANCE_METHOD
       end
     end
   end

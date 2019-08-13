@@ -10,6 +10,9 @@ class Sinclair
     autoload :StringMethodBuilder, 'sinclair/method_builder/string_method_builder'
     autoload :BlockMethodBuilder,  'sinclair/method_builder/block_method_builder'
 
+    CLASS_METHOD = :class
+    INSTANCE_METHOD = :instance
+
     # @param klass [Class] class to receive the method
     def initialize(klass)
       @klass = klass
@@ -17,13 +20,13 @@ class Sinclair
 
     def build_method(*definitions)
       definitions.each do |definition|
-        build_from_definition(definition, :instance)
+        build_from_definition(definition, INSTANCE_METHOD)
       end
     end
 
     def build_class_method(*definitions)
       definitions.each do |definition|
-        build_from_definition(definition, :class)
+        build_from_definition(definition, CLASS_METHOD)
       end
     end
 
