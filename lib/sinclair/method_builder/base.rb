@@ -30,7 +30,32 @@ class Sinclair
       private
 
       attr_reader :klass, :definition, :type
+      # @method klass
+      # @private
+      #
+      # Class to receive the methods
+      #
+      # @return [Class]
 
+      # @method definition
+      #
+      # @private
+      # return a definition object
+      #
+      # @return [MethodDefinition]
+
+      # @method type
+      # @private
+      #
+      # Type of method, class or instance
+      #
+      # @return [Symbol]
+
+      # @private
+      #
+      # Checks if builder will build an instance method
+      #
+      # @return [TrueClass,FalseClass]
       def instance?
         type == INSTANCE_METHOD
       end
