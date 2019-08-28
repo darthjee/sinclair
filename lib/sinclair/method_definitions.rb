@@ -10,7 +10,6 @@ class Sinclair
 
     # Builds and adds new definition
     #
-    # @param definition_class [Class] class used to define method definition
     # @param name [String,Symbol] method name
     # @param options [Hash] Options of construction
     # @option options cached [Boolean] Flag telling to create
