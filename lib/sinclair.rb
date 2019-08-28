@@ -346,6 +346,7 @@ class Sinclair
 
   private
 
+  attr_reader :klass
   # @method klass
   # @api private
   # @private
@@ -353,7 +354,6 @@ class Sinclair
   # Class that will receive the methods
   #
   # @return [Class]
-  attr_reader :klass
 
   # @private
   # @api private

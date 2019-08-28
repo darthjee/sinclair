@@ -144,8 +144,10 @@ class Sinclair
 
     private
 
-    # method config_class
+    attr_reader :config_class, :config_attributes
+    # @method config_class
     # @private
+    # @api private
     #
     # Configuration class to be used
     #
@@ -153,11 +155,11 @@ class Sinclair
 
     # @method config_attributes
     # @private
+    # @api private
     #
     # List of possible configurations
     #
     # @return [Array<Symbol,String>]
-    attr_reader :config_class, :config_attributes
 
     # @private
     #

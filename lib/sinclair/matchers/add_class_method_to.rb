@@ -71,6 +71,7 @@ class Sinclair
 
       # @method klass
       # @private
+      # @api private
       #
       # Class where class method should be added to
       #

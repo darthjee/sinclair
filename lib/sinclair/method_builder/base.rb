@@ -32,20 +32,23 @@ class Sinclair
       attr_reader :klass, :definition, :type
       # @method klass
       # @private
+      # @api private
       #
       # Class to receive the methods
       #
       # @return [Class]
 
       # @method definition
-      #
       # @private
+      # @api private
+      #
       # return a definition object
       #
       # @return [MethodDefinition]
 
       # @method type
       # @private
+      # @api private
       #
       # Type of method, class or instance
       #

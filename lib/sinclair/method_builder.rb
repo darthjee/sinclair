@@ -44,13 +44,14 @@ class Sinclair
 
     private
 
+    attr_reader :klass
     # @method klass
     # @private
+    # @api private
     #
     # class to receive the method
     #
     # @return [Class]
-    attr_reader :klass
 
     # @private
     #
