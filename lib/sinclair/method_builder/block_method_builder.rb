@@ -10,6 +10,9 @@ class Sinclair
     #
     # @see MethodDefinition::BlockDefinition
     class BlockMethodBuilder < Base
+      # Builds the method
+      #
+      # @return [Symbol]
       def build
         klass.send(method_definition, name, method_block)
       end
@@ -18,6 +21,11 @@ class Sinclair
 
       delegate :name, :method_block, to: :definition
 
+      # @private
+      #
+      # name of the method used to define a new method on class
+      #
+      # @return [Symbol]
       def method_definition
         instance? ? :define_method : :define_singleton_method
       end
