@@ -22,6 +22,9 @@ class Sinclair
       default_value :block?, false
       default_value :string?, true
 
+      # codeline to be run inside the code
+      #
+      # @return [String]
       def code_line
         cached? ? code_with_cache : code
       end
@@ -35,19 +38,6 @@ class Sinclair
       #
       # @return [String]
       attr_reader :code
-
-      # @private
-      #
-      # Builds full code of method
-      #
-      # @return [String]
-      def code_definition
-        <<-CODE
-          def #{method_name}
-            #{code_line}
-          end
-        CODE
-      end
 
       # @private
       #
