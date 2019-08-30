@@ -39,6 +39,8 @@ rules:
       - Sinclair::MethodBuilder
       - Sinclair::MethodBuilder::Base#initialize
       - Sinclair::MethodDefinition#initialize
+      - Sinclair::MethodDefinition::BlockDefinition#initialize
+      - Sinclair::MethodDefinition::StringDefinition#initialize
   Summary::Length:
     enabled: true
     exclude: []

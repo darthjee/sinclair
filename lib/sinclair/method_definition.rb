@@ -24,6 +24,9 @@ class Sinclair
       cached: false
     }.freeze
 
+    # Builds a method that will return the same value always
+    #
+    # @return [Symbol]
     def self.default_value(method_name, value)
       define_method(method_name) { value }
     end
@@ -35,7 +38,12 @@ class Sinclair
     # @option options cached [Boolean] Flag telling to create a block
     #   with cache
     #
-    # @return MethodDefinition
+    # builds a method definition based on arguments
+    #
+    # when block is given, returns a {BlockDefinition} and
+    # returns a {StringDefinition} otherwise
+    #
+    # @return [Base]
     def self.from(name, code = nil, **options, &block)
       if block
         BlockDefinition.new(name, **options, &block)

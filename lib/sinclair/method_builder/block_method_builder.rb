@@ -12,7 +12,7 @@ class Sinclair
     class BlockMethodBuilder < Base
       # Builds the method
       #
-      # @return [Symbol]
+      # @return (see Base#build)
       def build
         klass.send(method_definition, name, method_block)
       end
