@@ -28,9 +28,9 @@ class Sinclair
 
         case cached
         when :full
-          BlockHelper.full_cached_method_proc(name, block)
+          BlockHelper.full_cached_method_proc(name, &block)
         else
-          BlockHelper.cached_method_proc(name, block)
+          BlockHelper.cached_method_proc(name, &block)
         end
       end
 

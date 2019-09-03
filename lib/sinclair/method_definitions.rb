@@ -27,7 +27,7 @@ class Sinclair
     end
 
     # All definitions
-    # 
+    #
     # @return [Array<MethodDefinition::Base]
     def definitions
       @definitions ||= []
