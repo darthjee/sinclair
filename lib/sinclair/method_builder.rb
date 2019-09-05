@@ -18,27 +18,16 @@ class Sinclair
       @klass = klass
     end
 
-    # Builds instance methods on klass
+    # Builds methods
     #
-    # @param definitions [Array<MethodDefinition>] all methods
+    # @param definitions [MethodDefinitions] all methods
     #   definitions to be built
+    # @param type [Symbol] type of method to be built
     #
-    # @return [Array<MethodDefinition>]
-    def build_method(*definitions)
+    # @return [MethodDefinitions]
+    def build_methods(definitions, type)
       definitions.each do |definition|
-        build_from_definition(definition, INSTANCE_METHOD)
-      end
-    end
-
-    # Builds class methods on klass
-    #
-    # @param definitions [Array<MethodDefinition>] all methods
-    #   definitions to be built
-    #
-    # @return [Array<MethodDefinition>]
-    def build_class_method(*definitions)
-      definitions.each do |definition|
-        build_from_definition(definition, CLASS_METHOD)
+        build_from_definition(definition, type)
       end
     end
 

@@ -52,4 +52,3 @@ describe Sinclair::MethodBuilder::StringMethodBuilder do
     end
   end
 end
-

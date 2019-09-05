@@ -168,8 +168,8 @@ class Sinclair
   #
   # @return [Array<MethodDefinition>]
   def build
-    builder.build_method(*definitions.definitions)
-    builder.build_class_method(*class_definitions.definitions)
+    builder.build_methods(definitions, MethodBuilder::INSTANCE_METHOD)
+    builder.build_methods(class_definitions, MethodBuilder::CLASS_METHOD)
   end
 
   # Add a method to the method list to be created on klass instances
