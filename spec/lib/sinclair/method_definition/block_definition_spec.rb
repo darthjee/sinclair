@@ -64,4 +64,3 @@ describe Sinclair::MethodDefinition::BlockDefinition do
     end
   end
 end
-
