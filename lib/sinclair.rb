@@ -88,6 +88,7 @@ class Sinclair
   autoload :ConfigClass,       'sinclair/config_class'
   autoload :ConfigFactory,     'sinclair/config_factory'
   autoload :Configurable,      'sinclair/configurable'
+  autoload :MethodBuilder,     'sinclair/method_builder'
   autoload :MethodDefinition,  'sinclair/method_definition'
   autoload :MethodDefinitions, 'sinclair/method_definitions'
 
@@ -167,9 +168,8 @@ class Sinclair
   #
   # @return [Array<MethodDefinition>]
   def build
-    definitions.each do |definition|
-      definition.build(klass)
-    end
+    builder.build_methods(definitions, MethodBuilder::INSTANCE_METHOD)
+    builder.build_methods(class_definitions, MethodBuilder::CLASS_METHOD)
   end
 
   # Add a method to the method list to be created on klass instances
@@ -220,7 +220,6 @@ class Sinclair
   # @return [Array<MethodDefinition>]
   def add_method(name, code = nil, **options, &block)
     definitions.add(
-      MethodDefinition::InstanceMethodDefinition,
       name, code, **options, &block
     )
   end
@@ -266,8 +265,7 @@ class Sinclair
   #
   # @return [Array<MethodDefinition>]
   def add_class_method(name, code = nil, **options, &block)
-    definitions.add(
-      MethodDefinition::ClassMethodDefinition,
+    class_definitions.add(
       name, code, **options, &block
     )
   end
@@ -348,6 +346,7 @@ class Sinclair
 
   private
 
+  attr_reader :klass
   # @method klass
   # @api private
   # @private
@@ -355,16 +354,34 @@ class Sinclair
   # Class that will receive the methods
   #
   # @return [Class]
-  attr_reader :klass
 
   # @private
-  #
   # @api private
   #
-  # List of mthod definitions
+  # List of instance method definitions
   #
   # @return [MethodDefinitions]
   def definitions
     @definitions ||= MethodDefinitions.new
+  end
+
+  # @private
+  # @api private
+  #
+  # List of class method definitions
+  #
+  # @return [MethodDefinitions]
+  def class_definitions
+    @class_definitions ||= MethodDefinitions.new
+  end
+
+  # @private
+  # @api private
+  #
+  # MethodBuilder binded to the class
+  #
+  # @return [MethodBuilder]
+  def builder
+    @builder ||= MethodBuilder.new(klass)
   end
 end

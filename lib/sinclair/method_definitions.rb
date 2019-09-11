@@ -5,10 +5,11 @@ class Sinclair
   # @author darthjee
   #
   # Enumerator holding all method definitions
-  class MethodDefinitions < Array
+  class MethodDefinitions
+    delegate :each, to: :definitions
+
     # Builds and adds new definition
     #
-    # @param definition_class [Class] class used to define method definition
     # @param name [String,Symbol] method name
     # @param options [Hash] Options of construction
     # @option options cached [Boolean] Flag telling to create
@@ -21,8 +22,19 @@ class Sinclair
     #   @param block [Proc]  block to be ran as method
     #
     # @return MethodDefinitions
-    def add(definition_class, name, code = nil, **options, &block)
-      self << definition_class.from(name, code, **options, &block)
+    def add(name, code = nil, **options, &block)
+      definitions << MethodDefinition.from(name, code, **options, &block)
+    end
+
+    private
+
+    # @private
+    #
+    # All definitions
+    #
+    # @return [Array<MethodDefinition>]
+    def definitions
+      @definitions ||= []
     end
   end
 end

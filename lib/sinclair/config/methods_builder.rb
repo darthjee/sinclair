@@ -70,8 +70,10 @@ class Sinclair
 
       private
 
+      attr_reader :names, :defaults
       # @method names
       # @private
+      # @api private
       #
       # List of configuration names
       #
@@ -79,11 +81,11 @@ class Sinclair
 
       # @method defaults
       # @private
+      # @api private
       #
       # Configurations that will receive a default value
       #
       # @return [Hash]
-      attr_reader :names, :defaults
 
       # @private
       #

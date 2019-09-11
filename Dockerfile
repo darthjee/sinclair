@@ -1,5 +1,5 @@
-FROM darthjee/ruby_gems:0.2.1 as base
-FROM darthjee/scripts:0.1.0 as scripts
+FROM darthjee/ruby_gems:0.2.3 as base
+FROM darthjee/scripts:0.1.2 as scripts
 
 ######################################
 
@@ -24,7 +24,7 @@ COPY --chown=app:app --from=builder /home/app/bundle/specifications /usr/local/b
 COPY --chown=app:app --from=builder /home/app/bundle/bin /usr/local/bundle/bin
 COPY --chown=app:app --from=builder /home/app/bundle/extensions /usr/local/bundle/extensions
 
-COPY --chown=app ./*.gemspec ./Gemfile* /home/app/app/
+COPY --chown=app ./*.gemspec ./Gemfile /home/app/app/
 COPY --chown=app ./lib/sinclair/version.rb /home/app/app/lib/sinclair/
 USER app
 RUN bundle install

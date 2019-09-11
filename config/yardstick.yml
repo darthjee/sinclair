@@ -26,6 +26,7 @@ rules:
     exclude:
       - Sinclair::Matchers::AddClassMethodTo#raise_block_syntax_error
       - Sinclair::Matchers::AddInstanceMethodTo#raise_block_syntax_error
+      - Sinclair::MethodBuilder#build_from_definition
   Summary::Presence:
     enabled: true
     exclude:
@@ -35,6 +36,8 @@ rules:
       - Sinclair::Matchers::AddInstanceMethodTo#instance
       - Sinclair::Matchers::AddMethod#initialize
       - Sinclair::Matchers::AddMethodTo#initialize
+      - Sinclair::MethodBuilder
+      - Sinclair::MethodBuilder::Base#initialize
       - Sinclair::MethodDefinition#initialize
       - Sinclair::MethodDefinition::BlockDefinition#initialize
       - Sinclair::MethodDefinition::StringDefinition#initialize

@@ -3,107 +3,42 @@
 require 'spec_helper'
 
 describe Sinclair::MethodDefinition do
-  let(:klass)    { Class.new }
-  let(:instance) { klass.new }
+  let(:method_name) { :the_method }
 
-  describe '#build' do
-    let(:method_name) { :the_method }
+  describe '.default_value' do
+    subject(:klass) { Class.new(described_class) }
 
-    context 'when instantiating the class itself' do
-      subject(:method_definition) do
-        described_class.new(method_name)
+    let(:value)       { Random.rand }
+    let(:instance)    { klass.new(:other_method) }
+
+    it do
+      expect { klass.default_value(method_name, value) }
+        .to add_method(method_name).to(klass)
+    end
+
+    context 'when method is defined and called' do
+      before do
+        klass.default_value(method_name, value)
       end
 
+      it 'adds method that always return given value' do
+        expect(instance.the_method).to eq(value)
+      end
+    end
+  end
+
+  describe '.from' do
+    context 'when passing a block' do
       it do
-        expect { method_definition.build(klass) }.to raise_error(
-          RuntimeError,
-          'Build is implemented in subclasses. ' \
-          "Use #{described_class}.from to initialize a proper object"
-        )
+        expect(described_class.from(method_name) { 1 })
+          .to be_a(described_class::BlockDefinition)
       end
     end
 
-    context 'when method was defined with a string for instance' do
-      subject(:method_definition) do
-        definition_class.new(method_name, code)
-      end
-
-      let(:definition_class) { described_class::InstanceStringDefinition }
-
-      let(:code) { '@x = @x.to_i + 1' }
-
-      it_behaves_like 'MethodDefinition#build without cache'
-
-      context 'with cached options' do
-        subject(:method_definition) do
-          definition_class.new(method_name, code, cached: cached_option)
-        end
-
-        it_behaves_like 'MethodDefinition#build with cache options'
-      end
-    end
-
-    context 'when method was defined with a block for instance' do
-      subject(:method_definition) do
-        definition_class.new(method_name) do
-          @x = @x.to_i + 1
-        end
-      end
-
-      let(:definition_class) { described_class::InstanceBlockDefinition }
-
-      it_behaves_like 'MethodDefinition#build without cache'
-
-      context 'with cached options' do
-        subject(:method_definition) do
-          definition_class.new(method_name, cached: cached_option) do
-            @x = @x.to_i + 1
-          end
-        end
-
-        it_behaves_like 'MethodDefinition#build with cache options'
-      end
-    end
-
-    context 'when method was defined with a string for class' do
-      subject(:method_definition) do
-        definition_class.new(method_name, code)
-      end
-
-      let(:definition_class) { described_class::ClassStringDefinition }
-
-      let(:code) { '@x = @x.to_i + 1' }
-
-      it_behaves_like 'ClassMethodDefinition#build without cache'
-
-      context 'with cached options' do
-        subject(:method_definition) do
-          definition_class.new(method_name, code, cached: cached_option)
-        end
-
-        it_behaves_like 'ClassMethodDefinition#build with cache options'
-      end
-    end
-
-    context 'when method was defined with a block for class' do
-      subject(:method_definition) do
-        definition_class.new(method_name) do
-          @x = @x.to_i + 1
-        end
-      end
-
-      let(:definition_class) { described_class::ClassBlockDefinition }
-
-      it_behaves_like 'ClassMethodDefinition#build without cache'
-
-      context 'with cached options' do
-        subject(:method_definition) do
-          definition_class.new(method_name, cached: cached_option) do
-            @x = @x.to_i + 1
-          end
-        end
-
-        it_behaves_like 'ClassMethodDefinition#build with cache options'
+    context 'when passing string' do
+      it do
+        expect(described_class.from(method_name, 'code'))
+          .to be_a(described_class::StringDefinition)
       end
     end
   end

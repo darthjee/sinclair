@@ -8,19 +8,49 @@ class Sinclair
   class MethodDefinition
     include Sinclair::OptionsParser
 
-    autoload :InstanceMethodDefinition, 'sinclair/method_definition/instance_method_definition'
-    autoload :ClassMethodDefinition,    'sinclair/method_definition/class_method_definition'
-    autoload :BlockDefinition,          'sinclair/method_definition/block_definition'
-    autoload :StringDefinition,         'sinclair/method_definition/string_definition'
-    autoload :InstanceBlockDefinition,  'sinclair/method_definition/instance_block_definition'
-    autoload :InstanceStringDefinition, 'sinclair/method_definition/instance_string_definition'
-    autoload :ClassBlockDefinition,     'sinclair/method_definition/class_block_definition'
-    autoload :ClassStringDefinition,    'sinclair/method_definition/class_string_definition'
+    autoload :BlockHelper,      'sinclair/method_definition/block_helper'
+    autoload :BlockDefinition,  'sinclair/method_definition/block_definition'
+    autoload :StringDefinition, 'sinclair/method_definition/string_definition'
+
+    # @method name
+    #
+    # name of the method
+    #
+    # @return [String,Symbol]
+    attr_reader :name
 
     # Default options of initialization
     DEFAULT_OPTIONS = {
       cached: false
     }.freeze
+
+    # Builds a method that will return the same value always
+    #
+    # @return [Symbol]
+    def self.default_value(method_name, value)
+      define_method(method_name) { value }
+    end
+
+    # @param name    [String,Symbol] name of the method
+    # @param code    [String] code to be evaluated as method
+    # @param block   [Proc] block with code to be added as method
+    # @param options [Hash] Options of construction
+    # @option options cached [Boolean] Flag telling to create a block
+    #   with cache
+    #
+    # builds a method definition based on arguments
+    #
+    # when block is given, returns a {BlockDefinition} and
+    # returns a {StringDefinition} otherwise
+    #
+    # @return [Base]
+    def self.from(name, code = nil, **options, &block)
+      if block
+        BlockDefinition.new(name, **options, &block)
+      else
+        StringDefinition.new(name, code, **options)
+      end
+    end
 
     # @param name    [String,Symbol] name of the method
     # @param options [Hash] Options of construction
@@ -48,15 +78,6 @@ class Sinclair
         "Use #{self.class}.from to initialize a proper object"
     end
 
-    private
-
-    # @method name
-    # @private
-    #
-    # name of the method
-    #
-    # @return [String,Symbol]
-    attr_reader :name
     delegate :cached, to: :options_object
 
     # @private
