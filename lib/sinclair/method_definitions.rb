@@ -26,9 +26,13 @@ class Sinclair
       definitions << MethodDefinition.from(name, code, **options, &block)
     end
 
+    private
+
+    # @private
+    #
     # All definitions
     #
-    # @return [Array<MethodDefinition::Base]
+    # @return [Array<MethodDefinition>]
     def definitions
       @definitions ||= []
     end
