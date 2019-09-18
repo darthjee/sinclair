@@ -11,6 +11,8 @@ describe Sinclair do
     before do
       builder.add_method(:twenty, '10 + 10')
       builder.add_method(:eighty) { 4 * twenty }
+      builder.add_class_method(:one_hundred) { 100 }
+      builder.add_class_method(:one_hundred_twenty, 'one_hundred + 20')
       builder.build
     end
 
@@ -20,6 +22,15 @@ describe Sinclair do
 
     it 'knows how to add block defined methods' do
       expect("Eighty => #{instance.eighty}").to eq('Eighty => 80')
+    end
+
+    it 'adds class method from block' do
+      expect("One Hundred => #{klass.one_hundred}").to eq('One Hundred => 100')
+    end
+
+    it 'adds class method from string' do
+      expect("One Hundred Twenty => #{klass.one_hundred_twenty}")
+        .to eq('One Hundred Twenty => 120')
     end
   end
 

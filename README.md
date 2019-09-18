@@ -37,7 +37,7 @@ Installation
 Usage
 ---------------
 # Sinclair
-Sinclair can actully be used in several ways, as an stand alone object capable of
+Sinclair can actually be used in several ways, as a stand alone object capable of
 adding methods to your class on the fly, as a builder inside a class method
 or by extending it for more complex logics
 
@@ -52,12 +52,17 @@ or by extending it for more complex logics
 
   builder.add_method(:twenty, '10 + 10')
   builder.add_method(:eighty) { 4 * twenty }
+  builder.add_class_method(:one_hundred) { 100 }
+  builder.add_class_method(:one_hundred_twenty, 'one_hundred + 20')
   builder.build
 
   instance = Clazz.new
 
   puts "Twenty => #{instance.twenty}" # Twenty => 20
   puts "Eighty => #{instance.eighty}" # Eighty => 80
+
+  puts "One Hundred => #{Clazz.one_hundred}"        # One Hundred => 100
+  puts "One Hundred => #{Clazz.one_hundred_twenty}" # One Hundred Twenty => 120
 ```
 
 ## Builder in class method:
