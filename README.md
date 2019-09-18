@@ -37,7 +37,7 @@ Installation
 Usage
 ---------------
 # Sinclair
-Sinclair can actully be used in several ways, as an stand alone object capable of
+Sinclair can actually be used in several ways, as a stand alone object capable of
 adding methods to your class on the fly, as a builder inside a class method
 or by extending it for more complex logics
 
@@ -52,12 +52,17 @@ or by extending it for more complex logics
 
   builder.add_method(:twenty, '10 + 10')
   builder.add_method(:eighty) { 4 * twenty }
+  builder.add_class_method(:one_hundred) { 100 }
+  builder.add_class_method(:one_hundred_twenty, 'one_hundred + 20')
   builder.build
 
   instance = Clazz.new
 
   puts "Twenty => #{instance.twenty}" # Twenty => 20
   puts "Eighty => #{instance.eighty}" # Eighty => 80
+
+  puts "One Hundred => #{Clazz.one_hundred}"        # One Hundred => 100
+  puts "One Hundred => #{Clazz.one_hundred_twenty}" # One Hundred Twenty => 120
 ```
 
 ## Builder in class method:
@@ -118,6 +123,43 @@ or by extending it for more complex logics
   person.age      # returns 21
   person.username # returns 'lordbob'
   person.email    # returns 'lord@bob.com'
+```
+
+```ruby
+  module EnvSettings
+    def env_prefix(new_prefix=nil)
+      @env_prefix = new_prefix if new_prefix
+      @env_prefix
+    end
+
+    def from_env(*method_names)
+      builder = Sinclair.new(self)
+
+      method_names.each do |method_name|
+        env_key = [env_prefix, method_name].compact.join('_').upcase
+
+        builder.add_class_method(method_name, cached: true) do
+          ENV[env_key]
+        end
+
+        builder.build
+      end
+    end
+  end
+
+  class MyServerConfig
+    extend EnvSettings
+
+    env_prefix :server
+
+    from_env :host, :port
+  end
+
+  ENV['SERVER_HOST'] = 'myserver.com'
+  ENV['SERVER_PORT'] = '9090'
+
+  MyServerConfig.host # returns 'myserver.com'
+  MyServerConfig.port # returns '9090'
 ```
 
 ## Extending the builder
@@ -372,51 +414,58 @@ RSspec matcher
 You can use the provided matcher to check that your builder is adding a method correctly
 
 ```ruby
-
   class DefaultValue
     delegate :build, to: :builder
-    attr_reader :klass, :method, :value
+    attr_reader :klass, :method, :value, :class_method
 
-    def initialize(klass, method, value)
+    def initialize(klass, method, value, class_method: false)
       @klass = klass
       @method = method
       @value = value
+      @class_method = class_method
     end
 
     private
 
     def builder
       @builder ||= Sinclair.new(klass).tap do |b|
-        b.add_method(method) { value }
+        if class_method
+          b.add_class_method(method) { value }
+        else
+          b.add_method(method) { value }
+        end
       end
     end
   end
 
-  require 'sinclair/matchers'
-  RSpec.configure do |config|
-    config.include Sinclair::Matchers
-  end
+  RSpec.describe Sinclair::Matchers do
+    subject(:builder_class) { DefaultValue }
 
-  RSpec.describe DefaultValue do
-    let(:klass)    { Class.new }
-    let(:method)   { :the_method }
-    let(:value)    { Random.rand(100) }
-    let(:builder)  { described_class.new(klass, method, value) }
-    let(:instance) { klass.new }
+    let(:klass)         { Class.new }
+    let(:method)        { :the_method }
+    let(:value)         { Random.rand(100) }
+    let(:builder)       { builder_class.new(klass, method, value) }
+    let(:instance)      { klass.new }
 
     context 'when the builder runs' do
       it do
-        expect do
-          described_class.new(klass, method, value).build
-        end.to add_method(method).to(instance)
+        expect { builder.build }.to add_method(method).to(instance)
       end
     end
 
     context 'when the builder runs' do
       it do
-        expect do
-          described_class.new(klass, method, value).build
-        end.to add_method(method).to(klass)
+        expect { builder.build }.to add_method(method).to(klass)
+      end
+    end
+
+    context 'when adding class methods' do
+      subject(:builder) { builder_class.new(klass, method, value, class_method: true) }
+
+      context 'when the builder runs' do
+        it do
+          expect { builder.build }.to add_class_method(method).to(klass)
+        end
       end
     end
   end
@@ -428,13 +477,14 @@ You can use the provided matcher to check that your builder is adding a method c
 ```
 
 ```string
-
-DefaultValue
+Sinclair::Matchers
   when the builder runs
-      should add method 'the_method' to #<Class:0x0000000146c160> instances
-  when the builder runs
-      should add method 'the_method' to #<Class:0x0000000143a1b0> instances
-
+    should add method 'the_method' to #<Class:0x000055e5d9b7f150> instances
+      when the builder runs
+        should add method 'the_method' to #<Class:0x000055e5d9b8c0a8> instances
+      when adding class methods
+        when the builder runs
+          should add method class_method 'the_method' to #<Class:0x000055e5d9b95d88>
 ```
 
 Projects Using
