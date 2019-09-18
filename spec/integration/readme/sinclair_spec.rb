@@ -84,11 +84,11 @@ describe Sinclair do
     end
 
     it 'adds class method for host' do
-      expect(MyServerConfig.host).to eq(host)
+      expect(HostConfig.host).to eq(host)
     end
 
     it 'adds class method for port' do
-      expect(MyServerConfig.port).to eq(port)
+      expect(HostConfig.port).to eq(port)
     end
   end
 
