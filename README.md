@@ -125,6 +125,43 @@ or by extending it for more complex logics
   person.email    # returns 'lord@bob.com'
 ```
 
+```ruby
+  module EnvSettings
+    def env_prefix(new_prefix=nil)
+      @env_prefix = new_prefix if new_prefix
+      @env_prefix
+    end
+
+    def from_env(*method_names)
+      builder = Sinclair.new(self)
+
+      method_names.each do |method_name|
+        env_key = [env_prefix, method_name].compact.join('_').upcase
+
+        builder.add_class_method(method_name, cached: true) do
+          ENV[env_key]
+        end
+
+        builder.build
+      end
+    end
+  end
+
+  class MyServerConfig
+    extend EnvSettings
+
+    env_prefix :server
+
+    from_env :host, :port
+  end
+
+  ENV['SERVER_HOST'] = 'myserver.com'
+  ENV['SERVER_PORT'] = '9090'
+
+  MyServerConfig.host # returns 'myserver.com'
+  MyServerConfig.port # returns '9090'
+```
+
 ## Extending the builder
 
 ```ruby

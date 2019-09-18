@@ -74,6 +74,24 @@ describe Sinclair do
     end
   end
 
+  describe 'Class Stand Alone Concern' do
+    let(:host) { 'myserver.com' }
+    let(:port) { '9090' }
+
+    before do
+      ENV['SERVER_HOST'] = host
+      ENV['SERVER_PORT'] = port
+    end
+
+    it 'adds class method for host' do
+      expect(MyServerConfig.host).to eq(host)
+    end
+
+    it 'adds class method for port' do
+      expect(MyServerConfig.port).to eq(port)
+    end
+  end
+
   describe 'DefaultValuable' do
     subject(:server) { Server.new }
 
