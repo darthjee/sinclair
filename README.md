@@ -408,6 +408,40 @@ Configurations can also be done through custom classes
   Client.config.url # returns 'http://interstella.com:8080'
 ```
 
+# Sinclair::Settable
+
+```ruby
+  class ServiceClient
+    extend Sinclair::EnvSettable
+    attr_reader :username, :password, :host, :port
+
+    settings_prefix 'SERVICE'
+
+    with_settings :username, :password, port: 80, hostname: 'my-host.com'
+
+    def self.default
+      @default ||= new
+    end
+
+    def initialize(
+      username: self.class.username,
+      password: self.class.password,
+      port: self.class.port,
+      hostname: self.class.hostname
+    )
+      @username = username
+      @password = password
+      @port = port
+      @hostname = hostname
+    end
+  end
+
+  ENV['SERVICE_USERNAME'] = 'my-login'
+  ENV['SERVICE_HOSTNAME'] = 'host.com'
+
+  ServiceClient.default # returns #<ServiceClient:0x0000556fa1b366e8 @username="my-login", @password=nil, @port=80, @hostname="host.com">'
+```
+
 RSspec matcher
 ---------------
 
