@@ -410,6 +410,9 @@ Configurations can also be done through custom classes
 
 # Sinclair::Settable
 
+Settable allows classes to extract configuration from environments through
+a simple meta-programable way
+
 ```ruby
   class ServiceClient
     extend Sinclair::EnvSettable
