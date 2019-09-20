@@ -25,7 +25,7 @@ require 'active_support/all'
 #   instance.value = 20
 #   instance.value # returns 20
 #
-# @example Usin cache
+# @example Using cache
 #   module DefaultValueable
 #     def default_reader(*methods, value:, accept_nil: false)
 #       DefaultValueBuilder.new(
@@ -91,6 +91,7 @@ class Sinclair
   autoload :MethodBuilder,     'sinclair/method_builder'
   autoload :MethodDefinition,  'sinclair/method_definition'
   autoload :MethodDefinitions, 'sinclair/method_definitions'
+  autoload :EnvSettable,       'sinclair/env_settable'
 
   include OptionsParser
 

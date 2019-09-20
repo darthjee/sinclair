@@ -83,6 +83,11 @@ describe Sinclair do
       ENV['SERVER_PORT'] = port
     end
 
+    after do
+      ENV.delete('SERVER_HOST')
+      ENV.delete('SERVER_PORT')
+    end
+
     it 'adds class method for host' do
       expect(HostConfig.host).to eq(host)
     end
