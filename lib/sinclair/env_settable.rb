@@ -6,7 +6,7 @@ class Sinclair
       @settings_prefix = prefix
     end
 
-    def has_settings(*settings_name, **defaults)
+    def with_settings(*settings_name, **defaults)
       Sinclair.new(self).tap do |builder|
         mapping = Hash[settings_name.map { |name| [name] }]
 

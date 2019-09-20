@@ -3,5 +3,5 @@
 class AppClient
   extend Sinclair::EnvSettable
 
-  has_settings :username, :password, host: 'my-host.com'
+  with_settings :username, :password, host: 'my-host.com'
 end

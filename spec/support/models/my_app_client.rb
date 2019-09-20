@@ -5,5 +5,5 @@ class MyAppClient
 
   settings_prefix 'MY_APP'
 
-  has_settings :username, :password, host: 'my-host.com'
+  with_settings :username, :password, host: 'my-host.com'
 end
