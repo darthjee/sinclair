@@ -4,7 +4,7 @@ class Sinclair
   # @api public
   # @author darthjee
   #
-  # module to be extended allowing configurations from environment
+  # Module to be extended allowing configurations from environment
   #
   # @example
   #   class MyAppClient
