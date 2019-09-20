@@ -2,20 +2,15 @@
 
 require 'spec_helper'
 
-describe Sinclair::EnvSettable do
-  subject(:settable) { Class.new(AppClient) }
-
-  let(:username) { 'my_login' }
-  let(:password) { Random.rand(10_000).to_s }
-
+shared_examples 'settings reading from env' do
   before do
-    ENV['USERNAME'] = username
-    ENV['PASSWORD'] = password
+    ENV[username_key] = username
+    ENV[password_key] = password
   end
 
   after do
-    ENV.delete('USERNAME')
-    ENV.delete('PASSWORD')
+    ENV.delete(username_key)
+    ENV.delete(password_key)
   end
 
   it 'retrieves username from env' do
@@ -35,11 +30,11 @@ describe Sinclair::EnvSettable do
       let(:other_host) { 'other-host.com' }
 
       before do
-        ENV['HOST'] = other_host
+        ENV[host_key] = other_host
       end
 
       after do
-        ENV.delete('host')
+        ENV.delete(host_key)
       end
 
       it 'retrieves host from env' do
@@ -47,48 +42,27 @@ describe Sinclair::EnvSettable do
       end
     end
   end
+end
+
+describe Sinclair::EnvSettable do
+  subject(:settable) { Class.new(AppClient) }
+
+  let(:username) { 'my_login' }
+  let(:password) { Random.rand(10_000).to_s }
+
+  let(:username_key) { 'USERNAME' }
+  let(:password_key) { 'PASSWORD' }
+  let(:host_key)     { 'HOST' }
+
+  it_behaves_like 'settings reading from env'
 
   context 'when defining a prefix' do
     subject(:settable) { Class.new(MyAppClient) }
 
-    before do
-      ENV['MY_APP_USERNAME'] = username
-      ENV['MY_APP_PASSWORD'] = password
-    end
+    let(:username_key) { 'MY_APP_USERNAME' }
+    let(:password_key) { 'MY_APP_PASSWORD' }
+    let(:host_key)     { 'MY_APP_HOST' }
 
-    after do
-      ENV.delete('MY_APP_USERNAME')
-      ENV.delete('MY_APP_PASSWORD')
-    end
-
-    it 'retrieves username from prefixed env' do
-      expect(settable.username).to eq(username)
-    end
-
-    it 'retrieves password from prefixed env' do
-      expect(settable.password).to eq(password)
-    end
-
-    context 'when defining defaults' do
-      it 'returns default value' do
-        expect(settable.host).to eq('my-host.com')
-      end
-
-      context 'when setting the env variable' do
-        let(:other_host) { 'other-host.com' }
-
-        before do
-          ENV['MY_APP_HOST'] = other_host
-        end
-
-        after do
-          ENV.delete('host')
-        end
-
-        it 'retrieves host from env' do
-          expect(settable.host).to eq(other_host)
-        end
-      end
-    end
+    it_behaves_like 'settings reading from env'
   end
 end
