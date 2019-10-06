@@ -37,7 +37,7 @@ Installation
 
 Usage
 ---------------
-## Sinclair
+## Sinclair builder
 Sinclair can actually be used in several ways, as a stand alone object capable of
 adding methods to your class on the fly, as a builder inside a class method
 or by extending it for more complex logics
