@@ -4,7 +4,7 @@ Sinclair
 [![Test Coverage](https://codeclimate.com/github/darthjee/sinclair/badges/coverage.svg)](https://codeclimate.com/github/darthjee/sinclair/coverage)
 [![Issue Count](https://codeclimate.com/github/darthjee/sinclair/badges/issue_count.svg)](https://codeclimate.com/github/darthjee/sinclair)
 [![Gem Version](https://badge.fury.io/rb/sinclair.svg)](https://badge.fury.io/rb/sinclair)
-
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9836de08612e46b889c7978be2b72a14)](https://www.codacy.com/manual/darthjee/sinclair?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=darthjee/sinclair&amp;utm_campaign=Badge_Grade)
 
 ![sinclair](https://raw.githubusercontent.com/darthjee/sinclair/master/sinclair.jpg)
 
@@ -14,17 +14,18 @@ methods
 
 Yard Documentation
 -------------------
-https://www.rubydoc.info/gems/sinclair/1.5.2
+[https://www.rubydoc.info/gems/sinclair/1.5.2](https://www.rubydoc.info/gems/sinclair/1.5.2)
 
 Installation
 ---------------
-  - Install it
+
+-   Install it
 
 ```ruby
   gem install sinclair
 ```
 
-  - Or add Sinclair to your `Gemfile` and `bundle install`:
+-   Or add Sinclair to your `Gemfile` and `bundle install`:
 
 ```ruby
   gem 'sinclair'
@@ -36,13 +37,12 @@ Installation
 
 Usage
 ---------------
-# Sinclair
+## Sinclair builder
 Sinclair can actually be used in several ways, as a stand alone object capable of
 adding methods to your class on the fly, as a builder inside a class method
 or by extending it for more complex logics
 
-## Stand Alone usage creating methods on the fly:
-
+### Stand Alone usage creating methods on the fly
 ```ruby
 
   class Clazz
@@ -65,7 +65,7 @@ or by extending it for more complex logics
   puts "One Hundred => #{Clazz.one_hundred_twenty}" # One Hundred Twenty => 120
 ```
 
-## Builder in class method:
+### Builder in class method
 
 ```ruby
   class HttpJsonModel
@@ -162,7 +162,7 @@ or by extending it for more complex logics
   MyServerConfig.port # returns '9090'
 ```
 
-## Extending the builder
+### Extending the builder
 
 ```ruby
 
@@ -255,7 +255,7 @@ or by extending it for more complex logics
   invalid_object.valid? # returns false
 ```
 
-## Caching the result
+### Caching the result
 If wanted, the result of the method can be stored in an
 instance variable with the same name.
 
@@ -344,7 +344,7 @@ values are cached
   server.url # return 'http://server.com'
 ```
 
-# Sinclair::Configurable
+## Sinclair::Configurable
 
 Configurable is a module that, when used, can add configurations
 to your classes/modules.
@@ -408,7 +408,7 @@ Configurations can also be done through custom classes
   Client.config.url # returns 'http://interstella.com:8080'
 ```
 
-# Sinclair::Settable
+## Sinclair::Settable
 
 Settable allows classes to extract configuration from environments through
 a simple meta-programable way
@@ -527,5 +527,5 @@ Sinclair::Matchers
 Projects Using
 ---------------
 
-- [Arstotzka](https://github.com/darthjee/arstotzka)
+-   [Arstotzka](https://github.com/darthjee/arstotzka)
 
