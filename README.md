@@ -19,13 +19,13 @@ Yard Documentation
 Installation
 ---------------
 
-- Install it
+-   Install it
 
 ```ruby
   gem install sinclair
 ```
 
-- Or add Sinclair to your `Gemfile` and `bundle install`:
+-   Or add Sinclair to your `Gemfile` and `bundle install`:
 
 ```ruby
   gem 'sinclair'
@@ -527,5 +527,5 @@ Sinclair::Matchers
 Projects Using
 ---------------
 
-- [Arstotzka](https://github.com/darthjee/arstotzka)
+-   [Arstotzka](https://github.com/darthjee/arstotzka)
 
