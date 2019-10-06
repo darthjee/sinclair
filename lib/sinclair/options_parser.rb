@@ -28,8 +28,6 @@ class Sinclair
   #     end
   #   end
   module OptionsParser
-    extend ActiveSupport::Concern
-
     private
 
     # @!visibility public
