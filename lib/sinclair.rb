@@ -88,10 +88,11 @@ class Sinclair
   autoload :ConfigClass,       'sinclair/config_class'
   autoload :ConfigFactory,     'sinclair/config_factory'
   autoload :Configurable,      'sinclair/configurable'
+  autoload :EnvSettable,       'sinclair/env_settable'
   autoload :MethodBuilder,     'sinclair/method_builder'
   autoload :MethodDefinition,  'sinclair/method_definition'
   autoload :MethodDefinitions, 'sinclair/method_definitions'
-  autoload :EnvSettable,       'sinclair/env_settable'
+  autoload :Options,           'sinclair/options'
 
   include OptionsParser
 
