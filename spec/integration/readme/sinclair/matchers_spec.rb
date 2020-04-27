@@ -15,9 +15,7 @@ RSpec.describe Sinclair::Matchers do
     it do
       expect { builder.build }.to add_method(method).to(instance)
     end
-  end
 
-  context 'when the builder runs' do
     it do
       expect { builder.build }.to add_method(method).to(klass)
     end

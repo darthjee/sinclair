@@ -25,7 +25,7 @@ describe Sinclair::MethodDefinitions do
       end
     end
 
-    context 'when passing block' do
+    context 'when passing string' do
       it 'returns the resulting array' do
         expect(definitions.add(name, 'RandomGenerator.rand'))
           .to be_a(Array)
