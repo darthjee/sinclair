@@ -34,18 +34,18 @@ describe Sinclair::MethodBuilder do
     end
 
     context 'when building a class method' do
-      let(:type) { described_class::INSTANCE_METHOD }
+      let(:type) { described_class::CLASS_METHOD }
 
       it do
         expect { builder.build_methods(definitions, type) }
-          .to add_method(method_name).to(instance)
+          .to add_class_method(method_name).to(klass)
       end
 
       context 'when the method is called' do
         before { builder.build_methods(definitions, type) }
 
         it do
-          expect(instance.the_method).to eq(value)
+          expect(klass.the_method).to eq(value)
         end
       end
     end
