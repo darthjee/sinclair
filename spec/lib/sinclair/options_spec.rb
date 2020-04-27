@@ -39,5 +39,12 @@ describe Sinclair::Options do
         expect(options.timeout).to eq(timeout)
       end
     end
+    
+    context 'when initializing with valid args' do
+      it do
+        expect { klass.new(invalid: 10) }
+          .to raise_error(Sinclair::Exception::InvalidOptions)
+      end
+    end
   end
 end
