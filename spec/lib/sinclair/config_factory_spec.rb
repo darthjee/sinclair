@@ -58,12 +58,14 @@ describe Sinclair::ConfigFactory do
         expect(factory.config).to be_a(DummyConfig)
       end
 
+      # rubocop:disable RSpec/SubjectStub
       it 'warns about class use' do
         factory.config
 
         expect(factory).to have_received(:warn)
           .with described_class::CONFIG_CLASS_WARNING
       end
+      # rubocop:enable RSpec/SubjectStub
 
       context 'when calling after reset_config' do
         before { factory.reset_config }
@@ -171,12 +173,14 @@ describe Sinclair::ConfigFactory do
           expect(factory.config.name).to be_nil
         end
 
+        # rubocop:disable RSpec/SubjectStub
         it 'warns about class use' do
           code_block.call
 
           expect(factory).to have_received(:warn)
             .with described_class::CONFIG_CLASS_WARNING
         end
+        # rubocop:enable RSpec/SubjectStub
       end
 
       context 'when passing a hash' do
@@ -189,12 +193,14 @@ describe Sinclair::ConfigFactory do
             expect(factory.config.name).to eq('Bobby')
           end
 
+          # rubocop:disable RSpec/SubjectStub
           it 'warns about class use' do
             code_block.call
 
             expect(factory).to have_received(:warn)
               .with described_class::CONFIG_CLASS_WARNING
           end
+          # rubocop:enable RSpec/SubjectStub
         end
       end
     end
