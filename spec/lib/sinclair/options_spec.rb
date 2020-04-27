@@ -22,9 +22,21 @@ describe Sinclair::Options do
   end
 
   describe '#initialize' do
+    let(:klass) { ConnectionOptions }
+
     context 'when initializing with no args' do
       it do
         expect { klass.new }.not_to raise_error
+      end
+    end
+
+    context 'when initializing with valid args' do
+      subject(:options) { klass.new(timeout: timeout) }
+
+      let(:timeout) { 10 + Random.rand(10) }
+
+      it 'sets value of options attribute' do
+        expect(options.timeout).to eq(timeout)
       end
     end
   end
