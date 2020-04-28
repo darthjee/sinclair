@@ -8,6 +8,8 @@ class Sinclair
     # Class responsible for adding method to configuration
     # classes
     class MethodsBuilder < Sinclair
+      include Sinclair::InputHashable
+
       # Instantiate method builder and build the methods
       #
       # @param (see #initialize)
