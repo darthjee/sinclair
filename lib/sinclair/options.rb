@@ -1,6 +1,18 @@
 # frozen_string_literal: true
 
 class Sinclair
+  # @api public
+  # @author Darthjee
+  #
+  # Base options class
+  #
+  # @example Options usage
+  #   options = ConnectionOptions.new(retries: 10, port: 8080)
+  #
+  #   expect(options.timeout).to be_nil
+  #   expect(options.retries).to eq(10)
+  #   expect(options.port).to eq(8080)
+  #   expect(options.protocol).to eq('https')
   class Options
     autoload :Builder, 'sinclair/options/builder'
 

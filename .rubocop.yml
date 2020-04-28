@@ -49,6 +49,7 @@ RSpec/MultipleExpectations:
     - spec/integration/readme/my_model_spec.rb
     - spec/integration/yard/sinclair/method_definition/block_definition_spec.rb
     - spec/integration/yard/sinclair/method_definition/string_definition_spec.rb
+    - spec/integration/yard/sinclair/options_spec.rb
 
 RSpec/NestedGroups:
   Max: 4
