@@ -37,7 +37,6 @@ describe Sinclair::Options do
 
         it { expect(options.timeout).not_to be_nil }
       end
-
     end
   end
 
@@ -53,13 +52,13 @@ describe Sinclair::Options do
     context 'when initializing with valid args' do
       subject(:options) { klass.new(timeout: timeout) }
 
-      let(:timeout) { 10 + Random.rand(10) }
+      let(:timeout) { Random.rand(10..19) }
 
       it 'sets value of options attribute' do
         expect(options.timeout).to eq(timeout)
       end
     end
-    
+
     context 'when initializing with valid args' do
       it do
         expect { klass.new(invalid: 10) }
