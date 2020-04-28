@@ -2,6 +2,8 @@
 
 class Sinclair
   class Options
+    autoload :Builder, 'sinclair/options/builder'
+
     class << self
       def options
         @options ||= []
@@ -10,14 +12,7 @@ class Sinclair
       private
 
       def with_options(*options)
-        builder = Sinclair.new(self)
-
-        options.each do |option|
-          builder.add_method(option, cached: true) { nil }
-          self.options.push(option)
-        end
-
-        builder.build
+        Builder.new(self, *options).build
       end
     end
 
