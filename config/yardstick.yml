@@ -33,6 +33,7 @@ rules:
       - Sinclair::Config::MethodsBuilder#initialize
       - Sinclair::ConfigFactory#initialize
       - Sinclair::EnvSettable::Builder#initialize
+      - Sinclair::Exception::InvalidOptions#initialize
       - Sinclair::Matchers::AddClassMethodTo#initialize
       - Sinclair::Matchers::AddInstanceMethodTo#instance
       - Sinclair::Matchers::AddMethod#initialize
