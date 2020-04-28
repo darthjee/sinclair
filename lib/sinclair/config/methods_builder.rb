@@ -71,39 +71,13 @@ class Sinclair
       private
 
       attr_reader :config_hash
-      # @method names
+      # @method config_hash
       # @private
       # @api private
       #
-      # List of configuration names
-      #
-      # @return [Array<Symbol,String>]
-
-      # @method defaults
-      # @private
-      # @api private
-      #
-      # Configurations that will receive a default value
+      # Configuration hash
       #
       # @return [Hash]
-
-      # @private
-      #
-      # Builds the final config hash
-      #
-      # Config hash merges defauls config hashs
-      # with {#name_as_hash}
-      #
-      # @return [Hash]
-
-      # @private
-      #
-      # Builds a hash with nil values from config names
-      #
-      # @return [Hash]
-      def names_as_hash
-        Hash[names.map { |*name| name }]
-      end
     end
   end
 end
