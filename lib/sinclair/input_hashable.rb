@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Sinclair
   module InputHashable
     def input_hash(*args)
