@@ -3,11 +3,12 @@
 class Sinclair
   class Options
     class Builder < Sinclair
+      include Sinclair::InputHashable
+
       def initialize(klass, *options, **defaults)
         super(klass)
 
-        @attributes = Hash[options.map { |name| [name] }]
-        @attributes.merge!(defaults)
+        @attributes = input_hash(*options, **defaults)
 
         add_all_methods
       end
