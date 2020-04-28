@@ -18,6 +18,26 @@ describe Sinclair::Options do
         expect { klass.send(:with_options, :timeout, :retries) }
           .to add_method(:retries).to(klass)
       end
+
+      context 'after building and when calling method' do
+        before { klass.send(:with_options, :timeout, :retries) }
+
+        it { expect(options.timeout).to be_nil }
+      end
+    end
+
+    context 'when calling with a hash' do
+      it 'adds method' do
+        expect { klass.send(:with_options, timeout: 10) }
+          .to add_method(:timeout).to(klass)
+      end
+
+      context 'after building and when calling method' do
+        before { klass.send(:with_options, timeout: 10) }
+
+        it { expect(options.timeout).not_to be_nil }
+      end
+
     end
   end
 

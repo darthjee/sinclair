@@ -3,11 +3,14 @@
 class Sinclair
   class Options
     class Builder < Sinclair
-      def initialize(klass, *options)
+      def initialize(klass, *options, **defaults)
         super(klass)
 
-        options.each do |option|
-          add_method(option, cached: true) { nil }
+        attributes = Hash[options.map { |name| [name] }]
+        attributes.merge!(defaults)
+
+        attributes.each do |option, value|
+          add_method(option, cached: true) { value }
           klass.options.push(option)
         end
       end
