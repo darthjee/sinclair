@@ -35,9 +35,7 @@ class Sinclair
       def initialize(klass, *names)
         super(klass)
 
-        @names = names
-        @defaults = names.find { |arg| arg.is_a?(Hash) } || {}
-        names.delete(defaults)
+        @config_hash = input_hash(*names)
       end
 
       # Build the methods in config class
@@ -72,7 +70,7 @@ class Sinclair
 
       private
 
-      attr_reader :names, :defaults
+      attr_reader :config_hash
       # @method names
       # @private
       # @api private
@@ -97,9 +95,6 @@ class Sinclair
       # with {#name_as_hash}
       #
       # @return [Hash]
-      def config_hash
-        @config_hash ||= names_as_hash.merge!(defaults)
-      end
 
       # @private
       #
