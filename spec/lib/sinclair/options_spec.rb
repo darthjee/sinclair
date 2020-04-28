@@ -19,7 +19,7 @@ describe Sinclair::Options do
           .to add_method(:retries).to(klass)
       end
 
-      context 'after building and when calling method' do
+      context 'when when calling method after building' do
         before { klass.send(:with_options, :timeout, :retries) }
 
         it { expect(options.timeout).to be_nil }
@@ -32,7 +32,7 @@ describe Sinclair::Options do
           .to add_method(:timeout).to(klass)
       end
 
-      context 'after building and when calling method' do
+      context 'when when calling method after building' do
         before { klass.send(:with_options, timeout: 10) }
 
         it { expect(options.timeout).not_to be_nil }
@@ -47,19 +47,37 @@ describe Sinclair::Options do
       it do
         expect { klass.new }.not_to raise_error
       end
+
+      it 'initializes methods with default values' do
+        expect(options.port).to eq(443)
+      end
     end
 
     context 'when initializing with valid args' do
-      subject(:options) { klass.new(timeout: timeout) }
+      subject(:options) do
+        klass.new(timeout: timeout, protocol: 'http')
+      end
 
       let(:timeout) { Random.rand(10..19) }
 
       it 'sets value of options attribute' do
         expect(options.timeout).to eq(timeout)
       end
+
+      it 'sets value of options attribute that has default' do
+        expect(options.protocol).to eq('http')
+      end
+
+      it 'does not mess with non initialized attributes' do
+        expect(options.retries).to be_nil
+      end
+
+      it 'does not mess with non initialized attributes with defaults' do
+        expect(options.port).to eq(443)
+      end
     end
 
-    context 'when initializing with valid args' do
+    context 'when initializing with invalid args' do
       it do
         expect { klass.new(invalid: 10) }
           .to raise_error(Sinclair::Exception::InvalidOptions)
