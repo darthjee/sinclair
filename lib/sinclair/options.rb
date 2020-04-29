@@ -7,12 +7,16 @@ class Sinclair
   # Base options class
   #
   # @example Options usage
+  #   class ConnectionOptions < Sinclair::Options
+  #     with_options :timeout, :retries, port: 443, protocol: 'https'
+  #   end
+  #
   #   options = ConnectionOptions.new(retries: 10, port: 8080)
   #
-  #   expect(options.timeout).to be_nil
-  #   expect(options.retries).to eq(10)
-  #   expect(options.port).to eq(8080)
-  #   expect(options.protocol).to eq('https')
+  #   options.timeout  # returns nil
+  #   options.retries  # returns 10
+  #   options.port     # returns 8080
+  #   options.protocol # returns 'https'
   class Options
     autoload :Builder, 'sinclair/options/builder'
 
