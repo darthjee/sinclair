@@ -4,9 +4,9 @@ class Sinclair
   # @api privat
   # @author Darthjee
   #
-  # Module responsible to convert inputs into
+  # Class responsible to convert inputs into
   # hash of default values
-  module InputHash
+  class InputHash
     # @api private
     # @private
     #
@@ -21,11 +21,26 @@ class Sinclair
     #
     # @return Hash
     def self.input_hash(*args)
-      defaults = args.find { |arg| arg.is_a?(Hash) } || {}
-      args.delete(defaults)
+      new(*args).to_h
+    end
 
-      hash = Hash[args.map { |*name| name }]
-      hash.merge!(defaults)
+    def to_h
+      hash_from_names.merge!(defaults)
+    end
+
+    private
+
+    attr_reader :names, :defaults
+
+    def initialize(*arguments)
+      block = proc { |value| value.is_a?(Hash) }
+
+      @names = arguments.reject(&block)
+      @defaults = arguments.find(&block) || {}
+    end
+
+    def hash_from_names
+      Hash[names.map { |*name| name }]
     end
   end
 end
