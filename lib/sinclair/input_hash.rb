@@ -18,7 +18,22 @@ class Sinclair
     #   @param hash [Hash] already converted
     #     hahs
     #
-    # @return Hash
+    # @return [Hash]
+    #
+    # @example
+    #   Sinclair::InputHash.input_hash(
+    #     :key1, 'key2',
+    #     key3: 10,
+    #     'key4' => 20
+    #   )
+    #
+    #   # returns
+    #   # {
+    #   #   key1: nil,
+    #   #   'key2' => nil,
+    #   #   key3: 10,
+    #   #   'key4' => 20
+    #   # }
     def self.input_hash(*args)
       new(*args).to_h
     end
