@@ -25,36 +25,15 @@ RSpec/DescribedClass:
   Exclude:
     - 'spec/integration/yard/**/*_spec.rb'
 
-RSpec/InstanceVariable:
+RSpec/ExampleLength:
   Exclude:
-    - spec/integration/yard/sinclair/method_definition_spec.rb
-    - spec/integration/yard/sinclair/method_definition/instance_block_definition_spec.rb
-    - spec/integration/yard/sinclair/method_definition/instance_method_definition_spec.rb
-    - spec/integration/yard/sinclair/method_definition/class_block_definition_spec.rb
-    - spec/integration/yard/sinclair/method_definition/class_method_definition_spec.rb
-    - spec/lib/sinclair/method_definition/instance_block_definition_spec.rb
-    - spec/lib/sinclair/method_definition/instance_method_definition_spec.rb
-    - spec/lib/sinclair/method_definition/class_block_definition_spec.rb
-    - spec/lib/sinclair/method_definition/class_method_definition_spec.rb
-    - spec/lib/sinclair/method_definition_spec.rb
-    - spec/lib/sinclair/method_definition/block_definition_spec.rb
-    - spec/integration/yard/sinclair/method_definition/block_definition_spec.rb
-
+    - 'spec/integration/yard/**/*_spec.rb'
 
 RSpec/MultipleExpectations:
   Exclude:
-    - spec/integration/yard/sinclair/method_definition_spec.rb
-    - spec/integration/yard/sinclair/method_definition/instance_block_definition_spec.rb
-    - spec/integration/yard/sinclair/method_definition/instance_string_definition_spec.rb
-    - spec/integration/yard/sinclair/method_definition/instance_method_definition_spec.rb
-    - spec/integration/yard/sinclair/method_definition/class_block_definition_spec.rb
-    - spec/integration/yard/sinclair/method_definition/class_string_definition_spec.rb
-    - spec/integration/yard/sinclair/method_definition/class_method_definition_spec.rb
+    - 'spec/integration/yard/**/*_spec.rb'
+    - 'spec/integration/readme/**/*_spec.rb'
     - spec/lib/sinclair_spec.rb
-    - spec/integration/readme/my_model_spec.rb
-    - spec/integration/yard/sinclair/method_definition/block_definition_spec.rb
-    - spec/integration/yard/sinclair/method_definition/string_definition_spec.rb
-    - spec/integration/yard/sinclair/options_spec.rb
 
 RSpec/NestedGroups:
   Max: 4
