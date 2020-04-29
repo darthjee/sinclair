@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 class Sinclair
-  # @api privat
+  # @api public
   # @author Darthjee
   #
   # Class responsible to convert inputs into
   # hash of default values
   class InputHash
-    # @api private
-    # @private
+    # @api public
     #
     # Converts args into Hash
     #
@@ -16,7 +15,7 @@ class Sinclair
     #   @param args [Array] Names attributes
     # @overload input_hash(*args, **hash))
     #   @param args [Array] Names attributes
-    #   @param defaults [Hash] already converted
+    #   @param hash [Hash] already converted
     #     hahs
     #
     # @return Hash
@@ -24,23 +23,58 @@ class Sinclair
       new(*args).to_h
     end
 
+    # @api private
+    # @private
+    #
+    # Returns hash from initialization arguments
+    #
+    # @return [Hahs]
     def to_h
-      hash_from_names.merge!(defaults)
+      hash_from_attributes.merge!(hash)
     end
 
     private
 
-    attr_reader :names, :defaults
+    attr_reader :attributes, :hash
+    # @method attributes
+    # @api private
+    # @private
+    #
+    # Attribute list for creation of hash
+    #
+    # @return [Array<String,Symbol>]
 
+    # @method
+    # @api private
+    # @private
+    #
+    # Hash already in hash format
+    #
+    # @return [Hash]
+
+    # @overload initialize(*arguments)
+    #   @param arguments [String,Symbol] attributes to generate
+    #     hash keys
+    # @overload initialize(*arguments, **hash)
+    #   @param arguments [String,Symbol] attributes to generate
+    #     hash keys
+    #   @param hash [Hash] hash to be merged with final hash
+    #     from attributes
     def initialize(*arguments)
       block = proc { |value| value.is_a?(Hash) }
 
-      @names = arguments.reject(&block)
-      @defaults = arguments.find(&block) || {}
+      @attributes = arguments.reject(&block)
+      @hash = arguments.find(&block) || {}
     end
 
-    def hash_from_names
-      Hash[names.map { |*name| name }]
+    # @api private
+    # @private
+    #
+    # Creates a hash of nil values using attributes as keys
+    #
+    # @return [Hash]
+    def hash_from_attributes
+      Hash[attributes.map { |*attribute| attribute }]
     end
   end
 end
