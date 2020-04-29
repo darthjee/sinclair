@@ -9,8 +9,6 @@ class Sinclair
     #
     # This class builds methods for options objects
     class Builder < Sinclair
-      include Sinclair::InputHashable
-
       # @param klass [Class] options class to receive
       #   methods
       # @param options [Array<Symbol>] list of accepted
@@ -20,7 +18,7 @@ class Sinclair
       def initialize(klass, *options, **defaults)
         super(klass)
 
-        @attributes = input_hash(*options, **defaults)
+        @attributes = Sinclair::InputHash.input_hash(*options, **defaults)
 
         add_all_methods
       end

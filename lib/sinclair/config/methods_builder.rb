@@ -8,8 +8,6 @@ class Sinclair
     # Class responsible for adding method to configuration
     # classes
     class MethodsBuilder < Sinclair
-      include Sinclair::InputHashable
-
       # Instantiate method builder and build the methods
       #
       # @param (see #initialize)
@@ -35,7 +33,7 @@ class Sinclair
       def initialize(klass, *names)
         super(klass)
 
-        @config_hash = input_hash(*names)
+        @config_hash = Sinclair::InputHash.input_hash(*names)
       end
 
       # Build the methods in config class

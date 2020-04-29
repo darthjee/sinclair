@@ -10,15 +10,13 @@ class Sinclair
     # This builder does the magic of adding methods
     # that will fetch variables from env or a default value
     class Builder < Sinclair
-      include Sinclair::InputHashable
-
       # @param klass [Class] Class that will receive the methods
       # @param prefix [String] Env keys prefix
       # @param (see EnvSettable#with_settings)
       def initialize(klass, prefix, *settings_name, **defaults)
         super(klass, prefix: prefix)
 
-        @settings = input_hash(*settings_name, **defaults)
+        @settings = Sinclair::InputHash.input_hash(*settings_name, **defaults)
 
         add_all_methods
       end
