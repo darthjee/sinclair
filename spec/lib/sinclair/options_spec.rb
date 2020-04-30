@@ -23,7 +23,7 @@ describe Sinclair::Options do
         expect { klass.send(:with_options, :timeout, 'retries') }
           .to change(klass, :allowed_options)
           .from([])
-          .to([:timeout, :retries])
+          .to(%i[timeout retries])
       end
 
       it do
@@ -69,12 +69,11 @@ describe Sinclair::Options do
           .to add_method(:port).to(klass)
       end
 
-
       it do
         expect { klass.send(:with_options, 'protocol', port: 443) }
           .to change(klass, :allowed_options)
-          .from([:timeout, :retries])
-          .to([:timeout, :retries, :protocol, :port])
+          .from(%i[timeout retries])
+          .to(%i[timeout retries protocol port])
       end
 
       it do
