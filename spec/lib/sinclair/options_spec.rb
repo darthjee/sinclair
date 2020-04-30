@@ -19,6 +19,18 @@ describe Sinclair::Options do
           .to add_method(:retries).to(klass)
       end
 
+      it do
+        expect { klass.send(:with_options, :timeout, 'retries') }
+          .to change(klass, :allowed_options)
+          .from([])
+          .to([:timeout, :retries])
+      end
+
+      it do
+        expect { klass.send(:with_options, :timeout, 'retries') }
+          .not_to change(described_class, :allowed_options)
+      end
+
       context 'when when calling method after building' do
         before { klass.send(:with_options, :timeout, 'retries') }
 
@@ -55,6 +67,19 @@ describe Sinclair::Options do
       it 'add second method' do
         expect { klass.send(:with_options, :protocol, 'port' => 443) }
           .to add_method(:port).to(klass)
+      end
+
+
+      it do
+        expect { klass.send(:with_options, 'protocol', port: 443) }
+          .to change(klass, :allowed_options)
+          .from([:timeout, :retries])
+          .to([:timeout, :retries, :protocol, :port])
+      end
+
+      it do
+        expect { klass.send(:with_options, 'protocol', port: 443) }
+          .not_to change(super_class, :allowed_options)
       end
     end
   end
