@@ -9,12 +9,18 @@ class Sinclair
     #
     # This class builds methods for options objects
     class Builder < Sinclair
-      # @param klass [Class] options class to receive
-      #   methods
-      # @param options [Array<Symbol>] list of accepted
-      #   options
-      # @param defaults [Hash<Symbol,Object>] default options
-      #   hash
+      # @overload initialize(klass, *options)
+      #   @param klass [Class] options class to receive
+      #     methods
+      #   @param options [Array<Symbol>] list of accepted
+      #     options
+      # @overload initialize(klass, *options, **defaults)
+      #   @param klass [Class] options class to receive
+      #     methods
+      #   @param options [Array<Symbol>] list of accepted
+      #     options
+      #   @param defaults [Hash<Symbol,Object>] default options
+      #     hash
       def initialize(klass, *options)
         super(klass)
 

@@ -51,6 +51,15 @@ class Sinclair
       # @example (see Options)
       #
       # @return (see Sinclair#build)
+      #
+      # @overload with_options(*options)
+      #   @param options [Array<Symbol>] list of accepted
+      #     options
+      # @overload with_options(*options, **defaults)
+      #   @param options [Array<Symbol>] list of accepted
+      #     options
+      #   @param defaults [Hash<Symbol,Object>] default options
+      #     hash
       def with_options(*options)
         Builder.new(self, *options).build
       end
