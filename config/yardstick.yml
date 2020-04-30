@@ -34,6 +34,7 @@ rules:
       - Sinclair::ConfigFactory#initialize
       - Sinclair::EnvSettable::Builder#initialize
       - Sinclair::Exception::InvalidOptions#initialize
+      - Sinclair::InputHash#initialize
       - Sinclair::Matchers::AddClassMethodTo#initialize
       - Sinclair::Matchers::AddInstanceMethodTo#instance
       - Sinclair::Matchers::AddMethod#initialize

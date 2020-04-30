@@ -26,7 +26,7 @@ class Sinclair
       private
 
       attr_reader :attributes
-      # @method
+      # @method attributes
       # @api private
       # @private
       #

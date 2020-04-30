@@ -59,7 +59,7 @@ class Sinclair
     #
     # @return [Array<String,Symbol>]
 
-    # @method
+    # @method hash
     # @api private
     # @private
     #
@@ -67,6 +67,9 @@ class Sinclair
     #
     # @return [Hash]
 
+    # @api private
+    # @rivate
+    #
     # @overload initialize(*arguments)
     #   @param arguments [String,Symbol] attributes to generate
     #     hash keys
