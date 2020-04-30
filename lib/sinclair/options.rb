@@ -1,22 +1,72 @@
 # frozen_string_literal: true
 
 class Sinclair
+  # @api public
+  # @author Darthjee
+  #
+  # Base options class
+  #
+  # @example Options usage
+  #   class ConnectionOptions < Sinclair::Options
+  #     with_options :timeout, :retries, port: 443, protocol: 'https'
+  #   end
+  #
+  #   options = ConnectionOptions.new(retries: 10, port: 8080)
+  #
+  #   options.timeout  # returns nil
+  #   options.retries  # returns 10
+  #   options.port     # returns 8080
+  #   options.protocol # returns 'https'
   class Options
     autoload :Builder, 'sinclair/options/builder'
 
     class << self
-      def options
-        @options ||= []
+      # @api private
+      # @private
+      #
+      # Options allowed when initializing options
+      #
+      # @return [Array<Symbol>]
+      def allowed_options
+        @allowed_options ||= (superclass.try(:allowed_options).dup || [])
+      end
+
+      # @api private
+      # @private
+      #
+      # returns invalid options
+      #
+      # @return [Array<Symbol>]
+      def invalid_options_in(names)
+        names.map(&:to_sym) - allowed_options
       end
 
       private
 
+      # @api public
+      # @!visibility public
+      #
+      # Add available options
+      #
+      # @example (see Options)
+      #
+      # @return (see Sinclair#build)
+      #
+      # @overload with_options(*options)
+      #   @param options [Array<Symbol>] list of accepted
+      #     options
+      # @overload with_options(*options, **defaults)
+      #   @param options [Array<Symbol>] list of accepted
+      #     options
+      #   @param defaults [Hash<Symbol,Object>] default options
+      #     hash
       def with_options(*options)
         Builder.new(self, *options).build
       end
     end
 
     # @param options [Hash] hash with options (see {.options}, {.with_options})
+    # @example (see Options)
     def initialize(options = {})
       check_options(options)
 
@@ -28,6 +78,7 @@ class Sinclair
     private
 
     # @private
+    # @api private
     #
     # check if given options are allowed
     #
@@ -35,7 +86,7 @@ class Sinclair
     #
     # @return [NilClass]
     def check_options(options)
-      invalid_keys = options.keys - self.class.options
+      invalid_keys = self.class.invalid_options_in(options.keys)
 
       return if invalid_keys.empty?
 

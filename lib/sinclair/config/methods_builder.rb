@@ -33,9 +33,7 @@ class Sinclair
       def initialize(klass, *names)
         super(klass)
 
-        @names = names
-        @defaults = names.find { |arg| arg.is_a?(Hash) } || {}
-        names.delete(defaults)
+        @config_hash = Sinclair::InputHash.input_hash(*names)
       end
 
       # Build the methods in config class
@@ -70,43 +68,14 @@ class Sinclair
 
       private
 
-      attr_reader :names, :defaults
-      # @method names
+      attr_reader :config_hash
+      # @method config_hash
       # @private
       # @api private
       #
-      # List of configuration names
-      #
-      # @return [Array<Symbol,String>]
-
-      # @method defaults
-      # @private
-      # @api private
-      #
-      # Configurations that will receive a default value
+      # Configuration hash
       #
       # @return [Hash]
-
-      # @private
-      #
-      # Builds the final config hash
-      #
-      # Config hash merges defauls config hashs
-      # with {#name_as_hash}
-      #
-      # @return [Hash]
-      def config_hash
-        @config_hash ||= names_as_hash.merge!(defaults)
-      end
-
-      # @private
-      #
-      # Builds a hash with nil values from config names
-      #
-      # @return [Hash]
-      def names_as_hash
-        Hash[names.map { |*name| name }]
-      end
     end
   end
 end

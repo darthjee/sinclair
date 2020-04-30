@@ -33,6 +33,8 @@ rules:
       - Sinclair::Config::MethodsBuilder#initialize
       - Sinclair::ConfigFactory#initialize
       - Sinclair::EnvSettable::Builder#initialize
+      - Sinclair::Exception::InvalidOptions#initialize
+      - Sinclair::InputHash#initialize
       - Sinclair::Matchers::AddClassMethodTo#initialize
       - Sinclair::Matchers::AddInstanceMethodTo#instance
       - Sinclair::Matchers::AddMethod#initialize
@@ -42,6 +44,8 @@ rules:
       - Sinclair::MethodDefinition#initialize
       - Sinclair::MethodDefinition::BlockDefinition#initialize
       - Sinclair::MethodDefinition::StringDefinition#initialize
+      - Sinclair::Options#initialize
+      - Sinclair::Options::Builder#initialize
   Summary::Length:
     enabled: true
     exclude: []

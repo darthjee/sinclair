@@ -2,12 +2,29 @@
 
 class Sinclair
   class Options
+    # @api private
+    # @author Darthjee
+    #
+    # Option Class Builder
+    #
+    # This class builds methods for options objects
     class Builder < Sinclair
-      def initialize(klass, *options, **defaults)
+      # @overload initialize(klass, *options)
+      #   @param klass [Class] options class to receive
+      #     methods
+      #   @param options [Array<Symbol>] list of accepted
+      #     options
+      # @overload initialize(klass, *options, **defaults)
+      #   @param klass [Class] options class to receive
+      #     methods
+      #   @param options [Array<Symbol>] list of accepted
+      #     options
+      #   @param defaults [Hash<Symbol,Object>] default options
+      #     hash
+      def initialize(klass, *options)
         super(klass)
 
-        @attributes = Hash[options.map { |name| [name] }]
-        @attributes.merge!(defaults)
+        @attributes = Sinclair::InputHash.input_hash(*options)
 
         add_all_methods
       end
@@ -15,11 +32,21 @@ class Sinclair
       private
 
       attr_reader :attributes
+      # @method attributes
+      # @api private
+      # @private
+      #
+      # Options attributes
+      #
+      # @return [Hash<Symbol.Object>]
 
+      # Add all methods for options
+      #
+      # @return [Array<MethodDefinition>]
       def add_all_methods
         attributes.each do |option, value|
           add_method(option, cached: true) { value }
-          klass.options.push(option)
+          klass.allowed_options.push(option.to_sym)
         end
       end
     end

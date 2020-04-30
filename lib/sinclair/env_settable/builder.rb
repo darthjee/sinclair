@@ -16,9 +16,7 @@ class Sinclair
       def initialize(klass, prefix, *settings_name, **defaults)
         super(klass, prefix: prefix)
 
-        @settings = Hash[settings_name.map { |name| [name] }]
-
-        @settings.merge!(defaults)
+        @settings = Sinclair::InputHash.input_hash(*settings_name, **defaults)
 
         add_all_methods
       end
