@@ -15,10 +15,10 @@ class Sinclair
       #   options
       # @param defaults [Hash<Symbol,Object>] default options
       #   hash
-      def initialize(klass, *options, **defaults)
+      def initialize(klass, *options)
         super(klass)
 
-        @attributes = Sinclair::InputHash.input_hash(*options, **defaults)
+        @attributes = Sinclair::InputHash.input_hash(*options)
 
         add_all_methods
       end

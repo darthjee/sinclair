@@ -28,7 +28,7 @@ class Sinclair
       #
       # @return [Array<Symbol>]
       def allowed_options
-        @allowed_options ||= []
+        @allowed_options ||= (superclass.try(:allowed_options) || [])
       end
 
       # @api private

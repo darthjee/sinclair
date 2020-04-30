@@ -28,12 +28,12 @@ describe Sinclair::Options do
 
     context 'when calling with a hash' do
       it 'adds method' do
-        expect { klass.send(:with_options, timeout: 10, 'retries' => 20) }
-          .to add_method(:timeout).to(klass)
+        expect { klass.send(:with_options, timeout_sec: 10, 'retries' => 20) }
+          .to add_method(:timeout_sec).to(klass)
       end
 
       context 'when when calling method after building' do
-        before { klass.send(:with_options, timeout: 10, 'retries' => 20) }
+        before { klass.send(:with_options, timeout_sec: 10, 'retries' => 20) }
 
         it 'returns default value' do
           expect(options.retries).to eq(20)
@@ -42,10 +42,10 @@ describe Sinclair::Options do
     end
 
     context 'when calling on subclass' do
-      let(:supercllass) { Class.new(described_class) }
-      let(:klass)       { Class.new(superclass) }
+      let(:super_class) { Class.new(described_class) }
+      let(:klass)       { Class.new(super_class) }
 
-      before { superclass.send(:with_options, :timeout, 'retries') }
+      before { super_class.send(:with_options, :timeout, 'retries') }
 
       it 'add first method' do
         expect { klass.send(:with_options, :protocol, 'port' => 443) }
