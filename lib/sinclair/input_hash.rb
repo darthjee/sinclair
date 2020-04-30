@@ -68,7 +68,7 @@ class Sinclair
     # @return [Hash]
 
     # @api private
-    # @rivate
+    # @private
     #
     # @overload initialize(*arguments)
     #   @param arguments [String,Symbol] attributes to generate

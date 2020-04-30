@@ -36,7 +36,7 @@ class Sinclair
 
       # Add all methods for options
       #
-      # @return [Array<MethodDefinition>
+      # @return [Array<MethodDefinition>]
       def add_all_methods
         attributes.each do |option, value|
           add_method(option, cached: true) { value }

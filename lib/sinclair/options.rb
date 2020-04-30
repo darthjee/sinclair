@@ -21,6 +21,8 @@ class Sinclair
     autoload :Builder, 'sinclair/options/builder'
 
     class << self
+      # @api private
+      #
       # Options allowed when initializing options
       #
       # @return [Array<Symbol>]
@@ -30,12 +32,21 @@ class Sinclair
 
       private
 
+      # @api public
+      # @!visibility public
+      #
+      # Add available options
+      #
+      # @example (see Options)
+      #
+      # @return (see Sinclair#build)
       def with_options(*options)
         Builder.new(self, *options).build
       end
     end
 
     # @param options [Hash] hash with options (see {.options}, {.with_options})
+    # @example (see Options)
     def initialize(options = {})
       check_options(options)
 
@@ -47,6 +58,7 @@ class Sinclair
     private
 
     # @private
+    # @api private
     #
     # check if given options are allowed
     #

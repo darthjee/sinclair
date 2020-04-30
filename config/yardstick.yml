@@ -44,6 +44,8 @@ rules:
       - Sinclair::MethodDefinition#initialize
       - Sinclair::MethodDefinition::BlockDefinition#initialize
       - Sinclair::MethodDefinition::StringDefinition#initialize
+      - Sinclair::Options#initialize
+      - Sinclair::Options::Builder#initialize
   Summary::Length:
     enabled: true
     exclude: []
