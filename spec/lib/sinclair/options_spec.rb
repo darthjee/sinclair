@@ -83,5 +83,12 @@ describe Sinclair::Options do
           .to raise_error(Sinclair::Exception::InvalidOptions)
       end
     end
+
+    context 'when initializing with string or symbol keys' do
+      it do
+        expect { klass.new('timeout' => 20, retries: 30) }
+          .not_to raise_error
+      end
+    end
   end
 end

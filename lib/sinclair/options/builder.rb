@@ -40,7 +40,7 @@ class Sinclair
       def add_all_methods
         attributes.each do |option, value|
           add_method(option, cached: true) { value }
-          klass.allowed_options.push(option)
+          klass.allowed_options.push(option.to_sym)
         end
       end
     end

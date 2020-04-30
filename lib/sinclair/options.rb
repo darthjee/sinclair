@@ -22,12 +22,23 @@ class Sinclair
 
     class << self
       # @api private
+      # @private
       #
       # Options allowed when initializing options
       #
       # @return [Array<Symbol>]
       def allowed_options
         @allowed_options ||= []
+      end
+
+      # @api private
+      # @private
+      #
+      # returns invalid options
+      #
+      # @return [Array<Symbol>]
+      def invalid_options_in(names)
+        names.map(&:to_sym) - allowed_options
       end
 
       private
@@ -66,7 +77,7 @@ class Sinclair
     #
     # @return [NilClass]
     def check_options(options)
-      invalid_keys = options.keys - self.class.allowed_options
+      invalid_keys = self.class.invalid_options_in(options.keys)
 
       return if invalid_keys.empty?
 
