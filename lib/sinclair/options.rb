@@ -21,8 +21,11 @@ class Sinclair
     autoload :Builder, 'sinclair/options/builder'
 
     class << self
-      def options
-        @options ||= []
+      # Options allowed when initializing options
+      #
+      # @return [Array<Symbol>]
+      def allowed_options
+        @allowed_options ||= []
       end
 
       private
@@ -51,7 +54,7 @@ class Sinclair
     #
     # @return [NilClass]
     def check_options(options)
-      invalid_keys = options.keys - self.class.options
+      invalid_keys = options.keys - self.class.allowed_options
 
       return if invalid_keys.empty?
 
