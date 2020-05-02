@@ -529,3 +529,4 @@ Projects Using
 ---------------
 
 -   [Arstotzka](https://github.com/darthjee/arstotzka)
+-   [Azeroth](https://github.com/darthjee/azeroth)
