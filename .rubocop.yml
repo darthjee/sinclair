@@ -28,6 +28,7 @@ RSpec/DescribedClass:
 RSpec/ExampleLength:
   Exclude:
     - 'spec/integration/yard/**/*_spec.rb'
+    - 'spec/integration/readme/**/*_spec.rb'
 
 RSpec/MultipleExpectations:
   Exclude:
