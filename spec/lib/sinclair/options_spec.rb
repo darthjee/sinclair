@@ -169,6 +169,30 @@ describe Sinclair::Options do
         expect { klass.new('timeout' => 20, retries: 30) }
           .not_to raise_error
       end
+
+      context 'when calling the method' do
+        let(:options) { klass.new('timeout' => 20, retries: 30) }
+
+        it 'sets value of string key' do
+          expect(options.timeout).to eq(20)
+        end
+
+        it 'sets value of symbol key' do
+          expect(options.retries).to eq(30)
+        end
+      end
+    end
+
+    context 'when overriding values with nil' do
+      let(:options) { klass.new(protocol: nil) }
+
+      it { expect(options.protocol).to be_nil }
+    end
+
+    context 'when overriding values with false' do
+      let(:options) { klass.new(protocol: false) }
+
+      it { expect(options.protocol).to eq(false) }
     end
   end
 end

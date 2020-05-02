@@ -25,8 +25,19 @@ class Sinclair
         super(klass)
 
         @attributes = Sinclair::InputHash.input_hash(*options)
+      end
 
+      # Finish building options
+      #
+      # Add options to allowed options
+      # and adds all methods
+      #
+      # @see Sinclair#build
+      # @return (see Sinclair#build)
+      def build
         add_all_methods
+
+        super
       end
 
       private
@@ -45,7 +56,7 @@ class Sinclair
       # @return [Array<MethodDefinition>]
       def add_all_methods
         attributes.each do |option, value|
-          add_method(option, cached: true) { value }
+          add_method(option, cached: :full) { value }
           klass.allowed_options.push(option.to_sym)
         end
       end
