@@ -446,6 +446,25 @@ a simple meta-programable way
   ServiceClient.default # returns #<ServiceClient:0x0000556fa1b366e8 @username="my-login", @password=nil, @port=80, @hostname="host.com">'
 ```
 
+### Sinclair::Options
+Options allows projects to have an easy to configure option object
+
+```ruby
+  class ConnectionOptions < Sinclair::Options
+    with_options :timeout, :retries, port: 443, protocol: 'https'
+  end
+
+ options = ConnectionOptions.new(
+   timeout: 10,
+   protocol: 'http'
+ )
+
+ options.timeout  # returns 10
+ options.retries  # returns nil
+ options.protocol # returns 'http'
+ options.port     # returns 443
+```
+
 RSspec matcher
 ---------------
 
