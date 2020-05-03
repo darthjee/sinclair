@@ -43,6 +43,10 @@ class Sinclair
         names.map(&:to_sym) - allowed_options.to_a
       end
 
+      def allow_option(name)
+        allowed_options << name.to_sym
+      end
+
       private
 
       # @api public
