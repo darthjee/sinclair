@@ -123,7 +123,26 @@ describe Sinclair::Options do
     end
   end
 
-  describe 'allow' do
+  describe '.invalid_options_in' do
+    let(:klass)     { Class.new(described_class) }
+    let(:test_keys) { %i[timeout invalid] }
+
+    it 'returns alls keys as invalid' do
+      expect(klass.invalid_options_in(test_keys))
+        .to eq(test_keys)
+    end
+
+    context 'when allowed options was never set' do
+      before { klass.allow(:timeout) }
+
+      it 'returns keys that are not allowed by the input' do
+        expect(klass.invalid_options_in(test_keys))
+          .to eq([:invalid])
+      end
+    end
+  end
+
+  describe '.allow' do
     let(:klass)     { Class.new(described_class) }
     let(:test_keys) { %i[timeout retries invalid] }
 
