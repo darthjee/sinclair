@@ -45,8 +45,6 @@ class Sinclair
         allowed_options << name.to_sym
       end
 
-      private
-
       # @api private
       # @private
       #
@@ -54,24 +52,10 @@ class Sinclair
       #
       # @return [Set<Symbol>]
       def allowed_options
-        @allowed_options ||= build_allowed_options
+        @allowed_options ||= superclass.try(:allowed_options).dup || Set.new
       end
 
-      # @api private
-      # @private
-      #
-      # Build set of allowed options
-      #
-      # When class is descendent of {Options}
-      # a duplication of it's parents allowed_options is
-      # returned
-      #
-      # @return (see allowed_options)
-      def build_allowed_options
-        superclass.send(:allowed_options).dup
-      rescue NoMethodError
-        Set.new
-      end
+      private
 
       # @api public
       # @!visibility public
@@ -102,6 +86,19 @@ class Sinclair
 
       options.each do |key, value|
         instance_variable_set("@#{key}", value)
+      end
+    end
+
+    # returns if other equals to self
+    #
+    # @param other [Object] object to be compared
+    #
+    # @return [TrueClass,FalseClass]
+    def ==(other)
+      return false unless self.class == other.class
+
+      self.class.allowed_options.all? do |name|
+        public_send(name) == other.public_send(name)
       end
     end
 

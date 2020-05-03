@@ -197,6 +197,51 @@ describe Sinclair::Options do
     end
   end
 
+  describe '.allowed_options' do
+    let(:klass) { Class.new(described_class) }
+
+    context 'when class has not been changed' do
+      it { expect(klass.allowed_options).to be_a(Set) }
+    end
+
+    context 'when initializing with with options' do
+      let(:expected) do
+        Set.new %i[timeout retries port protocol]
+      end
+
+      before do
+        klass.send(
+          :with_options,
+          :timeout, :retries, port: 443, protocol: 'https'
+        )
+      end
+
+      it do
+        expect(klass.allowed_options)
+          .to eq(expected)
+      end
+
+      context 'when class is descendent' do
+        let(:descendent_class) { Class.new(klass) }
+        let(:expected) do
+          Set.new %i[timeout retries port protocol name]
+        end
+
+        before do
+          descendent_class.send(
+            :with_options,
+            :name
+          )
+        end
+
+        it do
+          expect(descendent_class.allowed_options)
+            .to eq(expected)
+        end
+      end
+    end
+  end
+
   describe '#initialize' do
     let(:klass) { ConnectionOptions }
 
@@ -307,6 +352,30 @@ describe Sinclair::Options do
       let(:options) { klass.new(protocol: false) }
 
       it { expect(options.protocol).to eq(false) }
+    end
+  end
+
+  describe '#==' do
+    let(:klass) { ConnectionOptions }
+
+    context 'with black initialization' do
+      it do
+        expect(klass.new).to eq(klass.new)
+      end
+    end
+
+    context 'when initializing with same values' do
+      let(:first_option) { klass.new(protocol: nil) }
+      let(:second_option) { klass.new(protocol: nil) }
+
+      it { expect(first_option).to eq(second_option) }
+    end
+
+    context 'when initializing with different values' do
+      let(:first_option) { klass.new(protocol: nil) }
+      let(:second_option) { klass.new }
+
+      it { expect(first_option).not_to eq(second_option) }
     end
   end
 end
