@@ -38,6 +38,8 @@ class Sinclair
       #
       # This does not create the method
       #
+      # @param name [String,Symbol] options to be allowed
+      #
       # @return [Set<Symbol>]
       def allow(name)
         allowed_options << name.to_sym

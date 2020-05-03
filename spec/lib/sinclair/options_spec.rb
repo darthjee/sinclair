@@ -6,10 +6,8 @@ describe Sinclair::Options do
   subject(:options) { klass.new }
 
   describe '.with_options' do
-    let(:klass) { Class.new(described_class) }
-    let(:test_keys) do
-      %i[timeout retries invalid]
-    end
+    let(:klass)     { Class.new(described_class) }
+    let(:test_keys) { %i[timeout retries invalid] }
 
     context 'when calling with keys' do
       it 'add first method' do
@@ -121,6 +119,32 @@ describe Sinclair::Options do
             .to change { klass.new.name }
             .from('My Connector').to(nil)
         end
+      end
+    end
+  end
+
+  describe 'allow' do
+    let(:klass)     { Class.new(described_class) }
+    let(:test_keys) { %i[timeout retries invalid] }
+
+    it 'adds options to allowed' do
+      expect { klass.allow(:timeout) }
+        .to change { klass.invalid_options_in(test_keys) }
+        .from(%i[timeout retries invalid])
+        .to(%i[retries invalid])
+    end
+
+    context 'when calling on subclass' do
+      let(:super_class) { Class.new(described_class) }
+      let(:klass)       { Class.new(super_class) }
+
+      before { super_class.allow(:timeout) }
+
+      it 'adds options to allowed' do
+        expect { klass.allow(:retries) }
+          .to change { klass.invalid_options_in(test_keys) }
+          .from(%i[retries invalid])
+          .to(%i[invalid])
       end
     end
   end
