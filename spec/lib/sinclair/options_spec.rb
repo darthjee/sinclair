@@ -140,6 +140,35 @@ describe Sinclair::Options do
           .to eq([:invalid])
       end
     end
+
+    context 'when calling on subclass' do
+      let(:super_class) { Class.new(described_class) }
+      let(:klass)       { Class.new(super_class) }
+      let(:test_keys) { %i[timeout invalid] }
+
+      before { super_class.allow(:timeout) }
+
+      context 'when not adding allowed options' do
+        it 'returns keys that are not allowed by the input' do
+          expect(klass.invalid_options_in(test_keys))
+            .to eq([:invalid])
+        end
+      end
+
+      context 'when adding keys' do
+        before { super_class.allow(:retries) }
+
+        it 'returns keys that are not allowed by the input' do
+          expect(klass.invalid_options_in(test_keys))
+            .to eq([:invalid])
+        end
+
+        it 'adds new key to accepted' do
+          expect(klass.invalid_options_in([:retries]))
+            .to be_empty
+        end
+      end
+    end
   end
 
   describe '.allow' do
