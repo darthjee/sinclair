@@ -15,5 +15,13 @@ describe Sinclair::Options do
       expect(options.protocol).to eq('http')
       expect(options.port).to eq(443)
     end
+
+    context 'when initialized with invalid options' do
+      it do
+        expect do
+          ConnectionOptions.new(invalid: 10)
+        end.to raise_error(Sinclair::Exception::InvalidOptions)
+      end
+    end
   end
 end
