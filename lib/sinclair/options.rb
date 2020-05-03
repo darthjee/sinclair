@@ -25,15 +25,6 @@ class Sinclair
     class << self
       # @api private
       #
-      # Options allowed when initializing options
-      #
-      # @return [Set<Symbol>]
-      def allowed_options
-        @allowed_options ||= (superclass.try(:allowed_options).dup || Set.new)
-      end
-
-      # @api private
-      #
       # returns invalid options
       #
       # @return [Array<Symbol>]
@@ -53,6 +44,32 @@ class Sinclair
       end
 
       private
+
+      # @api private
+      # @private
+      #
+      # Options allowed when initializing options
+      #
+      # @return [Set<Symbol>]
+      def allowed_options
+        @allowed_options ||= build_allowed_options
+      end
+
+      # @api private
+      # @private
+      #
+      # Build set of allowed options
+      #
+      # When class is descendent of {Options}
+      # a duplication of it's parents allowed_options is
+      # returned
+      #
+      # @return (see allowed_options)
+      def build_allowed_options
+        superclass.send(:allowed_options).dup
+      rescue NoMethodError
+        Set.new
+      end
 
       # @api public
       # @!visibility public
