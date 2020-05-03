@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'set'
+
 class Sinclair
   # @api public
   # @author Darthjee
@@ -22,26 +24,54 @@ class Sinclair
 
     class << self
       # @api private
-      # @private
-      #
-      # Options allowed when initializing options
-      #
-      # @return [Array<Symbol>]
-      def allowed_options
-        @allowed_options ||= (superclass.try(:allowed_options).dup || [])
-      end
-
-      # @api private
-      # @private
       #
       # returns invalid options
       #
       # @return [Array<Symbol>]
       def invalid_options_in(names)
-        names.map(&:to_sym) - allowed_options
+        names.map(&:to_sym) - allowed_options.to_a
+      end
+
+      # @api private
+      #
+      # Allow new option
+      #
+      # This does not create the method
+      #
+      # @param name [String,Symbol] options to be allowed
+      #
+      # @return [Set<Symbol>]
+      def allow(name)
+        allowed_options << name.to_sym
       end
 
       private
+
+      # @api private
+      # @private
+      #
+      # Options allowed when initializing options
+      #
+      # @return [Set<Symbol>]
+      def allowed_options
+        @allowed_options ||= build_allowed_options
+      end
+
+      # @api private
+      # @private
+      #
+      # Build set of allowed options
+      #
+      # When class is descendent of {Options}
+      # a duplication of it's parents allowed_options is
+      # returned
+      #
+      # @return (see allowed_options)
+      def build_allowed_options
+        superclass.send(:allowed_options).dup
+      rescue NoMethodError
+        Set.new
+      end
 
       # @api public
       # @!visibility public

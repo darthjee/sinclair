@@ -15,7 +15,7 @@ methods
 
 Yard Documentation
 -------------------
-[https://www.rubydoc.info/gems/sinclair/1.6.2](https://www.rubydoc.info/gems/sinclair/1.6.2)
+[https://www.rubydoc.info/gems/sinclair/1.6.3](https://www.rubydoc.info/gems/sinclair/1.6.3)
 
 Installation
 ---------------
@@ -463,6 +463,8 @@ Options allows projects to have an easy to configure option object
  options.retries  # returns nil
  options.protocol # returns 'http'
  options.port     # returns 443
+
+ ConnectionOptions.new(invalid: 10) # raises Sinclair::Exception::InvalidOptions
 ```
 
 RSspec matcher

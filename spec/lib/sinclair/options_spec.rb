@@ -6,7 +6,8 @@ describe Sinclair::Options do
   subject(:options) { klass.new }
 
   describe '.with_options' do
-    let(:klass) { Class.new(described_class) }
+    let(:klass)     { Class.new(described_class) }
+    let(:test_keys) { %i[timeout retries invalid] }
 
     context 'when calling with keys' do
       it 'add first method' do
@@ -19,22 +20,35 @@ describe Sinclair::Options do
           .to add_method(:retries).to(klass)
       end
 
-      it do
+      it 'adds options to allowed' do
         expect { klass.send(:with_options, :timeout, 'retries') }
-          .to change(klass, :allowed_options)
-          .from([])
-          .to(%i[timeout retries])
+          .to change { klass.invalid_options_in(test_keys) }
+          .from(%i[timeout retries invalid])
+          .to([:invalid])
       end
 
       it do
         expect { klass.send(:with_options, :timeout, 'retries') }
-          .not_to change(described_class, :allowed_options)
+          .not_to change {
+                    described_class.invalid_options_in(%i[timeout retries invalid])
+                  }
       end
 
       context 'when when calling method after building' do
         before { klass.send(:with_options, :timeout, 'retries') }
 
         it { expect(options.timeout).to be_nil }
+      end
+
+      context 'when calling method twice' do
+        before { klass.send(:with_options, :timeout, retries: 10) }
+
+        it do
+          expect { klass.send(:with_options, :timeout, :retries) }
+            .not_to change {
+                      klass.invalid_options_in(%i[timeout retries invalid])
+                    }
+        end
       end
     end
 
@@ -57,7 +71,11 @@ describe Sinclair::Options do
       let(:super_class) { Class.new(described_class) }
       let(:klass)       { Class.new(super_class) }
 
-      before { super_class.send(:with_options, :timeout, 'retries') }
+      let(:test_keys) do
+        %i[timeout retries name protocol port invalid]
+      end
+
+      before { super_class.send(:with_options, :timeout, 'retries', name: 'My Connector') }
 
       it 'add first method' do
         expect { klass.send(:with_options, :protocol, 'port' => 443) }
@@ -71,14 +89,110 @@ describe Sinclair::Options do
 
       it do
         expect { klass.send(:with_options, 'protocol', port: 443) }
-          .to change(klass, :allowed_options)
-          .from(%i[timeout retries])
-          .to(%i[timeout retries protocol port])
+          .to change {
+                klass.invalid_options_in(test_keys)
+              }.from(%i[protocol port invalid])
+          .to([:invalid])
       end
 
       it do
         expect { klass.send(:with_options, 'protocol', port: 443) }
-          .not_to change(super_class, :allowed_options)
+          .not_to change {
+                    super_class.invalid_options_in(%i[protocol port])
+                  }
+      end
+
+      context 'when overriding a method' do
+        it do
+          expect { klass.send(:with_options, :name, timeout: 10) }
+            .not_to change { klass.invalid_options_in(%i[name timeout]) }
+        end
+
+        it 'change methods to return new default' do
+          expect { klass.send(:with_options, :name, timeout: 10) }
+            .to change { klass.new.timeout }
+            .from(nil).to(10)
+        end
+
+        it 'change methods to return without default' do
+          expect { klass.send(:with_options, :name, timeout: 10) }
+            .to change { klass.new.name }
+            .from('My Connector').to(nil)
+        end
+      end
+    end
+  end
+
+  describe '.invalid_options_in' do
+    let(:klass)     { Class.new(described_class) }
+    let(:test_keys) { %i[timeout invalid] }
+
+    it 'returns alls keys as invalid' do
+      expect(klass.invalid_options_in(test_keys))
+        .to eq(test_keys)
+    end
+
+    context 'when allowed options was never set' do
+      before { klass.allow(:timeout) }
+
+      it 'returns keys that are not allowed by the input' do
+        expect(klass.invalid_options_in(test_keys))
+          .to eq([:invalid])
+      end
+    end
+
+    context 'when calling on subclass' do
+      let(:super_class) { Class.new(described_class) }
+      let(:klass)       { Class.new(super_class) }
+      let(:test_keys)   { %i[timeout invalid] }
+
+      before { super_class.allow(:timeout) }
+
+      context 'when not adding allowed options' do
+        it 'returns keys that are not allowed by the input' do
+          expect(klass.invalid_options_in(test_keys))
+            .to eq([:invalid])
+        end
+      end
+
+      context 'when adding keys' do
+        before { super_class.allow(:retries) }
+
+        it 'returns keys that are not allowed by the input' do
+          expect(klass.invalid_options_in(test_keys))
+            .to eq([:invalid])
+        end
+
+        it 'adds new key to accepted' do
+          expect(klass.invalid_options_in([:retries]))
+            .to be_empty
+        end
+      end
+    end
+  end
+
+  describe '.allow' do
+    let(:klass)     { Class.new(described_class) }
+    let(:test_keys) { %i[timeout retries invalid] }
+
+    it 'adds options to allowed' do
+      expect { klass.allow(:timeout) }
+        .to change { klass.invalid_options_in(test_keys) }
+        .from(%i[timeout retries invalid])
+        .to(%i[retries invalid])
+    end
+
+    context 'when calling on subclass' do
+      let(:super_class) { Class.new(described_class) }
+      let(:klass)       { Class.new(super_class) }
+
+      before { super_class.allow(:timeout) }
+
+      it 'adds options to allowed' do
+        expect { klass.allow(:retries) }
+          .to change { klass.invalid_options_in(test_keys) }
+          .from(%i[retries invalid])
+          .to(%i[invalid])
       end
     end
   end
