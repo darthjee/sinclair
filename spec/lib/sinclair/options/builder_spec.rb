@@ -11,6 +11,10 @@ describe Sinclair::Options::Builder do
     let(:klass)   { Class.new(Sinclair::Options) }
     let(:options) { klass.new }
 
+    let(:test_keys) do
+      %i[timeout retries invalid]
+    end
+
     context 'when calling with keys' do
       let(:args) { [:timeout, 'retries'] }
 
@@ -26,16 +30,14 @@ describe Sinclair::Options::Builder do
 
       it do
         expect { builder.build }
-          .to change {
-          klass.invalid_options_in(%i[timeout retries invalid])
-        }
-          .from(%i[timeout retries invalid])
+          .to change { klass.invalid_options_in(test_keys) }
+          .from(test_keys)
           .to([:invalid])
       end
 
       it do
         expect { builder.build }
-          .not_to change(Sinclair::Options, :allowed_options)
+          .not_to change { Sinclair::Options.invalid_options_in(test_keys) }
       end
 
       context 'when when calling method after building' do
@@ -69,6 +71,10 @@ describe Sinclair::Options::Builder do
         [:protocol, { 'port' => 443 }]
       end
 
+      let(:test_keys) do
+        %i[timeout retries protocol port invalid]
+      end
+
       let(:super_builder) do
         described_class.new(super_class, :timeout, 'retries')
       end
@@ -87,22 +93,14 @@ describe Sinclair::Options::Builder do
 
       it do
         expect { builder.build }
-          .to change {
-          klass.invalid_options_in(%i[
-            timeout retries protocol port invalid
-          ])
-        }
+          .to change { klass.invalid_options_in(test_keys) }
           .from(%i[protocol port invalid])
           .to(%i[invalid])
       end
 
       it do
         expect { builder.build }
-          .not_to change {
-          super_class.invalid_options_in(%i[
-            timeout retries protocol port invalid
-          ])
-        }
+          .not_to change { super_class.invalid_options_in(test_keys) }
       end
     end
   end

@@ -7,6 +7,9 @@ describe Sinclair::Options do
 
   describe '.with_options' do
     let(:klass) { Class.new(described_class) }
+    let(:test_keys) do
+      %i[timeout retries invalid]
+    end
 
     context 'when calling with keys' do
       it 'add first method' do
@@ -21,9 +24,7 @@ describe Sinclair::Options do
 
       it 'adds options to allowed' do
         expect { klass.send(:with_options, :timeout, 'retries') }
-          .to change {
-          klass.invalid_options_in(%i[timeout retries invalid])
-        }
+          .to change { klass.invalid_options_in(test_keys) }
           .from(%i[timeout retries invalid])
           .to([:invalid])
       end
@@ -31,8 +32,8 @@ describe Sinclair::Options do
       it do
         expect { klass.send(:with_options, :timeout, 'retries') }
           .not_to change {
-          described_class.invalid_options_in(%i[timeout retries invalid])
-        }
+                    described_class.invalid_options_in(%i[timeout retries invalid])
+                  }
       end
 
       context 'when when calling method after building' do
@@ -47,8 +48,8 @@ describe Sinclair::Options do
         it do
           expect { klass.send(:with_options, :timeout, :retries) }
             .not_to change {
-            klass.invalid_options_in(%i[timeout retries invalid])
-          }
+                      klass.invalid_options_in(%i[timeout retries invalid])
+                    }
         end
       end
     end
@@ -72,6 +73,10 @@ describe Sinclair::Options do
       let(:super_class) { Class.new(described_class) }
       let(:klass)       { Class.new(super_class) }
 
+      let(:test_keys) do
+        %i[timeout retries name protocol port invalid]
+      end
+
       before { super_class.send(:with_options, :timeout, 'retries', name: 'My Connector') }
 
       it 'add first method' do
@@ -87,26 +92,22 @@ describe Sinclair::Options do
       it do
         expect { klass.send(:with_options, 'protocol', port: 443) }
           .to change {
-          klass.invalid_options_in(%i[
-            timeout retries name protocol port invalid
-          ])
-        }.from(%i[protocol port invalid])
+                klass.invalid_options_in(test_keys)
+              }.from(%i[protocol port invalid])
           .to([:invalid])
       end
 
       it do
         expect { klass.send(:with_options, 'protocol', port: 443) }
           .not_to change {
-          super_class.invalid_options_in(%i[protocol port])
-        }
+                    super_class.invalid_options_in(%i[protocol port])
+                  }
       end
 
       context 'when overriding a method' do
         it do
           expect { klass.send(:with_options, :name, timeout: 10) }
-            .not_to change {
-            klass.invalid_options_in(%i[name timeout])
-          }
+            .not_to change { klass.invalid_options_in(%i[name timeout]) }
         end
 
         it 'change methods to return new default' do
