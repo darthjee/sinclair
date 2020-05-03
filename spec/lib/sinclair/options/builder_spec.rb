@@ -26,9 +26,11 @@ describe Sinclair::Options::Builder do
 
       it do
         expect { builder.build }
-          .to change(klass, :allowed_options)
-          .from([])
-          .to(%i[timeout retries])
+          .to change {
+          klass.invalid_options_in(%i[timeout retries invalid])
+        }
+          .from(%i[timeout retries invalid])
+          .to([:invalid])
       end
 
       it do
@@ -85,14 +87,22 @@ describe Sinclair::Options::Builder do
 
       it do
         expect { builder.build }
-          .to change(klass, :allowed_options)
-          .from(%i[timeout retries])
-          .to(%i[timeout retries protocol port])
+          .to change {
+          klass.invalid_options_in(%i[
+            timeout retries protocol port invalid
+          ])
+        }
+          .from(%i[protocol port invalid])
+          .to(%i[invalid])
       end
 
       it do
         expect { builder.build }
-          .not_to change(super_class, :allowed_options)
+          .not_to change {
+          super_class.invalid_options_in(%i[
+            timeout retries protocol port invalid
+          ])
+        }
       end
     end
   end

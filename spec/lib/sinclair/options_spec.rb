@@ -19,16 +19,20 @@ describe Sinclair::Options do
           .to add_method(:retries).to(klass)
       end
 
-      it do
+      it 'adds options to allowed' do
         expect { klass.send(:with_options, :timeout, 'retries') }
-          .to change(klass, :allowed_options)
-          .from([])
-          .to(%i[timeout retries])
+          .to change {
+          klass.invalid_options_in(%i[timeout retries invalid])
+        }
+          .from(%i[timeout retries invalid])
+          .to([:invalid])
       end
 
       it do
         expect { klass.send(:with_options, :timeout, 'retries') }
-          .not_to change(described_class, :allowed_options)
+          .not_to change {
+          described_class.invalid_options_in(%i[timeout retries invalid])
+        }
       end
 
       context 'when when calling method after building' do
@@ -42,7 +46,9 @@ describe Sinclair::Options do
 
         it do
           expect { klass.send(:with_options, :timeout, :retries) }
-            .not_to change(klass, :allowed_options)
+            .not_to change {
+            klass.invalid_options_in(%i[timeout retries invalid])
+          }
         end
       end
     end
@@ -80,20 +86,27 @@ describe Sinclair::Options do
 
       it do
         expect { klass.send(:with_options, 'protocol', port: 443) }
-          .to change(klass, :allowed_options)
-          .from(%i[timeout retries name])
-          .to(%i[timeout retries name protocol port])
+          .to change {
+          klass.invalid_options_in(%i[
+            timeout retries name protocol port invalid
+          ])
+        }.from(%i[protocol port invalid])
+          .to([:invalid])
       end
 
       it do
         expect { klass.send(:with_options, 'protocol', port: 443) }
-          .not_to change(super_class, :allowed_options)
+          .not_to change {
+          super_class.invalid_options_in(%i[protocol port])
+        }
       end
 
       context 'when overriding a method' do
         it do
           expect { klass.send(:with_options, :name, timeout: 10) }
-            .not_to change(klass, :allowed_options)
+            .not_to change {
+            klass.invalid_options_in(%i[name timeout])
+          }
         end
 
         it 'change methods to return new default' do
