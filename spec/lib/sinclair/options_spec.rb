@@ -309,4 +309,28 @@ describe Sinclair::Options do
       it { expect(options.protocol).to eq(false) }
     end
   end
+
+  describe '#==' do
+    let(:klass) { ConnectionOptions }
+
+    context 'with black initialization' do
+      it do
+        expect(klass.new).to eq(klass.new)
+      end
+    end
+
+    context 'when initializing with same values' do
+      let(:first_option) { klass.new(protocol: nil) }
+      let(:second_option) { klass.new(protocol: nil) }
+
+      it { expect(first_option).to eq(second_option) }
+    end
+
+    context 'when initializing with different values' do
+      let(:first_option) { klass.new(protocol: nil) }
+      let(:second_option) { klass.new }
+
+      it { expect(first_option).not_to eq(second_option) }
+    end
+  end
 end

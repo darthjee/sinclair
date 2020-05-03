@@ -89,6 +89,14 @@ class Sinclair
       end
     end
 
+    def ==(other)
+      return unless self.class == other.class
+
+      self.class.allowed_options.all? do |name|
+        self.public_send(name) == other.public_send(name)
+      end
+    end
+
     private
 
     # @private
