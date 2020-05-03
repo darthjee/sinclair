@@ -19,6 +19,7 @@ rules:
       - Sinclair::Configurable#config
       - Sinclair::Configurable#reset_config
       - Sinclair::Configurable#configure
+      - Sinclair::Options#==
       - Sinclair::OptionsParser#options
       - Sinclair::OptionsParser#options_object
   ReturnTag:
