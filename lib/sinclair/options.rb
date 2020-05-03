@@ -24,17 +24,15 @@ class Sinclair
 
     class << self
       # @api private
-      # @private
       #
       # Options allowed when initializing options
       #
-      # @return [Array<Symbol>]
+      # @return [Set<Symbol>]
       def allowed_options
         @allowed_options ||= (superclass.try(:allowed_options).dup || Set.new)
       end
 
       # @api private
-      # @private
       #
       # returns invalid options
       #
@@ -43,6 +41,13 @@ class Sinclair
         names.map(&:to_sym) - allowed_options.to_a
       end
 
+      # @api private
+      #
+      # Allow new option
+      #
+      # This does not create the method
+      #
+      # @return [Set<Symbol>]
       def allow_option(name)
         allowed_options << name.to_sym
       end
