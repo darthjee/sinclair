@@ -36,6 +36,15 @@ describe Sinclair::Options do
 
         it { expect(options.timeout).to be_nil }
       end
+
+      context 'when calling method twice' do
+        before { klass.send(:with_options, :timeout, retries: 10) }
+
+        it do
+          expect { klass.send(:with_options, :timeout, :retries) }
+            .not_to change(klass, :allowed_options)
+        end
+      end
     end
 
     context 'when calling with a hash' do
@@ -57,7 +66,7 @@ describe Sinclair::Options do
       let(:super_class) { Class.new(described_class) }
       let(:klass)       { Class.new(super_class) }
 
-      before { super_class.send(:with_options, :timeout, 'retries') }
+      before { super_class.send(:with_options, :timeout, 'retries', name: 'My Connector') }
 
       it 'add first method' do
         expect { klass.send(:with_options, :protocol, 'port' => 443) }
@@ -72,13 +81,32 @@ describe Sinclair::Options do
       it do
         expect { klass.send(:with_options, 'protocol', port: 443) }
           .to change(klass, :allowed_options)
-          .from(%i[timeout retries])
-          .to(%i[timeout retries protocol port])
+          .from(%i[timeout retries name])
+          .to(%i[timeout retries name protocol port])
       end
 
       it do
         expect { klass.send(:with_options, 'protocol', port: 443) }
           .not_to change(super_class, :allowed_options)
+      end
+
+      context 'when overriding a method' do
+        it do
+          expect { klass.send(:with_options, :name, timeout: 10) }
+            .not_to change(klass, :allowed_options)
+        end
+
+        it 'change methods to return new default' do
+          expect { klass.send(:with_options, :name, timeout: 10) }
+            .to change { klass.new.timeout }
+            .from(nil).to(10)
+        end
+
+        it 'change methods to return without default' do
+          expect { klass.send(:with_options, :name, timeout: 10) }
+            .to change { klass.new.name }
+            .from('My Connector').to(nil)
+        end
       end
     end
   end
