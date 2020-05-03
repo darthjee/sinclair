@@ -89,8 +89,13 @@ class Sinclair
       end
     end
 
+    # returns if other equals to self
+    #
+    # @param other [Object] object to be compared
+    #
+    # @return [TrueClass,FalseClass]
     def ==(other)
-      return unless self.class == other.class
+      return false unless self.class == other.class
 
       self.class.allowed_options.all? do |name|
         public_send(name) == other.public_send(name)
