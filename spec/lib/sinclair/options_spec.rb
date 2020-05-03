@@ -144,7 +144,7 @@ describe Sinclair::Options do
     context 'when calling on subclass' do
       let(:super_class) { Class.new(described_class) }
       let(:klass)       { Class.new(super_class) }
-      let(:test_keys) { %i[timeout invalid] }
+      let(:test_keys)   { %i[timeout invalid] }
 
       before { super_class.allow(:timeout) }
 
