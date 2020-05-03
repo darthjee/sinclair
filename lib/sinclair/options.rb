@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'set'
+
 class Sinclair
   # @api public
   # @author Darthjee
@@ -28,7 +30,7 @@ class Sinclair
       #
       # @return [Array<Symbol>]
       def allowed_options
-        @allowed_options ||= (superclass.try(:allowed_options).dup || [])
+        @allowed_options ||= (superclass.try(:allowed_options).dup || Set.new)
       end
 
       # @api private
@@ -38,7 +40,7 @@ class Sinclair
       #
       # @return [Array<Symbol>]
       def invalid_options_in(names)
-        names.map(&:to_sym) - allowed_options
+        names.map(&:to_sym) - allowed_options.to_a
       end
 
       private
