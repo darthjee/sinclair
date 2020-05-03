@@ -48,7 +48,7 @@ class Sinclair
       # This does not create the method
       #
       # @return [Set<Symbol>]
-      def allow_option(name)
+      def allow(name)
         allowed_options << name.to_sym
       end
 

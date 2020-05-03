@@ -57,7 +57,7 @@ class Sinclair
       def add_all_methods
         attributes.each do |option, value|
           add_method(option, cached: :full) { value }
-          klass.allow_option(option)
+          klass.allow(option)
         end
       end
     end
