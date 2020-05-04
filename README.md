@@ -409,7 +409,7 @@ Configurations can also be done through custom classes
   Client.config.url # returns 'http://interstella.com:8080'
 ```
 
-### Sinclair::Settable
+### Sinclair::EnvSettable
 
 Settable allows classes to extract configuration from environments through
 a simple meta-programable way
