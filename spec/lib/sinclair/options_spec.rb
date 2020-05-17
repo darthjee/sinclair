@@ -355,6 +355,26 @@ describe Sinclair::Options do
     end
   end
 
+  describe '#to_h' do
+    let(:klass) { Class.new(described_class) }
+
+    context 'without defined options' do
+      it { expect(options.to_h).to be_a(Hash) }
+
+      it { expect(options.to_h).to be_empty }
+    end
+
+    context 'with defined options' do
+      before do
+        klass.send(:with_options, :timeout, retris: 10, protocol: 'https')
+      end
+
+      it { expect(options.to_h).to be_a(Hash) }
+
+      it { expect(options.to_h).not_to be_empty }
+    end
+  end
+
   describe '#==' do
     let(:klass) { ConnectionOptions }
 

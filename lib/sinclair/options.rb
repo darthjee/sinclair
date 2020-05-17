@@ -89,6 +89,12 @@ class Sinclair
       end
     end
 
+    def to_h
+      self.class.allowed_options.inject({}) do |hash, option|
+        hash.merge(option => public_send(option))
+      end
+    end
+
     # returns if other equals to self
     #
     # @param other [Object] object to be compared
