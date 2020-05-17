@@ -403,7 +403,7 @@ describe Sinclair::Options do
     end
 
     context 'when initializing with same values' do
-      let(:first_option) { klass.new(protocol: nil) }
+      let(:first_option)  { klass.new(protocol: nil) }
       let(:second_option) { klass.new(protocol: nil) }
 
       it { expect(first_option).to eq(second_option) }
