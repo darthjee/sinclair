@@ -355,6 +355,44 @@ describe Sinclair::Options do
     end
   end
 
+  describe '#to_h' do
+    let(:klass) { Class.new(described_class) }
+
+    context 'without defined options' do
+      it { expect(options.to_h).to be_a(Hash) }
+
+      it { expect(options.to_h).to be_empty }
+    end
+
+    context 'with defined options' do
+      before do
+        klass.send(:with_options, :timeout, retries: 10, 'protocol' => 'https')
+      end
+
+      it { expect(options.to_h).to be_a(Hash) }
+
+      it { expect(options.to_h).not_to be_empty }
+
+      it do
+        expect(options.to_h)
+          .to eq(timeout: nil, retries: 10, protocol: 'https')
+      end
+
+      context 'when initialized with values' do
+        subject(:options) { klass.new(retries: 20, timeout: 5) }
+
+        it { expect(options.to_h).to be_a(Hash) }
+
+        it { expect(options.to_h).not_to be_empty }
+
+        it 'uses values from initialization' do
+          expect(options.to_h)
+            .to eq(timeout: 5, retries: 20, protocol: 'https')
+        end
+      end
+    end
+  end
+
   describe '#==' do
     let(:klass) { ConnectionOptions }
 
@@ -365,7 +403,7 @@ describe Sinclair::Options do
     end
 
     context 'when initializing with same values' do
-      let(:first_option) { klass.new(protocol: nil) }
+      let(:first_option)  { klass.new(protocol: nil) }
       let(:second_option) { klass.new(protocol: nil) }
 
       it { expect(first_option).to eq(second_option) }

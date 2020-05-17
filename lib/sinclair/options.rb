@@ -89,6 +89,30 @@ class Sinclair
       end
     end
 
+    # Returns a hash with the current options
+    #
+    # @return [Hash]
+    #
+    # @example
+    #   class ConnectionOptions < Sinclair::Options
+    #     with_options :timeout, :retries, port: 443, protocol: 'https'
+    #   end
+    #
+    #   options = ConnectionOptions.new(retries: 10, port: 8080)
+    #
+    #   options.to_h # returns
+    #                # {
+    #                #   port: 8080,
+    #                #   retries: 10,
+    #                #   timeout: nil,
+    #                #   protocol: 'https'
+    #                # }
+    def to_h
+      self.class.allowed_options.inject({}) do |hash, option|
+        hash.merge(option => public_send(option))
+      end
+    end
+
     # returns if other equals to self
     #
     # @param other [Object] object to be compared
