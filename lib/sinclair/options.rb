@@ -56,7 +56,7 @@ class Sinclair
       end
 
       def skip_validation?
-        @skip_validation ||= false
+        @skip_validation ||= superclass.try(:skip_validation?) || false
       end
 
       private

@@ -345,6 +345,20 @@ describe Sinclair::Options do
         expect(klass.new(valid_option: 20, invalid: 10).valid_option)
           .to eq(20)
       end
+
+      context 'when initializing a subclass' do
+        let(:klass) { Class.new(OpenOptions) }
+
+        it do
+          expect { klass.new(valid_option: 20, invalid: 10) }
+            .not_to raise_error
+        end
+
+        it 'initialize option' do
+          expect(klass.new(valid_option: 20, invalid: 10).valid_option)
+            .to eq(20)
+        end
+      end
     end
 
     context 'when initializing with string or symbol keys' do
