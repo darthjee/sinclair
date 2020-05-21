@@ -55,6 +55,11 @@ class Sinclair
         @allowed_options ||= superclass.try(:allowed_options).dup || Set.new
       end
 
+      # @api private
+      #
+      # checks if class skips initialization validation
+      #
+      # @return [TrueClass,FalseClass]
       def skip_validation?
         @skip_validation ||= superclass.try(:skip_validation?) || false
       end
@@ -82,6 +87,27 @@ class Sinclair
         Builder.new(self, *options).build
       end
 
+      # @api public
+      # @!visibility public
+      #
+      # Changes class to skip attributes validation
+      #
+      # when initializing options, options
+      # will accept any arguments when validation
+      # is skipped
+      #
+      # @return [TrueClass]
+      #
+      # @example
+      #   class BuilderOptions < Sinclair::Options
+      #     with_options :name
+      #
+      #     skip_validation
+      #   end
+      #   options = BuilderOptions.new(name: 'Joe', age: 10)
+      #
+      #   options.name      # returns 'Joe'
+      #   options.try(:age) # returns nil
       def skip_validation
         @skip_validation = true
       end
