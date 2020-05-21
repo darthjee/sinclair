@@ -246,9 +246,10 @@ describe Sinclair::Options do
     let(:klass) { Class.new(described_class) }
 
     it 'skip initialization validation' do
-      expect { klass.send(:skip_validation) }
-        .to change { klass.new(invalid: 10) rescue nil }
-        .from(nil).to(an_instance_of(klass))
+      klass.send(:skip_validation)
+
+      expect { klass.new(invalid: 10) }
+        .not_to raise_error
     end
   end
 
