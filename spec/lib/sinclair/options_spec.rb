@@ -242,6 +242,16 @@ describe Sinclair::Options do
     end
   end
 
+  describe '.skip_validation' do
+    let(:klass) { Class.new(described_class) }
+
+    it 'skip initialization validation' do
+      expect { klass.send(:skip_validation) }
+        .to change { klass.new(invalid: 10) rescue nil }
+        .from(nil).to(an_instance_of(klass))
+    end
+  end
+
   describe '#initialize' do
     let(:klass) { ConnectionOptions }
 
@@ -320,6 +330,20 @@ describe Sinclair::Options do
       it do
         expect { klass.new(invalid: 10) }
           .to raise_error(Sinclair::Exception::InvalidOptions)
+      end
+    end
+
+    context 'when initializing with invalid args a class that skips validation' do
+      let(:klass) { OpenOptions }
+
+      it do
+        expect { klass.new(valid_option: 20, invalid: 10) }
+          .not_to raise_error
+      end
+
+      it 'initialize option' do
+        expect(klass.new(valid_option: 20, invalid: 10).valid_option)
+          .to eq(20)
       end
     end
 

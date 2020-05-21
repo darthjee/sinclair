@@ -55,6 +55,10 @@ class Sinclair
         @allowed_options ||= superclass.try(:allowed_options).dup || Set.new
       end
 
+      def skip_validation?
+        @skip_validation ||= false
+      end
+
       private
 
       # @api public
@@ -76,6 +80,10 @@ class Sinclair
       #     hash
       def with_options(*options)
         Builder.new(self, *options).build
+      end
+
+      def skip_validation
+        @skip_validation = true
       end
     end
 
@@ -137,6 +145,8 @@ class Sinclair
     #
     # @return [NilClass]
     def check_options(options)
+      return if self.class.skip_validation?
+
       invalid_keys = self.class.invalid_options_in(options.keys)
 
       return if invalid_keys.empty?
