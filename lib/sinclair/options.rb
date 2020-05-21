@@ -142,7 +142,7 @@ class Sinclair
     #                #   protocol: 'https'
     #                # }
     def to_h
-      self.class.allowed_options.inject({}) do |hash, option|
+      allowed_options.inject({}) do |hash, option|
         hash.merge(option => public_send(option))
       end
     end
@@ -155,12 +155,14 @@ class Sinclair
     def ==(other)
       return false unless self.class == other.class
 
-      self.class.allowed_options.all? do |name|
+      allowed_options.all? do |name|
         public_send(name) == other.public_send(name)
       end
     end
 
     private
+
+    delegate :allowed_options, :skip_validation?, :invalid_options_in, to: :class
 
     # @private
     # @api private
@@ -171,9 +173,9 @@ class Sinclair
     #
     # @return [NilClass]
     def check_options(options)
-      return if self.class.skip_validation?
+      return if skip_validation?
 
-      invalid_keys = self.class.invalid_options_in(options.keys)
+      invalid_keys = invalid_options_in(options.keys)
 
       return if invalid_keys.empty?
 
