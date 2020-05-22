@@ -15,7 +15,7 @@ methods
 
 Yard Documentation
 -------------------
-[https://www.rubydoc.info/gems/sinclair/1.6.5](https://www.rubydoc.info/gems/sinclair/1.6.5)
+[https://www.rubydoc.info/gems/sinclair/1.6.6](https://www.rubydoc.info/gems/sinclair/1.6.6)
 
 Installation
 ---------------
@@ -452,6 +452,8 @@ Options allows projects to have an easy to configure option object
 ```ruby
   class ConnectionOptions < Sinclair::Options
     with_options :timeout, :retries, port: 443, protocol: 'https'
+
+    # skip_validation if you dont want to validate intialization arguments
   end
 
  options = ConnectionOptions.new(

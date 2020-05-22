@@ -20,64 +20,10 @@ class Sinclair
   #   options.port     # returns 8080
   #   options.protocol # returns 'https'
   class Options
-    autoload :Builder, 'sinclair/options/builder'
+    autoload :Builder,      'sinclair/options/builder'
+    autoload :ClassMethods, 'sinclair/options/class_methods'
 
-    class << self
-      # @api private
-      #
-      # returns invalid options
-      #
-      # @return [Array<Symbol>]
-      def invalid_options_in(names)
-        names.map(&:to_sym) - allowed_options.to_a
-      end
-
-      # @api private
-      #
-      # Allow new option
-      #
-      # This does not create the method
-      #
-      # @param name [String,Symbol] options to be allowed
-      #
-      # @return [Set<Symbol>]
-      def allow(name)
-        allowed_options << name.to_sym
-      end
-
-      # @api private
-      # @private
-      #
-      # Options allowed when initializing options
-      #
-      # @return [Set<Symbol>]
-      def allowed_options
-        @allowed_options ||= superclass.try(:allowed_options).dup || Set.new
-      end
-
-      private
-
-      # @api public
-      # @!visibility public
-      #
-      # Add available options
-      #
-      # @example (see Options)
-      #
-      # @return (see Sinclair#build)
-      #
-      # @overload with_options(*options)
-      #   @param options [Array<Symbol>] list of accepted
-      #     options
-      # @overload with_options(*options, **defaults)
-      #   @param options [Array<Symbol>] list of accepted
-      #     options
-      #   @param defaults [Hash<Symbol,Object>] default options
-      #     hash
-      def with_options(*options)
-        Builder.new(self, *options).build
-      end
-    end
+    extend ClassMethods
 
     # @param options [Hash] hash with options (see {.options}, {.with_options})
     # @example (see Options)
@@ -108,7 +54,7 @@ class Sinclair
     #                #   protocol: 'https'
     #                # }
     def to_h
-      self.class.allowed_options.inject({}) do |hash, option|
+      allowed_options.inject({}) do |hash, option|
         hash.merge(option => public_send(option))
       end
     end
@@ -121,12 +67,14 @@ class Sinclair
     def ==(other)
       return false unless self.class == other.class
 
-      self.class.allowed_options.all? do |name|
+      allowed_options.all? do |name|
         public_send(name) == other.public_send(name)
       end
     end
 
     private
+
+    delegate :allowed_options, :skip_validation?, :invalid_options_in, to: :class
 
     # @private
     # @api private
@@ -137,7 +85,9 @@ class Sinclair
     #
     # @return [NilClass]
     def check_options(options)
-      invalid_keys = self.class.invalid_options_in(options.keys)
+      return if skip_validation?
+
+      invalid_keys = invalid_options_in(options.keys)
 
       return if invalid_keys.empty?
 

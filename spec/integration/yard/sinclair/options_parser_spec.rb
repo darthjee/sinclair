@@ -13,5 +13,14 @@ describe Sinclair::OptionsParser do
         expect(model.the_method).to eq('The value is not 10 but 20')
       end
     end
+
+    describe '.skip_validation' do
+      it 'accepts options' do
+        options = BuilderOptions.new(name: 'Joe', age: 10)
+
+        expect(options.name).to eq('Joe')
+        expect(options.try(:age)).to be_nil
+      end
+    end
   end
 end
