@@ -31,7 +31,7 @@ class Sinclair
     #
     #   # outputs
     #   # should add method class_method 'new_method' to #<Class:0x000055b4d0a25c80>
-    class AddClassMethod < AddMethod
+    class AddClassMethod < Base
       # @abstract
       #
       # Raise a warning on the usage as this is only a builder for AddClassMethodTo

@@ -55,7 +55,7 @@ class Sinclair
     #
     #   # Outputs
     #   # 'should add method 'the_method' to #<Class:0x000056441bf46608> instances'
-    class AddInstanceMethod < AddMethod
+    class AddInstanceMethod < Base
       # @abstract
       #
       # Raise a warning on the usage as this is only a builder for {AddInstanceMethodTo}
