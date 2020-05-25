@@ -35,6 +35,8 @@ class Sinclair
     autoload :AddInstanceMethodTo, 'sinclair/matchers/add_instance_method_to'
     autoload :AddClassMethodTo,    'sinclair/matchers/add_class_method_to'
 
+    autoload :ChangeInstanceMethodOn, 'sinclair/matchers/change_instance_method_on'
+
     # DSL to AddInstanceMethod
     #
     # @example (see Sinclair::Matchers)
