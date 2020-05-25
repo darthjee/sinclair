@@ -2,7 +2,7 @@
 
 class Sinclair
   module Matchers
-    class ChangeInstanceMethodOn < RSpec::Matchers::BuiltIn::BaseMatcher
+    class ChangeInstanceMethodOn < Base
       def initialize(target, method_name)
         if target.is_a?(Class)
           @klass = target
@@ -10,7 +10,7 @@ class Sinclair
           @instance = target
         end
 
-        @method_name = method_name
+        super(method_name)
       end
 
       def matches?(event_proc)
@@ -19,17 +19,6 @@ class Sinclair
         raise_block_syntax_error if block_given?
         perform_change(event_proc)
         changed?
-      end
-
-      def supports_block_expectations?
-        true
-      end
-
-      def equal?(other)
-        return unless other.class == self.class
-
-        other.method_name == method_name &&
-          other.klass == klass
       end
 
       def description
@@ -47,11 +36,10 @@ class Sinclair
 
       alias failure_message failure_message_for_should
       alias failure_message_when_negated failure_message_for_should_not
-      alias == equal?
 
       protected
 
-      attr_reader :instance, :method_name
+      attr_reader :instance
 
       def changed?
         @initial_state && @initial_state != @final_state

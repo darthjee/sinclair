@@ -7,12 +7,7 @@ class Sinclair
     # @abstract
     #
     # Base class for add_method_to matcher
-    class AddMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
-      # @param method_name [SYmbol,String] method name
-      def initialize(method_name)
-        @method_name = method_name
-      end
-
+    class AddMethodTo < Base
       # Checks if expectation is true or not
       #
       # @return [Boolean] expectation check
@@ -23,33 +18,6 @@ class Sinclair
         perform_change(event_proc)
         added?
       end
-
-      # definition needed for block matchers
-      def supports_block_expectations?
-        true
-      end
-
-      # Checkes if another instnce is equal self
-      #
-      # @return [Boolean]
-      def equal?(other)
-        return unless other.class == self.class
-
-        other.method_name == method_name &&
-          other.klass == klass
-      end
-
-      alias == equal?
-
-      protected
-
-      # @method method_name
-      # @private
-      #
-      # The method, to be checked, name
-      #
-      # @return [Symbol]
-      attr_reader :method_name
 
       private
 
