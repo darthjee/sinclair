@@ -45,12 +45,10 @@ describe Sinclair::Matchers::ChangeInstanceMethodOn do
     context 'when initializing with class' do
       subject(:matcher) { described_class.new(klass, method) }
 
-      context 'when class has the method' do
-        before { klass.send(:define_method, method) {} }
+      before { klass.send(:define_method, method) {} }
 
-        context 'when a method is added' do
-          it { expect(matcher).to be_matches(event_proc) }
-        end
+      context 'when a method is added' do
+        it { expect(matcher).to be_matches(event_proc) }
       end
     end
 
