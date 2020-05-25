@@ -13,22 +13,32 @@ describe Sinclair::Matchers::AddClassMethodTo do
       proc { klass.send(:define_singleton_method, method) {} }
     end
 
-    context 'when a method is added' do
-      it { expect(matcher).to be_matches(event_proc) }
-    end
-
-    context 'when a method is not added' do
-      let(:event_proc) { proc {} }
-
-      it { expect(matcher).not_to be_matches(event_proc) }
-    end
-
-    context 'when the wrong method is added' do
-      let(:event_proc) do
-        proc { klass.send(:define_singleton_method, :another_method) {} }
+    context 'when class does not have the method yet' do
+      context 'when a method is added' do
+        it { expect(matcher).to be_matches(event_proc) }
       end
 
-      it { expect(matcher).not_to be_matches(event_proc) }
+      context 'when a method is not added' do
+        let(:event_proc) { proc {} }
+
+        it { expect(matcher).not_to be_matches(event_proc) }
+      end
+
+      context 'when the wrong method is added' do
+        let(:event_proc) do
+          proc { klass.send(:define_singleton_method, :another_method) {} }
+        end
+
+        it { expect(matcher).not_to be_matches(event_proc) }
+      end
+    end
+
+    context 'when class already has the method' do
+      before { klass.send(:define_singleton_method, method) {} }
+
+      context 'when a method is changed' do
+        it { expect(matcher).not_to be_matches(event_proc) }
+      end
     end
 
     context 'when a block is given' do
@@ -36,7 +46,7 @@ describe Sinclair::Matchers::AddClassMethodTo do
         expect { matcher.matches?(event_proc) { 1 } }
           .to raise_error(
             SyntaxError, 'Block not received by the `add_class_method_to` matcher. ' \
-          'Perhaps you want to use `{ ... }` instead of do/end?'
+            'Perhaps you want to use `{ ... }` instead of do/end?'
           )
       end
     end

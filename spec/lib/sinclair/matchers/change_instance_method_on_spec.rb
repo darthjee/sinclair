@@ -36,6 +36,12 @@ describe Sinclair::Matchers::ChangeInstanceMethodOn do
       end
     end
 
+    context 'when class does not have the method' do
+      context 'when a method is added' do
+        it { expect(matcher).not_to be_matches(event_proc) }
+      end
+    end
+
     context 'when initializing with class' do
       subject(:matcher) { described_class.new(klass, method) }
 
@@ -54,7 +60,7 @@ describe Sinclair::Matchers::ChangeInstanceMethodOn do
           .to raise_error(
             SyntaxError, 'Block not received by the `change_instance_method_on` matcher. ' \
             'Perhaps you want to use `{ ... }` instead of do/end?'
-        )
+          )
       end
     end
   end
@@ -135,4 +141,3 @@ describe Sinclair::Matchers::ChangeInstanceMethodOn do
     end
   end
 end
-

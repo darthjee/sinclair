@@ -71,7 +71,7 @@ class Sinclair
 
       def method_defined?
         klass.method_defined?(method_name) &&
-        klass.instance_method(method_name)
+          klass.instance_method(method_name)
       end
 
       def raise_block_syntax_error
@@ -81,4 +81,3 @@ class Sinclair
     end
   end
 end
-
