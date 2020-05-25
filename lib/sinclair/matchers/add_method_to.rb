@@ -8,9 +8,9 @@ class Sinclair
     #
     # Base class for add_method_to matcher
     class AddMethodTo < RSpec::Matchers::BuiltIn::BaseMatcher
-      # @param method [SYmbol,String] method name
-      def initialize(method)
-        @method = method
+      # @param method_name [SYmbol,String] method name
+      def initialize(method_name)
+        @method_name = method_name
       end
 
       # Checks if expectation is true or not
@@ -35,7 +35,7 @@ class Sinclair
       def equal?(other)
         return unless other.class == self.class
 
-        other.method == method &&
+        other.method_name == method_name &&
           other.klass == klass
       end
 
@@ -43,13 +43,13 @@ class Sinclair
 
       protected
 
-      # @method method
+      # @method method_name
       # @private
       #
       # The method, to be checked, name
       #
       # @return [Symbol]
-      attr_reader :method
+      attr_reader :method_name
 
       private
 

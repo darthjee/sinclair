@@ -32,36 +32,36 @@ class Sinclair
     class AddInstanceMethodTo < AddMethodTo
       # Returns a new instance of AddInstanceMethodTo
       #
-      # @overload initialize(klass, method)
+      # @overload initialize(klass, method_name)
       #   @param [Class] klass
       #     class where the method should be added to
       #
-      # @overload initialize(instance, method)
+      # @overload initialize(instance, method_name)
       #   @param [Object] instance
       #     instance of the class where the method should be added to
       #
-      # @param method [Symbol,String] method name
-      def initialize(target, method)
+      # @param method_name [Symbol,String] method name
+      def initialize(target, method_name)
         if target.is_a?(Class)
           @klass = target
         else
           @instance = target
         end
-        super(method)
+        super(method_name)
       end
 
       # Returnst expectaton description
       #
       # @return [String]
       def description
-        "add method '#{method}' to #{klass} instances"
+        "add method '#{method_name}' to #{klass} instances"
       end
 
       # Returns message on expectation failure
       #
       # @return [String]
       def failure_message_for_should
-        "expected '#{method}' to be added to #{klass} but " \
+        "expected '#{method_name}' to be added to #{klass} but " \
           "#{@initial_state ? 'it already existed' : "it didn't"}"
       end
 
@@ -69,7 +69,7 @@ class Sinclair
       #
       # @return [String]
       def failure_message_for_should_not
-        "expected '#{method}' not to be added to #{klass} but it was"
+        "expected '#{method_name}' not to be added to #{klass} but it was"
       end
 
       alias failure_message failure_message_for_should
@@ -102,7 +102,7 @@ class Sinclair
       #
       # @return [Boolean]
       def method_defined?
-        klass.method_defined?(method)
+        klass.method_defined?(method_name)
       end
 
       # @private

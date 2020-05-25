@@ -63,7 +63,7 @@ class Sinclair
       # @raise SyntaxError
       def matches?(_actual)
         raise SyntaxError, 'You should specify which instance the method is being added to' \
-          "add_method(:#{method}).to(instance)"
+          "add_method(:#{method_name}).to(instance)"
       end
 
       # Creates a matcher AddInstanceMethodTo
@@ -78,7 +78,7 @@ class Sinclair
       #
       # @return [AddInstanceMethodTo] the correct matcher
       def to(target = nil)
-        AddInstanceMethodTo.new(target, method)
+        AddInstanceMethodTo.new(target, method_name)
       end
     end
   end

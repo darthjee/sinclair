@@ -36,24 +36,24 @@ class Sinclair
       # @param [Class] klass
       #   Class where the class method should be added to
       #
-      # @param method [SYmbol,String] method name
-      def initialize(klass, method)
+      # @param method_name [SYmbol,String] method name
+      def initialize(klass, method_name)
         @klass = klass
-        super(method)
+        super(method_name)
       end
 
       # Return expectaton description
       #
       # @return [String]
       def description
-        "add method class_method '#{method}' to #{klass}"
+        "add method class_method '#{method_name}' to #{klass}"
       end
 
       # Returns message on expectation failure
       #
       # @return [String]
       def failure_message_for_should
-        "expected class_method '#{method}' to be added to #{klass} but " \
+        "expected class_method '#{method_name}' to be added to #{klass} but " \
           "#{@initial_state ? 'it already existed' : "it didn't"}"
       end
 
@@ -61,7 +61,7 @@ class Sinclair
       #
       # @return [String]
       def failure_message_for_should_not
-        "expected class_method '#{method}' not to be added to #{klass} but it was"
+        "expected class_method '#{method_name}' not to be added to #{klass} but it was"
       end
 
       alias failure_message failure_message_for_should
@@ -84,7 +84,7 @@ class Sinclair
       #
       # @return [Boolean]
       def method_defined?
-        klass.methods(false).include?(method.to_sym)
+        klass.methods(false).include?(method_name.to_sym)
       end
 
       # Raises when block was not given
