@@ -31,6 +31,20 @@ describe Sinclair::Matchers::AddClassMethodTo do
 
         it { expect(matcher).not_to be_matches(event_proc) }
       end
+
+      context 'when method already existed' do
+        before { event_proc.call }
+
+        it { expect(matcher).not_to be_matches(event_proc) }
+      end
+
+      context 'when method is added to instances' do
+        let(:event_proc) do
+          proc { klass.send(:define_method, method) {} }
+        end
+
+        it { expect(matcher).not_to be_matches(event_proc) }
+      end
     end
 
     context 'when class already has the method' do

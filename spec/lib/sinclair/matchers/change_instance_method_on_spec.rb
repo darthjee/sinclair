@@ -34,6 +34,14 @@ describe Sinclair::Matchers::ChangeInstanceMethodOn do
 
         it { expect(matcher).not_to be_matches(event_proc) }
       end
+
+      context 'when method is changed on the class' do
+        let(:event_proc) do
+          proc { klass.send(:define_singleton_method, method) {} }
+        end
+
+        it { expect(matcher).not_to be_matches(event_proc) }
+      end
     end
 
     context 'when class does not have the method' do
