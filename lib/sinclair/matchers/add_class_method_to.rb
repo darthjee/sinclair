@@ -46,14 +46,14 @@ class Sinclair
       #
       # @return [String]
       def description
-        "add method class_method '#{method_name}' to #{klass}"
+        "add class method '#{method_name}' to #{klass}"
       end
 
       # Returns message on expectation failure
       #
       # @return [String]
       def failure_message_for_should
-        "expected class_method '#{method_name}' to be added to #{klass} but " \
+        "expected class method '#{method_name}' to be added to #{klass} but " \
           "#{@initial_state ? 'it already existed' : "it didn't"}"
       end
 
@@ -61,7 +61,7 @@ class Sinclair
       #
       # @return [String]
       def failure_message_for_should_not
-        "expected class_method '#{method_name}' not to be added to #{klass} but it was"
+        "expected class method '#{method_name}' not to be added to #{klass} but it was"
       end
 
       alias failure_message failure_message_for_should

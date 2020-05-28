@@ -69,7 +69,7 @@ describe Sinclair::Matchers::AddClassMethodTo do
   describe '#failure_message_for_should' do
     it 'returns information on the instance class and method' do
       expect(matcher.failure_message_for_should)
-        .to eq("expected class_method '#{method}' to be added to #{klass} but it didn't")
+        .to eq("expected class method '#{method}' to be added to #{klass} but it didn't")
     end
 
     context 'when method already exited' do
@@ -80,7 +80,7 @@ describe Sinclair::Matchers::AddClassMethodTo do
 
       it 'returns information on the instance class and method' do
         expect(matcher.failure_message_for_should)
-          .to eq("expected class_method '#{method}' to be added to #{klass} but it already existed")
+          .to eq("expected class method '#{method}' to be added to #{klass} but it already existed")
       end
     end
   end
@@ -88,14 +88,14 @@ describe Sinclair::Matchers::AddClassMethodTo do
   describe '#failure_message_for_should_not' do
     it 'returns information on the instance class and method' do
       expect(matcher.failure_message_for_should_not)
-        .to eq("expected class_method '#{method}' not to be added to #{klass} but it was")
+        .to eq("expected class method '#{method}' not to be added to #{klass} but it was")
     end
   end
 
   describe 'description' do
     it 'returns information on the instance class and method' do
       expect(matcher.description)
-        .to eq("add method class_method '#{method}' to #{klass}")
+        .to eq("add class method '#{method}' to #{klass}")
     end
   end
 end
