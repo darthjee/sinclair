@@ -35,6 +35,8 @@ class Sinclair
 
       private
 
+      attr_reader :initial_state, :final_state
+
       # @private
       #
       # Call block to check if it aded a method or not

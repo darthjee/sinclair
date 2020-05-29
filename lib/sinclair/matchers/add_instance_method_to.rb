@@ -62,7 +62,7 @@ class Sinclair
       # @return [String]
       def failure_message_for_should
         "expected '#{method_name}' to be added to #{klass} but " \
-          "#{@initial_state ? 'it already existed' : "it didn't"}"
+          "#{initial_state ? 'it already existed' : "it didn't"}"
       end
 
       # Returns message on expectation failure for negative expectation

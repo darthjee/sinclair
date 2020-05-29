@@ -19,7 +19,7 @@ class Sinclair
 
       def failure_message_for_should
         "expected '#{method_name}' to be changed on #{klass} but " \
-          "#{@initial_state ? "it didn't" : "it didn't exist"}"
+          "#{initial_state ? "it didn't" : "it didn't exist"}"
       end
 
       def failure_message_for_should_not

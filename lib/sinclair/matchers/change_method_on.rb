@@ -8,9 +8,8 @@ class Sinclair
       private
 
       def check
-        @initial_state && @initial_state != @final_state
+        initial_state && initial_state != final_state
       end
     end
   end
 end
-
