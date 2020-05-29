@@ -30,8 +30,6 @@ class Sinclair
     #     end
     #   end
     class AddInstanceMethodTo < AddMethodTo
-      # Returns a new instance of AddInstanceMethodTo
-      #
       # @overload initialize(klass, method_name)
       #   @param [Class] klass
       #     class where the method should be added to
@@ -75,6 +73,7 @@ class Sinclair
       protected
 
       # @method instance
+      # @api private
       # @private
       #
       # Instance of the class where the method should be added

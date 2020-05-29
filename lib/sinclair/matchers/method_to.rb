@@ -2,11 +2,26 @@
 
 class Sinclair
   module Matchers
+    # @api private
+    #
+    # Common methods on final matchers
     module MethodTo
+      # Used for other versions of rspec
+      #
+      # Some versions call failure_message, others
+      # call failure_message_for_should
+      #
+      # @return [String]
       def failure_message
         failure_message_for_should
       end
 
+      # Used for other versions of rspec
+      #
+      # Some versions call failure_message_when_negated, others
+      # call failure_message_for_should_not
+      #
+      # @return [String]
       def failure_message_when_negated
         failure_message_for_should_not
       end
@@ -25,8 +40,8 @@ class Sinclair
       protected
 
       # @method klass
-      # @private
       # @api private
+      # @private
       #
       # Class where class method should be added to
       #
@@ -35,6 +50,21 @@ class Sinclair
 
       private
 
+      # @method initial_state
+      # @api private
+      # @private
+      #
+      # State before running the block
+      #
+      # @return [Object]
+
+      # @method final_state
+      # @api private
+      # @private
+      #
+      # State after running the block
+      #
+      # @return [Object]
       attr_reader :initial_state, :final_state
 
       # @private

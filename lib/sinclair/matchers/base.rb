@@ -2,8 +2,11 @@
 
 class Sinclair
   module Matchers
+    # @api private
+    #
+    # Base class for all matchers
     class Base < RSpec::Matchers::BuiltIn::BaseMatcher
-      # @param method [String,Symbol] the method, to be checked, name
+      # @param method_name [String,Symbol] the method, to be checked, name
       def initialize(method_name)
         @method_name = method_name.to_sym
       end
