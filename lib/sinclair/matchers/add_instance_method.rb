@@ -56,26 +56,17 @@ class Sinclair
     #   # Outputs
     #   # 'should add method 'the_method' to #<Class:0x000056441bf46608> instances'
     class AddInstanceMethod < Base
-      # Creates a matcher AddInstanceMethodTo
-      #
-      # @overload to(klass)
-      #   @param [Class] klass
-      #     class where the method should be added to
-      #
-      # @overload to(instance)
-      #   @param [Object] instance
-      #     instance of the class where the method should be added to
-      #
-      # @return [AddInstanceMethodTo] the correct matcher
-      def to(target = nil)
-        AddInstanceMethodTo.new(target, method_name)
-      end
+      include AddMethod
 
       private
 
       def matcher_error
         'You should specify which instance the method is being added to' \
           "add_method(:#{method_name}).to(instance)"
+      end
+
+      def add_method_to_class
+        AddInstanceMethodTo
       end
     end
   end

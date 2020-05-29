@@ -32,21 +32,17 @@ class Sinclair
     #   # outputs
     #   # should add method class_method 'new_method' to #<Class:0x000055b4d0a25c80>
     class AddClassMethod < Base
-      # Creates a matcher {AddClassMethodTo}
-      #
-      # @param target [Class]
-      #   class where the method should be added to
-      #
-      # @return [AddClassMethodTo] the correct matcher
-      def to(target = nil)
-        AddClassMethodTo.new(target, method_name)
-      end
+      include AddMethod
 
       private
 
       def matcher_error
         'You should specify which class the method is being added to' \
           "add_class_method(:#{method_name}).to(klass)"
+      end
+
+      def add_method_to_class
+        AddClassMethodTo
       end
     end
   end

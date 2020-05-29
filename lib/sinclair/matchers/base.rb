@@ -29,15 +29,6 @@ class Sinclair
           other.try(:klass) == try(:klass)
       end
 
-      # @abstract
-      #
-      # Raise a warning on the usage as this is only a builder
-      #
-      # @raise SyntaxError
-      def matches?(_actual)
-        raise SyntaxError, matcher_error
-      end
-
       alias == equal?
 
       protected
