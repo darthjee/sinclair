@@ -46,9 +46,9 @@ class Sinclair
       end
 
       def perform_change(event_proc)
-        @initial_state = method_defined?
+        @initial_state = state
         event_proc.call
-        @final_state = method_defined?
+        @final_state = state
       end
 
       def klass
@@ -57,7 +57,7 @@ class Sinclair
 
       private
 
-      def method_defined?
+      def state
         klass.method_defined?(method_name) &&
           klass.instance_method(method_name)
       end

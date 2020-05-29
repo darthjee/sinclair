@@ -83,7 +83,7 @@ class Sinclair
       # Checks if class has instance method defined
       #
       # @return [Boolean]
-      def method_defined?
+      def state
         klass.methods(false).include?(method_name.to_sym)
       end
 

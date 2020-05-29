@@ -22,9 +22,9 @@ class Sinclair
       #
       # @return [Boolan]
       def perform_change(event_proc)
-        @initial_state = method_defined?
+        @initial_state = state
         event_proc.call
-        @final_state = method_defined?
+        @final_state = state
       end
     end
   end

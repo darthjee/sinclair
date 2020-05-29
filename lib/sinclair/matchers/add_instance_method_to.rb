@@ -101,7 +101,7 @@ class Sinclair
       # Checks if class has instance method defined
       #
       # @return [Boolean]
-      def method_defined?
+      def state
         klass.method_defined?(method_name)
       end
 
