@@ -29,6 +29,7 @@ class Sinclair
   #  end
   module Matchers
     autoload :Base,                   'sinclair/matchers/base'
+    autoload :BaseTo,                 'sinclair/matchers/base_to'
     autoload :AddInstanceMethod,      'sinclair/matchers/add_instance_method'
     autoload :AddClassMethod,         'sinclair/matchers/add_class_method'
     autoload :AddMethodTo,            'sinclair/matchers/add_method_to'
