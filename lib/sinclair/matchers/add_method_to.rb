@@ -16,7 +16,7 @@ class Sinclair
 
         raise_block_syntax_error if block_given?
         perform_change(event_proc)
-        added?
+        check
       end
 
       private
@@ -26,7 +26,7 @@ class Sinclair
       # Checks if a method was added (didn't exist before)
       #
       # @return Boolean
-      def added?
+      def check
         !@initial_state && @final_state
       end
 

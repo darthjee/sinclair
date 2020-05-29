@@ -13,7 +13,7 @@ class Sinclair
 
         raise_block_syntax_error if block_given?
         perform_change(event_proc)
-        changed?
+        check
       end
 
       def description
@@ -36,7 +36,7 @@ class Sinclair
 
       attr_reader :klass
 
-      def changed?
+      def check
         @initial_state && @initial_state != @final_state
       end
 
