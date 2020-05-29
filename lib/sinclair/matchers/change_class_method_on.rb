@@ -21,10 +21,6 @@ class Sinclair
         "expected class method '#{method_name}' not to be changed on #{klass} but it was"
       end
 
-      protected
-
-      attr_reader :klass
-
       private
 
       def state

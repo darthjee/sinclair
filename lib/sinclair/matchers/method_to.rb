@@ -22,6 +22,17 @@ class Sinclair
         check
       end
 
+      protected
+
+      # @method klass
+      # @private
+      # @api private
+      #
+      # Class where class method should be added to
+      #
+      # @return [Class]
+      attr_reader :klass
+
       private
 
       # @private

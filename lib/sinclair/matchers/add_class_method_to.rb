@@ -64,17 +64,6 @@ class Sinclair
         "expected class method '#{method_name}' not to be added to #{klass} but it was"
       end
 
-      protected
-
-      # @method klass
-      # @private
-      # @api private
-      #
-      # Class where class method should be added to
-      #
-      # @return [Class]
-      attr_reader :klass
-
       private
 
       # Checks if class has instance method defined
