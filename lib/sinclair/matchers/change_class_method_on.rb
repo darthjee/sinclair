@@ -2,18 +2,10 @@
 
 class Sinclair
   module Matchers
-    class ChangeClassMethodOn < Base
+    class ChangeClassMethodOn < BaseTo
       def initialize(target, method_name)
         @klass = target
         super(method_name)
-      end
-
-      def matches?(event_proc)
-        return false unless event_proc.is_a?(Proc)
-
-        raise_block_syntax_error if block_given?
-        perform_change(event_proc)
-        check
       end
 
       def description
@@ -38,12 +30,6 @@ class Sinclair
 
       def check
         @initial_state && @initial_state != @final_state
-      end
-
-      def perform_change(event_proc)
-        @initial_state = state
-        event_proc.call
-        @final_state = state
       end
 
       private
