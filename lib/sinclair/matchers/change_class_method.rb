@@ -3,16 +3,6 @@
 class Sinclair
   module Matchers
     class ChangeClassMethod < Base
-      # @abstract
-      #
-      # Raise a warning on the usage as this is only a builder for ChangeClassMethodOn
-      #
-      # @raise SyntaxError
-      def matches?(_actual)
-        raise SyntaxError, 'You should specify which class the method is being changed on' \
-          "change_class_method(:#{method_name}).on(klass)"
-      end
-
       # Creates a matcher {ChangeClassMethodOn}
       #
       # @param target [Class]
@@ -21,6 +11,13 @@ class Sinclair
       # @return [ChangeClassMethodOn] the correct matcher
       def on(target = nil)
         ChangeClassMethodOn.new(target, method_name)
+      end
+
+      private
+
+      def matcher_error
+        'You should specify which class the method is being changed on' \
+          "change_class_method(:#{method_name}).on(klass)"
       end
     end
   end

@@ -32,16 +32,6 @@ class Sinclair
     #   # outputs
     #   # should add method class_method 'new_method' to #<Class:0x000055b4d0a25c80>
     class AddClassMethod < Base
-      # @abstract
-      #
-      # Raise a warning on the usage as this is only a builder for AddClassMethodTo
-      #
-      # @raise SyntaxError
-      def matches?(_actual)
-        raise SyntaxError, 'You should specify which class the method is being added to' \
-          "add_class_method(:#{method_name}).to(klass)"
-      end
-
       # Creates a matcher {AddClassMethodTo}
       #
       # @param target [Class]
@@ -50,6 +40,13 @@ class Sinclair
       # @return [AddClassMethodTo] the correct matcher
       def to(target = nil)
         AddClassMethodTo.new(target, method_name)
+      end
+
+      private
+
+      def matcher_error
+        'You should specify which class the method is being added to' \
+          "add_class_method(:#{method_name}).to(klass)"
       end
     end
   end

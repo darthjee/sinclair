@@ -2,6 +2,7 @@
 
 class Sinclair
   module Matchers
+    # @abstract
     # @api private
     #
     # Base class for all matchers
@@ -26,6 +27,15 @@ class Sinclair
 
         other.method_name == method_name &&
           other.try(:klass) == try(:klass)
+      end
+
+      # @abstract
+      #
+      # Raise a warning on the usage as this is only a builder
+      #
+      # @raise SyntaxError
+      def matches?(_actual)
+        raise SyntaxError, matcher_error
       end
 
       alias == equal?
