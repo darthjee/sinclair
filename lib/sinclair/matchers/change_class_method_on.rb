@@ -2,7 +2,9 @@
 
 class Sinclair
   module Matchers
-    class ChangeClassMethodOn < BaseTo
+    class ChangeClassMethodOn < Base
+      include MethodTo
+
       def initialize(target, method_name)
         @klass = target
         super(method_name)

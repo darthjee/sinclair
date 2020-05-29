@@ -64,9 +64,6 @@ class Sinclair
         "expected class method '#{method_name}' not to be added to #{klass} but it was"
       end
 
-      alias failure_message failure_message_for_should
-      alias failure_message_when_negated failure_message_for_should_not
-
       protected
 
       # @method klass

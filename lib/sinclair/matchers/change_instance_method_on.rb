@@ -2,7 +2,9 @@
 
 class Sinclair
   module Matchers
-    class ChangeInstanceMethodOn < BaseTo
+    class ChangeInstanceMethodOn < Base
+      include MethodTo
+
       def initialize(target, method_name)
         if target.is_a?(Class)
           @klass = target
@@ -25,9 +27,6 @@ class Sinclair
       def failure_message_for_should_not
         "expected '#{method_name}' not to be changed on #{klass} but it was"
       end
-
-      alias failure_message failure_message_for_should
-      alias failure_message_when_negated failure_message_for_should_not
 
       protected
 

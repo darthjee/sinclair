@@ -7,7 +7,9 @@ class Sinclair
     # @abstract
     #
     # Base class for add_method_to matcher
-    class AddMethodTo < BaseTo
+    class AddMethodTo < Base
+      include MethodTo
+
       private
 
       # @private

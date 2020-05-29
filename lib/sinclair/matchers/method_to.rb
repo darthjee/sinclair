@@ -2,7 +2,15 @@
 
 class Sinclair
   module Matchers
-    class BaseTo < Base
+    module MethodTo
+      def failure_message
+        failure_message_for_should
+      end
+
+      def failure_message_when_negated
+        failure_message_for_should_not
+      end
+
       # Checks if expectation is true or not
       #
       # @return [Boolean] expectation check
@@ -29,4 +37,3 @@ class Sinclair
     end
   end
 end
-
