@@ -2,9 +2,7 @@
 
 class Sinclair
   module Matchers
-    class ChangeInstanceMethodOn < Base
-      include MethodTo
-
+    class ChangeInstanceMethodOn < ChangeMethodOn
       def initialize(target, method_name)
         if target.is_a?(Class)
           @klass = target
@@ -31,10 +29,6 @@ class Sinclair
       protected
 
       attr_reader :instance
-
-      def check
-        @initial_state && @initial_state != @final_state
-      end
 
       def klass
         @klass ||= instance.class

@@ -2,9 +2,7 @@
 
 class Sinclair
   module Matchers
-    class ChangeClassMethodOn < Base
-      include MethodTo
-
+    class ChangeClassMethodOn < ChangeMethodOn
       def initialize(target, method_name)
         @klass = target
         super(method_name)
@@ -23,16 +21,9 @@ class Sinclair
         "expected class method '#{method_name}' not to be changed on #{klass} but it was"
       end
 
-      alias failure_message failure_message_for_should
-      alias failure_message_when_negated failure_message_for_should_not
-
       protected
 
       attr_reader :klass
-
-      def check
-        @initial_state && @initial_state != @final_state
-      end
 
       private
 
