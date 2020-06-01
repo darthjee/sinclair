@@ -10,11 +10,12 @@ class Sinclair
     class ChangeClassMethod < Base
       include AddMethod
 
-      alias on to
-      # @method on
       # @api public
       #
-      # (see  AddMethod#to)
+      # Builds final matcher
+      #
+      # @return [Sinclair::Matchers::ChangeClassMethodOn]
+      alias on to
 
       private
 
@@ -32,7 +33,7 @@ class Sinclair
       #
       # Class of the real matcher
       #
-      # @return [Class<Sinclair::Matchers::Base>]
+      # @return [Class<ChangeClassMethodOn>]
       def add_method_to_class
         ChangeClassMethodOn
       end

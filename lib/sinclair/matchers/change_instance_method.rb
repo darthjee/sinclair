@@ -10,11 +10,12 @@ class Sinclair
     class ChangeInstanceMethod < Base
       include AddMethod
 
-      alias on to
-      # @method on
       # @api public
       #
-      # (see  AddMethod#to)
+      # Builds final matcher
+      #
+      # @return [Sinclair::Matchers::ChangeInstanceMethodOn]
+      alias on to
 
       private
 
