@@ -5,6 +5,8 @@ class Sinclair
     class ChangeInstanceMethod < Base
       include AddMethod
 
+      alias on to
+
       private
 
       def matcher_error
