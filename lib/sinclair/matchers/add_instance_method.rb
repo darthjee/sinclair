@@ -55,30 +55,28 @@ class Sinclair
     #
     #   # Outputs
     #   # 'should add method 'the_method' to #<Class:0x000056441bf46608> instances'
-    class AddInstanceMethod < AddMethod
-      # @abstract
+    class AddInstanceMethod < Base
+      include AddMethod
+
+      private
+
+      # @private
       #
-      # Raise a warning on the usage as this is only a builder for {AddInstanceMethodTo}
+      # Error description on wrong usage
       #
-      # @raise SyntaxError
-      def matches?(_actual)
-        raise SyntaxError, 'You should specify which instance the method is being added to' \
-          "add_method(:#{method}).to(instance)"
+      # @return String
+      def matcher_error
+        'You should specify which instance the method is being added to' \
+          "add_method(:#{method_name}).to(instance)"
       end
 
-      # Creates a matcher AddInstanceMethodTo
+      # @private
       #
-      # @overload to(klass)
-      #   @param [Class] klass
-      #     class where the method should be added to
+      # Class of the real matcher
       #
-      # @overload to(instance)
-      #   @param [Object] instance
-      #     instance of the class where the method should be added to
-      #
-      # @return [AddInstanceMethodTo] the correct matcher
-      def to(target = nil)
-        AddInstanceMethodTo.new(target, method)
+      # @return [Class<Sinclair::Matchers::Base>]
+      def add_method_to_class
+        AddInstanceMethodTo
       end
     end
   end

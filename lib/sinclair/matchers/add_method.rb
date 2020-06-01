@@ -3,43 +3,26 @@
 class Sinclair
   module Matchers
     # @api private
-    # @author darthjee
-    # @abstract
     #
-    # Base class for add_method matcher
-    class AddMethod < RSpec::Matchers::BuiltIn::BaseMatcher
-      # @param method [String,Symbol] the method, to be checked, name
-      def initialize(method)
-        @method = method.to_sym
+    # Commone methods for matchers
+    module AddMethod
+      # @api public
+      #
+      # Builds final matcher
+      #
+      # @return [Sinclair::Matchers::Base]
+      def to(target = nil)
+        add_method_to_class.new(target, method_name)
       end
 
-      # definition needed for block matchers
+      # @abstract
       #
-      # @return [Boolean]
-      def supports_block_expectations?
-        true
+      # Raise a warning on the usage as this is only a builder
+      #
+      # @raise SyntaxError
+      def matches?(_actual)
+        raise SyntaxError, matcher_error
       end
-
-      # Checkes if another instnce is equal self
-      #
-      # @return [Boolean]
-      def equal?(other)
-        return unless other.class == self.class
-
-        other.method == method
-      end
-
-      alias == equal?
-
-      protected
-
-      # @method method
-      # @private
-      #
-      # The method, to be checked, name
-      #
-      # @return [Symbol]
-      attr_reader :method
     end
   end
 end

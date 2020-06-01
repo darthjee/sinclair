@@ -1,4 +1,4 @@
-threshold: 100
+threshold: 99.8
 require_exact_threshold: false
 rules:
   ApiTag::Presence:
@@ -28,6 +28,8 @@ rules:
       - Sinclair::Matchers::AddClassMethodTo#raise_block_syntax_error
       - Sinclair::Matchers::AddInstanceMethodTo#raise_block_syntax_error
       - Sinclair::MethodBuilder#build_from_definition
+      - Sinclair::Matchers::ChangeClassMethodOn#raise_block_syntax_error
+      - Sinclair::Matchers::ChangeInstanceMethodOn#raise_block_syntax_error
   Summary::Presence:
     enabled: true
     exclude:
@@ -36,10 +38,14 @@ rules:
       - Sinclair::EnvSettable::Builder#initialize
       - Sinclair::Exception::InvalidOptions#initialize
       - Sinclair::InputHash#initialize
+      - Sinclair::Matchers::AddInstanceMethodTo#initialize
       - Sinclair::Matchers::AddClassMethodTo#initialize
       - Sinclair::Matchers::AddInstanceMethodTo#instance
       - Sinclair::Matchers::AddMethod#initialize
       - Sinclair::Matchers::AddMethodTo#initialize
+      - Sinclair::Matchers::Base#initialize
+      - Sinclair::Matchers::ChangeClassMethodOn#initialize
+      - Sinclair::Matchers::ChangeInstanceMethodOn#initialize
       - Sinclair::MethodBuilder
       - Sinclair::MethodBuilder::Base#initialize
       - Sinclair::MethodDefinition#initialize

@@ -31,25 +31,28 @@ class Sinclair
     #
     #   # outputs
     #   # should add method class_method 'new_method' to #<Class:0x000055b4d0a25c80>
-    class AddClassMethod < AddMethod
-      # @abstract
+    class AddClassMethod < Base
+      include AddMethod
+
+      private
+
+      # @private
       #
-      # Raise a warning on the usage as this is only a builder for AddClassMethodTo
+      # Error description on wrong usage
       #
-      # @raise SyntaxError
-      def matches?(_actual)
-        raise SyntaxError, 'You should specify which class the method is being added to' \
-          "add_class_method(:#{method}).to(klass)"
+      # @return String
+      def matcher_error
+        'You should specify which class the method is being added to' \
+          "add_class_method(:#{method_name}).to(klass)"
       end
 
-      # Creates a matcher {AddClassMethodTo}
+      # @private
       #
-      # @param target [Class]
-      #   class where the method should be added to
+      # Class of the real matcher
       #
-      # @return [AddClassMethodTo] the correct matcher
-      def to(target = nil)
-        AddClassMethodTo.new(target, method)
+      # @return [Class<Sinclair::Matchers::Base>]
+      def add_method_to_class
+        AddClassMethodTo
       end
     end
   end

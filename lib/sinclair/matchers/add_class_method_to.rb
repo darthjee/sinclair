@@ -36,55 +36,41 @@ class Sinclair
       # @param [Class] klass
       #   Class where the class method should be added to
       #
-      # @param method [SYmbol,String] method name
-      def initialize(klass, method)
+      # @param method_name [SYmbol,String] method name
+      def initialize(klass, method_name)
         @klass = klass
-        super(method)
+        super(method_name)
       end
 
       # Return expectaton description
       #
       # @return [String]
       def description
-        "add method class_method '#{method}' to #{klass}"
+        "add class method '#{method_name}' to #{klass}"
       end
 
       # Returns message on expectation failure
       #
       # @return [String]
       def failure_message_for_should
-        "expected class_method '#{method}' to be added to #{klass} but " \
-          "#{@initial_state ? 'it already existed' : "it didn't"}"
+        "expected class method '#{method_name}' to be added to #{klass} but " \
+          "#{initial_state ? 'it already existed' : "it didn't"}"
       end
 
       # Returns message on expectation failure for negative expectation
       #
       # @return [String]
       def failure_message_for_should_not
-        "expected class_method '#{method}' not to be added to #{klass} but it was"
+        "expected class method '#{method_name}' not to be added to #{klass} but it was"
       end
-
-      alias failure_message failure_message_for_should
-      alias failure_message_when_negated failure_message_for_should_not
-
-      protected
-
-      # @method klass
-      # @private
-      # @api private
-      #
-      # Class where class method should be added to
-      #
-      # @return [Class]
-      attr_reader :klass
 
       private
 
       # Checks if class has instance method defined
       #
       # @return [Boolean]
-      def method_defined?
-        klass.methods(false).include?(method.to_sym)
+      def state
+        klass.methods(false).include?(method_name.to_sym)
       end
 
       # Raises when block was not given
