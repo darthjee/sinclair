@@ -48,8 +48,8 @@ class Sinclair
     # @example (see Sinclair::Matchers::AddInstanceMethod#to)
     #
     # @return [AddInstanceMethod] RSpec Matcher
-    def add_method(method)
-      Sinclair::Matchers::AddInstanceMethod.new(method)
+    def add_method(method_name)
+      Sinclair::Matchers::AddInstanceMethod.new(method_name)
     end
 
     # DSL to AddClassMethod
@@ -58,8 +58,28 @@ class Sinclair
     # @example (see Sinclair::Matchers::AddClassMethod#to)
     #
     # @return [AddClassMethod] RSpec Matcher
-    def add_class_method(method)
-      Sinclair::Matchers::AddClassMethod.new(method)
+    def add_class_method(method_name)
+      Sinclair::Matchers::AddClassMethod.new(method_name)
+    end
+
+    # DSL to ChangeInstanceMethod
+    #
+    # @example (see Sinclair::Matchers)
+    # @example (see Sinclair::Matchers::ChangeInstanceMethod#to)
+    #
+    # @return [ChangeInstanceMethod] RSpec Matcher
+    def change_method(method_name)
+      Sinclair::Matchers::ChangeInstanceMethod.new(method_name)
+    end
+
+    # DSL to ChangeClassMethod
+    #
+    # @example (see Sinclair::Matchers)
+    # @example (see Sinclair::Matchers::ChangeClassMethod#to)
+    #
+    # @return [ChangeClassMethod] RSpec Matcher
+    def change_class_method(method_name)
+      Sinclair::Matchers::ChangeClassMethod.new(method_name)
     end
   end
 end
