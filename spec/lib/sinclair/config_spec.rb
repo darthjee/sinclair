@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-fdescribe Sinclair::Config do
+describe Sinclair::Config do
   subject(:config) { klass.new }
 
   let(:child_klass) { Class.new(klass) }
@@ -11,6 +11,10 @@ fdescribe Sinclair::Config do
 
   describe '.config_attributes' do
     it_behaves_like 'a config class with .config_attributes method'
+  end
+
+  describe '.add_configs' do
+    it_behaves_like 'a config class with .add_configs method'
   end
 
   describe '#to_hash' do
