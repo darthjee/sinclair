@@ -92,5 +92,9 @@ class Sinclair
         config_attributes(*builder.config_names)
       end
     end
+
+    def options_class
+      @options_class ||= Class.new(Sinclair::Options)
+    end
   end
 end

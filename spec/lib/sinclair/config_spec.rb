@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Sinclair::Config do
+fdescribe Sinclair::Config do
   subject(:config) { klass.new }
 
   let(:child_klass) { Class.new(klass) }
@@ -102,6 +102,16 @@ describe Sinclair::Config do
         expect(config.to_json(except: 'password'))
           .to eq('{"username":"john"}')
       end
+    end
+  end
+
+  describe '#default_options' do
+    before do
+      klass.config_attributes(:username, :password)
+    end
+
+    it do
+      expect(config.default_options).to be_a(Sinclair::Options)
     end
   end
 end

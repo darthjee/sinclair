@@ -37,5 +37,9 @@ class Sinclair
         hash[attribute.to_s] = public_send(attribute)
       end
     end
+
+    def default_options
+      self.class.options_class.new
+    end
   end
 end
