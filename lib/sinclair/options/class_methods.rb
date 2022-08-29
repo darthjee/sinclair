@@ -47,10 +47,7 @@ class Sinclair
         @skip_validation ||= superclass.try(:skip_validation?) || false
       end
 
-      private
-
       # @api public
-      # @!visibility public
       #
       # Add available options
       #
@@ -71,7 +68,6 @@ class Sinclair
       end
 
       # @api public
-      # @!visibility public
       #
       # Changes class to skip attributes validation
       #
