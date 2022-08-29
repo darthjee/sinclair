@@ -133,6 +133,12 @@ shared_examples 'a config class with .add_configs method' do
       expect(&code_block).to change(klass, :config_attributes)
         .from([]).to(%i[name])
     end
+
+    it do
+      expect(&code_block)
+        .to add_method(:name)
+        .to(klass.options_class)
+    end
   end
 
   context 'when giving defaults' do
@@ -148,7 +154,12 @@ shared_examples 'a config class with .add_configs method' do
         expect(&code_block).to change(klass, :config_attributes)
           .from([]).to(%i[name])
       end
+
+      it do
+        expect(&code_block)
+          .to add_method(:name)
+          .to(klass.options_class)
+      end
     end
   end
-
 end
