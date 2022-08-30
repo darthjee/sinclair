@@ -127,7 +127,7 @@ describe Sinclair::Config do
         .to eq(expected_options)
     end
 
-    context 'after config has been changed' do
+    context 'when config has been changed' do
       let(:builder) do
         Sinclair::ConfigBuilder.new(config, :username, :password)
       end

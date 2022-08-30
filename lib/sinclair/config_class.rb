@@ -90,7 +90,7 @@ class Sinclair
         builder.build
 
         Sinclair::InputHash.input_hash(*args).each do |name, value|
-          self.options_class.with_options(name => value)
+          options_class.with_options(name => value)
         end
 
         config_attributes(*builder.config_names)
