@@ -39,6 +39,10 @@ class Sinclair
     end
 
     def default_options
+      options
+    end
+
+    def options(_options_hash = {})
       self.class.options_class.new(to_hash)
     end
   end
