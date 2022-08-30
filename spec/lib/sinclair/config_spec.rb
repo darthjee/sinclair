@@ -111,11 +111,16 @@ describe Sinclair::Config do
 
   describe '#default_options' do
     before do
-      klass.config_attributes(:username, :password)
+      klass.add_configs(:password, username: :user)
     end
 
     it do
       expect(config.default_options).to be_a(Sinclair::Options)
+    end
+
+    it 'returns an option with default values' do
+      expect(config.default_options)
+        .to eq(klass.options_class.new(username: :user, password: nil))
     end
   end
 end

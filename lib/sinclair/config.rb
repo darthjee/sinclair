@@ -39,7 +39,7 @@ class Sinclair
     end
 
     def default_options
-      self.class.options_class.new
+      self.class.options_class.new(to_hash)
     end
   end
 end
