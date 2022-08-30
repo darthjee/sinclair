@@ -38,6 +38,30 @@ class Sinclair
       end
     end
 
+    # Returns options with configurated values
+    #
+    # @return <Sinclair::Option>
+    #
+    # @example
+    #   class LoginConfig < Sinclair::Config
+    #     add_configs :password, username: 'bob'
+    #   end
+    #
+    #   class LoginConfigurable
+    #     extend Sinclair::Configurable
+    #
+    #     configurable_by LoginConfig
+    #   end
+    #
+    #   LoginConfigurable.configure do |conf|
+    #     conf.username :some_username
+    #     conf.password :some_password
+    #   end
+    #
+    #  options = LoginConfigurable.config.options
+    #
+    #  config.options.username # returns :some_username
+    #  config.options.password # returns :some_password
     def options(options_hash = {})
       self.class.options_class.new(to_hash.merge(options_hash))
     end
