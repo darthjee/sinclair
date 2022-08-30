@@ -97,6 +97,13 @@ class Sinclair
       end
     end
 
+    # @api private
+    # Returns the options class exclusive to this configurable
+    #
+    # The returned class is configured in parallel with the
+    # configurable itself
+    #
+    # @return [Class<Sinclair::Options>]
     def options_class
       @options_class ||= Class.new(Sinclair::Options)
     end

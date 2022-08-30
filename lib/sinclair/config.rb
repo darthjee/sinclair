@@ -40,7 +40,12 @@ class Sinclair
 
     # Returns options with configurated values
     #
-    # @return <Sinclair::Option>
+    # The returned options will use the values defined in
+    # the config merged with the extra attributes
+    #
+    # @param options_hash [Hash] optional values for the options
+    #
+    # @return [Sinclair::Option]
     #
     # @example returning default options
     #   class LoginConfig < Sinclair::Config
