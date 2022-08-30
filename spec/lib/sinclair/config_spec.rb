@@ -148,5 +148,18 @@ describe Sinclair::Config do
           .to eq(expected_options)
       end
     end
+
+    context 'when passing options_hash' do
+      let(:expected_options) do
+        klass.options_class.new(
+          username: :user, password: :some_password
+        )
+      end
+
+      it 'returns merged options' do
+        expect(config.options(password: :some_password))
+          .to eq(expected_options)
+      end
+    end
   end
 end

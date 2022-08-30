@@ -38,8 +38,8 @@ class Sinclair
       end
     end
 
-    def options(_options_hash = {})
-      self.class.options_class.new(to_hash)
+    def options(options_hash = {})
+      self.class.options_class.new(to_hash.merge(options_hash))
     end
   end
 end
