@@ -41,6 +41,15 @@ describe Sinclair::Config do
         expect(config.options.username).to eq(:some_username)
         expect(config.options.password).to eq(:some_password)
       end
+
+      context 'when merging with given attributes' do
+        subject(:options) { config.options(password: :correct_password) }
+
+        it 'returns options with custom values' do
+          expect(options.username).to eq(:some_username)
+          expect(options.password).to eq(:correct_password)
+        end
+      end
     end
   end
 end
