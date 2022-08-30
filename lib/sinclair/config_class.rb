@@ -89,8 +89,8 @@ class Sinclair
       Config::MethodsBuilder.new(self, *args).tap do |builder|
         builder.build
 
-        Sinclair::InputHash.input_hash(*args).keys.each do |name|
-          self.options_class.with_options(name)
+        Sinclair::InputHash.input_hash(*args).each do |name, value|
+          self.options_class.with_options(name => value)
         end
 
         config_attributes(*builder.config_names)

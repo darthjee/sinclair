@@ -110,6 +110,10 @@ describe Sinclair::Config do
   end
 
   describe '#default_options' do
+    let(:expected_options) do
+      klass.options_class.new(username: :user, password: nil)
+    end
+
     before do
       klass.add_configs(:password, username: :user)
     end
@@ -120,7 +124,29 @@ describe Sinclair::Config do
 
     it 'returns an option with default values' do
       expect(config.default_options)
-        .to eq(klass.options_class.new(username: :user, password: nil))
+        .to eq(expected_options)
+    end
+
+    context 'after config has been changed' do
+      let(:builder) do
+        Sinclair::ConfigBuilder.new(config, :username, :password)
+      end
+
+      let(:expected_options) do
+        klass.options_class.new(
+          username: :other_user, password: :some_password
+        )
+      end
+
+      before do
+        builder.username :other_user
+        builder.password :some_password
+      end
+
+      it 'returns an option with values from config' do
+        expect(config.default_options)
+          .to eq(expected_options)
+      end
     end
   end
 end
