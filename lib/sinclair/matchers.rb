@@ -7,26 +7,7 @@ class Sinclair
   # Matchers module will have the DSL to be included in RSpec in order to have
   # access to the matchers
   #
-  # @example
-  #  RSpec.configure do |config|
-  #    config.include Sinclair::Matchers
-  #  end
-  #
-  #  class MyModel
-  #  end
-  #
-  #  RSpec.describe 'my test' do
-  #    let(:klass)   { Class.new(MyModel) }
-  #    let(:builder) { Sinclair.new(klass) }
-  #
-  #    before do
-  #      builder.add_method(:class_name, 'self.class.name')
-  #    end
-  #
-  #    it do
-  #      expect { builder.build }.to add_method(:class_name).to(klass)
-  #    end
-  #  end
+  # @example (see Sinclair::Matchers::AddMethod#to)
   module Matchers
     autoload :Base,                   'sinclair/matchers/base'
     autoload :AddInstanceMethod,      'sinclair/matchers/add_instance_method'
