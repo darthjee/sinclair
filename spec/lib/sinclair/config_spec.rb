@@ -109,7 +109,7 @@ describe Sinclair::Config do
     end
   end
 
-  describe '#default_options' do
+  describe '#options' do
     let(:expected_options) do
       klass.options_class.new(username: :user, password: nil)
     end
@@ -119,11 +119,11 @@ describe Sinclair::Config do
     end
 
     it do
-      expect(config.default_options).to be_a(Sinclair::Options)
+      expect(config.options).to be_a(Sinclair::Options)
     end
 
     it 'returns an option with default values' do
-      expect(config.default_options)
+      expect(config.options)
         .to eq(expected_options)
     end
 
@@ -144,7 +144,7 @@ describe Sinclair::Config do
       end
 
       it 'returns an option with values from config' do
-        expect(config.default_options)
+        expect(config.options)
           .to eq(expected_options)
       end
     end
