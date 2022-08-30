@@ -78,6 +78,14 @@ class Sinclair
     # @see ConfigFactory#configure
     delegate :config, :reset_config, :configure, to: :config_factory
 
+    # @method options(options_hash = {})
+    # @api public
+    #
+    # @param (see Sinclair::Config#options)
+    # @return (see Sinclair::Config#options)
+    # @example (see Sinclair::Config#options)
+    delegate :options, to: :config
+
     protected
 
     # @api private
