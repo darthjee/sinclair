@@ -184,7 +184,7 @@ describe Sinclair::Config do
 
         it 'changes the option previously returned' do
           expect { builder.username :other_user }
-            .not_to change { options.username }
+            .not_to change(options, :username)
         end
       end
     end

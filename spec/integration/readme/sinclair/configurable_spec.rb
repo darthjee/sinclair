@@ -30,11 +30,10 @@ describe Sinclair::Configurable do
           .to eq('interstella.art')
       end
 
-      it 'enables options to be returned' do
+      it 'enables custom options to be returned' do
         expect(MyConfigurable.as_options(host: 'other').host)
           .to eq('other')
       end
-
 
       context 'when #reset_config is called' do
         before do

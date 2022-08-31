@@ -105,13 +105,7 @@ class Sinclair
     #
     # @return [Class<Sinclair::Options>]
     def options_class
-      @options_class ||= Class.new(base_options_class)
-    end
-
-    def base_options_class
-      return Options unless superclass.is_a?(ConfigClass)
-
-      superclass.options_class 
+      @options_class ||= Class.new(superclass.try(:options_class) || Options)
     end
   end
 end
