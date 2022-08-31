@@ -26,12 +26,12 @@ describe Sinclair::Configurable do
       end
 
       it 'enables options to be returned' do
-        expect(MyConfigurable.options.host)
+        expect(MyConfigurable.as_options.host)
           .to eq('interstella.art')
       end
 
       it 'enables options to be returned' do
-        expect(MyConfigurable.options(host: 'other').host)
+        expect(MyConfigurable.as_options(host: 'other').host)
           .to eq('other')
       end
 

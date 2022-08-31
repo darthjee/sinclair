@@ -109,7 +109,7 @@ describe Sinclair::Config do
     end
   end
 
-  describe '#options' do
+  describe '#as_options' do
     let(:expected_options) do
       klass.options_class.new(username: :user, password: nil)
     end
@@ -123,11 +123,11 @@ describe Sinclair::Config do
     end
 
     it do
-      expect(config.options).to be_a(Sinclair::Options)
+      expect(config.as_options).to be_a(Sinclair::Options)
     end
 
     it 'returns an option with default values' do
-      expect(config.options)
+      expect(config.as_options)
         .to eq(expected_options)
     end
 
@@ -144,7 +144,7 @@ describe Sinclair::Config do
       end
 
       it 'returns an option with values from config' do
-        expect(config.options)
+        expect(config.as_options)
           .to eq(expected_options)
       end
     end
@@ -157,7 +157,7 @@ describe Sinclair::Config do
       end
 
       it 'returns merged options' do
-        expect(config.options(password: :some_password))
+        expect(config.as_options(password: :some_password))
           .to eq(expected_options)
       end
     end
@@ -170,16 +170,16 @@ describe Sinclair::Config do
       end
 
       it 'returns merged options' do
-        expect(config.options('password' => :some_password))
+        expect(config.as_options('password' => :some_password))
           .to eq(expected_options)
       end
 
       context 'when the config is changed' do
-        let(:options) { config.options }
+        let(:options) { config.as_options }
 
         it 'changes the option returned' do
           expect { builder.username :other_user }
-            .to change { config.options.username }
+            .to change { config.as_options.username }
         end
 
         it 'changes the option previously returned' do

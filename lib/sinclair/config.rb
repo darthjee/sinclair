@@ -63,10 +63,10 @@ class Sinclair
     #     conf.password :some_password
     #   end
     #
-    #   options = LoginConfigurable.config.options
+    #   options = LoginConfigurable.config.as_options
     #
-    #   config.options.username # returns :some_username
-    #   config.options.password # returns :some_password
+    #   config.as_options.username # returns :some_username
+    #   config.as_options.password # returns :some_password
     #
     # @example returning custom options
     #   LoginConfigurable.configure do |conf|
@@ -74,13 +74,13 @@ class Sinclair
     #     conf.password :some_password
     #   end
     #
-    #   options = LoginConfigurable.config.options(
+    #   options = LoginConfigurable.config.as_options(
     #     password: :correct_password
     #   )
     #
-    #   config.options.username # returns :some_username
-    #   config.options.password # returns :correct_password
-    def options(options_hash = {})
+    #   config.as_options.username # returns :some_username
+    #   config.as_options.password # returns :correct_password
+    def as_options(options_hash = {})
       self.class.options_class.new(to_hash.merge(options_hash))
     end
   end
