@@ -171,6 +171,11 @@ shared_examples 'a config class with .add_configs method' do
           .from([]).to(%i[name])
       end
 
+      it 'adds attributes to child options class' do
+        expect(&code_block)
+          .to add_method(:name).to(child_klass)
+      end
+
       context 'when child class already has attributes' do
         before do
           child_klass.add_configs('email')
@@ -192,6 +197,11 @@ shared_examples 'a config class with .add_configs method' do
       it 'does not add attributes to parent class' do
         expect(&code_block)
           .not_to change(klass, :config_attributes)
+      end
+
+      it 'does not add attributes to child options class' do
+        expect(&code_block)
+          .not_to add_method(:name).to(klass)
       end
 
       context 'when parent already has attributes' do
