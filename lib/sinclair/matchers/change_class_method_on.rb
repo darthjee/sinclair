@@ -14,7 +14,7 @@ class Sinclair
       # @param [Class] klass
       #   Class where the class method should be added to
       #
-      # @param method_name [SYmbol,String] method name
+      # @param method_name [Symbol,String] method name
       def initialize(target, method_name)
         @klass = target
         super(method_name)

@@ -4,7 +4,7 @@ require 'set'
 
 class Sinclair
   class Options
-    # Class Methods for {Sinclai::Options}
+    # Class Methods for {Sinclair::Options}
     module ClassMethods
       # @api private
       #
