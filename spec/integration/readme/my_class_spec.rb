@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe MyClass do
-  subject(:model) { klass.new(attributes) }
+  subject(:model) { klass.new(**attributes) }
 
   let(:klass) { described_class }
   let(:name)  { 'name' }

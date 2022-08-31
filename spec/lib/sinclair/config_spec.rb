@@ -13,6 +13,10 @@ describe Sinclair::Config do
     it_behaves_like 'a config class with .config_attributes method'
   end
 
+  describe '.add_configs' do
+    it_behaves_like 'a config class with .add_configs method'
+  end
+
   describe '#to_hash' do
     it 'returns empty hash' do
       expect(config.as_json).to eq({})
@@ -101,6 +105,73 @@ describe Sinclair::Config do
       it 'accepts except options' do
         expect(config.to_json(except: 'password'))
           .to eq('{"username":"john"}')
+      end
+    end
+  end
+
+  describe '#options' do
+    let(:expected_options) do
+      klass.options_class.new(username: :user, password: nil)
+    end
+
+    before do
+      klass.add_configs(:password, username: :user)
+    end
+
+    it do
+      expect(config.options).to be_a(Sinclair::Options)
+    end
+
+    it 'returns an option with default values' do
+      expect(config.options)
+        .to eq(expected_options)
+    end
+
+    context 'when config has been changed' do
+      let(:builder) do
+        Sinclair::ConfigBuilder.new(config, :username, :password)
+      end
+
+      let(:expected_options) do
+        klass.options_class.new(
+          username: :other_user, password: :some_password
+        )
+      end
+
+      before do
+        builder.username :other_user
+        builder.password :some_password
+      end
+
+      it 'returns an option with values from config' do
+        expect(config.options)
+          .to eq(expected_options)
+      end
+    end
+
+    context 'when passing options_hash' do
+      let(:expected_options) do
+        klass.options_class.new(
+          username: :user, password: :some_password
+        )
+      end
+
+      it 'returns merged options' do
+        expect(config.options(password: :some_password))
+          .to eq(expected_options)
+      end
+    end
+
+    context 'when passing options_hash with string keys' do
+      let(:expected_options) do
+        klass.options_class.new(
+          username: :user, password: :some_password
+        )
+      end
+
+      it 'returns merged options' do
+        expect(config.options('password' => :some_password))
+          .to eq(expected_options)
       end
     end
   end

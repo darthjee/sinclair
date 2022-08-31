@@ -89,8 +89,23 @@ class Sinclair
       Config::MethodsBuilder.new(self, *args).tap do |builder|
         builder.build
 
+        Sinclair::InputHash.input_hash(*args).each do |name, value|
+          options_class.with_options(name => value)
+        end
+
         config_attributes(*builder.config_names)
       end
+    end
+
+    # @api private
+    # Returns the options class exclusive to this configurable
+    #
+    # The returned class is configured in parallel with the
+    # configurable itself
+    #
+    # @return [Class<Sinclair::Options>]
+    def options_class
+      @options_class ||= Class.new(Sinclair::Options)
     end
   end
 end

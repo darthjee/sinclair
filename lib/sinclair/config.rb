@@ -37,5 +37,51 @@ class Sinclair
         hash[attribute.to_s] = public_send(attribute)
       end
     end
+
+    # Returns options with configurated values
+    #
+    # The returned options will use the values defined in
+    # the config merged with the extra attributes
+    #
+    # @param options_hash [Hash] optional values for the options
+    #
+    # @return [Sinclair::Option]
+    #
+    # @example returning default options
+    #   class LoginConfig < Sinclair::Config
+    #     add_configs :password, username: 'bob'
+    #   end
+    #
+    #   class LoginConfigurable
+    #     extend Sinclair::Configurable
+    #
+    #     configurable_by LoginConfig
+    #   end
+    #
+    #   LoginConfigurable.configure do |conf|
+    #     conf.username :some_username
+    #     conf.password :some_password
+    #   end
+    #
+    #   options = LoginConfigurable.config.options
+    #
+    #   config.options.username # returns :some_username
+    #   config.options.password # returns :some_password
+    #
+    # @example returning custom options
+    #   LoginConfigurable.configure do |conf|
+    #     conf.username :some_username
+    #     conf.password :some_password
+    #   end
+    #
+    #   options = LoginConfigurable.config.options(
+    #     password: :correct_password
+    #   )
+    #
+    #   config.options.username # returns :some_username
+    #   config.options.password # returns :correct_password
+    def options(options_hash = {})
+      self.class.options_class.new(to_hash.merge(options_hash))
+    end
   end
 end
