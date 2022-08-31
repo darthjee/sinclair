@@ -118,7 +118,6 @@ describe Sinclair::Config do
       Sinclair::ConfigBuilder.new(config, :username, :password)
     end
 
-
     before do
       klass.add_configs(:password, username: :user)
     end
@@ -176,9 +175,16 @@ describe Sinclair::Config do
       end
 
       context 'when the config is changed' do
+        let(:options) { config.options }
+
         it 'changes the option returned' do
           expect { builder.username :other_user }
             .to change { config.options.username }
+        end
+
+        it 'changes the option previously returned' do
+          expect { builder.username :other_user }
+            .not_to change { options.username }
         end
       end
     end
