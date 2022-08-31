@@ -109,9 +109,13 @@ describe Sinclair::Config do
     end
   end
 
-  describe '#options' do
+  describe '#as_options' do
     let(:expected_options) do
       klass.options_class.new(username: :user, password: nil)
+    end
+
+    let(:builder) do
+      Sinclair::ConfigBuilder.new(config, :username, :password)
     end
 
     before do
@@ -119,19 +123,15 @@ describe Sinclair::Config do
     end
 
     it do
-      expect(config.options).to be_a(Sinclair::Options)
+      expect(config.as_options).to be_a(Sinclair::Options)
     end
 
     it 'returns an option with default values' do
-      expect(config.options)
+      expect(config.as_options)
         .to eq(expected_options)
     end
 
     context 'when config has been changed' do
-      let(:builder) do
-        Sinclair::ConfigBuilder.new(config, :username, :password)
-      end
-
       let(:expected_options) do
         klass.options_class.new(
           username: :other_user, password: :some_password
@@ -144,7 +144,7 @@ describe Sinclair::Config do
       end
 
       it 'returns an option with values from config' do
-        expect(config.options)
+        expect(config.as_options)
           .to eq(expected_options)
       end
     end
@@ -157,7 +157,7 @@ describe Sinclair::Config do
       end
 
       it 'returns merged options' do
-        expect(config.options(password: :some_password))
+        expect(config.as_options(password: :some_password))
           .to eq(expected_options)
       end
     end
@@ -170,8 +170,22 @@ describe Sinclair::Config do
       end
 
       it 'returns merged options' do
-        expect(config.options('password' => :some_password))
+        expect(config.as_options('password' => :some_password))
           .to eq(expected_options)
+      end
+
+      context 'when the config is changed' do
+        let(:options) { config.as_options }
+
+        it 'changes the option returned' do
+          expect { builder.username :other_user }
+            .to change { config.as_options.username }
+        end
+
+        it 'changes the option previously returned' do
+          expect { builder.username :other_user }
+            .not_to change(options, :username)
+        end
       end
     end
   end

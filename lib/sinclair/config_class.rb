@@ -105,7 +105,7 @@ class Sinclair
     #
     # @return [Class<Sinclair::Options>]
     def options_class
-      @options_class ||= Class.new(Sinclair::Options)
+      @options_class ||= Class.new(superclass.try(:options_class) || Options)
     end
   end
 end

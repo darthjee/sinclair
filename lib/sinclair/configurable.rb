@@ -9,8 +9,8 @@ class Sinclair
   # By extending Configurable, class receives the methods public
   # {ConfigFactory#config .config}, {ConfigFactory#reset_config .reset_config}
   # and {ConfigFactory#configure .configure}
-  # and the private methods {#configurable_with .configurable_with}
-  # and {#configurable_by .configurable_by}
+  # and the private methods {#configurable_with .configurable_with},
+  # {#configurable_by .configurable_by} and {#as_options .as_options}
   #
   # @see ConfigFactory
   # @see ConfigBuilder
@@ -78,13 +78,13 @@ class Sinclair
     # @see ConfigFactory#configure
     delegate :config, :reset_config, :configure, to: :config_factory
 
-    # @method options(options_hash = {})
+    # @method as_options(options_hash = {})
     # @api public
     #
-    # @param (see Sinclair::Config#options)
-    # @return (see Sinclair::Config#options)
-    # @example (see Sinclair::Config#options)
-    delegate :options, to: :config
+    # @param (see Sinclair::Config#as_options)
+    # @return (see Sinclair::Config#as_options)
+    # @example (see Sinclair::Config#as_options)
+    delegate :as_options, to: :config
 
     protected
 

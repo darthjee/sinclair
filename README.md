@@ -15,7 +15,7 @@ methods
 
 Yard Documentation
 -------------------
-[https://www.rubydoc.info/gems/sinclair/1.7.0](https://www.rubydoc.info/gems/sinclair/1.7.0)
+[https://www.rubydoc.info/gems/sinclair/1.8.0](https://www.rubydoc.info/gems/sinclair/1.8.0)
 
 Installation
 ---------------
@@ -369,6 +369,12 @@ hash
   MyConfigurable.config.host # returns 'interstella.art'
   MyConfigurable.config.port # returns 5555
 
+  # Configurable enables options that can be passed
+  MyConfigurable.as_options.host # returns 'interstella.art'
+
+  # Configurable enables options that can be passed with custom values
+  MyConfigurable.as_options(host: 'other').host # returns 'other'
+
   MyConfigurable.reset_config
 
   MyConfigurable.config.host # returns nil
@@ -553,3 +559,4 @@ Projects Using
 
 -   [Arstotzka](https://github.com/darthjee/arstotzka)
 -   [Azeroth](https://github.com/darthjee/azeroth)
+-   [Magicka](https://github.com/darthjee/magicka)
