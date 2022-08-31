@@ -553,3 +553,4 @@ Projects Using
 
 -   [Arstotzka](https://github.com/darthjee/arstotzka)
 -   [Azeroth](https://github.com/darthjee/azeroth)
+-   [Magicka](https://github.com/darthjee/magicka)
