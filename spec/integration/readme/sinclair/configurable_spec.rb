@@ -25,7 +25,18 @@ describe Sinclair::Configurable do
           .to eq(5555)
       end
 
-      context 'when #rest_config is called' do
+      it 'enables options to be returned' do
+        expect(MyConfigurable.options.host)
+          .to eq('interstella.art')
+      end
+
+      it 'enables options to be returned' do
+        expect(MyConfigurable.options(host: 'other').host)
+          .to eq('other')
+      end
+
+
+      context 'when #reset_config is called' do
         before do
           MyConfigurable.reset_config
         end

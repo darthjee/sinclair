@@ -369,6 +369,12 @@ hash
   MyConfigurable.config.host # returns 'interstella.art'
   MyConfigurable.config.port # returns 5555
 
+  # Configurable enables options that can be passed
+  MyConfigurable.options.host # returns 'interstella.art'
+
+  # Configurable enables options that can be passed with custom values
+  MyConfigurable.options(host: 'other').host # returns 'other'
+
   MyConfigurable.reset_config
 
   MyConfigurable.config.host # returns nil
