@@ -114,6 +114,11 @@ describe Sinclair::Config do
       klass.options_class.new(username: :user, password: nil)
     end
 
+    let(:builder) do
+      Sinclair::ConfigBuilder.new(config, :username, :password)
+    end
+
+
     before do
       klass.add_configs(:password, username: :user)
     end
@@ -128,10 +133,6 @@ describe Sinclair::Config do
     end
 
     context 'when config has been changed' do
-      let(:builder) do
-        Sinclair::ConfigBuilder.new(config, :username, :password)
-      end
-
       let(:expected_options) do
         klass.options_class.new(
           username: :other_user, password: :some_password
@@ -172,6 +173,13 @@ describe Sinclair::Config do
       it 'returns merged options' do
         expect(config.options('password' => :some_password))
           .to eq(expected_options)
+      end
+
+      context 'when the config is changed' do
+        it 'changes the option returned' do
+          expect { builder.username :other_user }
+            .to change { config.options.username }
+        end
       end
     end
   end
