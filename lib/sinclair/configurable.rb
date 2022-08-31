@@ -9,8 +9,8 @@ class Sinclair
   # By extending Configurable, class receives the methods public
   # {ConfigFactory#config .config}, {ConfigFactory#reset_config .reset_config}
   # and {ConfigFactory#configure .configure}
-  # and the private methods {#configurable_with .configurable_with}
-  # and {#configurable_by .configurable_by}
+  # and the private methods {#configurable_with .configurable_with},
+  # {#configurable_by .configurable_by} and {#as_options .as_options}
   #
   # @see ConfigFactory
   # @see ConfigBuilder
