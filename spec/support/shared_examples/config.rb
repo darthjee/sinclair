@@ -161,5 +161,27 @@ shared_examples 'a config class with .add_configs method' do
           .to(klass.options_class)
       end
     end
+
+    context 'when there is a child class' do
+      let(:code_block) { proc { klass.add_configs(name: 'Bob') } }
+
+      it 'adds attributes to child class' do
+        expect(&code_block)
+          .to change(child_klass, :config_attributes)
+          .from([]).to(%i[name])
+      end
+
+      context 'when child class already has attributes' do
+        before do
+          child_klass.add_configs('email')
+        end
+
+        it 'adds new attributes to child class' do
+          expect(&code_block)
+            .to change(child_klass, :config_attributes)
+            .from([:email]).to(%i[name email])
+        end
+      end
+    end
   end
 end
