@@ -11,8 +11,8 @@ class Sinclair
     attr_reader :attributes
 
     # @param attributes [Array<Symbol,String>] list of relevant attributes
-    def initialize(attributes)
-      @attributes = attributes
+    def initialize(*attributes)
+      @attributes = attributes.flatten
     end
 
     # Returns if 2 objects are equals

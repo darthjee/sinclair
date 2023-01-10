@@ -14,3 +14,6 @@ class SampleModel
 
   attr_reader :age
 end
+
+class OtherModel < SampleModel
+end
