@@ -7,8 +7,12 @@ workflows:
           filters:
             tags:
               only: /.*/
+      - checks:
+          filters:
+            tags:
+              only: /.*/
       - build-and-release:
-          requires: [test]
+          requires: [test, checks]
           filters:
             tags:
               only: /\d+\.\d+\.\d+/
@@ -33,11 +37,21 @@ jobs:
           name: RSpec
           command: bundle exec rspec
       - run:
-          name: Rubocop
-          command: rubocop
-      - run:
           name: Coverage Test Report
           command: cc-test-reporter after-build --exit-code $?
+  checks:
+    docker:
+      - image: darthjee/circleci_ruby_270:1.2.0
+        environment:
+          PROJECT: sinclair
+    steps:
+      - checkout
+      - run:
+          name: Bundle Install
+          command: bundle install
+      - run:
+          name: Rubocop
+          command: rubocop
       - run:
           name: Yardstick coverage check
           command: bundle exec rake verify_measurements
