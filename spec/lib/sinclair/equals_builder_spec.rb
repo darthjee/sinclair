@@ -9,8 +9,8 @@ describe Sinclair::EqualsBuilder do
 
   let(:model1_class) { SampleModel }
   let(:model2_class) { SampleModel }
-  let(:model1)       { model1_class.new(model1_attributes) }
-  let(:model2)       { model2_class.new(model2_attributes) }
+  let(:model1)       { model1_class.new(**model1_attributes) }
+  let(:model2)       { model2_class.new(**model2_attributes) }
 
   let(:model1_attributes) { { name: name1, age: age1 } }
   let(:model2_attributes) { { name: name2, age: age2 } }
