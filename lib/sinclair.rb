@@ -90,6 +90,7 @@ class Sinclair
   autoload :Configurable,      'sinclair/configurable'
   autoload :EnvSettable,       'sinclair/env_settable'
   autoload :Exception,         'sinclair/exception'
+  autoload :EqualsBuilder,     'sinclair/equals_builder'
   autoload :InputHash,         'sinclair/input_hash'
   autoload :MethodBuilder,     'sinclair/method_builder'
   autoload :MethodDefinition,  'sinclair/method_definition'

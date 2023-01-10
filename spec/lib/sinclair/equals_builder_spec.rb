@@ -1,0 +1,40 @@
+# frozen_string_literal: true
+
+require 'spec_helper'
+
+describe Sinclair::EqualsBuilder do
+  subject(:builder) { described_class.new(attributes) }
+
+  let(:attributes) { %i[] }
+
+  let(:model1_class) { SampleModel }
+  let(:model2_class) { SampleModel }
+  let(:model1) { model1_class.new(model1_attributes) }
+  let(:model2) { model2_class.new(model2_attributes) }
+
+  let(:model1_attributes) { { name: name1, age: age1 } }
+  let(:model2_attributes) { { name: name2, age: age2 } }
+  let(:name1) { SecureRandom.hex(10) }
+  let(:name2) { SecureRandom.hex(10) }
+  let(:age1)  { Random.rand(10..20) }
+  let(:age2)  { Random.rand(21..50) }
+
+
+  describe 'match?' do
+    context 'when the attributes is empty' do
+      context 'when the models have very different attributes' do
+        it do
+          expect(builder.match?(model1, model2)).to be_truthy
+        end
+
+        context 'when they are different classes' do
+          let(:model2_class) { Class.new(SampleModel) }
+
+          it do
+            expect(builder.match?(model1, model2)).to be_falsey
+          end
+        end
+      end
+    end
+  end
+end
