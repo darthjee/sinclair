@@ -41,7 +41,7 @@ jobs:
           command: cc-test-reporter after-build --exit-code $?
   checks:
     docker:
-      - image: darthjee/circleci_ruby_270:1.1.0
+      - image: darthjee/circleci_ruby_270:1.2.0
         environment:
           PROJECT: sinclair
     steps:
