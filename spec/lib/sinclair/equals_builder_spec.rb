@@ -22,6 +22,23 @@ describe Sinclair::EqualsBuilder do
 
   describe 'match?' do
     context 'when the attributes is empty' do
+      context 'when the models have the same attributes' do
+        let(:name2) { name1 }
+        let(:age2)  { age1 }
+
+        it do
+          expect(builder.match?(model1, model2)).to be_truthy
+        end
+
+        context 'when they are different classes' do
+          let(:model2_class) { Class.new(SampleModel) }
+
+          it do
+            expect(builder.match?(model1, model2)).to be_falsey
+          end
+        end
+      end
+
       context 'when the models have very different attributes' do
         it do
           expect(builder.match?(model1, model2)).to be_truthy
