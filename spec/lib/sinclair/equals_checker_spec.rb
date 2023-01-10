@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-describe Sinclair::EqualsBuilder do
-  subject(:builder) { described_class.new(attributes) }
+describe Sinclair::EqualsChecker do
+  subject(:checker) { described_class.new(attributes) }
 
   let(:attributes) { %i[] }
 
@@ -27,7 +27,7 @@ describe Sinclair::EqualsBuilder do
         let(:age2)         { age1 }
 
         it do
-          expect(builder).not_to be_match(model1, model2)
+          expect(checker).not_to be_match(model1, model2)
         end
       end
 
@@ -36,13 +36,13 @@ describe Sinclair::EqualsBuilder do
         let(:age2)  { age1 }
 
         it do
-          expect(builder).to be_match(model1, model2)
+          expect(checker).to be_match(model1, model2)
         end
       end
 
       context 'when the models have very different attributes' do
         it do
-          expect(builder).to be_match(model1, model2)
+          expect(checker).to be_match(model1, model2)
         end
       end
     end
@@ -56,7 +56,7 @@ describe Sinclair::EqualsBuilder do
         let(:age2)         { age1 }
 
         it do
-          expect(builder).not_to be_match(model1, model2)
+          expect(checker).not_to be_match(model1, model2)
         end
       end
 
@@ -64,7 +64,7 @@ describe Sinclair::EqualsBuilder do
         let(:name2) { name1 }
 
         it do
-          expect(builder).to be_match(model1, model2)
+          expect(checker).to be_match(model1, model2)
         end
       end
 
@@ -72,13 +72,13 @@ describe Sinclair::EqualsBuilder do
         let(:age2) { age1 }
 
         it do
-          expect(builder).not_to be_match(model1, model2)
+          expect(checker).not_to be_match(model1, model2)
         end
       end
 
       context 'when the models have very different attributes' do
         it do
-          expect(builder).not_to be_match(model1, model2)
+          expect(checker).not_to be_match(model1, model2)
         end
       end
     end
@@ -92,7 +92,7 @@ describe Sinclair::EqualsBuilder do
         let(:age2)         { age1 }
 
         it do
-          expect(builder).not_to be_match(model1, model2)
+          expect(checker).not_to be_match(model1, model2)
         end
       end
 
@@ -101,7 +101,7 @@ describe Sinclair::EqualsBuilder do
         let(:age2)  { age1 }
 
         it do
-          expect(builder).to be_match(model1, model2)
+          expect(checker).to be_match(model1, model2)
         end
       end
 
@@ -109,13 +109,13 @@ describe Sinclair::EqualsBuilder do
         let(:name) { name1 }
 
         it do
-          expect(builder).not_to be_match(model1, model2)
+          expect(checker).not_to be_match(model1, model2)
         end
       end
 
       context 'when the models have very different attributes' do
         it do
-          expect(builder).not_to be_match(model1, model2)
+          expect(checker).not_to be_match(model1, model2)
         end
       end
     end
