@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SampleModel
   def initialize(name: nil, age: nil)
     @name = name

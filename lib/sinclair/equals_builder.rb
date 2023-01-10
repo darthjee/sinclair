@@ -9,7 +9,7 @@ class Sinclair
     def initialize(attributes)
       @attributes = attributes
     end
-    
+
     def match?(model, other)
       return false unless model.class == other.class
 
