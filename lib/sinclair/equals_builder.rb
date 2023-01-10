@@ -43,6 +43,8 @@ class Sinclair
     #   for the configured attributes
     #   - Public and private attributes are checked
     #
+    # @example (see Sinclair::EqualsBuilder)
+    #
     # @return  [TrueClass,FalseClass]
     def match?(model, other)
       return false unless model.class == other.class
