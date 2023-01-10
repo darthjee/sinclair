@@ -19,6 +19,7 @@ rules:
       - Sinclair::Configurable#config
       - Sinclair::Configurable#reset_config
       - Sinclair::Configurable#configure
+      - Sinclair::EqualsBuilder#initialize
       - Sinclair::Options#==
       - Sinclair::OptionsParser#options
       - Sinclair::OptionsParser#options_object
@@ -37,6 +38,7 @@ rules:
       - Sinclair::ConfigFactory#initialize
       - Sinclair::EnvSettable::Builder#initialize
       - Sinclair::Exception::InvalidOptions#initialize
+      - Sinclair::EqualsBuilder#initialize
       - Sinclair::InputHash#initialize
       - Sinclair::Matchers::AddInstanceMethodTo#initialize
       - Sinclair::Matchers::AddClassMethodTo#initialize

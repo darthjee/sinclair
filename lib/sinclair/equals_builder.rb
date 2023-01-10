@@ -30,8 +30,6 @@ class Sinclair
   #
   #   builder.match?(model1, model2) # returns false
   class EqualsBuilder
-    attr_reader :attributes
-
     # @param attributes [Array<Symbol,String>] list of relevant attributes
     def initialize(*attributes)
       @attributes = attributes.flatten
@@ -53,5 +51,17 @@ class Sinclair
         model.send(attr) == other.send(attr)
       end
     end
+
+    private
+
+    attr_reader :attributes
+
+    # @private
+    # @api private
+    # @method attributes
+    #
+    # attributes relevant for checking difference
+    #
+    # @return [Array<Symbol,String>]
   end
 end
