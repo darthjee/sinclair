@@ -21,20 +21,22 @@ describe Sinclair::EqualsBuilder do
 
   describe 'match?' do
     context 'when the attributes is empty' do
+      context 'when they are different classes and attributes are the same' do
+        let(:model2_class) { Class.new(SampleModel) }
+        let(:name2)        { name1 }
+        let(:age2)         { age1 }
+
+        it do
+          expect(builder).not_to be_match(model1, model2)
+        end
+      end
+
       context 'when the models have the same attributes' do
         let(:name2) { name1 }
         let(:age2)  { age1 }
 
         it do
           expect(builder).to be_match(model1, model2)
-        end
-
-        context 'when they are different classes' do
-          let(:model2_class) { Class.new(SampleModel) }
-
-          it do
-            expect(builder).not_to be_match(model1, model2)
-          end
         end
       end
 
@@ -42,34 +44,19 @@ describe Sinclair::EqualsBuilder do
         it do
           expect(builder).to be_match(model1, model2)
         end
-
-        context 'when they are different classes' do
-          let(:model2_class) { Class.new(SampleModel) }
-
-          it do
-            expect(builder).not_to be_match(model1, model2)
-          end
-        end
       end
     end
 
     context 'when the attributes is missing just one attribute' do
       let(:attributes) { %i[name] }
 
-      context 'when the models have the same attributes' do
-        let(:name2) { name1 }
-        let(:age2)  { age1 }
+      context 'when they are different classes and attributes are the same' do
+        let(:model2_class) { Class.new(SampleModel) }
+        let(:name2)        { name1 }
+        let(:age2)         { age1 }
 
         it do
-          expect(builder).to be_match(model1, model2)
-        end
-
-        context 'when they are different classes' do
-          let(:model2_class) { Class.new(SampleModel) }
-
-          it do
-            expect(builder).not_to be_match(model1, model2)
-          end
+          expect(builder).not_to be_match(model1, model2)
         end
       end
 
@@ -79,14 +66,6 @@ describe Sinclair::EqualsBuilder do
         it do
           expect(builder).to be_match(model1, model2)
         end
-
-        context 'when they are different classes' do
-          let(:model2_class) { Class.new(SampleModel) }
-
-          it do
-            expect(builder).not_to be_match(model1, model2)
-          end
-        end
       end
 
       context 'when the models have a listed different attribute' do
@@ -95,27 +74,11 @@ describe Sinclair::EqualsBuilder do
         it do
           expect(builder).not_to be_match(model1, model2)
         end
-
-        context 'when they are different classes' do
-          let(:model2_class) { Class.new(SampleModel) }
-
-          it do
-            expect(builder).not_to be_match(model1, model2)
-          end
-        end
       end
 
       context 'when the models have very different attributes' do
         it do
           expect(builder).not_to be_match(model1, model2)
-        end
-
-        context 'when they are different classes' do
-          let(:model2_class) { Class.new(SampleModel) }
-
-          it do
-            expect(builder).not_to be_match(model1, model2)
-          end
         end
       end
     end
@@ -123,20 +86,22 @@ describe Sinclair::EqualsBuilder do
     context 'when all attributes are included' do
       let(:attributes) { %i[name age] }
 
+      context 'when they are different classes and attributes are the same' do
+        let(:model2_class) { Class.new(SampleModel) }
+        let(:name2)        { name1 }
+        let(:age2)         { age1 }
+
+        it do
+          expect(builder).not_to be_match(model1, model2)
+        end
+      end
+
       context 'when the models have the same attributes' do
         let(:name2) { name1 }
         let(:age2)  { age1 }
 
         it do
           expect(builder).to be_match(model1, model2)
-        end
-
-        context 'when they are different classes' do
-          let(:model2_class) { Class.new(SampleModel) }
-
-          it do
-            expect(builder).not_to be_match(model1, model2)
-          end
         end
       end
 
@@ -146,27 +111,11 @@ describe Sinclair::EqualsBuilder do
         it do
           expect(builder).not_to be_match(model1, model2)
         end
-
-        context 'when they are different classes' do
-          let(:model2_class) { Class.new(SampleModel) }
-
-          it do
-            expect(builder).not_to be_match(model1, model2)
-          end
-        end
       end
 
       context 'when the models have very different attributes' do
         it do
           expect(builder).not_to be_match(model1, model2)
-        end
-
-        context 'when they are different classes' do
-          let(:model2_class) { Class.new(SampleModel) }
-
-          it do
-            expect(builder).not_to be_match(model1, model2)
-          end
         end
       end
     end
