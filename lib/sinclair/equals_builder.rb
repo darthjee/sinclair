@@ -12,7 +12,10 @@ class Sinclair
     
     def match?(model, other)
       return false unless model.class == other.class
-      true
+
+      attributes.all? do |attr|
+        model.public_send(attr) == other.public_send(attr)
+      end
     end
   end
 end
