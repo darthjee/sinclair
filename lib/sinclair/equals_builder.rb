@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Sinclair
-  # @api public
+  # @api protected
   # @author darthjee
   class EqualsBuilder
     attr_reader :attributes
@@ -14,7 +14,7 @@ class Sinclair
       return false unless model.class == other.class
 
       attributes.all? do |attr|
-        model.public_send(attr) == other.public_send(attr)
+        model.send(attr) == other.send(attr)
       end
     end
   end
