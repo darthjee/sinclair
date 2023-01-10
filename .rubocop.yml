@@ -20,6 +20,9 @@ Lint/AmbiguousBlockAssociation:
 RSpec/AlignLeftLetBrace:
   Enabled: true
 
+RSpec/PredicateMatcher:
+  Exclude:
+    - 'spec/integration/yard/**/*_spec.rb'
 
 RSpec/DescribedClass:
   Exclude:
