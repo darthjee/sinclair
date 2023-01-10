@@ -120,5 +120,56 @@ describe Sinclair::EqualsBuilder do
         end
       end
     end
+
+    context 'when all attributes are included' do
+      let(:attributes) { %i[name age] }
+
+      context 'when the models have the same attributes' do
+        let(:name2) { name1 }
+        let(:age2)  { age1 }
+
+        it do
+          expect(builder.match?(model1, model2)).to be_truthy
+        end
+
+        context 'when they are different classes' do
+          let(:model2_class) { Class.new(SampleModel) }
+
+          it do
+            expect(builder.match?(model1, model2)).to be_falsey
+          end
+        end
+      end
+
+      context 'when the models have a listed different attribute' do
+        let(:name) { name1 }
+
+        it do
+          expect(builder.match?(model1, model2)).to be_falsey
+        end
+
+        context 'when they are different classes' do
+          let(:model2_class) { Class.new(SampleModel) }
+
+          it do
+            expect(builder.match?(model1, model2)).to be_falsey
+          end
+        end
+      end
+
+      context 'when the models have very different attributes' do
+        it do
+          expect(builder.match?(model1, model2)).to be_falsey
+        end
+
+        context 'when they are different classes' do
+          let(:model2_class) { Class.new(SampleModel) }
+
+          it do
+            expect(builder.match?(model1, model2)).to be_falsey
+          end
+        end
+      end
+    end
   end
 end
