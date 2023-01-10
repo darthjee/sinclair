@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Sinclair
-  # @api protected
+  # @api public
   # @author darthjee
   #
   # Class responsible for checking if two instances of a class are the equals
