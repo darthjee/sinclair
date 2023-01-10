@@ -10,7 +10,7 @@ Metrics/BlockLength:
     - 'spec/support/**/*.rb'
     - '*.gemspec'
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 
 Lint/AmbiguousBlockAssociation:
