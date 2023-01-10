@@ -88,6 +88,7 @@ class Sinclair
   autoload :ConfigClass,       'sinclair/config_class'
   autoload :ConfigFactory,     'sinclair/config_factory'
   autoload :Configurable,      'sinclair/configurable'
+  autoload :Comparable,        'sinclair/comparable'
   autoload :EnvSettable,       'sinclair/env_settable'
   autoload :Exception,         'sinclair/exception'
   autoload :EqualsChecker,     'sinclair/equals_checker'
