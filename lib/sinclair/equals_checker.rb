@@ -7,6 +7,24 @@ class Sinclair
   # Class responsible for checking if two instances of a class are the equals
   #
   # @example regular usage
+  #   class SampleModel
+  #     def initialize(name: nil, age: nil)
+  #       @name = name
+  #       @age  = age
+  #     end
+  #
+  #     protected
+  #
+  #     attr_reader :name
+  #
+  #     private
+  #
+  #     attr_reader :age
+  #   end
+  #
+  #   class OtherModel < SampleModel
+  #   end
+  #
   #   checker = Sinclair::EqualsChecker.new(:name, :age)
   #
   #   model1 = SampleModel.new(name: 'jack', age: 21)
@@ -35,12 +53,23 @@ class Sinclair
       @attributes = Set.new(attributes.flatten)
     end
 
-    # @api private
     # Adds new fields to equals checker
     #
     # @param attributes [Array<Symbol,String>] list of relevant attributes
     #
     # @return [Set<Symbol,String>]
+    #
+    # @example adding fields to equal checker
+    #   checker = Sinclair::EqualsChecker.new(:name)
+    #
+    #   model1 = SampleModel.new(name: 'jack', age: 21)
+    #   model2 = SampleModel.new(name: 'jack', age: 22)
+    #
+    #  checker.match?(model1, model2) # returns true
+    #
+    #  checker.add(:age)
+    #
+    #  checker.match?(model1, model2) # returns false
     def add(*attributes)
       @attributes += Set.new(attributes.flatten)
     end
