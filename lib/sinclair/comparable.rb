@@ -8,7 +8,7 @@ class Sinclair
 
     included do |klass|
       def klass.comparable_by(*attributes)
-        @equals_checker = Sinclair::EqualsChecker.new(*attributes)
+        equals_checker.add(*attributes)
       end
 
       def klass.equals_checker

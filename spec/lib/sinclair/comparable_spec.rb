@@ -22,6 +22,42 @@ describe Sinclair::Comparable do
   let(:age1)              { Random.rand(10..20) }
   let(:age2)              { Random.rand(21..50) }
 
+  describe '.comparable_by' do
+    let(:model2_class) { model1_class }
+
+    context 'when no field was present' do
+      it 'adds the field for comparison' do
+        expect { model1_class.comparable_by(:name) }
+          .to change { model1 == model2 }
+          .from(true).to(false)
+      end
+    end
+
+    context 'when there was a field present' do
+      let(:name2) { name1 }
+
+      before { model1_class.comparable_by(:name) }
+
+      it 'adds the field for comparison' do
+        expect { model1_class.comparable_by(:age) }
+          .to change { model1 == model2 }
+          .from(true).to(false)
+      end
+    end
+
+    context 'when there was a field present and it made a non match' do
+      let(:age2) { age1 }
+
+      before { model1_class.comparable_by(:name) }
+
+      it 'adds the field for comparison without forgeting the previous' do
+        expect { model1_class.comparable_by(:age) }
+          .not_to change { model1 == model2 }
+          .from(false)
+      end
+    end
+  end
+
   describe '#==' do
     before do
       model1_class.comparable_by(attributes)
