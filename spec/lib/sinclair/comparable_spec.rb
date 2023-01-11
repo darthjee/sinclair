@@ -5,11 +5,7 @@ require 'spec_helper'
 describe Sinclair::Comparable do
   let(:model_class) do
     Class.new(SampleModel) do
-      extend Sinclair::Comparable
-
-      def ==(other)
-        self.class.equals_checker.match?(self, other)
-      end
+      include Sinclair::Comparable
     end
   end
 
@@ -34,7 +30,7 @@ describe Sinclair::Comparable do
 
     context 'when the attributes is empty' do
       context 'when they are different classes and attributes are the same' do
-        let(:model2_class) { Class.new(SampleModel) }
+        let(:model2_class) { Class.new(model1_class) }
         let(:name2)        { name1 }
         let(:age2)         { age1 }
 
@@ -63,7 +59,7 @@ describe Sinclair::Comparable do
       let(:attributes) { %i[name] }
 
       context 'when they are different classes and attributes are the same' do
-        let(:model2_class) { Class.new(SampleModel) }
+        let(:model2_class) { Class.new(model1_class) }
         let(:name2)        { name1 }
         let(:age2)         { age1 }
 
@@ -99,7 +95,7 @@ describe Sinclair::Comparable do
       let(:attributes) { %i[name age] }
 
       context 'when they are different classes and attributes are the same' do
-        let(:model2_class) { Class.new(SampleModel) }
+        let(:model2_class) { Class.new(model1_class) }
         let(:name2)        { name1 }
         let(:age2)         { age1 }
 

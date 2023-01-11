@@ -4,12 +4,20 @@ class Sinclair
   # @api public
   # @author darthjee
   module Comparable
-    def comparable_by(*attributes)
-      @equals_checker = Sinclair::EqualsChecker.new(*attributes)
+    extend ActiveSupport::Concern
+
+    included do |klass|
+      def klass.comparable_by(*attributes)
+        @equals_checker = Sinclair::EqualsChecker.new(*attributes)
+      end
+
+      def klass.equals_checker
+        @equals_checker ||= Sinclair::EqualsChecker.new
+      end
     end
 
-    def equals_checker
-      @equals_checker ||= Sinclair::EqualsChecker.new
+    def ==(other)
+      self.class.equals_checker.match?(self, other)
     end
   end
 end
