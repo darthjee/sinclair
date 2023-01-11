@@ -22,7 +22,7 @@ describe Sinclair::Comparable do
   let(:age1)              { Random.rand(10..20) }
   let(:age2)              { Random.rand(21..50) }
 
-  describe "#==" do
+  describe '#==' do
     before do
       model1_class.comparable_by(attributes)
       model2_class.comparable_by(attributes)
