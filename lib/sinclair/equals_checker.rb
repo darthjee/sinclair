@@ -35,6 +35,11 @@ class Sinclair
       @attributes = Set.new(attributes.flatten)
     end
 
+    # Adds new fields to equals checker
+    #
+    # @param attributes [Array<Symbol,String>] list of relevant attributes
+    #
+    # @return [Set<Symbol,String>]
     def add(*attributes)
       @attributes += Set.new(attributes.flatten)
     end
