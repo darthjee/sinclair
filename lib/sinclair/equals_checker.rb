@@ -32,7 +32,7 @@ class Sinclair
   class EqualsChecker
     # @param attributes [Array<Symbol,String>] list of relevant attributes
     def initialize(*attributes)
-      @attributes = attributes.flatten
+      @attributes = Set.new(attributes.flatten)
     end
 
     # Returns if 2 objects are equals
@@ -64,6 +64,6 @@ class Sinclair
     #
     # attributes relevant for checking difference
     #
-    # @return [Array<Symbol,String>]
+    # @return [Set<Symbol,String>]
   end
 end
