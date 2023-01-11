@@ -35,6 +35,7 @@ class Sinclair
       @attributes = Set.new(attributes.flatten)
     end
 
+    # @api private
     # Adds new fields to equals checker
     #
     # @param attributes [Array<Symbol,String>] list of relevant attributes
