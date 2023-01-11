@@ -35,6 +35,10 @@ class Sinclair
       @attributes = Set.new(attributes.flatten)
     end
 
+    def add(*attributes)
+      @attributes += Set.new(attributes.flatten)
+    end
+
     # Returns if 2 objects are equals
     #
     # The check takes into consideration:

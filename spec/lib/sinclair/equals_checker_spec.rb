@@ -120,4 +120,29 @@ describe Sinclair::EqualsChecker do
       end
     end
   end
+
+  describe '#add' do
+    let(:attributes)     { [:name] }
+    let(:new_attributes) { [:age] }
+
+    context 'when the new field has different values' do
+      let(:name2) { name1 }
+
+      it "uses the new field to the match" do
+        expect { checker.add(new_attributes) }
+          .to change { checker.match?(model1, model2) }
+          .from(true).to(false)
+      end
+    end
+
+    context 'when the old field has different values' do
+      let(:age2) { age1 }
+
+      it "uses the new field to the match" do
+        expect { checker.add(new_attributes) }
+          .not_to change { checker.match?(model1, model2) }
+          .from(false)
+      end
+    end
+  end
 end
