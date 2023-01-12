@@ -24,6 +24,7 @@ class Sinclair
     autoload :ClassMethods, 'sinclair/options/class_methods'
 
     extend ClassMethods
+    include Comparable
 
     # @param options [Hash] hash with options (see {.options}, {.with_options})
     # @example (see Options)
@@ -56,19 +57,6 @@ class Sinclair
     def to_h
       allowed_options.inject({}) do |hash, option|
         hash.merge(option => public_send(option))
-      end
-    end
-
-    # returns if other equals to self
-    #
-    # @param other [Object] object to be compared
-    #
-    # @return [TrueClass,FalseClass]
-    def ==(other)
-      return false unless self.class == other.class
-
-      allowed_options.all? do |name|
-        public_send(name) == other.public_send(name)
       end
     end
 

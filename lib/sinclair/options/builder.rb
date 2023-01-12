@@ -58,6 +58,7 @@ class Sinclair
         attributes.each do |option, value|
           add_method(option, cached: :full) { value }
           klass.allow(option)
+          klass.comparable_by(option)
         end
       end
     end
