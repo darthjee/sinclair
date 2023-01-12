@@ -66,6 +66,30 @@ describe Sinclair::Comparable do
           .to change { model1 == model2 }
           .from(true).to(false)
       end
+
+      context 'when we add a field to the class itself' do
+        let(:name2) { name1 }
+
+        before { model_class.comparable_by(:name) }
+
+        it 'takes all fields into consideration' do
+          expect { model1_class.comparable_by(:age) }
+            .to change { model1 == model2 }
+            .from(true).to(false)
+        end
+      end
+
+      context 'when we add a field to the parent class after' do
+        let(:name2) { name1 }
+
+        before { model1_class.comparable_by(:name) }
+
+        it 'takes all fields into consideration' do
+          expect { model_class.comparable_by(:age) }
+            .to change { model1 == model2 }
+            .from(true).to(false)
+        end
+      end
     end
   end
 
