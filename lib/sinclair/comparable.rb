@@ -35,7 +35,10 @@ class Sinclair
     # @return [Boolean]
     # @example (see Sinclair::Comparable)
     def ==(other)
-      self.class.equals_checker.match?(self, other)
+      return false unless self.class.equals_checker.match?(self, other)
+      return true unless self.class.superclass.include?(Sinclair::Comparable)
+
+      self.class.superclass.equals_checker.match?(self, other)
     end
   end
 end

@@ -56,6 +56,17 @@ describe Sinclair::Comparable do
           .from(false)
       end
     end
+
+    context 'when the class parent class adds a field' do
+      let(:model1_class) { Class.new(model_class) }
+      let(:model2_class) { model1_class }
+
+      it 'takes the field into consideration' do
+        expect { model_class.comparable_by(:name) }
+          .to change { model1 == model2 }
+          .from(true).to(false)
+      end
+    end
   end
 
   describe '#==' do
