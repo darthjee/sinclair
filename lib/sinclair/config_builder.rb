@@ -75,9 +75,11 @@ class Sinclair
     # @todo get rid of @config_attributes when only
     #   Sinclair::ConfigClass are accepted
     def method_included?(method_name)
+      klass = @config.class
+
       @config_attributes.include?(method_name) ||
-        @config.class.is_a?(Sinclair::ConfigClass) &&
-          @config.class.config_attributes.include?(method_name)
+        klass.is_a?(Sinclair::ConfigClass) &&
+          klass.config_attributes.include?(method_name)
     end
   end
 end
