@@ -107,7 +107,7 @@ describe Sinclair::Options::ClassMethods do
           .to change {
             klass.invalid_options_in(test_keys)
           }.from(%i[protocol port invalid])
-            .to([:invalid])
+          .to([:invalid])
       end
 
       it do
