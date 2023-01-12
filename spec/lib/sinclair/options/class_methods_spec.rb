@@ -27,11 +27,26 @@ describe Sinclair::Options::ClassMethods do
           .to([:invalid])
       end
 
+      context 'when the added fild makes an object different' do
+        let(:options1_hash) { { timeout: 10 } }
+        let(:options2_hash) { { timeout: 11 } }
+
+        before do
+          klass.skip_validation
+        end
+
+        it 'adds the field to == check' do
+          expect { klass.send(:with_options, :timeout) }
+            .to change { klass.new(options1_hash) == klass.new(options2_hash) }
+            .from(true).to(false)
+        end
+      end
+
       it do
         expect { klass.send(:with_options, :timeout, 'retries') }
           .not_to change {
-                    Sinclair::Options.invalid_options_in(%i[timeout retries invalid])
-                  }
+            Sinclair::Options.invalid_options_in(%i[timeout retries invalid])
+          }
       end
 
       context 'when when calling method after building' do
@@ -46,8 +61,8 @@ describe Sinclair::Options::ClassMethods do
         it do
           expect { klass.send(:with_options, :timeout, :retries) }
             .not_to change {
-                      klass.invalid_options_in(%i[timeout retries invalid])
-                    }
+              klass.invalid_options_in(%i[timeout retries invalid])
+            }
         end
       end
     end
@@ -90,16 +105,16 @@ describe Sinclair::Options::ClassMethods do
       it do
         expect { klass.send(:with_options, 'protocol', port: 443) }
           .to change {
-                klass.invalid_options_in(test_keys)
-              }.from(%i[protocol port invalid])
+            klass.invalid_options_in(test_keys)
+          }.from(%i[protocol port invalid])
           .to([:invalid])
       end
 
       it do
         expect { klass.send(:with_options, 'protocol', port: 443) }
           .not_to change {
-                    super_class.invalid_options_in(%i[protocol port])
-                  }
+            super_class.invalid_options_in(%i[protocol port])
+          }
       end
 
       context 'when overriding a method' do

@@ -40,6 +40,19 @@ describe Sinclair::Options::Builder do
           .not_to change { Sinclair::Options.invalid_options_in(test_keys) }
       end
 
+      context 'when the object is compared with others' do
+        before { klass.skip_validation }
+
+        let(:options1) { klass.new(timeout: 10) }
+        let(:options2) { klass.new(timeout: 15) }
+
+        it 'adds the field to the equals check' do
+          expect { builder.build }
+            .to change { options1 == options2 }
+            .from(true).to(false)
+        end
+      end
+
       context 'when when calling method after building' do
         before { builder.build }
 
