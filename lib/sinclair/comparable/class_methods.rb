@@ -14,6 +14,7 @@ class Sinclair
       # @param attributes [Array<Symbol>] attributes to be added to comparison
       #
       # @see Sinclair::EqualsChecker
+      # @return (see Sinclair::EqualsChecker#add)
       # @example (see Sinclair::Comparable)
       def comparable_by(*attributes)
         equals_checker.add(*attributes)
