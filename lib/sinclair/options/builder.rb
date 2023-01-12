@@ -64,7 +64,7 @@ class Sinclair
 
       # Add the fields to equals comparation
       #
-      # @return (see Sinclair::Comparable::ClassMethods#comparable_by)
+      # @return (see Sinclair::Comparable.comparable_by)
       def add_filds_to_equals
         klass.comparable_by(*attributes.keys)
       end
