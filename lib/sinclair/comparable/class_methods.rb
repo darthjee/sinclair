@@ -20,7 +20,7 @@ class Sinclair
       end
 
       # @api private
-      # 
+      #
       # Returns a comparable configured for the class
       #
       # @return [Sinclair::EqualsChecker]
