@@ -24,7 +24,7 @@ class Sinclair
   #   model1 = model_class.new(name: 'jack', age: 21)
   #   model2 = model_class.new(name: 'jack', age: 23)
   #
-  #    model1 == model2 # returns true
+  #   model1 == model2 # returns true
   module Comparable
     extend ActiveSupport::Concern
 
