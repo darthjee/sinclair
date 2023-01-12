@@ -475,6 +475,28 @@ Options allows projects to have an easy to configure option object
  ConnectionOptions.new(invalid: 10) # raises Sinclair::Exception::InvalidOptions
 ```
 
+### Sinclair::Comparable
+Comparable allows a class to implement quickly a `==` method comparing given attributes
+
+```ruby
+  class SampleModel
+    include Sinclair::Comparable
+
+    comparable_by :name
+    attr_reader :name, :age
+
+    def initialize(name: nil, age: nil)
+      @name = name
+      @age  = age
+    end
+  end
+
+  model1 = model_class.new(name: 'jack', age: 21)
+  model2 = model_class.new(name: 'jack', age: 23)
+
+  model1 == model2 # returns true
+```
+
 RSspec matcher
 ---------------
 
