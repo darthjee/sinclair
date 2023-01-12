@@ -1,4 +1,4 @@
-threshold: 99.6
+threshold: 99.8
 require_exact_threshold: false
 rules:
   ApiTag::Presence:
@@ -19,7 +19,7 @@ rules:
       - Sinclair::Configurable#config
       - Sinclair::Configurable#reset_config
       - Sinclair::Configurable#configure
-      - Sinclair::EqualsBuilder#initialize
+      - Sinclair::EqualsChecker#initialize
       - Sinclair::Options#==
       - Sinclair::OptionsParser#options
       - Sinclair::OptionsParser#options_object
@@ -38,7 +38,7 @@ rules:
       - Sinclair::ConfigFactory#initialize
       - Sinclair::EnvSettable::Builder#initialize
       - Sinclair::Exception::InvalidOptions#initialize
-      - Sinclair::EqualsBuilder#initialize
+      - Sinclair::EqualsChecker#initialize
       - Sinclair::InputHash#initialize
       - Sinclair::Matchers::AddInstanceMethodTo#initialize
       - Sinclair::Matchers::AddClassMethodTo#initialize

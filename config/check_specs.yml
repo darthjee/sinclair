@@ -1,4 +1,5 @@
 ignore:
+  - lib/sinclair/comparable/class_methods.rb
   - lib/sinclair/matchers/add_method_to.rb
   - lib/sinclair/matchers/add_method.rb
   - lib/sinclair/version.rb
