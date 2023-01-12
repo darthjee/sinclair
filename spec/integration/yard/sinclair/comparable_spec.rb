@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-describe Sinclair::EqualsChecker do
+describe Sinclair::Comparable do
   describe '#yard' do
     describe '.comparable_by?' do
       let(:model_class) do
