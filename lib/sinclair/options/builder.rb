@@ -36,6 +36,7 @@ class Sinclair
       # @return (see Sinclair#build)
       def build
         add_all_methods
+        add_filds_to_equals
 
         super
       end
@@ -58,8 +59,14 @@ class Sinclair
         attributes.each do |option, value|
           add_method(option, cached: :full) { value }
           klass.allow(option)
-          klass.comparable_by(option)
         end
+      end
+
+      # Add the fields to equals comparation
+      #
+      # @return (see Sinclair::Comparable::ClassMethods#comparable_by)
+      def add_filds_to_equals
+        klass.comparable_by(*attributes.keys)
       end
     end
   end
