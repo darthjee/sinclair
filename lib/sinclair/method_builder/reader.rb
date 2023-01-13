@@ -12,7 +12,15 @@ class Sinclair
       end
 
       def build
-        klass.attr_reader *attributes
+        if instance?
+          klass.attr_reader *attributes
+        else
+          attrs = attributes
+          mod = Module.new do
+            attr_reader *attrs
+          end
+          klass.extend mod
+        end
       end
 
       private
