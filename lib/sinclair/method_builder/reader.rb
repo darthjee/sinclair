@@ -1,31 +1,35 @@
 # frozen_string_literal: true
 
 class Sinclair
-  # @api private
-  # @author darthjee
   class MethodBuilder
+    # @api private
+    # @author darthjee
     class Reader < Base
       def initialize(klass, *attributes, type:)
         @klass      = klass
         @attributes = attributes.flatten
-        @type = type
+        @type       = type
       end
 
       def build
         if instance?
-          klass.attr_reader *attributes
+          klass.attr_reader(*attributes)
         else
-          attrs = attributes
-          mod = Module.new do
-            attr_reader *attrs
-          end
-          klass.extend mod
+          klass.module_eval(code_string)
         end
       end
 
       private
 
       attr_reader :attributes
+
+      def code_string
+        <<-CODE
+          class << self
+            attr_reader :#{attributes.join(', :')}
+          end
+        CODE
+      end
     end
   end
 end
