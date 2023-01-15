@@ -10,8 +10,6 @@ class Sinclair
     autoload :StringMethodBuilder, 'sinclair/method_builder/string_method_builder'
     autoload :BlockMethodBuilder,  'sinclair/method_builder/block_method_builder'
     autoload :Accessor,            'sinclair/method_builder/accessor'
-    autoload :Reader,              'sinclair/method_builder/reader'
-    autoload :Writer,              'sinclair/method_builder/writer'
 
     CLASS_METHOD = :class
     INSTANCE_METHOD = :instance

@@ -5,10 +5,11 @@ class Sinclair
     # @api private
     # @author darthjee
     class Accessor < Base
-      def initialize(klass, *attributes, type:)
-        @klass      = klass
-        @attributes = attributes.flatten
-        @type       = type
+      def initialize(klass, *attributes, type:, accessor_type: :accessor)
+        @klass         = klass
+        @attributes    = attributes.flatten
+        @type          = type
+        @accessor_type = accessor_type
       end
 
       def build
@@ -21,7 +22,7 @@ class Sinclair
 
       private
 
-      attr_reader :attributes
+      attr_reader :attributes, :accessor_type
 
       def code_string
         "attr_#{accessor_type} :#{attributes.join(', :')}"
@@ -33,10 +34,6 @@ class Sinclair
             #{code_string}
           end
         CODE
-      end
-
-      def accessor_type
-        :accessor
       end
     end
   end
