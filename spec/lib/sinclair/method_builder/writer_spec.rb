@@ -8,7 +8,7 @@ describe Sinclair::MethodBuilder::Writer do
       described_class.new(klass, *attributes, type: type)
     end
 
-    it_behaves_like 'a method builder that adds attribute witter' do
+    it_behaves_like 'a method builder that adds attribute writer' do
       context 'when type is instance' do
         let(:type) { Sinclair::MethodBuilder::INSTANCE_METHOD }
 

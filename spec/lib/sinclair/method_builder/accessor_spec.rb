@@ -9,6 +9,6 @@ describe Sinclair::MethodBuilder::Accessor do
     end
 
     it_behaves_like 'a method builder that adds attribute reader'
-    it_behaves_like 'a method builder that adds attribute witter'
+    it_behaves_like 'a method builder that adds attribute writer'
   end
 end

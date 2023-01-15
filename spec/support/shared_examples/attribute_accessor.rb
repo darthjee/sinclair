@@ -48,7 +48,7 @@ shared_examples 'a method builder that adds attribute reader' do
   end
 end
 
-shared_examples 'a method builder that adds attribute witter' do
+shared_examples 'a method builder that adds attribute writer' do
   let(:klass)       { Class.new }
   let(:instance)    { klass.new }
   let(:value)       { Random.rand }
