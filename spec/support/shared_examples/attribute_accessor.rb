@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples 'a method builder that adds attribute reader' do
   let(:klass)       { Class.new }
   let(:instance)    { klass.new }
