@@ -13,9 +13,9 @@ class Sinclair
 
       def build
         if instance?
-          klass.attr_accessor(*attributes)
-        else
           klass.module_eval(code_string)
+        else
+          klass.module_eval(class_code_string)
         end
       end
 
@@ -24,11 +24,19 @@ class Sinclair
       attr_reader :attributes
 
       def code_string
+        "attr_#{accessor_type} :#{attributes.join(', :')}"
+      end
+
+      def class_code_string
         <<-CODE
           class << self
-            attr_accessor :#{attributes.join(', :')}
+            #{code_string}
           end
         CODE
+      end
+
+      def accessor_type
+        :accessor
       end
     end
   end
