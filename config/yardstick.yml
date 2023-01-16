@@ -50,6 +50,7 @@ rules:
       - Sinclair::Matchers::ChangeInstanceMethodOn#initialize
       - Sinclair::MethodBuilder
       - Sinclair::MethodBuilder::Base#initialize
+      - Sinclair::MethodBuilder::Accessor#initialize
       - Sinclair::MethodDefinition#initialize
       - Sinclair::MethodDefinition::BlockDefinition#initialize
       - Sinclair::MethodDefinition::StringDefinition#initialize
