@@ -9,9 +9,9 @@ class Sinclair
     class CallDefinition < MethodDefinition
       attr_reader :attributes
 
-      def initialize(name, *attributes, **options)
+      def initialize(name, *attributes)
         @attributes = attributes
-        super(name, **options)
+        super(name)
       end
 
       default_value :block?, false
