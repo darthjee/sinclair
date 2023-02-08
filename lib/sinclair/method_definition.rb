@@ -25,31 +25,38 @@ class Sinclair
       cached: false
     }.freeze
 
-    # Builds a method that will return the same value always
-    #
-    # @return [Symbol]
-    def self.default_value(method_name, value)
-      define_method(method_name) { value }
-    end
+    class << self
+      # Builds a method that will return the same value always
+      #
+      # @return [Symbol]
+      def default_value(method_name, value)
+        define_method(method_name) { value }
+      end
 
-    # @param name    [String,Symbol] name of the method
-    # @param code    [String] code to be evaluated as method
-    # @param block   [Proc] block with code to be added as method
-    # @param options [Hash] Options of construction
-    # @option options cached [Boolean] Flag telling to create a block
-    #   with cache
-    #
-    # builds a method definition based on arguments
-    #
-    # when block is given, returns a {BlockDefinition} and
-    # returns a {StringDefinition} otherwise
-    #
-    # @return [Base]
-    def self.from(name, code = nil, **options, &block)
-      if block
-        BlockDefinition.new(name, **options, &block)
-      else
-        StringDefinition.new(name, code, **options)
+      # @param name    [String,Symbol] name of the method
+      # @param code    [String] code to be evaluated as method
+      # @param block   [Proc] block with code to be added as method
+      # @param options [Hash] Options of construction
+      # @option options cached [Boolean] Flag telling to create a block
+      #   with cache
+      #
+      # builds a method definition based on arguments
+      #
+      # when block is given, returns a {BlockDefinition} and
+      # returns a {StringDefinition} otherwise
+      #
+      # @return [Base]
+      def from(name, code = nil, **options, &block)
+        if block
+          BlockDefinition.new(name, **options, &block)
+        else
+          StringDefinition.new(name, code, **options)
+        end
+      end
+
+      def for(type, *args, **options, &block)
+        klass = const_get("#{type}_definition".camelize)
+        klass.new(*args, **options, &block)
       end
     end
 
