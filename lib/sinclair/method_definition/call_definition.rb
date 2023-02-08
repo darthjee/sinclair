@@ -5,22 +5,32 @@ class Sinclair
     # @api private
     # @author darthjee
     #
-    # Define an instance method from string
+    # Define a call of method to e done within the class
     class CallDefinition < MethodDefinition
-      attr_reader :attributes
+      attr_reader :arguments
 
-      def initialize(name, *attributes)
-        @attributes = attributes
-        super(name)
+      # @param method_name [Symbol] method to be called
+      # @param arguments [Array<Symbol,String>] parameters to be passed as
+      #   arguments to the call
+      def initialize(method_name, *arguments)
+        @arguments = arguments
+        super(method_name)
       end
 
       default_value :block?, false
       default_value :string?, false
 
+      # String to be executed within the class
+      # @return [String]
       def code_string
-        "#{name} :#{attributes.join(', :')}"
+        "#{name} :#{arguments.join(', :')}"
       end
 
+      # String to be executed within the class that will
+      # run code to change the class itself
+      #
+      # @see code_string
+      # @return [String]
       def class_code_string
         <<-CODE
           class << self
