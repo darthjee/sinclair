@@ -47,7 +47,7 @@ describe Sinclair::MethodBuilder::CallMethodBuilder do
       end
     end
 
-    context 'when method called is attr_reader' do
+    context 'when method called is attr_writter' do
       let(:accessor_type) { :writer }
 
       it_behaves_like 'a method builder that adds attribute writer' do
