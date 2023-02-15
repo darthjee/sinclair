@@ -11,41 +11,84 @@ describe Sinclair::MethodBuilder do
   let(:method_name) { :the_method }
   let(:instance)    { klass.new }
 
-  before do
-    definitions.add(method_name, value.to_s)
-  end
-
   describe '#build_methods' do
-    context 'when building an instance method' do
-      let(:type) { described_class::INSTANCE_METHOD }
-
-      it do
-        expect { builder.build_methods(definitions, type) }
-          .to add_method(method_name).to(instance)
+    context "when the method is a string definition" do
+      before do
+        definitions.add(method_name, value.to_s)
       end
 
-      context 'when the method is called' do
-        before { builder.build_methods(definitions, type) }
+      context 'when building an instance method' do
+        let(:type) { described_class::INSTANCE_METHOD }
 
         it do
-          expect(instance.the_method).to eq(value)
+          expect { builder.build_methods(definitions, type) }
+            .to add_method(method_name).to(instance)
+        end
+
+        context 'when the method is called' do
+          before { builder.build_methods(definitions, type) }
+
+          it do
+            expect(instance.the_method).to eq(value)
+          end
+        end
+      end
+
+      context 'when building a class method' do
+        let(:type) { described_class::CLASS_METHOD }
+
+        it do
+          expect { builder.build_methods(definitions, type) }
+            .to add_class_method(method_name).to(klass)
+        end
+
+        context 'when the method is called' do
+          before { builder.build_methods(definitions, type) }
+
+          it do
+            expect(klass.the_method).to eq(value)
+          end
         end
       end
     end
 
-    context 'when building a class method' do
-      let(:type) { described_class::CLASS_METHOD }
-
-      it do
-        expect { builder.build_methods(definitions, type) }
-          .to add_class_method(method_name).to(klass)
+    context "when the method is a block definition" do
+      before do
+        result = value
+        definitions.add(method_name) { result }
       end
 
-      context 'when the method is called' do
-        before { builder.build_methods(definitions, type) }
+      context 'when building an instance method' do
+        let(:type) { described_class::INSTANCE_METHOD }
 
         it do
-          expect(klass.the_method).to eq(value)
+          expect { builder.build_methods(definitions, type) }
+            .to add_method(method_name).to(instance)
+        end
+
+        context 'when the method is called' do
+          before { builder.build_methods(definitions, type) }
+
+          it do
+            expect(instance.the_method).to eq(value)
+          end
+        end
+      end
+
+      context 'when building a class method' do
+        let(:type) { described_class::CLASS_METHOD }
+
+        it do
+          expect { builder.build_methods(definitions, type) }
+            .to add_class_method(method_name).to(klass)
+        end
+
+        context 'when the method is called' do
+          before { builder.build_methods(definitions, type) }
+
+          it do
+            expect(klass.the_method).to eq(value)
+          end
         end
       end
     end
