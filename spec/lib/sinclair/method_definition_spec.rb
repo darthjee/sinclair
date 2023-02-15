@@ -42,4 +42,68 @@ describe Sinclair::MethodDefinition do
       end
     end
   end
+
+  describe '.for' do
+    context 'when there are no options nor block' do
+      let(:type)      { :call }
+      let(:arguments) { %i[attr_reader some_attribute other_attribute] }
+
+      it do
+        expect(described_class.for(type, *arguments))
+          .to be_a(described_class)
+      end
+
+      it 'Returns an instance of the given type' do
+        expect(described_class.for(type, *arguments))
+          .to be_a(described_class::CallDefinition)
+      end
+
+      it 'initializes it correctly' do
+        expect(described_class.for(type, *arguments).code_string)
+          .to eq('attr_reader :some_attribute, :other_attribute')
+      end
+    end
+
+    context 'when a block is given' do
+      let(:type)        { :block }
+      let(:method_name) { :the_method }
+      let(:block)       { proc { 10 } }
+
+      it do
+        expect(described_class.for(type, method_name, &block))
+          .to be_a(described_class)
+      end
+
+      it 'Returns an instance of the given type' do
+        expect(described_class.for(type, method_name, &block))
+          .to be_a(described_class::BlockDefinition)
+      end
+
+      it 'initializes it correctly' do
+        expect(described_class.for(type, method_name, &block).name)
+          .to eq(method_name)
+      end
+    end
+
+    context 'when options are given' do
+      let(:type)        { :string }
+      let(:method_name) { :the_method }
+      let(:code)        { '10' }
+
+      it do
+        expect(described_class.for(type, method_name, code))
+          .to be_a(described_class)
+      end
+
+      it 'Returns an instance of the given type' do
+        expect(described_class.for(type, method_name, code))
+          .to be_a(described_class::StringDefinition)
+      end
+
+      it 'initializes it correctly' do
+        expect(described_class.for(type, method_name, code).name)
+          .to eq(method_name)
+      end
+    end
+  end
 end

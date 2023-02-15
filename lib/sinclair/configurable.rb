@@ -81,6 +81,8 @@ class Sinclair
     # @method as_options(options_hash = {})
     # @api public
     #
+    # Returns options with configurated values
+    #
     # @param (see Sinclair::Config#as_options)
     # @return (see Sinclair::Config#as_options)
     # @example (see Sinclair::Config#as_options)

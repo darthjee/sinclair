@@ -26,6 +26,10 @@ class Sinclair
       definitions << MethodDefinition.from(name, code, **options, &block)
     end
 
+    def add_definition(type, *args, **options, &block)
+      definitions << MethodDefinition.for(type, *args, **options, &block)
+    end
+
     private
 
     # @private

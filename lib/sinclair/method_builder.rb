@@ -9,6 +9,7 @@ class Sinclair
     autoload :Base,                'sinclair/method_builder/base'
     autoload :StringMethodBuilder, 'sinclair/method_builder/string_method_builder'
     autoload :BlockMethodBuilder,  'sinclair/method_builder/block_method_builder'
+    autoload :CallMethodBuilder,   'sinclair/method_builder/call_method_builder'
 
     CLASS_METHOD = :class
     INSTANCE_METHOD = :instance
@@ -53,8 +54,10 @@ class Sinclair
     def build_from_definition(definition, type)
       if definition.string?
         StringMethodBuilder.new(klass, definition, type: type).build
-      else
+      elsif definition.block?
         BlockMethodBuilder.new(klass, definition, type: type).build
+      else
+        CallMethodBuilder.new(klass, definition, type: type).build
       end
     end
   end
