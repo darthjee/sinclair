@@ -54,8 +54,10 @@ class Sinclair
     def build_from_definition(definition, type)
       if definition.string?
         StringMethodBuilder.new(klass, definition, type: type).build
-      else
+      elsif definition.block?
         BlockMethodBuilder.new(klass, definition, type: type).build
+      else
+        CallMethodBuilder.new(klass, definition, type: type).build
       end
     end
   end
