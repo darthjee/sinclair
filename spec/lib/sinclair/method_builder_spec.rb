@@ -12,7 +12,7 @@ describe Sinclair::MethodBuilder do
   let(:instance)    { klass.new }
 
   describe '#build_methods' do
-    context "when the method is a string definition" do
+    context 'when the method is a string definition' do
       before do
         definitions.add(method_name, value.to_s)
       end
@@ -52,7 +52,7 @@ describe Sinclair::MethodBuilder do
       end
     end
 
-    context "when the method is a block definition" do
+    context 'when the method is a block definition' do
       before do
         result = value
         definitions.add(method_name) { result }
