@@ -37,13 +37,12 @@ class Sinclair
       # @method to(target = nil)
       # @api public
       #
-      # The matcher checks if a method was added
-      # to a class or instance
+      # The matcher checks if a class method was changed on a class
       #
       # @param (see AddMethod#to)
       #
       # @return [ChangeClassMethodOn]
-      
+
       alias on to
 
       private

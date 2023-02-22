@@ -58,6 +58,15 @@ class Sinclair
     class AddInstanceMethod < Base
       include AddMethod
 
+      # @method to(target = nil)
+      # @api public
+      #
+      # The matcher checks if an instance method was added to a class
+      #
+      # @param (see AddMethod#to)
+      #
+      # @return [AddClassMethodTo]
+
       private
 
       # @private
