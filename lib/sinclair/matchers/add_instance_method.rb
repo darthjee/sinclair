@@ -55,8 +55,7 @@ class Sinclair
     #
     #   # Outputs
     #   # 'should add method 'the_method' to #<Class:0x000056441bf46608> instances'
-    class AddInstanceMethod < Base
-      include AddMethod
+    class AddInstanceMethod < AddMethod
 
       # @method to(target = nil)
       # @api public

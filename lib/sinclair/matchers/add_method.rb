@@ -4,8 +4,8 @@ class Sinclair
   module Matchers
     # @api private
     #
-    # Commone methods for matchers
-    module AddMethod
+    # Common methods for matchers
+    class AddMethod < Base
       # @api public
       #
       # Builds final matcher

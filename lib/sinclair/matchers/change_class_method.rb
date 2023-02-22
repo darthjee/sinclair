@@ -31,8 +31,7 @@ class Sinclair
     #    end
     #  end
 
-    class ChangeClassMethod < Base
-      include AddMethod
+    class ChangeClassMethod < AddMethod
 
       # @method to(target = nil)
       # @api public

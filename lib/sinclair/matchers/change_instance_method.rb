@@ -7,8 +7,7 @@ class Sinclair
     #
     # AddInstanceMethod is able to build an instance of
     # {Sinclair::Matchers::ChangeInstanceMethodOn}
-    class ChangeInstanceMethod < Base
-      include AddMethod
+    class ChangeInstanceMethod < AddMethod
 
       # @api public
       #
