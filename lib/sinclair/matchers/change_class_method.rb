@@ -32,7 +32,6 @@ class Sinclair
     #  end
 
     class ChangeClassMethod < AddMethod
-      
       with_final_matcher :on, ChangeClassMethodOn
 
       private

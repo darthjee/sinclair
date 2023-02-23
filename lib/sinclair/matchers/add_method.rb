@@ -6,7 +6,6 @@ class Sinclair
     #
     # Common methods for matchers
     class AddMethod < Base
-
       # @!macro with_final_matcher
       #   @!method $1(target = nil)
       #   @api public

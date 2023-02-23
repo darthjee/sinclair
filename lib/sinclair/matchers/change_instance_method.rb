@@ -8,7 +8,6 @@ class Sinclair
     # AddInstanceMethod is able to build an instance of
     # {Sinclair::Matchers::ChangeInstanceMethodOn}
     class ChangeInstanceMethod < AddMethod
-
       with_final_matcher :on, ChangeInstanceMethodOn
 
       private
