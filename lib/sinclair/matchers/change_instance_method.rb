@@ -7,6 +7,30 @@ class Sinclair
     #
     # AddInstanceMethod is able to build an instance of
     # {Sinclair::Matchers::ChangeInstanceMethodOn}
+    #
+    # @example Checking if an instance method has changed
+    #  RSpec.configure do |config|
+    #    config.include Sinclair::Matchers
+    #  end
+    #
+    #  class MyModel
+    #  end
+    #
+    #  RSpec.describe 'my test' do
+    #    let(:builder) { Sinclair.new(klass) }
+    #    let(:klass)   { Class.new(MyModel) }
+    #
+    #    before do
+    #      builder.add_method(:the_method) { 10 }
+    #      builder.build
+    #      builder.add_method(:the_method) { 20 }
+    #    end
+    #
+    #    it do
+    #      expect{ builder.build }.to change_method(:the_method).on(klass)
+    #    end
+    #  end
+
     class ChangeInstanceMethod < AddMethod
       with_final_matcher :on, ChangeInstanceMethodOn
 
