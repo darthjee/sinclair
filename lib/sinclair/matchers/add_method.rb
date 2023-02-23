@@ -6,28 +6,35 @@ class Sinclair
     #
     # Common methods for matchers
     class AddMethod < Base
-      # Add a method to generate the final matcher
-      #
-      # @param name [String,Symbol] the name of the method
-      # @param matcher_class [Class<AddMethodTo>] The matcher class to be returned
-      #
-      # @!macro with_final_matcher
-      #   @!method $1(target = nil)
-      #   @api public
-      #
-      #   Builds final matcher
-      #
-      #   The matcher checks if a method was added
-      #   to a class or instance
-      #
-      #   @param [Class,Object] target where the method will be added
-      #
-      #   @return [$2]
-      def self.with_final_matcher(name, matcher_class)
-        matcher = matcher_class
-        Sinclair.new(self).tap do |builder|
-          builder.add_method(name) { |target| matcher.new(target, method_name) }
-        end.build
+      class << self
+        private
+
+        # @api private
+        # @private
+        #
+        # Add a method to generate the final matcher
+        #
+        # @param name [String,Symbol] the name of the method
+        # @param matcher_class [Class<AddMethodTo>] The matcher class to be returned
+        #
+        # @!macro with_final_matcher
+        #   @!method $1(target = nil)
+        #   @api public
+        #
+        #   Builds final matcher
+        #
+        #   The matcher checks if a method was added
+        #   to a class or instance
+        #
+        #   @param [Class,Object] target where the method will be added
+        #
+        #   @return [$2]
+        def with_final_matcher(name, matcher_class)
+          matcher = matcher_class
+          Sinclair.new(self).tap do |builder|
+            builder.add_method(name) { |target| matcher.new(target, method_name) }
+          end.build
+        end
       end
 
       # @abstract
