@@ -6,6 +6,11 @@ class Sinclair
     #
     # Common methods for matchers
     class AddMethod < Base
+      # Add a method to generate the final matcher
+      #
+      # @param name [String,Symbol] the name of the method
+      # @param matcher_class [Class<AddMethodTo>] The matcher class to be returned
+      #
       # @!macro with_final_matcher
       #   @!method $1(target = nil)
       #   @api public
