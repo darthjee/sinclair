@@ -40,7 +40,7 @@ RSpec/MultipleExpectations:
     - spec/lib/sinclair_spec.rb
 
 RSpec/NestedGroups:
-  Max: 4
+  Max: 5
   Exclude:
     - spec/integration/yard/**/*.rb
 
