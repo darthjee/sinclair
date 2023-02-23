@@ -36,14 +36,14 @@ class Sinclair
       # Delegated from {MethodDefinition::CallDefinition}
       #
       # @see MethodDefinition::CallDefinition#code_string
-      # @return (see MethodDefinition::CallDefinition#code_string)
+      # @return [String]
 
       # @method class_code_string
       # @private
       # @api private
       #
       # @see MethodDefinition::CallDefinition#class_code_string
-      # @return (see MethodDefinition::CallDefinition#class_code_string)
+      # @return [String]
     end
   end
 end
