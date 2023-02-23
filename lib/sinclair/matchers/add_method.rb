@@ -15,7 +15,7 @@ class Sinclair
       #   The matcher checks if a method was added
       #   to a class or instance
       #
-      #   @param [target] target where the method will be added
+      #   @param [Class,Object] target where the method will be added
       #
       #   @return [$2]
       def self.with_final_matcher(name, matcher_class)
