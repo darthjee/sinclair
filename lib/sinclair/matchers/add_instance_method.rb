@@ -7,55 +7,55 @@ class Sinclair
     #
     # AddInstanceMethod is able to build an instance of {Sinclair::Matchers::AddInstanceMethodTo}
     #
-    # @example Using inside RSpec and checking an instance method being added
-    #   RSpec.configure do |config|
-    #     config.include Sinclair::Matchers
-    #   end
-    #
-    #   class MyModel
-    #   end
-    #
-    #   RSpec.describe "MyBuilder" do
-    #     let(:clazz)   { Class.new(MyModel) }
-    #     let(:builder) { Sinclair.new(clazz) }
-    #
-    #     before do
-    #       builder.add_method(:new_method, "2")
-    #     end
-    #
-    #     it do
-    #       expect { builder.build }.to add_method(:new_method).to(clazz)
-    #     end
-    #   end
-    #
-    #   # Outputs
-    #   # 'should add method 'new_method' to #<Class:0x000056441bf46608> instances'
-    #
-    # @example Using inside RSpec and checking instance
-    #   RSpec.configure do |config|
-    #     config.include Sinclair::Matchers
-    #   end
-    #
-    #   class MyModel
-    #   end
-    #
-    #   RSpec.describe "MyBuilder" do
-    #     let(:clazz)    { Class.new(MyModel) }
-    #     let(:builder)  { Sinclair.new(clazz) }
-    #     let(:instance) { clazz.new }
-    #
-    #     before do
-    #       builder.add_method(:the_method, "true")
-    #     end
-    #
-    #     it do
-    #       expect { builder.build }.to add_method(:the_method).to(instance)
-    #     end
-    #   end
-    #
-    #   # Outputs
-    #   # 'should add method 'the_method' to #<Class:0x000056441bf46608> instances'
     class AddInstanceMethod < AddMethod
+      # @example Using inside RSpec and checking an instance method being added
+      #   RSpec.configure do |config|
+      #     config.include Sinclair::Matchers
+      #   end
+      #
+      #   class MyModel
+      #   end
+      #
+      #   RSpec.describe "MyBuilder" do
+      #     let(:clazz)   { Class.new(MyModel) }
+      #     let(:builder) { Sinclair.new(clazz) }
+      #
+      #     before do
+      #       builder.add_method(:new_method, "2")
+      #     end
+      #
+      #     it do
+      #       expect { builder.build }.to add_method(:new_method).to(clazz)
+      #     end
+      #   end
+      #
+      #   # Outputs
+      #   # 'should add method 'new_method' to #<Class:0x000056441bf46608> instances'
+      #
+      # @example Using inside RSpec and checking instance
+      #   RSpec.configure do |config|
+      #     config.include Sinclair::Matchers
+      #   end
+      #
+      #   class MyModel
+      #   end
+      #
+      #   RSpec.describe "MyBuilder" do
+      #     let(:clazz)    { Class.new(MyModel) }
+      #     let(:builder)  { Sinclair.new(clazz) }
+      #     let(:instance) { clazz.new }
+      #
+      #     before do
+      #       builder.add_method(:the_method, "true")
+      #     end
+      #
+      #     it do
+      #       expect { builder.build }.to add_method(:the_method).to(instance)
+      #     end
+      #   end
+      #
+      #   # Outputs
+      #   # 'should add method 'the_method' to #<Class:0x000056441bf46608> instances'
       with_final_matcher :to, AddInstanceMethodTo
 
       # @method to(target = nil)
