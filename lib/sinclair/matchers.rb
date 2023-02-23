@@ -37,7 +37,6 @@ class Sinclair
 
     # DSL to AddClassMethod
     #
-    # @example (see Sinclair::Matchers)
     # @example (see Sinclair::Matchers::AddClassMethod#to)
     #
     # @return [AddClassMethod] RSpec Matcher
@@ -47,7 +46,6 @@ class Sinclair
 
     # DSL to ChangeInstanceMethod
     #
-    # @example (see Sinclair::Matchers)
     # @example (see Sinclair::Matchers::ChangeInstanceMethod#to)
     #
     # @return [ChangeInstanceMethod] RSpec Matcher
@@ -57,7 +55,6 @@ class Sinclair
 
     # DSL to ChangeClassMethod
     #
-    # @example (see Sinclair::Matchers)
     # @example (see Sinclair::Matchers::ChangeClassMethod#to)
     #
     # @return [ChangeClassMethod] RSpec Matcher
