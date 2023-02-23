@@ -38,4 +38,3 @@ RSpec.describe Sinclair::Matchers::ChangeInstanceMethod do
     end
   end
 end
-
