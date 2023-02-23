@@ -32,17 +32,8 @@ class Sinclair
     #  end
 
     class ChangeClassMethod < AddMethod
-
-      # @method to(target = nil)
-      # @api public
-      #
-      # The matcher checks if a class method was changed on a class
-      #
-      # @param (see AddMethod#to)
-      #
-      # @return [ChangeClassMethodOn]
-
-      alias on to
+      
+      with_final_matcher :on, ChangeClassMethodOn
 
       private
 

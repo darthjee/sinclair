@@ -33,6 +33,8 @@ class Sinclair
     #   # should add method class_method 'new_method' to #<Class:0x000055b4d0a25c80>
     class AddClassMethod < AddMethod
 
+      with_final_matcher :to, AddClassMethodTo
+
       private
 
       # @private

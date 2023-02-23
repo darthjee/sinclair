@@ -9,12 +9,7 @@ class Sinclair
     # {Sinclair::Matchers::ChangeInstanceMethodOn}
     class ChangeInstanceMethod < AddMethod
 
-      # @api public
-      #
-      # Builds final matcher
-      #
-      # @return [Sinclair::Matchers::ChangeInstanceMethodOn]
-      alias on to
+      with_final_matcher :on, ChangeInstanceMethodOn
 
       private
 
