@@ -54,6 +54,14 @@ class Sinclair
         end
       end
 
+      # creates a definition
+      #
+      # The creation is based on type which will be used to infer
+      # which subclass of {Sinclair::MethodDefinition} to be used
+      #
+      # @param type [Symbol] the method definition type
+      #
+      # @return [Sinclair::MethodDefinition] an instance of a subclass
       def for(type, *args, **options, &block)
         klass = const_get("#{type}_definition".camelize)
         klass.new(*args, **options, &block)

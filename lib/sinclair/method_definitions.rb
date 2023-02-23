@@ -10,6 +10,8 @@ class Sinclair
 
     # Builds and adds new definition
     #
+    # The type is decided based in the arguments
+    #
     # @param name [String,Symbol] method name
     # @param options [Hash] Options of construction
     # @option options cached [Boolean] Flag telling to create
@@ -21,11 +23,25 @@ class Sinclair
     # @overload add(definition_class, name, **options, &block)
     #   @param block [Proc]  block to be ran as method
     #
-    # @return MethodDefinitions
+    # @return [Array<MethodDefinition>]
     def add(name, code = nil, **options, &block)
       definitions << MethodDefinition.from(name, code, **options, &block)
     end
 
+    # Builds and adds new definition
+    #
+    # The type is decided based on the argument +type+
+    #
+    # @param type [Symbol] type of definition
+    #   - :string -> {MethodDefinition::StringDefinition}
+    #   - :block -> {MethodDefinition::BlockDefinition}
+    #   - :call -> {MethodDefinition::CallDefinition}
+    # @param options [Hash] Options of construction
+    # @option options cached [Boolean] Flag telling to create
+    #   a method with cache
+    # @param block [Proc]  block to be ran as method
+    #
+    # @return [Array<MethodDefinition>]
     def add_definition(type, *args, **options, &block)
       definitions << MethodDefinition.for(type, *args, **options, &block)
     end

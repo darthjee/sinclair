@@ -7,15 +7,54 @@ class Sinclair
     #
     # AddInstanceMethod is able to build an instance of
     # {Sinclair::Matchers::ChangeInstanceMethodOn}
-    class ChangeInstanceMethod < Base
-      include AddMethod
-
-      # @api public
+    class ChangeInstanceMethod < AddMethod
+      # @example Checking if an instance method has changed
+      #  RSpec.configure do |config|
+      #    config.include Sinclair::Matchers
+      #  end
       #
-      # Builds final matcher
+      #  class MyModel
+      #  end
       #
-      # @return [Sinclair::Matchers::ChangeInstanceMethodOn]
-      alias on to
+      #  RSpec.describe 'my test' do
+      #    let(:builder) { Sinclair.new(klass) }
+      #    let(:klass)   { Class.new(MyModel) }
+      #
+      #    before do
+      #      builder.add_method(:the_method) { 10 }
+      #      builder.build
+      #      builder.add_method(:the_method) { 20 }
+      #    end
+      #
+      #    it do
+      #      expect{ builder.build }.to change_method(:the_method).on(klass)
+      #    end
+      #  end
+      #
+      # @example Checking if an instance method has changed on an instance
+      #  RSpec.configure do |config|
+      #    config.include Sinclair::Matchers
+      #  end
+      #
+      #  class MyModel
+      #  end
+      #
+      #  RSpec.describe 'my test' do
+      #    let(:builder)  { Sinclair.new(klass) }
+      #    let(:instance) { klass.new }
+      #    let(:klass)    { Class.new(MyModel) }
+      #
+      #    before do
+      #      builder.add_method(:the_method) { 10 }
+      #      builder.build
+      #      builder.add_method(:the_method) { 20 }
+      #    end
+      #
+      #    it do
+      #      expect{ builder.build }.to change_method(:the_method).on(instance)
+      #    end
+      #  end
+      with_final_matcher :on, ChangeInstanceMethodOn
 
       private
 
@@ -27,15 +66,6 @@ class Sinclair
       def matcher_error
         'You should specify which instance the method is being changed on' \
           "change_method(:#{method_name}).on(instance)"
-      end
-
-      # @private
-      #
-      # Class of the real matcher
-      #
-      # @return [Class<Sinclair::Matchers::Base>]
-      def add_method_to_class
-        ChangeInstanceMethodOn
       end
     end
   end

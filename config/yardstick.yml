@@ -1,4 +1,4 @@
-threshold: 99.2
+threshold: 100
 require_exact_threshold: false
 rules:
   ApiTag::Presence:
@@ -23,6 +23,10 @@ rules:
       - Sinclair::Options#==
       - Sinclair::OptionsParser#options
       - Sinclair::OptionsParser#options_object
+      - Sinclair::Matchers#add_method
+      - Sinclair::Matchers#add_class_method
+      - Sinclair::Matchers#change_method
+      - Sinclair::Matchers#change_class_method
   ReturnTag:
     enabled: true
     exclude:
@@ -52,6 +56,7 @@ rules:
       - Sinclair::MethodBuilder::Base#initialize
       - Sinclair::MethodBuilder::Accessor#initialize
       - Sinclair::MethodDefinition#initialize
+      - Sinclair::MethodDefinition::CallDefinition#initialize
       - Sinclair::MethodDefinition::BlockDefinition#initialize
       - Sinclair::MethodDefinition::StringDefinition#initialize
       - Sinclair::Options#initialize

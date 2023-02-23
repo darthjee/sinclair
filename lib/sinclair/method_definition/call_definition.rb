@@ -7,8 +7,6 @@ class Sinclair
     #
     # Define a call of method to e done within the class
     class CallDefinition < MethodDefinition
-      attr_reader :arguments
-
       # @param method_name [Symbol] method to be called
       # @param arguments [Array<Symbol,String>] parameters to be passed as
       #   arguments to the call
@@ -26,8 +24,7 @@ class Sinclair
         "#{name} :#{arguments.join(', :')}"
       end
 
-      # String to be executed within the class that will
-      # run code to change the class itself
+      # String to be executed within the class running code to change the class itself
       #
       # @see code_string
       # @return [String]
@@ -38,6 +35,18 @@ class Sinclair
           end
         CODE
       end
+
+      private
+
+      attr_reader :arguments
+
+      # @method arguments
+      # @api private
+      # @private
+      #
+      # parameters to be passed as arguments to the call
+      #
+      # @return [Array<Symbol,String>]
     end
   end
 end
