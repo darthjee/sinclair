@@ -79,15 +79,6 @@ class Sinclair
         'You should specify which instance the method is being added to' \
           "add_method(:#{method_name}).to(instance)"
       end
-
-      # @private
-      #
-      # Class of the real matcher
-      #
-      # @return [Class<Sinclair::Matchers::Base>]
-      def add_method_to_class
-        AddInstanceMethodTo
-      end
     end
   end
 end

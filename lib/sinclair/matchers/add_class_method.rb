@@ -46,15 +46,6 @@ class Sinclair
         'You should specify which class the method is being added to' \
           "add_class_method(:#{method_name}).to(klass)"
       end
-
-      # @private
-      #
-      # Class of the real matcher
-      #
-      # @return [Class<Sinclair::Matchers::Base>]
-      def add_method_to_class
-        AddClassMethodTo
-      end
     end
   end
 end
