@@ -30,7 +30,6 @@ class Sinclair
     #      expect{ builder.build }.to change_class_method(:the_method).on(klass)
     #    end
     #  end
-
     class ChangeClassMethod < AddMethod
       with_final_matcher :on, ChangeClassMethodOn
 
