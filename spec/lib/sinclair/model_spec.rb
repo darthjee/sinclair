@@ -3,8 +3,9 @@
 require 'spec_helper'
 
 describe Sinclair::Model do
-  subject(:model_class) { Class.new(described_class) }
-  subject(:model)       { model_class.new }
+  subject(:model) { model_class.new }
+
+  let(:model_class) { Class.new(described_class) }
 
   describe '.with_fields' do
     context 'when the call happens with no options' do
@@ -39,7 +40,7 @@ describe Sinclair::Model do
         end
 
         it do
-          expect { model.name=(name) }
+          expect { model.name = name }
             .to change { model.instance_variable_get(:@name) }
             .from(nil)
             .to(name)

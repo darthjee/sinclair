@@ -12,7 +12,6 @@ class Sinclair
       end
     end
 
-    def initialize
-    end
+    def initialize; end
   end
 end
