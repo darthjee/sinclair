@@ -17,6 +17,8 @@ class Sinclair
         # @param name [String,Symbol] the name of the method
         # @param matcher_class [Class<AddMethodTo>] The matcher class to be returned
         #
+        # @return (see Sinclair#build)
+        #
         # @!macro with_final_matcher
         #   @!method $1(target = nil)
         #   @api public

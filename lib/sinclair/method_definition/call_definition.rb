@@ -24,8 +24,7 @@ class Sinclair
         "#{name} :#{arguments.join(', :')}"
       end
 
-      # String to be executed within the class that will
-      # run code to change the class itself
+      # String to be executed within the class running code to change the class itself
       #
       # @see code_string
       # @return [String]
