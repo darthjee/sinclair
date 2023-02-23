@@ -7,7 +7,7 @@ class Sinclair
     #
     # AddInstanceMethod is able to build an instance of {Sinclair::Matchers::AddInstanceMethodTo}
     #
-    # @example Using inside RSpec and checking Class
+    # @example Using inside RSpec and checking an instance method being added
     #   RSpec.configure do |config|
     #     config.include Sinclair::Matchers
     #   end

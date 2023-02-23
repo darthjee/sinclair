@@ -8,7 +8,7 @@ class Sinclair
     # AddInstanceMethod is able to build an instance of
     # {Sinclair::Matchers::ChangeClassMethodOn}
     #
-    # @example
+    # @example Checking if a class method has changed
     #  RSpec.configure do |config|
     #    config.include Sinclair::Matchers
     #  end

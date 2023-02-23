@@ -7,7 +7,10 @@ class Sinclair
   # Matchers module will have the DSL to be included in RSpec in order to have
   # access to the matchers
   #
-  # @example (see Sinclair::Matchers::AddMethod#to)
+  # @example (see Sinclair::Matchers::AddClassMethod)
+  # @example (see Sinclair::Matchers::AddInstanceMethod)
+  # @example (see Sinclair::Matchers::ChangeClassMethod)
+  # @example (see Sinclair::Matchers::ChangeInstanceMethod)
   module Matchers
     autoload :Base,                   'sinclair/matchers/base'
     autoload :AddInstanceMethod,      'sinclair/matchers/add_instance_method'
@@ -25,7 +28,6 @@ class Sinclair
 
     # DSL to AddInstanceMethod
     #
-    # @example (see Sinclair::Matchers)
     # @example (see Sinclair::Matchers::AddInstanceMethod#to)
     #
     # @return [AddInstanceMethod] RSpec Matcher
