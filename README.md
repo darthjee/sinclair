@@ -13,11 +13,11 @@ This gem helps the creation of complex gems/concerns
 that enables creation of methods on the fly through class
 methods
 
-Next release: [1.10.0](https://github.com/darthjee/sinclair/compare/1.9.0...master)
+Next release: [1.11.0](https://github.com/darthjee/sinclair/compare/1.10.0...master)
 
 Yard Documentation
 -------------------
-[https://www.rubydoc.info/gems/sinclair/1.9.0](https://www.rubydoc.info/gems/sinclair/1.9.0)
+[https://www.rubydoc.info/gems/sinclair/1.10.0](https://www.rubydoc.info/gems/sinclair/1.10.0)
 
 Installation
 ---------------
