@@ -209,7 +209,7 @@ class Sinclair
   #
   # @example Using string code to add a string defined method
   #   class Person
-  #     attr_reader :first_name, :last_name
+  #     attr_accessor :first_name, :last_name
   #
   #     def initialize(first_name, last_name)
   #       @first_name = first_name
@@ -225,7 +225,7 @@ class Sinclair
   #
   # @example Using block to add a block method
   #   class Person
-  #     attr_reader :first_name, :last_name
+  #     attr_accessor :first_name, :last_name
   #
   #     def initialize(first_name, last_name)
   #       @first_name = first_name
