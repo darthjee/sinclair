@@ -272,42 +272,45 @@ class Sinclair
 
   # Add a method to the method list to be created on klass
   #
-  # @param name [String,Symbol] name of the method to be added
-  # @param options [Hash] Options of construction
-  # @option options cached [Boolean] Flag telling to create
-  #   a method with cache
-  #
   # @overload add_class_method(name, code, **options)
+  #   @param name [String,Symbol] name of the method to be added
   #   @param code [String] code to be evaluated when the method is ran
+  #   @param options [Hash] Options of construction
+  #   @option options cached [Boolean] Flag telling to create
+  #     a method with cache
+  #
+  #   @example Adding a method by String
+  #     class EnvFetcher
+  #     end
+  #
+  #     builder = Sinclair.new(EnvFetcher)
+  #
+  #     builder.add_class_method(:hostname, 'ENV["HOSTNAME"]')
+  #     builder.build
+  #
+  #     ENV['HOSTNAME'] = 'myhost'
+  #
+  #     env_fetcher.hostname # returns 'myhost'
   #
   # @overload add_class_method(name, **options, &block)
+  #   @param name [String,Symbol] name of the method to be added
   #   @param block [Proc]  block to be ran as method
+  #   @param options [Hash] Options of construction
+  #   @option options cached [Boolean] Flag telling to create
+  #     a method with cache
   #
-  # @example Adding a method by String
-  #   class EnvFetcher
-  #   end
+  #   @example Adding a method by Block
+  #     class EnvFetcher
+  #     end
   #
-  #   builder = Sinclair.new(EnvFetcher)
+  #     builder = Sinclair.new(EnvFetcher)
   #
-  #   builder.add_class_method(:hostname, 'ENV["HOSTNAME"]')
-  #   builder.build
+  #     builder.add_class_method(:timeout) { ENV['TIMEOUT'] }
+  #     builder.build
   #
-  #   ENV['HOSTNAME'] = 'myhost'
+  #     ENV['TIMEOUT'] = '300'
   #
-  #   env_fetcher.hostname # returns 'myhost'
-  #
-  # @example Adding a method by Block
-  #   class EnvFetcher
-  #   end
-  #
-  #   builder = Sinclair.new(EnvFetcher)
-  #
-  #   builder.add_class_method(:timeout) { ENV['TIMEOUT'] }
-  #   builder.build
-  #
-  #   ENV['TIMEOUT'] = '300'
-  #
-  #   env_fetcher.timeout # returns '300'
+  #     env_fetcher.timeout # returns '300'
   #
   # @return [Array<MethodDefinition>] the list of all currently defined class methods
   def add_class_method(name, code = nil, **options, &block)
