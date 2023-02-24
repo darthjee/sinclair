@@ -234,11 +234,33 @@ class Sinclair
   #   end
   #
   #   builder = Sinclair.new(Person)
-  #   builder.add_method(:full_name, '[first_name, last_name].join(" ")')
-  #   builder.add_method(:bond_name) { "#{last_name}, #{full_name}" }
+  #   builder.add_method(:bond_name) { "#{last_name}, #{first_name} #{last_name}" }
   #   builder.build
   #
   #   Person.new('john', 'wick').bond_name # returns 'wick, john wick'
+  #
+  # @example Using block to add a block method
+  #   class Person
+  #     attr_accessor :first_name, :last_name
+  #
+  #     def initialize(first_name, last_name)
+  #       @first_name = first_name
+  #       @last_name = last_name
+  #     end
+  #   end
+  #
+  #   builder = Sinclair.new(Person)
+  #   builder.add_method(:bond_name, type: :block, cached: true) do
+  #     "{last_name}, #{first_name} #{last_name}"
+  #   end
+  #   builder.build
+  #
+  #   person.Person.new('john', 'wick')
+  #
+  #   person.bond_name # returns 'wick, john wick'
+  #   person.first_name = 'Johny'
+  #   person.bond_name # returns 'wick, john wick'
+  #
   # @return [Array<MethodDefinition>] the list of all currently defined instance methods
   def add_method(*args, type: nil, **options, &block)
     if type
