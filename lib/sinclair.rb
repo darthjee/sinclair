@@ -180,18 +180,22 @@ class Sinclair
 
   # Add a method to the method list to be created on klass instances
   #
-  # @param name [String,Symbol] name of the method to be added
-  # @param options [Hash] Options of construction
-  # @option options cached [Boolean] Flag telling to create
-  #   a method with cache
   #
   # @overload add_method(name, code, **options)
+  #   @param name [String,Symbol] name of the method to be added
   #   @param code [String] code to be evaluated when the method is ran
+  #   @param options [Hash] Options of construction
+  #   @option options cached [Boolean] Flag telling to create
+  #     a method with cache
   #
   # @overload add_method(name, **options, &block)
+  #   @param name [String,Symbol] name of the method to be added
   #   @param block [Proc]  block to be ran as method
+  #   @param options [Hash] Options of construction
+  #   @option options cached [Boolean] Flag telling to create
+  #     a method with cache
   #
-  # @example Using string code
+  # @example Using string code to add a string defined method
   #   class Person
   #     attr_reader :first_name, :last_name
   #
@@ -207,7 +211,7 @@ class Sinclair
   #
   #   Person.new('john', 'wick').full_name # returns 'john wick'
   #
-  # @example Using block
+  # @example Using block to add a block method
   #   class Person
   #     attr_reader :first_name, :last_name
   #
@@ -224,10 +228,11 @@ class Sinclair
   #
   #   Person.new('john', 'wick').bond_name # returns 'wick, john wick'
   # @return [Array<MethodDefinition>]
-  def add_method(name, code = nil, **options, &block)
-    definitions.add(
-      name, code, **options, &block
-    )
+  def add_method(*args, type: nil, **options, &block)
+    if type
+    else
+      definitions.add(*args, **options, &block)
+    end
   end
 
   # Add a method to the method list to be created on klass
