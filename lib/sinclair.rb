@@ -180,13 +180,13 @@ class Sinclair
 
   # Add a method to the method list to be created on klass instances
   #
-  #
   # @overload add_method(name, code, **options)
   #   @param name [String,Symbol] name of the method to be added
   #   @param code [String] code to be evaluated when the method is ran
   #   @param options [Hash] Options of construction
   #   @option options cached [Boolean] Flag telling to create
   #     a method with cache
+  #   @see MethodDefinition::StringDefinition
   #
   # @overload add_method(name, **options, &block)
   #   @param name [String,Symbol] name of the method to be added
@@ -194,6 +194,18 @@ class Sinclair
   #   @param options [Hash] Options of construction
   #   @option options cached [Boolean] Flag telling to create
   #     a method with cache
+  #   @see MethodDefinition::BlockDefinition
+  #
+  # @overload add_method(*args, type:, **options, &block)
+  #   @param args [Array<Object>] arguments to be passed to the definition
+  #   @param type [Symbol] type of method definition
+  #   @param block [Proc]  block to be ran as method when type is block
+  #   @param options [Hash] Options of construction
+  #   @option options cached [Boolean] Flag telling to create
+  #     a method with cache
+  #   @see MethodDefinition::BlockDefinition
+  #   @see MethodDefinition::StringDefinition
+  #   @see MethodDefinition::CallDefinition
   #
   # @example Using string code to add a string defined method
   #   class Person
@@ -227,7 +239,7 @@ class Sinclair
   #   builder.build
   #
   #   Person.new('john', 'wick').bond_name # returns 'wick, john wick'
-  # @return [Array<MethodDefinition>]
+  # @return [Array<MethodDefinition>] the list aof all currently defined methods
   def add_method(*args, type: nil, **options, &block)
     if type
       definitions.add_definition(type, *args, **options, &block)
