@@ -239,7 +239,7 @@ class Sinclair
   #   builder.build
   #
   #   Person.new('john', 'wick').bond_name # returns 'wick, john wick'
-  # @return [Array<MethodDefinition>] the list aof all currently defined methods
+  # @return [Array<MethodDefinition>] the list of all currently defined instance methods
   def add_method(*args, type: nil, **options, &block)
     if type
       definitions.add_definition(type, *args, **options, &block)
@@ -261,7 +261,7 @@ class Sinclair
   # @overload add_class_method(name, **options, &block)
   #   @param block [Proc]  block to be ran as method
   #
-  # @example
+  # @example Adding a method by String
   #   class EnvFetcher
   #   end
   #
@@ -274,7 +274,7 @@ class Sinclair
   #
   #   env_fetcher.hostname # returns 'myhost'
   #
-  # @example
+  # @example Adding a method by Block
   #   class EnvFetcher
   #   end
   #
@@ -287,7 +287,7 @@ class Sinclair
   #
   #   env_fetcher.timeout # returns '300'
   #
-  # @return [Array<MethodDefinition>]
+  # @return [Array<MethodDefinition>] the list of all currently defined class methods
   def add_class_method(name, code = nil, **options, &block)
     class_definitions.add(
       name, code, **options, &block
@@ -297,7 +297,6 @@ class Sinclair
   # Evaluetes a block which will result in a String, the method code
   #
   # @example Building a initial value class method
-  #
   #   module InitialValuer
   #     extend ActiveSupport::Concern
   #
@@ -319,6 +318,7 @@ class Sinclair
   #   end
   #
   #   object = MyClass.new
+  #
   #   object.age # 20
   #   object.age = 30
   #   object.age # 30
@@ -363,7 +363,7 @@ class Sinclair
   #   end
   #
   #   Purchase.new(2.3, 5).total_price # returns 11.5
-  # @return [Array<MethodDefinition>]
+  # @return [Array<MethodDefinition>] the list of all currently defined instance methods
   def eval_and_add_method(name, &block)
     add_method(name, instance_eval(&block))
   end
