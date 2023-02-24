@@ -38,6 +38,12 @@ describe Sinclair do
         end
       end
 
+      context "when describing a method using a string specific type" do
+        it 'creates a method with the string' do
+          expect(instance.type_string).to eq(10)
+        end
+      end
+
       context "when describing a method using a call specific type for attr_acessor" do
         let(:value) { Random.rand }
 
