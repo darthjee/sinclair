@@ -188,6 +188,22 @@ class Sinclair
   #     a method with cache
   #   @see MethodDefinition::StringDefinition
   #
+  #   @example Using string code to add a string defined method
+  #     class Person
+  #       attr_accessor :first_name, :last_name
+  #
+  #       def initialize(first_name, last_name)
+  #         @first_name = first_name
+  #         @last_name = last_name
+  #       end
+  #     end
+  #
+  #     builder = Sinclair.new(Person)
+  #     builder.add_method(:full_name, '[first_name, last_name].join(" ")')
+  #     builder.build
+  #
+  #     Person.new('john', 'wick').full_name # returns 'john wick'
+  #
   # @overload add_method(name, **options, &block)
   #   @param name [String,Symbol] name of the method to be added
   #   @param block [Proc]  block to be ran as method
@@ -195,6 +211,22 @@ class Sinclair
   #   @option options cached [Boolean] Flag telling to create
   #     a method with cache
   #   @see MethodDefinition::BlockDefinition
+  #
+  #   @example Using block to add a block method
+  #     class Person
+  #       attr_accessor :first_name, :last_name
+  #
+  #       def initialize(first_name, last_name)
+  #         @first_name = first_name
+  #         @last_name = last_name
+  #       end
+  #     end
+  #
+  #     builder = Sinclair.new(Person)
+  #     builder.add_method(:bond_name) { "#{last_name}, #{first_name} #{last_name}" }
+  #     builder.build
+  #
+  #     Person.new('john', 'wick').bond_name # returns 'wick, john wick'
   #
   # @overload add_method(*args, type:, **options, &block)
   #   @param args [Array<Object>] arguments to be passed to the definition
@@ -207,59 +239,27 @@ class Sinclair
   #   @see MethodDefinition::StringDefinition
   #   @see MethodDefinition::CallDefinition
   #
-  # @example Using string code to add a string defined method
-  #   class Person
-  #     attr_accessor :first_name, :last_name
+  #   @example Using block to add a block method
+  #     class Person
+  #       attr_accessor :first_name, :last_name
   #
-  #     def initialize(first_name, last_name)
-  #       @first_name = first_name
-  #       @last_name = last_name
+  #       def initialize(first_name, last_name)
+  #         @first_name = first_name
+  #         @last_name = last_name
+  #       end
   #     end
-  #   end
   #
-  #   builder = Sinclair.new(Person)
-  #   builder.add_method(:full_name, '[first_name, last_name].join(" ")')
-  #   builder.build
-  #
-  #   Person.new('john', 'wick').full_name # returns 'john wick'
-  #
-  # @example Using block to add a block method
-  #   class Person
-  #     attr_accessor :first_name, :last_name
-  #
-  #     def initialize(first_name, last_name)
-  #       @first_name = first_name
-  #       @last_name = last_name
+  #     builder = Sinclair.new(Person)
+  #     builder.add_method(:bond_name, type: :block, cached: true) do
+  #       "{last_name}, #{first_name} #{last_name}"
   #     end
-  #   end
+  #     builder.build
   #
-  #   builder = Sinclair.new(Person)
-  #   builder.add_method(:bond_name) { "#{last_name}, #{first_name} #{last_name}" }
-  #   builder.build
+  #     person.Person.new('john', 'wick')
   #
-  #   Person.new('john', 'wick').bond_name # returns 'wick, john wick'
-  #
-  # @example Using block to add a block method
-  #   class Person
-  #     attr_accessor :first_name, :last_name
-  #
-  #     def initialize(first_name, last_name)
-  #       @first_name = first_name
-  #       @last_name = last_name
-  #     end
-  #   end
-  #
-  #   builder = Sinclair.new(Person)
-  #   builder.add_method(:bond_name, type: :block, cached: true) do
-  #     "{last_name}, #{first_name} #{last_name}"
-  #   end
-  #   builder.build
-  #
-  #   person.Person.new('john', 'wick')
-  #
-  #   person.bond_name # returns 'wick, john wick'
-  #   person.first_name = 'Johny'
-  #   person.bond_name # returns 'wick, john wick'
+  #     person.bond_name # returns 'wick, john wick'
+  #     person.first_name = 'Johny'
+  #     person.bond_name # returns 'wick, john wick'
   #
   # @return [Array<MethodDefinition>] the list of all currently defined instance methods
   def add_method(*args, type: nil, **options, &block)
