@@ -230,6 +230,7 @@ class Sinclair
   # @return [Array<MethodDefinition>]
   def add_method(*args, type: nil, **options, &block)
     if type
+      definitions.add_definition(type, *args, **options, &block)
     else
       definitions.add(*args, **options, &block)
     end
