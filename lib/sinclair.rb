@@ -326,10 +326,12 @@ class Sinclair
   #     env_fetcher.timeout # returns '300'
   #
   # @return [Array<MethodDefinition>] the list of all currently defined class methods
-  def add_class_method(name, code = nil, **options, &block)
-    class_definitions.add(
-      name, code, **options, &block
-    )
+  def add_class_method(*args, type: nil, **options, &block)
+    if type
+      class_definitions.add_definition(type, *args, **options, &block)
+    else
+      class_definitions.add(*args, **options, &block)
+    end
   end
 
   # Evaluetes a block which will result in a String, the method code
