@@ -179,6 +179,8 @@ class Sinclair
   end
 
   # Add a method to the method list to be created on klass instances
+  # @see MethodDefinitions#add
+  # @see MethodDefinitions#add_definition
   #
   # @overload add_method(name, code, **options)
   #   @param name [String,Symbol] name of the method to be added
