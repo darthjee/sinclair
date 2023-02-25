@@ -45,6 +45,20 @@ describe Sinclair do
           expect(person.bond_name).to eq('wick, john wick')
         end
       end
+
+      describe 'Passing type call' do
+        let(:klass) { Class.new }
+
+        it 'creates new method' do
+          builder = Sinclair.new(klass)
+          builder.add_method(:attr_accessor, :bond_name, type: :call)
+          builder.build
+          person = klass.new
+
+          person.bond_name = 'Bond, James Bond'
+          expect(person.bond_name).to eq('Bond, James Bond')
+        end
+      end
     end
 
     describe '#add_class_method' do

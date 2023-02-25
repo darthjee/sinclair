@@ -239,7 +239,7 @@ class Sinclair
   #   @see MethodDefinition::StringDefinition
   #   @see MethodDefinition::CallDefinition
   #
-  #   @example Using block to add a block method
+  #   @example Passing type block
   #     class Person
   #       attr_accessor :first_name, :last_name
   #
@@ -260,6 +260,17 @@ class Sinclair
   #     person.bond_name # returns 'wick, john wick'
   #     person.first_name = 'Johny'
   #     person.bond_name # returns 'wick, john wick'
+  #
+  #   @example Passing type call
+  #     class Person
+  #     end
+  #
+  #     builder = Sinclair.new(Person)
+  #     builder.add_method(:attr_accessor, :bond_name, type: :call)
+  #     builder.build
+  #
+  #     person.bond_name = 'Bond, James Bond'
+  #     person.bond_name # returns 'Bond, James Bond'
   #
   # @return [Array<MethodDefinition>] the list of all currently defined instance methods
   def add_method(*args, type: nil, **options, &block)
