@@ -194,6 +194,28 @@ describe Sinclair do
         end
       end
 
+      context 'when describing a method using a block specific type' do
+        it 'creates a method with the block' do
+          expect(dummy_class.type_block).to eq(3)
+        end
+      end
+
+      context 'when describing a method using a string specific type' do
+        it 'creates a method with the string' do
+          expect(dummy_class.type_string).to eq(10)
+        end
+      end
+
+      context 'when describing a method using a call specific type for attr_acessor' do
+        let(:value) { Random.rand }
+
+        it 'creates acessors' do
+          expect { dummy_class.some_attribute = value }
+            .to change(dummy_class, :some_attribute)
+            .from(nil).to(value)
+        end
+      end
+
       context 'when passing options' do
         let(:options) { { increment: 2 } }
 
