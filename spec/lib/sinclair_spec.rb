@@ -11,9 +11,10 @@ describe Sinclair do
   let(:builder_class) { described_class }
 
   describe '#add_method' do
+    let(:object) { instance }
+
     context 'when extending the builder' do
       let(:builder_class) { described_class::DummyBuilder }
-      let(:object)        { instance }
 
       before do
         builder.init
@@ -24,53 +25,7 @@ describe Sinclair do
     end
 
     context 'when using the builder without extending' do
-      context 'when declaring a method with a block' do
-        before do
-          builder.add_method(:blocked) { 1 }
-          builder.add_method(:blocked) { 2 }
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(instance.blocked).to eq(2)
-        end
-      end
-
-      context 'when declaring a method string' do
-        before do
-          builder.add_method(:string, '1')
-          builder.add_method(:string, '2')
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(instance.string).to eq(2)
-        end
-      end
-
-      context 'when declaring block and string' do
-        before do
-          builder.add_method(:value) { 1 }
-          builder.add_method(:value, '2')
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(instance.value).to eq(2)
-        end
-      end
-
-      context 'when declaring string and block' do
-        before do
-          builder.add_method(:value, '1')
-          builder.add_method(:value) { 2 }
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(instance.value).to eq(2)
-        end
-      end
+      it_behaves_like "A regular builder", :instance
     end
   end
 
@@ -132,9 +87,10 @@ describe Sinclair do
   end
 
   describe '#add_class_method' do
+    let(:object) { dummy_class }
+
     context 'when extending the builder' do
       let(:builder_class) { described_class::DummyClassBuilder }
-      let(:object)        { dummy_class }
 
       before do
         builder.init
@@ -145,53 +101,7 @@ describe Sinclair do
     end
 
     context 'when using the builder without extending' do
-      context 'when declaring a method with a block' do
-        before do
-          builder.add_class_method(:blocked) { 1 }
-          builder.add_class_method(:blocked) { 2 }
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(dummy_class.blocked).to eq(2)
-        end
-      end
-
-      context 'when declaring a method string' do
-        before do
-          builder.add_class_method(:string, '1')
-          builder.add_class_method(:string, '2')
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(dummy_class.string).to eq(2)
-        end
-      end
-
-      context 'when declaring block and string' do
-        before do
-          builder.add_class_method(:value) { 1 }
-          builder.add_class_method(:value, '2')
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(dummy_class.value).to eq(2)
-        end
-      end
-
-      context 'when declaring string and block' do
-        before do
-          builder.add_class_method(:value, '1')
-          builder.add_class_method(:value) { 2 }
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(dummy_class.value).to eq(2)
-        end
-      end
+      it_behaves_like "A regular builder", :class
     end
   end
 end

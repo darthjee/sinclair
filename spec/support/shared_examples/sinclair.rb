@@ -45,3 +45,54 @@ RSpec.shared_examples "A builder extension" do
     end
   end
 end
+
+RSpec.shared_examples "A regular builder" do |type|
+  method_name = type == :instance ? :add_method : :add_class_method
+  context 'when declaring a method with a block' do
+    before do
+      builder.public_send(method_name, :blocked) { 1 }
+      builder.public_send(method_name, :blocked) { 2 }
+      builder.build
+    end
+
+    it 'respect the order of method addtion' do
+      expect(object.blocked).to eq(2)
+    end
+  end
+
+  context 'when declaring a method string' do
+    before do
+      builder.public_send(method_name, :string, '1')
+      builder.public_send(method_name, :string, '2')
+      builder.build
+    end
+
+    it 'respect the order of method addtion' do
+      expect(object.string).to eq(2)
+    end
+  end
+
+  context 'when declaring block and string' do
+    before do
+      builder.public_send(method_name, :value) { 1 }
+      builder.public_send(method_name, :value, '2')
+      builder.build
+    end
+
+    it 'respect the order of method addtion' do
+      expect(object.value).to eq(2)
+    end
+  end
+
+  context 'when declaring string and block' do
+    before do
+      builder.public_send(method_name, :value, '1')
+      builder.public_send(method_name, :value) { 2 }
+      builder.build
+    end
+
+    it 'respect the order of method addtion' do
+      expect(object.value).to eq(2)
+    end
+  end
+end
