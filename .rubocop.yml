@@ -38,6 +38,7 @@ RSpec/MultipleExpectations:
     - 'spec/integration/yard/**/*_spec.rb'
     - 'spec/integration/readme/**/*_spec.rb'
     - spec/lib/sinclair_spec.rb
+    - spec/support/shared_examples/sinclair.rb
 
 RSpec/NestedGroups:
   Max: 5

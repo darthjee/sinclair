@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.shared_examples "A sinclair builder" do |type|
+RSpec.shared_examples 'A sinclair builder' do |type|
   let(:method_name) do
     type == :instance ? :add_method : :add_class_method
   end
@@ -60,7 +60,7 @@ RSpec.shared_examples "A sinclair builder" do |type|
     end
   end
 
-  context "when adding methods to a regular builder" do
+  context 'when adding methods to a regular builder' do
     context 'when declaring a method with a block' do
       before do
         builder.public_send(method_name, :blocked) { 1 }

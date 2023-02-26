@@ -13,13 +13,13 @@ describe Sinclair do
   describe '#add_method' do
     let(:object) { instance }
 
-    it_behaves_like "A sinclair builder", :instance
+    it_behaves_like 'A sinclair builder', :instance
   end
 
   describe '#add_class_method' do
     let(:object) { dummy_class }
 
-    it_behaves_like "A sinclair builder", :class
+    it_behaves_like 'A sinclair builder', :class
   end
 
   describe '#eval_and_add_method' do
