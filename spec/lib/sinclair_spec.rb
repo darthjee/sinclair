@@ -11,57 +11,16 @@ describe Sinclair do
   let(:builder_class) { described_class }
 
   describe '#add_method' do
-    context 'when extending the class' do
+    context 'when extending the builder' do
       let(:builder_class) { described_class::DummyBuilder }
+      let(:object)        { instance }
 
       before do
         builder.init
         builder.build
       end
 
-      context 'when describing a method with block' do
-        it 'creates a method with the block' do
-          expect(instance.blocked).to eq(1)
-        end
-      end
-
-      context 'when describing a method with string' do
-        it 'creates a method using the string definition' do
-          expect(instance.defined).to eq(1)
-          expect(instance.defined).to eq(2)
-        end
-      end
-
-      context 'when describing a method using a block specific type' do
-        it 'creates a method with the block' do
-          expect(instance.type_block).to eq(3)
-        end
-      end
-
-      context 'when describing a method using a string specific type' do
-        it 'creates a method with the string' do
-          expect(instance.type_string).to eq(10)
-        end
-      end
-
-      context 'when describing a method using a call specific type for attr_acessor' do
-        let(:value) { Random.rand }
-
-        it 'creates acessors' do
-          expect { instance.some_attribute = value }
-            .to change(instance, :some_attribute)
-            .from(nil).to(value)
-        end
-      end
-
-      context 'when passing options' do
-        let(:options) { { increment: 2 } }
-
-        it 'parses the options' do
-          expect(instance.defined).to eq(2)
-          expect(instance.defined).to eq(4)
-        end
-      end
+      it_behaves_like "A builder extension"
     end
 
     context 'when using the builder without extending' do
@@ -173,7 +132,7 @@ describe Sinclair do
   end
 
   describe '#add_class_method' do
-    context 'when extending the class' do
+    context 'when extending the builder' do
       let(:builder_class) { described_class::DummyClassBuilder }
 
       before do
