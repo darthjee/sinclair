@@ -29,6 +29,25 @@ describe Sinclair do
     end
   end
 
+  describe '#add_class_method' do
+    let(:object) { dummy_class }
+
+    context 'when extending the builder' do
+      let(:builder_class) { described_class::DummyClassBuilder }
+
+      before do
+        builder.init
+        builder.build
+      end
+
+      it_behaves_like "A builder extension"
+    end
+
+    context 'when using the builder without extending' do
+      it_behaves_like "A regular builder", :class
+    end
+  end
+
   describe '#eval_and_add_method' do
     context 'when defining the method once' do
       before do
@@ -83,25 +102,6 @@ describe Sinclair do
       it 'redefines it' do
         expect(instance.defined).to eq(100)
       end
-    end
-  end
-
-  describe '#add_class_method' do
-    let(:object) { dummy_class }
-
-    context 'when extending the builder' do
-      let(:builder_class) { described_class::DummyClassBuilder }
-
-      before do
-        builder.init
-        builder.build
-      end
-
-      it_behaves_like "A builder extension"
-    end
-
-    context 'when using the builder without extending' do
-      it_behaves_like "A regular builder", :class
     end
   end
 end
