@@ -134,55 +134,14 @@ describe Sinclair do
   describe '#add_class_method' do
     context 'when extending the builder' do
       let(:builder_class) { described_class::DummyClassBuilder }
+      let(:object)        { dummy_class }
 
       before do
         builder.init
         builder.build
       end
 
-      context 'when describing a method with block' do
-        it 'creates a method with the block' do
-          expect(dummy_class.blocked).to eq(1)
-        end
-      end
-
-      context 'when describing a method with string' do
-        it 'creates a method using the string definition' do
-          expect(dummy_class.defined).to eq(1)
-          expect(dummy_class.defined).to eq(2)
-        end
-      end
-
-      context 'when describing a method using a block specific type' do
-        it 'creates a method with the block' do
-          expect(dummy_class.type_block).to eq(3)
-        end
-      end
-
-      context 'when describing a method using a string specific type' do
-        it 'creates a method with the string' do
-          expect(dummy_class.type_string).to eq(10)
-        end
-      end
-
-      context 'when describing a method using a call specific type for attr_acessor' do
-        let(:value) { Random.rand }
-
-        it 'creates acessors' do
-          expect { dummy_class.some_attribute = value }
-            .to change(dummy_class, :some_attribute)
-            .from(nil).to(value)
-        end
-      end
-
-      context 'when passing options' do
-        let(:options) { { increment: 2 } }
-
-        it 'parses the options' do
-          expect(dummy_class.defined).to eq(2)
-          expect(dummy_class.defined).to eq(4)
-        end
-      end
+      it_behaves_like "A builder extension"
     end
 
     context 'when using the builder without extending' do
