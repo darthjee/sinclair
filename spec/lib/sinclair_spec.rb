@@ -13,39 +13,13 @@ describe Sinclair do
   describe '#add_method' do
     let(:object) { instance }
 
-    context 'when extending the builder' do
-      let(:builder_class) { described_class::DummyBuilder }
-
-      before do
-        builder.init
-        builder.build
-      end
-
-      it_behaves_like "A builder extension"
-    end
-
-    context 'when using the builder without extending' do
-      it_behaves_like "A regular builder", :instance
-    end
+    it_behaves_like "A sinclair builder", :instance
   end
 
   describe '#add_class_method' do
     let(:object) { dummy_class }
 
-    context 'when extending the builder' do
-      let(:builder_class) { described_class::DummyClassBuilder }
-
-      before do
-        builder.init
-        builder.build
-      end
-
-      it_behaves_like "A builder extension"
-    end
-
-    context 'when using the builder without extending' do
-      it_behaves_like "A regular builder", :class
-    end
+    it_behaves_like "A sinclair builder", :class
   end
 
   describe '#eval_and_add_method' do
