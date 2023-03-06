@@ -8,6 +8,14 @@ class Sinclair
   class MethodDefinitions
     delegate :each, to: :definitions
 
+    def new_add_definition(*args, type: nil, **options, &block)
+      if type
+        add_definition(type, *args, **options, &block)
+      else
+        add(*args, **options, &block)
+      end
+    end
+
     # Builds and adds new definition
     #
     # The type is decided based in the arguments

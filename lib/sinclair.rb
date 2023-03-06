@@ -276,11 +276,7 @@ class Sinclair
   #
   # @return [Array<MethodDefinition>] the list of all currently defined instance methods
   def add_method(*args, type: nil, **options, &block)
-    if type
-      definitions.add_definition(type, *args, **options, &block)
-    else
-      definitions.add(*args, **options, &block)
-    end
+    definitions.new_add_definition(*args, type: type, **options, &block)
   end
 
   # Add a method to the method list to be created on klass
@@ -364,11 +360,7 @@ class Sinclair
   #
   # @return [Array<MethodDefinition>] the list of all currently defined class methods
   def add_class_method(*args, type: nil, **options, &block)
-    if type
-      class_definitions.add_definition(type, *args, **options, &block)
-    else
-      class_definitions.add(*args, **options, &block)
-    end
+    class_definitions.new_add_definition(*args, type: type, **options, &block)
   end
 
   # Evaluetes a block which will result in a String, the method code
