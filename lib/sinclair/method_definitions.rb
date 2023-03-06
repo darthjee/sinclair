@@ -36,36 +36,19 @@ class Sinclair
     #     a method with cache
     #   @param block [Proc]  block to be ran as method
     #
+    # @see MethodDefinition.for
+    # @see MethodDefinition.from
+    #
     # @return [Array<MethodDefinition>]
     def new_add_definition(*args, type: nil, **options, &block)
-      if type
-        add_definition(type, *args, **options, &block)
-      else
-        add(*args, **options, &block)
-      end
+      definitions << if type
+                       MethodDefinition.for(type, *args, **options, &block)
+                     else
+                       MethodDefinition.from(*args, **options, &block)
+                     end
     end
 
     private
-
-    # @private
-    # Builds and adds new definition
-    #
-    # The type is decided based in the arguments
-    #
-    # @return [Array<MethodDefinition>]
-    def add(name, code = nil, **options, &block)
-      definitions << MethodDefinition.from(name, code, **options, &block)
-    end
-
-    # @private
-    # Builds and adds new definition
-    #
-    # The type is decided based on the argument +type+
-    #
-    # @return [Array<MethodDefinition>]
-    def add_definition(type, *args, **options, &block)
-      definitions << MethodDefinition.for(type, *args, **options, &block)
-    end
 
     # @private
     #
