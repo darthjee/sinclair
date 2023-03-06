@@ -16,6 +16,8 @@ class Sinclair
       end
     end
 
+    private
+
     # Builds and adds new definition
     #
     # The type is decided based in the arguments
@@ -53,8 +55,6 @@ class Sinclair
     def add_definition(type, *args, **options, &block)
       definitions << MethodDefinition.for(type, *args, **options, &block)
     end
-
-    private
 
     # @private
     #
