@@ -303,7 +303,7 @@ class Sinclair
   #
   #     ENV['HOSTNAME'] = 'myhost'
   #
-  #     env_fetcher.hostname # returns 'myhost'
+  #     EnvFetcher.hostname # returns 'myhost'
   #
   # @overload add_class_method(name, **options, &block)
   #   @param name [String,Symbol] name of the method to be added
@@ -323,7 +323,44 @@ class Sinclair
   #
   #     ENV['TIMEOUT'] = '300'
   #
-  #     env_fetcher.timeout # returns '300'
+  #     EnvFetcher.timeout # returns '300'
+  #
+  # @overload add_class_method(*args, type: **options, &block)
+  #   @param args [Array<Object>] arguments to be passed to the definition
+  #   @param type [Symbol] type of method definition
+  #   @param block [Proc]  block to be ran as method when type is block
+  #   @param options [Hash] Options of construction
+  #   @option options cached [Boolean] Flag telling to create
+  #     a method with cache
+  #   @see MethodDefinition::BlockDefinition
+  #   @see MethodDefinition::StringDefinition
+  #   @see MethodDefinition::CallDefinition
+  #
+  #   @example Passing type block
+  #     class EnvFetcher
+  #     end
+  #
+  #     builder = Sinclair.new(EnvFetcher)
+  #
+  #     builder.add_class_method(:timeout, type: :block) { ENV['TIMEOUT'] }
+  #     builder.build
+  #
+  #     ENV['TIMEOUT'] = '300'
+  #
+  #     EnvFetcher.timeout # returns '300'
+  #
+  #   @example Passing type call
+  #     class EnvFetcher
+  #     end
+  #
+  #     builder = Sinclair.new(EnvFetcher)
+  #
+  #     builder.add_class_method(:attr_accessor, :timeout, type: :call)
+  #     builder.build
+  #
+  #     EnvFetcher.timeout = 10
+  #
+  #     env_fetcher.timeout # returns '10'
   #
   # @return [Array<MethodDefinition>] the list of all currently defined class methods
   def add_class_method(*args, type: nil, **options, &block)
