@@ -74,6 +74,8 @@ class Sinclair
       # @return [Symbol] constant +:build+
       #
       # @!macro build_with
+      #   @api private
+      #
       #   @!method build(klass, type)
       #
       #   Builds the method defined
@@ -82,12 +84,12 @@ class Sinclair
       #
       #   @param klass [Class] The class where the method will be built
       #   @param type [Symbol] type of method to be built
-      #     - {CLASS_METHOD} : A class method will be built
-      #     - {INSTANCE_METHOD} : An instance method will be built
-      #
-      #   @return (see MethodBuilder::Base#build)
+      #     - {MethodBuilder::CLASS_METHOD} : A class method will be built
+      #     - {MethodBuilder::INSTANCE_METHOD} : An instance method will be built
       #
       #   @see $1#build
+      #
+      #   @return [Symbol] the name of the method built
       def build_with(builder_class)
         define_method(:build) do |klass, type|
           builder_class.build(klass, self, type: type)

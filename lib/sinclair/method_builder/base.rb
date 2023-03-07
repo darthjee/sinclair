@@ -17,7 +17,7 @@ class Sinclair
       #
       # @see #build
       #
-      # @return (see #build)
+      # @return [Symbol] name of the method built
       def self.build(klass, definition, type:)
         new(klass, definition, type: type).build
       end
