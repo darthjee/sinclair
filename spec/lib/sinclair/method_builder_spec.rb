@@ -14,7 +14,7 @@ describe Sinclair::MethodBuilder do
   describe '#build_methods' do
     context 'when the method is a string definition' do
       before do
-        definitions.new_add_definition(method_name, value.to_s)
+        definitions.add(method_name, value.to_s)
       end
 
       context 'when building an instance method' do
@@ -55,7 +55,7 @@ describe Sinclair::MethodBuilder do
     context 'when the method is a block definition' do
       before do
         result = value
-        definitions.new_add_definition(method_name) { result }
+        definitions.add(method_name) { result }
       end
 
       context 'when building an instance method' do

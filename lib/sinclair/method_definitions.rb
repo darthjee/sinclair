@@ -12,21 +12,21 @@ class Sinclair
     #
     # The type is decided based in the arguments
     #
-    # @overload new_add_definition(definition_class, name, code = nil, **options)
+    # @overload add(definition_class, name, code = nil, **options)
     #   @param name [String,Symbol] method name
     #   @param code [String] code to be evaluated when the method is ran
     #   @param options [Hash] Options of construction
     #   @option options cached [Boolean] Flag telling to create
     #     a method with cache
     #
-    # @overload new_add_definition(definition_class, name, **options, &block)
+    # @overload add(definition_class, name, **options, &block)
     #   @param name [String,Symbol] method name
     #   @param options [Hash] Options of construction
     #   @option options cached [Boolean] Flag telling to create
     #     a method with cache
     #   @param block [Proc]  block to be ran as method
     #
-    # @overload new_add_definition(type, *args, **options, &block)
+    # @overload add(type, *args, **options, &block)
     #   @param type [Symbol] type of definition
     #     - :string -> {MethodDefinition::StringDefinition}
     #     - :block -> {MethodDefinition::BlockDefinition}
@@ -40,7 +40,7 @@ class Sinclair
     # @see MethodDefinition.from
     #
     # @return [Array<MethodDefinition>]
-    def new_add_definition(*args, type: nil, **options, &block)
+    def add(*args, type: nil, **options, &block)
       definitions << if type
                        MethodDefinition.for(type, *args, **options, &block)
                      else
