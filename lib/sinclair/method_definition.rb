@@ -69,7 +69,7 @@ class Sinclair
 
       def build_with(builder_class)
         define_method(:build) do |klass, type|
-          builder_class.new(klass, self, type: type).build
+          builder_class.build(klass, self, type: type)
         end
       end
     end
