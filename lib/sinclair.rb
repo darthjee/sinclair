@@ -180,7 +180,6 @@ class Sinclair
 
   # Add a method to the method list to be created on klass instances
   # @see MethodDefinitions#add
-  # @see MethodDefinitions#add_definition
   #
   # @overload add_method(name, code, **options)
   #   @param name [String,Symbol] name of the method to be added
@@ -280,6 +279,7 @@ class Sinclair
   end
 
   # Add a method to the method list to be created on klass
+  # @see MethodDefinitions#add
   #
   # @overload add_class_method(name, code, **options)
   #   @param name [String,Symbol] name of the method to be added
