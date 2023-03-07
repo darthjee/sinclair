@@ -59,10 +59,15 @@ class Sinclair
       # The creation is based on type which will be used to infer
       # which subclass of {Sinclair::MethodDefinition} to be used
       #
+      # If type is +nil+ then call is delegated to {#for} which will infer the type
+      # from the arguments
+      #
       # @param type [Symbol] the method definition type
       #
       # @return [Sinclair::MethodDefinition] an instance of a subclass
       def for(type, *args, **options, &block)
+        return from(*args, **options, &block) unless type
+
         klass = const_get("#{type}_definition".camelize)
         klass.new(*args, **options, &block)
       end
