@@ -24,6 +24,8 @@ class Sinclair
     # @param definitions [MethodDefinitions] all methods
     #   definitions to be built
     # @param type [Symbol] type of method to be built
+    #   - {CLASS_METHOD} : A class method will be built
+    #   - {INSTANCE_METHOD} : An instance method will be built
     #
     # @return [MethodDefinitions]
     def build_methods(definitions, type)
