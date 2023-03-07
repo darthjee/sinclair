@@ -11,86 +11,15 @@ describe Sinclair do
   let(:builder_class) { described_class }
 
   describe '#add_method' do
-    context 'when extending the class' do
-      let(:builder_class) { described_class::DummyBuilder }
+    let(:object) { instance }
 
-      before do
-        builder.init
-        builder.build
-      end
+    it_behaves_like 'A sinclair builder', :instance
+  end
 
-      context 'when describing a method with block' do
-        it 'creates a method with the block' do
-          expect(instance.blocked).to eq(1)
-        end
-      end
+  describe '#add_class_method' do
+    let(:object) { dummy_class }
 
-      context 'when describing a method with string' do
-        it 'creates a method using the string definition' do
-          expect(instance.defined).to eq(1)
-          expect(instance.defined).to eq(2)
-        end
-      end
-
-      context 'when passing options' do
-        let(:options) { { increment: 2 } }
-
-        it 'parses the options' do
-          expect(instance.defined).to eq(2)
-          expect(instance.defined).to eq(4)
-        end
-      end
-    end
-
-    context 'when using the builder without extending' do
-      context 'when declaring a method with a block' do
-        before do
-          builder.add_method(:blocked) { 1 }
-          builder.add_method(:blocked) { 2 }
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(instance.blocked).to eq(2)
-        end
-      end
-
-      context 'when declaring a method string' do
-        before do
-          builder.add_method(:string, '1')
-          builder.add_method(:string, '2')
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(instance.string).to eq(2)
-        end
-      end
-
-      context 'when declaring block and string' do
-        before do
-          builder.add_method(:value) { 1 }
-          builder.add_method(:value, '2')
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(instance.value).to eq(2)
-        end
-      end
-
-      context 'when declaring string and block' do
-        before do
-          builder.add_method(:value, '1')
-          builder.add_method(:value) { 2 }
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(instance.value).to eq(2)
-        end
-      end
-    end
+    it_behaves_like 'A sinclair builder', :class
   end
 
   describe '#eval_and_add_method' do
@@ -146,89 +75,6 @@ describe Sinclair do
 
       it 'redefines it' do
         expect(instance.defined).to eq(100)
-      end
-    end
-  end
-
-  describe '#add_class_method' do
-    context 'when extending the class' do
-      let(:builder_class) { described_class::DummyClassBuilder }
-
-      before do
-        builder.init
-        builder.build
-      end
-
-      context 'when describing a method with block' do
-        it 'creates a method with the block' do
-          expect(dummy_class.blocked).to eq(1)
-        end
-      end
-
-      context 'when describing a method with string' do
-        it 'creates a method using the string definition' do
-          expect(dummy_class.defined).to eq(1)
-          expect(dummy_class.defined).to eq(2)
-        end
-      end
-
-      context 'when passing options' do
-        let(:options) { { increment: 2 } }
-
-        it 'parses the options' do
-          expect(dummy_class.defined).to eq(2)
-          expect(dummy_class.defined).to eq(4)
-        end
-      end
-    end
-
-    context 'when using the builder without extending' do
-      context 'when declaring a method with a block' do
-        before do
-          builder.add_class_method(:blocked) { 1 }
-          builder.add_class_method(:blocked) { 2 }
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(dummy_class.blocked).to eq(2)
-        end
-      end
-
-      context 'when declaring a method string' do
-        before do
-          builder.add_class_method(:string, '1')
-          builder.add_class_method(:string, '2')
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(dummy_class.string).to eq(2)
-        end
-      end
-
-      context 'when declaring block and string' do
-        before do
-          builder.add_class_method(:value) { 1 }
-          builder.add_class_method(:value, '2')
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(dummy_class.value).to eq(2)
-        end
-      end
-
-      context 'when declaring string and block' do
-        before do
-          builder.add_class_method(:value, '1')
-          builder.add_class_method(:value) { 2 }
-          builder.build
-        end
-
-        it 'respect the order of method addtion' do
-          expect(dummy_class.value).to eq(2)
-        end
       end
     end
   end

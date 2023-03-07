@@ -16,6 +16,8 @@ rules:
   ExampleTag:
     enabled: true
     exclude:
+      - Sinclair#add_method
+      - Sinclair#add_class_method
       - Sinclair::Configurable#config
       - Sinclair::Configurable#reset_config
       - Sinclair::Configurable#configure
