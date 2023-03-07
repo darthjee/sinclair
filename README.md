@@ -13,7 +13,9 @@ This gem helps the creation of complex gems/concerns
 that enables creation of methods on the fly through class
 methods
 
-Next release: [1.11.0](https://github.com/darthjee/sinclair/compare/1.10.0...master)
+Current Release: [1.10.0](https://github.com/darthjee/sinclair/tree/1.10.0)
+
+[Next release](https://github.com/darthjee/sinclair/compare/1.10.0...master)
 
 Yard Documentation
 -------------------
