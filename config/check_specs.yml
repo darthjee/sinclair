@@ -3,7 +3,7 @@ ignore:
   - lib/sinclair/exception.rb
   - lib/sinclair/matchers/add_method_to.rb
   - lib/sinclair/matchers/add_method.rb
-    lib/sinclair/matchers/base.rb
+  - lib/sinclair/matchers/base.rb
   - lib/sinclair/matchers/method_to.rb
   - lib/sinclair/matchers/change_method_on.rb
   - lib/sinclair/version.rb
