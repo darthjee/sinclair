@@ -37,7 +37,7 @@ class Sinclair
       #
       # @return [Symbol] name of the method built
       #
-      # @raise NotImplementedYet
+      # @raise NotImplementedError
       def build
         fail NotImplementedError, 'Not implemented yet. this should be imlemented in subclasses'
       end

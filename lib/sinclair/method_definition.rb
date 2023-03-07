@@ -93,10 +93,13 @@ class Sinclair
     #
     # @example (see MethodDefinition::StringDefinition#build)
     # @example (see MethodDefinition::BlockDefinition#build)
+    # @example (see MethodDefinition::CallDefinition#build)
     #
     # @return [Symbol] name of the created method
-    def build(_klass)
-      fail 'Build is implemented in subclasses. ' \
+    #
+    # @raise NotImplementedError
+    def build(_klass, _type)
+      fail NotImplementedError, 'Build is implemented in subclasses. ' \
         "Use #{self.class}.from to initialize a proper object"
     end
 
