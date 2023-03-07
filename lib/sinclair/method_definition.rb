@@ -59,12 +59,46 @@ class Sinclair
       # The creation is based on type which will be used to infer
       # which subclass of {Sinclair::MethodDefinition} to be used
       #
+      # If type is +nil+ then call is delegated to {.from} which will infer the type
+      # from the arguments
+      #
       # @param type [Symbol] the method definition type
       #
       # @return [Sinclair::MethodDefinition] an instance of a subclass
       def for(type, *args, **options, &block)
+        return from(*args, **options, &block) unless type
+
         klass = const_get("#{type}_definition".camelize)
         klass.new(*args, **options, &block)
+      end
+
+      # Defines builder for a definition class
+      #
+      # @param builder_class [Class<MethodBuilder>]
+      #
+      # @return [Symbol] constant +:build+
+      #
+      # @!macro build_with
+      #   @api private
+      #
+      #   @!method build(klass, type)
+      #
+      #   Builds the method defined
+      #
+      #   The method is built using {$1}
+      #
+      #   @param klass [Class] The class where the method will be built
+      #   @param type [Symbol] type of method to be built
+      #     - {MethodBuilder::CLASS_METHOD} : A class method will be built
+      #     - {MethodBuilder::INSTANCE_METHOD} : An instance method will be built
+      #
+      #   @see $1#build
+      #
+      #   @return [Symbol] the name of the method built
+      def build_with(builder_class)
+        define_method(:build) do |klass, type|
+          builder_class.build(klass, self, type: type)
+        end
       end
     end
 
@@ -87,10 +121,13 @@ class Sinclair
     #
     # @example (see MethodDefinition::StringDefinition#build)
     # @example (see MethodDefinition::BlockDefinition#build)
+    # @example (see MethodDefinition::CallDefinition#build)
     #
     # @return [Symbol] name of the created method
-    def build(_klass)
-      raise 'Build is implemented in subclasses. ' \
+    #
+    # @raise NotImplementedError
+    def build(_klass, _type)
+      raise NotImplementedError, 'Build is implemented in subclasses. ' \
         "Use #{self.class}.from to initialize a proper object"
     end
 

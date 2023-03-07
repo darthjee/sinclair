@@ -7,6 +7,8 @@ class Sinclair
     #
     # Define an instance method from string
     class StringDefinition < MethodDefinition
+      build_with MethodBuilder::StringMethodBuilder
+
       # @param name    [String,Symbol] name of the method
       # @param code    [String] code to be evaluated as method
       # @param options [Hash] Options of construction

@@ -41,11 +41,7 @@ class Sinclair
     #
     # @return [Array<MethodDefinition>]
     def add(*args, type: nil, **options, &block)
-      definitions << if type
-                       MethodDefinition.for(type, *args, **options, &block)
-                     else
-                       MethodDefinition.from(*args, **options, &block)
-                     end
+      definitions << MethodDefinition.for(type, *args, **options, &block)
     end
 
     private

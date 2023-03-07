@@ -5,6 +5,48 @@ require 'spec_helper'
 describe Sinclair::MethodDefinition do
   let(:method_name) { :the_method }
 
+  describe '.build' do
+    subject(:definition) do
+      definition_class.new(method_name, **options)
+    end
+
+    let(:definition_class) { Class.new(described_class) }
+    let(:options)          { {} }
+    let(:klass)            { Class.new }
+    let(:type)             { Sinclair::MethodBuilder::CLASS_METHOD }
+
+    context 'when the builder has not been defined' do
+      it do
+        expect { definition.build(klass, type) }
+          .to raise_error(NotImplementedError)
+      end
+    end
+
+    context 'when the builder has been defined' do
+      let(:definition_class) do
+        Class.new(described_class) do
+          def code_line
+            '10'
+          end
+        end
+      end
+
+      before do
+        definition_class.build_with(Sinclair::MethodBuilder::StringMethodBuilder)
+      end
+
+      it do
+        expect { definition.build(klass, type) }
+          .not_to raise_error
+      end
+
+      it 'builds the method using the builder' do
+        expect { definition.build(klass, type) }
+          .to add_class_method(method_name).to(klass)
+      end
+    end
+  end
+
   describe '.default_value' do
     subject(:klass) { Class.new(described_class) }
 
@@ -61,6 +103,27 @@ describe Sinclair::MethodDefinition do
       it 'initializes it correctly' do
         expect(described_class.for(type, *arguments).code_string)
           .to eq('attr_reader :some_attribute, :other_attribute')
+      end
+    end
+
+    context 'when type is not given' do
+      let(:type)        { nil }
+      let(:method_name) { :the_method }
+      let(:block)       { proc { 10 } }
+
+      it do
+        expect(described_class.for(type, method_name, &block))
+          .to be_a(described_class)
+      end
+
+      it 'infers the definition from arguments' do
+        expect(described_class.for(type, method_name, &block))
+          .to be_a(described_class::BlockDefinition)
+      end
+
+      it 'initializes it correctly' do
+        expect(described_class.for(type, method_name, &block).name)
+          .to eq(method_name)
       end
     end
 

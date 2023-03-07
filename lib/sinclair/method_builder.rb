@@ -24,11 +24,13 @@ class Sinclair
     # @param definitions [MethodDefinitions] all methods
     #   definitions to be built
     # @param type [Symbol] type of method to be built
+    #   - {CLASS_METHOD} : A class method will be built
+    #   - {INSTANCE_METHOD} : An instance method will be built
     #
     # @return [MethodDefinitions]
     def build_methods(definitions, type)
       definitions.each do |definition|
-        build_from_definition(definition, type)
+        definition.build(klass, type)
       end
     end
 
@@ -42,23 +44,5 @@ class Sinclair
     # class to receive the method
     #
     # @return [Class]
-
-    # @private
-    #
-    # Build one method from definition
-    #
-    # @param definition [MethodDefinition] the method definition
-    # @param type [Symbol] type of method to be built
-    #
-    # @return (see Base#build)
-    def build_from_definition(definition, type)
-      if definition.string?
-        StringMethodBuilder.new(klass, definition, type: type).build
-      elsif definition.block?
-        BlockMethodBuilder.new(klass, definition, type: type).build
-      else
-        CallMethodBuilder.new(klass, definition, type: type).build
-      end
-    end
   end
 end
