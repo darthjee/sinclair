@@ -66,6 +66,12 @@ class Sinclair
         klass = const_get("#{type}_definition".camelize)
         klass.new(*args, **options, &block)
       end
+
+      def build_with(builder_class)
+        define_method(:build) do |klass, type|
+          builder_class.new(klass, self, type: type).build
+        end
+      end
     end
 
     # @param name    [String,Symbol] name of the method

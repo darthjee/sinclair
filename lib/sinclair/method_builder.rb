@@ -52,13 +52,7 @@ class Sinclair
     #
     # @return (see Base#build)
     def build_from_definition(definition, type)
-      if definition.string?
-        StringMethodBuilder.new(klass, definition, type: type).build
-      elsif definition.block?
-        BlockMethodBuilder.new(klass, definition, type: type).build
-      else
-        CallMethodBuilder.new(klass, definition, type: type).build
-      end
+      definition.build(klass, type)
     end
   end
 end
