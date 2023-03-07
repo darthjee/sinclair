@@ -26,7 +26,7 @@ describe Sinclair::MethodDefinition do
       let(:definition_class) do
         Class.new(described_class) do
           def code_line
-            "10"
+            '10'
           end
         end
       end

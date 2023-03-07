@@ -78,12 +78,16 @@ class Sinclair
       #
       #   Builds the method defined
       #
+      #   The method is built using {$1}
+      #
       #   @param klass [Class] The class where the method will be built
       #   @param type [Symbol] type of method to be built
       #     - {CLASS_METHOD} : A class method will be built
       #     - {INSTANCE_METHOD} : An instance method will be built
       #
       #   @return (see MethodBuilder::Base#build)
+      #
+      #   @see $1#build
       def build_with(builder_class)
         define_method(:build) do |klass, type|
           builder_class.build(klass, self, type: type)
@@ -116,7 +120,7 @@ class Sinclair
     #
     # @raise NotImplementedError
     def build(_klass, _type)
-      fail NotImplementedError, 'Build is implemented in subclasses. ' \
+      raise NotImplementedError, 'Build is implemented in subclasses. ' \
         "Use #{self.class}.from to initialize a proper object"
     end
 
