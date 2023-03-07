@@ -106,6 +106,27 @@ describe Sinclair::MethodDefinition do
       end
     end
 
+    context 'when type is not given' do
+      let(:type)        { nil }
+      let(:method_name) { :the_method }
+      let(:block)       { proc { 10 } }
+
+      it do
+        expect(described_class.for(type, method_name, &block))
+          .to be_a(described_class)
+      end
+
+      it 'infers the definition from arguments' do
+        expect(described_class.for(type, method_name, &block))
+          .to be_a(described_class::BlockDefinition)
+      end
+
+      it 'initializes it correctly' do
+        expect(described_class.for(type, method_name, &block).name)
+          .to eq(method_name)
+      end
+    end
+
     context 'when a block is given' do
       let(:type)        { :block }
       let(:method_name) { :the_method }
