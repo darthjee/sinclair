@@ -96,7 +96,7 @@ class Sinclair
     #
     # @return [Symbol] name of the created method
     def build(_klass)
-      raise 'Build is implemented in subclasses. ' \
+      fail 'Build is implemented in subclasses. ' \
         "Use #{self.class}.from to initialize a proper object"
     end
 

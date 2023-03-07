@@ -39,7 +39,7 @@ class Sinclair
       #
       # @raise NotImplementedYet
       def build
-        raise 'Not implemented yet. this should be imlemented in subclasses'
+        fail NotImplementedError, 'Not implemented yet. this should be imlemented in subclasses'
       end
 
       private
