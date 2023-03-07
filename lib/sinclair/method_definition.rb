@@ -67,6 +67,9 @@ class Sinclair
         klass.new(*args, **options, &block)
       end
 
+      private
+
+      # @private
       # Defines builder for a definition class
       #
       # @param builder_class [Class<MethodBuilder>]

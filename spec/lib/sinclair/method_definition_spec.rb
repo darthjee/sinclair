@@ -32,7 +32,7 @@ describe Sinclair::MethodDefinition do
       end
 
       before do
-        definition_class.build_with(Sinclair::MethodBuilder::StringMethodBuilder)
+        definition_class.send(:build_with, Sinclair::MethodBuilder::StringMethodBuilder)
       end
 
       it do
