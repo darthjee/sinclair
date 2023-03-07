@@ -8,6 +8,7 @@ describe 'yard Sinclair#eval_and_add_method' do
       Class.new do
         include InitialValuer
         attr_writer :age
+
         initial_value_for :age, 20
       end
     end
