@@ -28,7 +28,7 @@ class Sinclair
     # @return [MethodDefinitions]
     def build_methods(definitions, type)
       definitions.each do |definition|
-        build_from_definition(definition, type)
+        definition.build(klass, type)
       end
     end
 
@@ -42,17 +42,5 @@ class Sinclair
     # class to receive the method
     #
     # @return [Class]
-
-    # @private
-    #
-    # Build one method from definition
-    #
-    # @param definition [MethodDefinition] the method definition
-    # @param type [Symbol] type of method to be built
-    #
-    # @return (see Base#build)
-    def build_from_definition(definition, type)
-      definition.build(klass, type)
-    end
   end
 end
