@@ -20,35 +20,30 @@ class Sinclair
       default_value :block?, false
       default_value :string?, false
 
-      # String to be executed within the class
-      # @return [String]
-      def code_string
-        "#{name} :#{arguments.join(', :')}"
-      end
-
-      # String to be executed within the class running code to change the class itself
+      # Block to be evaluated by the class when adding methods
       #
-      # @see code_string
-      # @return [String]
-      def class_code_string
-        <<-CODE
-          class << self
-            #{code_string}
-          end
-        CODE
+      # The block will be a call from +method_name+ passing +arguments+
+      #   as arguments
+      # @return [Proc]
+      def code_block
+        method_name = name
+        args = arguments
+
+        proc do
+          send(method_name, *args)
+        end
       end
 
       private
 
       attr_reader :arguments
-
       # @method arguments
       # @api private
       # @private
       #
-      # parameters to be passed as arguments to the call
+      # Arguments to be passed when calling the method inside the block
       #
-      # @return [Array<Symbol,String>]
+      # @return [Array<Object>]
     end
   end
 end
