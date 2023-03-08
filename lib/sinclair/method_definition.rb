@@ -12,7 +12,7 @@ class Sinclair
     autoload :BlockDefinition,  'sinclair/method_definition/block_definition'
     autoload :StringDefinition, 'sinclair/method_definition/string_definition'
 
-    autoload :NewCallDefinition, 'sinclair/method_definition/call_definition'
+    autoload :CallDefinition, 'sinclair/method_definition/call_definition'
 
     # @method name
     #
@@ -68,8 +68,6 @@ class Sinclair
       # @return [Sinclair::MethodDefinition] an instance of a subclass
       def for(type, *args, **options, &block)
         return from(*args, **options, &block) unless type
-
-        type = (type == :call ? :new_call : type)
 
         klass = const_get("#{type}_definition".camelize)
         klass.new(*args, **options, &block)

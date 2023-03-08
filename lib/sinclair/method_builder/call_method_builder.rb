@@ -6,7 +6,7 @@ class Sinclair
     # @author darthjee
     #
     # Build a method based on a {MethodDefinition::CallDefinition}
-    class NewCallMethodBuilder < Base
+    class CallMethodBuilder < Base
       # Builds the method
       #
       # @return [NilClass]

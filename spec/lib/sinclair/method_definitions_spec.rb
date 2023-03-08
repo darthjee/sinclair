@@ -58,7 +58,7 @@ describe Sinclair::MethodDefinitions do
 
       it 'creates a new definition of the chosen type' do
         expect(definitions.add(*arguments, type: type).last)
-          .to be_a(Sinclair::MethodDefinition::NewCallDefinition)
+          .to be_a(Sinclair::MethodDefinition::CallDefinition)
       end
 
       xit 'initializes it correctly' do

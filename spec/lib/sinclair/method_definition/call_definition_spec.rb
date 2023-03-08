@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Sinclair::MethodDefinition::NewCallDefinition do
+describe Sinclair::MethodDefinition::CallDefinition do
   subject(:definition) do
     described_class.new(call_name, *attributes)
   end

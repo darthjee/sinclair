@@ -97,7 +97,7 @@ describe Sinclair::MethodDefinition do
 
       it 'Returns an instance of the given type' do
         expect(described_class.for(type, *arguments))
-          .to be_a(described_class::NewCallDefinition)
+          .to be_a(described_class::CallDefinition)
       end
 
       xit 'initializes it correctly' do

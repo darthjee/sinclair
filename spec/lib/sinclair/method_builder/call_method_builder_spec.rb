@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Sinclair::MethodBuilder::NewCallMethodBuilder do
+describe Sinclair::MethodBuilder::CallMethodBuilder do
   describe '#build' do
     subject(:builder) do
       described_class.new(klass, definition, type: type)
@@ -11,7 +11,7 @@ describe Sinclair::MethodBuilder::NewCallMethodBuilder do
     let(:call_name) { "attr_#{accessor_type}" }
 
     let(:definition) do
-      Sinclair::MethodDefinition::NewCallDefinition.new(call_name, *attributes)
+      Sinclair::MethodDefinition::CallDefinition.new(call_name, *attributes)
     end
 
     context 'when method called is attr_accessor' do

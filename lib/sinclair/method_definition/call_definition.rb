@@ -6,8 +6,8 @@ class Sinclair
     # @author darthjee
     #
     # Define a call of method to e done within the class
-    class NewCallDefinition < MethodDefinition
-      build_with MethodBuilder::NewCallMethodBuilder
+    class CallDefinition < MethodDefinition
+      build_with MethodBuilder::CallMethodBuilder
 
       # @param method_name [Symbol] method to be called
       # @param arguments [Array<Symbol,String>] parameters to be passed as
