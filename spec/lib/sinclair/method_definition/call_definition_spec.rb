@@ -26,7 +26,7 @@ describe Sinclair::MethodDefinition::CallDefinition do
     end
 
     it 'returns a proc with the method call' do
-      expect(instance.instance_eval(&(definition.code_block)))
+      expect(instance.instance_eval(&definition.code_block))
         .to eq(attributes)
     end
   end
