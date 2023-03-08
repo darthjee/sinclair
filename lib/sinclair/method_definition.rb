@@ -12,7 +12,7 @@ class Sinclair
     autoload :BlockDefinition,  'sinclair/method_definition/block_definition'
     autoload :StringDefinition, 'sinclair/method_definition/string_definition'
 
-    autoload :NewCallDefinition, 'sinclair/method_definition/new_call_definition'
+    autoload :NewCallDefinition, 'sinclair/method_definition/call_definition'
 
     # @method name
     #
