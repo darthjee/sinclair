@@ -11,6 +11,8 @@ class Sinclair
     autoload :BlockMethodBuilder,  'sinclair/method_builder/block_method_builder'
     autoload :CallMethodBuilder,   'sinclair/method_builder/call_method_builder'
 
+    autoload :NewCallMethodBuilder, 'sinclair/method_builder/new_call_method_builder'
+
     CLASS_METHOD = :class
     INSTANCE_METHOD = :instance
 
