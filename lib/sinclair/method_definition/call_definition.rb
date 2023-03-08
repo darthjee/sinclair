@@ -20,6 +20,11 @@ class Sinclair
       default_value :block?, false
       default_value :string?, false
 
+      # Block to be evaluated by the class when adding methods
+      #
+      # The block will be a call from +method_name+ passing +arguments+
+      #   as arguments
+      # @return [Proc]
       def code_block
         method_name = name
         args = arguments
@@ -32,6 +37,13 @@ class Sinclair
       private
 
       attr_reader :arguments
+      # @method arguments
+      # @api private
+      # @private
+      #
+      # Arguments to be passed when calling the method inside the block
+      #
+      # @return [Array<Object>]
     end
   end
 end
