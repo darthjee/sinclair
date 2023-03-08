@@ -70,6 +70,8 @@ class Sinclair
       def for(type, *args, **options, &block)
         return from(*args, **options, &block) unless type
 
+        type = (type == :call ? :new_call : type)
+
         klass = const_get("#{type}_definition".camelize)
         klass.new(*args, **options, &block)
       end
