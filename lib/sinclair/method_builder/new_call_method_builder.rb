@@ -11,39 +11,18 @@ class Sinclair
       #
       # @return [NilClass]
       def build
-        klass.module_eval(code_line, __FILE__, __LINE__ + 1)
+        evaluating_class.module_eval(&code_block)
       end
 
-      private
+      delegate :code_block, to: :definition
 
-      # @api private
-      # @private
-      #
-      # String to be evaluated when building the method
-      #
-      # This can be {code_string} or {class_code_string}
-      # @return (see MethodDefinition::CallDefinition#code_string)
-      def code_line
-        instance? ? code_string : class_code_string
+      def evaluating_class
+        return klass if instance?
+
+        class << klass
+          return self
+        end
       end
-
-      delegate :code_string, :class_code_string, to: :definition
-
-      # @method code_string
-      # @private
-      # @api private
-      #
-      # Delegated from {MethodDefinition::CallDefinition}
-      #
-      # @see MethodDefinition::CallDefinition#code_string
-      # @return [String]
-
-      # @method class_code_string
-      # @private
-      # @api private
-      #
-      # @see MethodDefinition::CallDefinition#class_code_string
-      # @return [String]
     end
   end
 end
