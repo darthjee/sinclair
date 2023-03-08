@@ -13,6 +13,8 @@ class Sinclair
     autoload :StringDefinition, 'sinclair/method_definition/string_definition'
     autoload :CallDefinition,   'sinclair/method_definition/call_definition'
 
+    autoload :NewCallDefinition, 'sinclair/method_definition/new_call_definition'
+
     # @method name
     #
     # name of the method
