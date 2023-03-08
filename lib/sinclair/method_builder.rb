@@ -9,7 +9,6 @@ class Sinclair
     autoload :Base,                'sinclair/method_builder/base'
     autoload :StringMethodBuilder, 'sinclair/method_builder/string_method_builder'
     autoload :BlockMethodBuilder,  'sinclair/method_builder/block_method_builder'
-    autoload :CallMethodBuilder,   'sinclair/method_builder/call_method_builder'
 
     autoload :NewCallMethodBuilder, 'sinclair/method_builder/new_call_method_builder'
 
