@@ -48,6 +48,9 @@ adding methods to your class on the fly, as a builder inside a class method
 or by extending it for more complex logics
 
 #### Stand Alone usage creating methods on the fly
+<details>
+<summary>Stand alone example</summary>
+
 ```ruby
 class Clazz
 end
@@ -68,8 +71,11 @@ puts "Eighty => #{instance.eighty}" # Eighty => 80
 puts "One Hundred => #{Clazz.one_hundred}"        # One Hundred => 100
 puts "One Hundred => #{Clazz.one_hundred_twenty}" # One Hundred Twenty => 120
 ```
+</details>
 
 #### Builder in class method
+<details>
+<summary>Class method to add instance methods example</summary>
 
 ```ruby
 class HttpJsonModel
@@ -128,6 +134,10 @@ person.age      # returns 21
 person.username # returns 'lordbob'
 person.email    # returns 'lord@bob.com'
 ```
+</details>
+
+<details>
+<summary>Class method adding class methods</summary>
 
 ```ruby
 module EnvSettings
@@ -165,8 +175,12 @@ ENV['SERVER_PORT'] = '9090'
 MyServerConfig.host # returns 'myserver.com'
 MyServerConfig.port # returns '9090'
 ```
+</details>
 
 #### Extending the builder
+
+<details>
+<summary>Creating a custom builder example</summary>
 
 ```ruby
 class ValidationBuilder < Sinclair
@@ -256,6 +270,8 @@ invalid_object = MyClass.new(
 )
 invalid_object.valid? # returns false
 ```
+</details>
+
 #### Different ways of adding the methods
 There are different ways to add a method
 ##### Block methods
@@ -268,6 +284,9 @@ instance variable with the same name.
 
 When caching, you can cache with type `:full` so that even `nil`
 values are cached
+
+<details>
+<summary>Example of simple cache usage</summary>
 
 ```ruby
 class MyModel
@@ -293,6 +312,10 @@ model.cached_power # returns 9
 model.expoent = 3
 model.cached_power # returns 9 (from cache)
 ```
+</details>
+
+<details>
+<summary>Usage of different cache types</summary>
 
 ```ruby
 module DefaultValueable
@@ -350,6 +373,7 @@ server.host = nil
 server.port = nil
 server.url # return 'http://server.com'
 ```
+</details>
 
 ### Sinclair::Configurable
 
@@ -359,6 +383,9 @@ to your classes/modules.
 Configurations are read-only objects that can only be set using
 the `configurable#configure` method which accepts a block or
 hash
+
+<details>
+<summary>Using configurable</summary>
 
 ```ruby
 module MyConfigurable
@@ -386,8 +413,12 @@ MyConfigurable.reset_config
 MyConfigurable.config.host # returns nil
 MyConfigurable.config.port # returns 80
 ```
+</details>
 
 Configurations can also be done through custom classes
+
+<details>
+<summary>Using configration class</summary>
 
 ```ruby
 class MyServerConfig < Sinclair::Config
@@ -420,11 +451,15 @@ end
 
 Client.config.url # returns 'http://interstella.com:8080'
 ```
+</details>
 
 ### Sinclair::EnvSettable
 
 Settable allows classes to extract configuration from environments through
 a simple meta-programable way
+
+<details>
+<summary>Using env settable example</summary>
 
 ```ruby
 class ServiceClient
@@ -457,9 +492,13 @@ ENV['SERVICE_HOSTNAME'] = 'host.com'
 
 ServiceClient.default # returns #<ServiceClient:0x0000556fa1b366e8 @username="my-login", @password=nil, @port=80, @hostname="host.com">'
 ```
+</details>
 
 ### Sinclair::Options
 Options allows projects to have an easy to configure option object
+
+<details>
+<summary>Example of using Options</summary>
 
 ```ruby
 class ConnectionOptions < Sinclair::Options
@@ -480,9 +519,13 @@ options.port     # returns 443
 
 ConnectionOptions.new(invalid: 10) # raises Sinclair::Exception::InvalidOptions
 ```
+</details>
 
 ### Sinclair::Comparable
 Comparable allows a class to implement quickly a `==` method comparing given attributes
+
+<details>
+<summary>Example of Comparable usage</summary>
 
 ```ruby
 class SampleModel
@@ -502,11 +545,15 @@ model2 = model_class.new(name: 'jack', age: 23)
 
 model1 == model2 # returns true
 ```
+</details>
 
 RSspec matcher
 ---------------
 
 You can use the provided matcher to check that your builder is adding a method correctly
+
+<details>
+<summary>Sample of specs over adding methods</summary>
 
 ```ruby
 class DefaultValue
@@ -580,6 +627,7 @@ Sinclair::Matchers
         when the builder runs
           should add method class_method 'the_method' to #<Class:0x000055e5d9b95d88>
 ```
+</details>
 
 Projects Using
 ---------------
