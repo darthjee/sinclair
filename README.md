@@ -256,6 +256,11 @@ invalid_object = MyClass.new(
 )
 invalid_object.valid? # returns false
 ```
+#### Different ways of adding the methods
+There are different ways to add a method
+##### Block methods
+##### String Methods
+##### Direct calls to the class
 
 #### Caching the result
 If wanted, the result of the method can be stored in an
