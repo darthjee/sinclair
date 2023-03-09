@@ -47,9 +47,8 @@ Sinclair can actually be used in several ways, as a stand alone object capable o
 adding methods to your class on the fly, as a builder inside a class method
 or by extending it for more complex logics
 
-#### Stand Alone usage creating methods on the fly
 <details>
-<summary>Stand alone example</summary>
+<summary>Stand Alone usage creating methods on the fly</summary>
 
 ```ruby
 class Clazz
@@ -73,9 +72,8 @@ puts "One Hundred => #{Clazz.one_hundred_twenty}" # One Hundred Twenty => 120
 ```
 </details>
 
-#### Builder in class method
 <details>
-<summary>Class method to add instance methods example</summary>
+<summary>Builder in class method</summary>
 
 ```ruby
 class HttpJsonModel
@@ -177,10 +175,8 @@ MyServerConfig.port # returns '9090'
 ```
 </details>
 
-#### Extending the builder
-
 <details>
-<summary>Creating a custom builder example</summary>
+<summary>Extending the builder</summary>
 
 ```ruby
 class ValidationBuilder < Sinclair
