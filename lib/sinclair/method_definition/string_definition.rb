@@ -27,7 +27,7 @@ class Sinclair
       # @return [String]
       def code_definition
         <<-CODE
-          def #{name}#{arguments_string}
+          def #{name}#{parameters_string}
             #{code_line}
           end
         CODE
@@ -35,10 +35,10 @@ class Sinclair
 
       private
 
-      def arguments_string
-        return '' unless options_object.arguments
+      def parameters_string
+        return '' unless options_object.parameters
 
-        "(#{options_object.arguments.join(', ')})"
+        "(#{options_object.parameters.join(', ')})"
       end
 
       # @private

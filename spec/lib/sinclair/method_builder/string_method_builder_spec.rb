@@ -34,15 +34,15 @@ describe Sinclair::MethodBuilder::StringMethodBuilder do
           expect(instance.the_method).to eq(value)
         end
 
-        it 'creates a method with no arguments' do
+        it 'creates a method with no parameters' do
           expect(instance.method(method_name).parameters)
             .to be_empty
         end
       end
 
-      context 'when the method is built with arguments' do
+      context 'when the method is built with parameters' do
         let(:code)    { 'a + b' }
-        let(:options) { { arguments: %i[a b] } }
+        let(:options) { { parameters: %i[a b] } }
 
         before { builder.build }
 
@@ -50,7 +50,7 @@ describe Sinclair::MethodBuilder::StringMethodBuilder do
           expect(instance.the_method(12, 23)).to eq(35)
         end
 
-        it 'creates a method with no arguments' do
+        it 'creates a method with no parameters' do
           expect(instance.method(method_name).parameters)
             .to eq([%i[req a], %i[req b]])
         end

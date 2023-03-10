@@ -28,8 +28,8 @@ describe Sinclair::MethodDefinition::StringDefinition do
         .to eq(expected_code.gsub(/^ */, ''))
     end
 
-    context 'when arguments are given' do
-      let(:options) { { arguments: %i[x y] } }
+    context 'when parameters are given' do
+      let(:options) { { parameters: %i[x y] } }
       let(:code)    { 'x + y' }
       let(:expected_code) do
         <<-CODE
