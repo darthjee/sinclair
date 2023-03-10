@@ -38,7 +38,19 @@ class Sinclair
       def parameters_string
         return '' unless options_object.parameters
 
-        "(#{options_object.parameters.join(', ')})"
+        plain_parameters = options_object.parameters.reject do |param|
+          param.is_a?(Hash)
+        end
+
+        with_defaults = options_object.parameters.select do |param|
+          param.is_a?(Hash)
+        end.reduce(&:merge) || {}
+
+        with_defaults = with_defaults.map do |key, value|
+          "#{key} = #{value}"
+        end
+
+        "(#{[plain_parameters + with_defaults].join(', ')})"
       end
 
       # @private

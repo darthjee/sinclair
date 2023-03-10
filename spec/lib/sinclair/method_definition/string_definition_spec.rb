@@ -28,6 +28,23 @@ describe Sinclair::MethodDefinition::StringDefinition do
         .to eq(expected_code.gsub(/^ */, ''))
     end
 
+    context 'when parameters are given with defaults' do
+      let(:options) { { parameters: [:x, { y: 10 }] } }
+      let(:code)    { 'x + y' }
+      let(:expected_code) do
+        <<-CODE
+        def #{method_name}(x, y = 10)
+          #{code}
+        end
+        CODE
+      end
+
+      it 'returns the code with simple cache' do
+        expect(definition.code_definition.gsub(/^ */, ''))
+          .to eq(expected_code.gsub(/^ */, ''))
+      end
+    end
+
     context 'when parameters are given' do
       let(:options) { { parameters: %i[x y] } }
       let(:code)    { 'x + y' }
