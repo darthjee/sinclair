@@ -18,9 +18,7 @@ class Sinclair
       private
 
       def add_methods
-        attributes.each do |attribute|
-          add_method(:attr_accessor, attribute, type: :call)
-        end
+        add_method(:attr_accessor, *attributes, type: :call)
       end
     end
   end
