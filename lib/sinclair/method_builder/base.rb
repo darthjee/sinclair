@@ -7,6 +7,21 @@ class Sinclair
     #
     # Base class responsible for building methods
     class Base
+      # Instantiate the class and build the method
+      #
+      # @param klass [Class] class to receive the method
+      # @param definition [MethodDefinition] method defined
+      # @param type [Symbol] type of method to be build
+      #   - +:instance+ instance methods
+      #   - +:class+ class methods
+      #
+      # @see #build
+      #
+      # @return [Symbol] name of the method built
+      def self.build(klass, definition, type:)
+        new(klass, definition, type: type).build
+      end
+
       # @param klass [Class] class to receive the method
       # @param definition [MethodDefinition] method defined
       # @param type [Symbol] type of method to be build
@@ -22,9 +37,9 @@ class Sinclair
       #
       # @return [Symbol] name of the method built
       #
-      # @raise NotImplementedYet
+      # @raise NotImplementedError
       def build
-        raise 'Not implemented yet. this should be imlemented in subclasses'
+        raise NotImplementedError, 'Not implemented yet. this should be imlemented in subclasses'
       end
 
       private

@@ -10,27 +10,24 @@ describe Sinclair::MethodDefinition::CallDefinition do
   let(:call_name)  { :method_call }
   let(:attributes) { %i[key1 value2] }
 
-  describe '#code_string' do
-    let(:expected) { 'method_call :key1, :value2' }
-
-    it 'returns the code string' do
-      expect(definition.code_string)
-        .to eq(expected)
-    end
-  end
-
-  describe '#class_code_string' do
-    let(:expected) do
-      <<-RUBY
-      class << self
-        method_call :key1, :value2
+  describe '#code_block' do
+    let(:instance) { klass.new }
+    let(:klass) do
+      Class.new do
+        def method_call(*args)
+          args
+        end
       end
-      RUBY
     end
 
-    it 'returns the code string' do
-      expect(definition.class_code_string.gsub(/^ */, ''))
-        .to eq(expected.gsub(/^ */, ''))
+    it do
+      expect(definition.code_block)
+        .to be_a(Proc)
+    end
+
+    it 'returns a proc with the method call' do
+      expect(instance.instance_eval(&definition.code_block))
+        .to eq(attributes)
     end
   end
 end
