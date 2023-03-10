@@ -29,6 +29,17 @@ class Sinclair
         cached? ? code_with_cache : code
       end
 
+      # string with the code to be defined
+      #
+      # @return [String]
+      def code_definition
+        <<-CODE
+          def #{name}
+            #{code_line}
+          end
+        CODE
+      end
+
       private
 
       # @method code

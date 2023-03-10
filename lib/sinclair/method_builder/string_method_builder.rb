@@ -31,20 +31,16 @@ class Sinclair
         instance? ? name : "self.#{name}"
       end
 
-      # @private
-      #
       # string with the code to be defined
       #
       # @return [String]
       def code_definition
-        <<-CODE
-          def #{definition_name}
-            #{code_line}
-          end
-        CODE
+        return definition.code_definition if instance?
+
+        definition.code_definition.sub(/^ *def */, "def self.")
       end
 
-      delegate :code_line, :name, to: :definition
+      delegate :name, to: :definition
     end
   end
 end
