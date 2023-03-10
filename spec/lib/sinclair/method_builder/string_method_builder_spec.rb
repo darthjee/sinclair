@@ -41,7 +41,7 @@ describe Sinclair::MethodBuilder::StringMethodBuilder do
       end
 
       context 'when the method is built with arguments' do
-        let(:code)    { "a + b" }
+        let(:code)    { 'a + b' }
         let(:options) { { arguments: %i[a b] } }
 
         before { builder.build }

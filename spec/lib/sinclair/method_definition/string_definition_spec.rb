@@ -12,8 +12,8 @@ describe Sinclair::MethodDefinition::StringDefinition do
   let(:options)     { {} }
 
   describe '#code_definition' do
-    let(:klass)     { Class.new }
-    let(:instance)  { klass.new }
+    let(:klass) { Class.new }
+    let(:instance)        { klass.new }
     let(:code_definition) { definition.code_definition }
     let(:expected_code) do
       <<-CODE
@@ -30,7 +30,7 @@ describe Sinclair::MethodDefinition::StringDefinition do
 
     context 'when arguments are given' do
       let(:options) { { arguments: %i[x y] } }
-      let(:code)    { "x + y" }
+      let(:code)    { 'x + y' }
       let(:expected_code) do
         <<-CODE
         def #{method_name}(x, y)

@@ -36,7 +36,8 @@ class Sinclair
       private
 
       def arguments_string
-        return "" unless options_object.arguments
+        return '' unless options_object.arguments
+
         "(#{options_object.arguments.join(', ')})"
       end
 

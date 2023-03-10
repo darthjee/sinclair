@@ -25,7 +25,7 @@ class Sinclair
       def code_definition
         return definition.code_definition if instance?
 
-        definition.code_definition.sub(/^ *def */, "def self.")
+        definition.code_definition.sub(/^ *def */, 'def self.')
       end
 
       delegate :name, to: :definition
