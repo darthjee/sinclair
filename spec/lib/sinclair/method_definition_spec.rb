@@ -86,6 +86,8 @@ describe Sinclair::MethodDefinition do
   end
 
   describe '.for' do
+    let(:klass) { Class.new }
+
     context 'when there are no options nor block' do
       let(:type)      { :call }
       let(:arguments) { %i[attr_reader some_attribute other_attribute] }
@@ -100,9 +102,9 @@ describe Sinclair::MethodDefinition do
           .to be_a(described_class::CallDefinition)
       end
 
-      xit 'initializes it correctly' do
-        expect(described_class.for(type, *arguments).code_string)
-          .to eq('attr_reader :some_attribute, :other_attribute')
+      it 'initializes it correctly' do
+        expect { klass.module_eval(&described_class.for(type, *arguments).code_block) }
+          .to add_method(:some_attribute).to(klass)
       end
     end
 
