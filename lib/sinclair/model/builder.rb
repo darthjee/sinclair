@@ -19,8 +19,7 @@ class Sinclair
 
       def add_methods
         attributes.each do |attribute|
-          add_method(attribute, cached: true) {}
-          add_method("#{attribute}=") { |value| instance_variable_set("@#{attribute}", value) }
+          add_method(:attr_accessor, attribute, type: :call)
         end
       end
     end

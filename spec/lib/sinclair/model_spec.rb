@@ -7,7 +7,7 @@ describe Sinclair::Model do
 
   let(:model_class) { Class.new(described_class) }
 
-  describe '.with_fields' do
+  describe '.with_attributes' do
     context 'when the call happens with no options' do
       it do
         expect { model_class.with_attributes(:name) }
