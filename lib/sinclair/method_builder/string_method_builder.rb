@@ -19,18 +19,6 @@ class Sinclair
 
       private
 
-      # @private
-      #
-      # string used for method name definition
-      #
-      # the string changes depending if it is
-      # a class or instance method
-      #
-      # @return [String]
-      def definition_name
-        instance? ? name : "self.#{name}"
-      end
-
       # string with the code to be defined
       #
       # @return [String]
