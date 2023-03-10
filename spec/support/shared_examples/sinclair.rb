@@ -28,6 +28,12 @@ RSpec.shared_examples 'A sinclair builder' do |type|
       end
     end
 
+    context 'when describing a method with string' do
+      it 'creates a method using the string definition' do
+        expect(object.sum(10, 23)).to eq(33)
+      end
+    end
+
     context 'when describing a method using a block specific type' do
       it 'creates a method with the block' do
         expect(object.type_block).to eq(3)
