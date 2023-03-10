@@ -11,59 +11,56 @@ describe Sinclair::MethodDefinition::StringDefinition do
   let(:code)        { 'Random.rand' }
   let(:options)     { {} }
 
-  describe '#code_line' do
+  describe '#code_definition' do
     let(:klass)     { Class.new }
     let(:instance)  { klass.new }
-    let(:code_line) { definition.code_line }
-
-    it 'returns the code' do
-      expect(definition.code_line).to eq(code)
+    let(:code_definition) { definition.code_definition }
+    let(:expected_code) do
+      <<-CODE
+      def #{method_name}
+        #{code}
+      end
+      CODE
     end
 
     it 'returns a code with no cache' do
-      expect(instance.instance_eval(code_line))
-        .not_to eq(instance.instance_eval(code_line))
+      expect(definition.code_definition.gsub(/^ */, ''))
+        .to eq(expected_code.gsub(/^ */, ''))
     end
 
     context 'when cache true is given' do
       let(:options) { { cached: true } }
+      let(:expected_code) do
+        <<-CODE
+        def #{method_name}
+          @#{method_name} ||= #{code}
+        end
+        CODE
+      end
 
       it 'returns the code with simple cache' do
-        expect(definition.code_line)
-          .to eq("@#{method_name} ||= #{code}")
-      end
-
-      it 'returns a code with cache' do
-        expect(instance.instance_eval(code_line))
-          .to eq(instance.instance_eval(code_line))
-      end
-
-      it 'returns a code that does not cache nil' do
-        instance.instance_variable_set("@#{method_name}", nil)
-
-        expect(instance.instance_eval(code_line)).not_to be_nil
+        expect(definition.code_definition.gsub(/^ */, ''))
+          .to eq(expected_code.gsub(/^ */, ''))
       end
     end
 
     context 'when cache full is given' do
       let(:options) { { cached: :full } }
       let(:expected) do
-        "defined?(@#{method_name}) ? @#{method_name} : (@#{method_name} = #{code})"
+        <<-CODE
+        def #{method_name}
+          defined?(@#{method_name}) ? @#{method_name} : (@#{method_name} = #{code})
+        end
+        CODE
       end
 
       it 'returns the code with full cache' do
-        expect(definition.code_line).to eq(expected)
+        expect(definition.code_definition.gsub(/^ */, '')).to eq(expected.gsub(/^ */, ''))
       end
 
       it 'returns a code with cache' do
-        expect(instance.instance_eval(code_line))
-          .to eq(instance.instance_eval(code_line))
-      end
-
-      it 'returns a code that caches nil' do
-        instance.instance_variable_set("@#{method_name}", nil)
-
-        expect(instance.instance_eval(code_line)).to be_nil
+        expect(instance.instance_eval(code_definition))
+          .to eq(instance.instance_eval(code_definition))
       end
     end
   end

@@ -22,13 +22,6 @@ class Sinclair
       default_value :block?, false
       default_value :string?, true
 
-      # codeline to be run inside the code
-      #
-      # @return [String]
-      def code_line
-        cached? ? code_with_cache : code
-      end
-
       # string with the code to be defined
       #
       # @return [String]
@@ -41,6 +34,14 @@ class Sinclair
       end
 
       private
+
+      # @private
+      # codeline to be run inside the code
+      #
+      # @return [String]
+      def code_line
+        cached? ? code_with_cache : code
+      end
 
       # @method code
       # @private
