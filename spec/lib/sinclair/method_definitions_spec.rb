@@ -6,7 +6,8 @@ describe Sinclair::MethodDefinitions do
   subject(:definitions) { described_class.new }
 
   describe '#add' do
-    let(:name) { :the_method }
+    let(:name)  { :the_method }
+    let(:klass) { Class.new }
 
     context 'when passing block' do
       it 'returns the resulting array' do
@@ -61,9 +62,9 @@ describe Sinclair::MethodDefinitions do
           .to be_a(Sinclair::MethodDefinition::CallDefinition)
       end
 
-      xit 'initializes it correctly' do
-        expect(definitions.add(*arguments, type: type).last.code_string)
-          .to eq('attr_reader :some_attribute, :other_attribute')
+      it 'initializes it correctly' do
+        expect { klass.module_eval(&definitions.add(*arguments, type: type).last.code_block) }
+          .to add_method(:some_attribute).to(klass)
       end
     end
 
