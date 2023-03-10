@@ -27,13 +27,18 @@ class Sinclair
       # @return [String]
       def code_definition
         <<-CODE
-          def #{name}
+          def #{name}#{arguments_string}
             #{code_line}
           end
         CODE
       end
 
       private
+
+      def arguments_string
+        return "" unless options_object.arguments
+        "(#{options_object.arguments.join(', ')})"
+      end
 
       # @private
       # codeline to be run inside the code

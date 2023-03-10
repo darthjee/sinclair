@@ -28,6 +28,23 @@ describe Sinclair::MethodDefinition::StringDefinition do
         .to eq(expected_code.gsub(/^ */, ''))
     end
 
+    context 'when arguments are given' do
+      let(:options) { { arguments: %i[x y] } }
+      let(:code)    { "x + y" }
+      let(:expected_code) do
+        <<-CODE
+        def #{method_name}(x, y)
+          #{code}
+        end
+        CODE
+      end
+
+      it 'returns the code with simple cache' do
+        expect(definition.code_definition.gsub(/^ */, ''))
+          .to eq(expected_code.gsub(/^ */, ''))
+      end
+    end
+
     context 'when cache true is given' do
       let(:options) { { cached: true } }
       let(:expected_code) do
