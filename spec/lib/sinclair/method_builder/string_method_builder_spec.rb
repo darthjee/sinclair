@@ -12,9 +12,11 @@ describe Sinclair::MethodBuilder::StringMethodBuilder do
     let(:instance)    { klass.new }
     let(:value)       { Random.rand }
     let(:method_name) { :the_method }
+    let(:code)        { value.to_s }
+    let(:options)     { {} }
 
     let(:definition) do
-      Sinclair::MethodDefinition.from(method_name, value.to_s)
+      Sinclair::MethodDefinition.from(method_name, code, **options)
     end
 
     context 'when type is instance' do
@@ -30,6 +32,27 @@ describe Sinclair::MethodBuilder::StringMethodBuilder do
 
         it 'returns the result of the code when called' do
           expect(instance.the_method).to eq(value)
+        end
+
+        it 'creates a method with no arguments' do
+          expect(instance.method(method_name).parameters)
+            .to be_empty
+        end
+      end
+
+      context 'when the method is built with arguments' do
+        let(:code)    { "a + b" }
+        let(:options) { { arguments: %i[a b] } }
+
+        before { builder.build }
+
+        it 'returns the result of the code when called' do
+          expect(instance.the_method(12, 23)).to eq(35)
+        end
+
+        it 'creates a method with no arguments' do
+          expect(instance.method(method_name).parameters)
+            .to eq([%i[req a], %i[req b]])
         end
       end
     end
