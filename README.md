@@ -271,9 +271,51 @@ invalid_object.valid? # returns false
 
 #### Different ways of adding the methods
 There are different ways to add a method
-##### Block methods
-##### String Methods
-##### Direct calls to the class
+<details>
+<summary>Define method using block</summary>
+
+```ruby
+klass = Class.new
+instance = klass.new
+
+builder = Sinclair.new(klass)
+builder.add_method(:random_number) { Random.rand(10..20) }
+builder.build
+
+instance.random_number # returns a number between 10 and 20
+```
+</details>
+
+<details>
+<summary>Define method using string</summary>
+
+```ruby
+klass = Class.new
+instance = klass.new
+
+builder = Sinclair.new(klass)
+builder.add_method(:random_number, "Random.rand(10..20)")
+builder.build
+
+instance.random_number # returns a number between 10 and 20
+```
+</details>
+
+<details>
+<summary>Define method using a call to the class</summary>
+
+```ruby
+klass = Class.new
+
+builder = Sinclair.new(klass)
+builder.add_class_method(:attr_accessor, :number, type: :call)
+builder.build
+
+klass.number # returns nil
+klass.number = 10
+klass.number # returns 10
+```
+</details>
 
 #### Caching the result
 If wanted, the result of the method can be stored in an
