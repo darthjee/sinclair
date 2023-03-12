@@ -9,23 +9,23 @@ class Sinclair
     #
     # @see ParameterBuilder
     class ParameterHelper
-      def self.parameters_from(*args, &block)
-        new(*args, &block).to_s
+      def self.parameters_from(*args, **opts)
+        new(*args, **opts).strings
       end
 
       private_class_method :new
 
-      attr_reader :extra, :map_block
+      attr_reader :extra, :splitter
 
       # @param parameters_list [Array<Object>] list of parameters and defaults
       # @param extra [String] string to be added to the param name
-      def initialize(parameters_list, extra: '', &map_block)
+      def initialize(parameters_list, extra: '', splitter: ' = ')
         @parameters_list = parameters_list
         @extra           = extra
-        @map_block       = map_block
+        @splitter        = splitter
       end
 
-      def to_s
+      def strings
         parameters_strings + defaults_strings
       end
 
@@ -50,7 +50,9 @@ class Sinclair
       end
 
       def defaults_strings
-        defaults.map(&map_block)
+        defaults.map do |key, value|
+          "#{key}#{splitter}#{value}"
+        end
       end
 
       def parameters_list

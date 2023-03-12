@@ -12,8 +12,6 @@ class Sinclair
     #
     # @see StringDefinition
     class ParameterBuilder
-      delegate :parameters_from, to: ParameterHelper
-
       # Builds a string representing method parameters
       #
       # @overload from(parameters, named_parameters)
@@ -82,8 +80,8 @@ class Sinclair
       # @return [String]
       def parameters_string
         (
-          parameters_from(parameters) { |key, value| "#{key} = #{value}" } +
-          parameters_from(named_parameters, extra: ':') { |key, value| "#{key}: #{value}" }
+          ParameterHelper.parameters_from(parameters) +
+          ParameterHelper.parameters_from(named_parameters, extra: ':', splitter: ': ')
         ).join(', ')
       end
     end
