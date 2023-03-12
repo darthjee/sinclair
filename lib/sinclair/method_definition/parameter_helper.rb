@@ -2,6 +2,12 @@
 
 class Sinclair
   class MethodDefinition
+    # @api private
+    # @author darthjee
+    #
+    # Helper containing helepr methods for remapping parameters
+    #
+    # @see ParameterBuilder
     module ParameterHelper
       class << self
         def parameters_for(parameters, &block)
