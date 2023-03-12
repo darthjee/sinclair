@@ -10,6 +10,13 @@ class Sinclair
     # @see ParameterBuilder
     module ParameterHelper
       class << self
+        def parameters_from(parameters, addtion='', &map_block)
+          parameters_for(*parameters) do |param|
+            "#{param}#{addtion}"
+          end +
+          parameteres_defaults_for(*parameters, &map_block)
+        end
+
         # Maps an array of parameters into an Array of +Strings+
         #
         # The code takes advantage of ruby splitting parameters and named

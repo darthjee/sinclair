@@ -12,7 +12,7 @@ class Sinclair
     #
     # @see StringDefinition
     class ParameterBuilder
-      delegate :parameters_for, :parameteres_defaults_for, to: ParameterHelper
+      delegate :parameters_from, to: ParameterHelper
 
       # Builds a string representing method parameters
       #
@@ -82,53 +82,9 @@ class Sinclair
       # @return [String]
       def parameters_string
         (
-          parameters_strings +
-          parameters_with_defaults +
-          named_parameters_strings +
-          named_parameters_with_defaults
+          parameters_from(parameters) { |key, value| "#{key} = #{value}" } +
+          parameters_from(named_parameters, ':') { |key, value| "#{key}: #{value}" }
         ).join(', ')
-      end
-
-      # @private
-      # Returns the string for all common parameters without defaults
-      #
-      # @see ParameterHelper.parameters_for
-      # @return [String]
-      def parameters_strings
-        parameters_for(*parameters, &:to_s)
-      end
-
-      # @private
-      # Returns the string for all named parameters without defaults
-      #
-      # @see ParameterHelper.parameters_for
-      # @return [String]
-      def named_parameters_strings
-        parameters_for(*named_parameters) do |param|
-          "#{param}:"
-        end
-      end
-
-      # @private
-      # Returns the string for all common parameters with defaults
-      #
-      # @see ParameterHelper.parameteres_defaults_for
-      # @return [String]
-      def parameters_with_defaults
-        parameteres_defaults_for(*parameters) do |key, value|
-          "#{key} = #{value}"
-        end
-      end
-
-      # @private
-      # Returns the string for all named parameters with defaults
-      #
-      # @see ParameterHelper.parameteres_defaults_for
-      # @return [String]
-      def named_parameters_with_defaults
-        parameteres_defaults_for(*named_parameters) do |key, value|
-          "#{key}: #{value}"
-        end
       end
     end
   end
