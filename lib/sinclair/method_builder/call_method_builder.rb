@@ -29,21 +29,6 @@ class Sinclair
       # Code block to be evaluated by the class
       #
       # @return [Proc]
-
-      # Returns the klass where the proc block will be evaluated
-      #
-      # For instance type, the class itself is returned
-      #
-      # For adding class methods, the superclass is returned
-      #
-      # @return [Class]
-      def evaluating_class
-        return klass if instance?
-
-        class << klass
-          return self
-        end
-      end
     end
   end
 end
