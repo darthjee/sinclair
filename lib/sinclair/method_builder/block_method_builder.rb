@@ -17,8 +17,6 @@ class Sinclair
         evaluating_class.define_method(name, method_block)
       end
 
-      private
-
       delegate :name, :method_block, to: :definition
     end
   end

@@ -19,8 +19,6 @@ class Sinclair
         evaluating_class.module_eval(&code_block)
       end
 
-      private
-
       delegate :code_block, to: :definition
       # @method code_block
       # @api private
