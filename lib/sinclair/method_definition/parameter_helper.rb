@@ -15,17 +15,16 @@ class Sinclair
 
       private_class_method :new
 
-      attr_reader :parameters_list, :addtion, :map_block
+      attr_reader :extra, :map_block
 
-      def initialize(parameters_list, addtion = '', &map_block)
-        @parameters_list = parameters_list || []
-        @addtion = addtion
-        @map_block = map_block
+      def initialize(parameters_list, extra = '', &map_block)
+        @parameters_list = parameters_list
+        @extra           = extra
+        @map_block       = map_block
       end
 
       def to_s
-        parameters_strings +
-          defaults_strings
+        parameters_strings + defaults_strings
       end
 
       private
@@ -37,14 +36,14 @@ class Sinclair
       end
 
       def defaults
-        parameters_list.select do |param|
+        @defaults ||= parameters_list.select do |param|
           param.is_a?(Hash)
         end.reduce(&:merge)
       end
 
       def parameters_strings
         parameters.map do |param|
-          "#{param}#{addtion}"
+          "#{param}#{extra}"
         end
       end
 
@@ -52,6 +51,10 @@ class Sinclair
         return [] unless defaults
 
         defaults.map(&map_block)
+      end
+
+      def parameters_list
+        @parameters_list ||= []
       end
     end
   end
