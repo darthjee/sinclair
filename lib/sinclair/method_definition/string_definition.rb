@@ -35,6 +35,10 @@ class Sinclair
 
       private
 
+      # @private
+      # String for parameters
+      #
+      # @return [String]
       def parameters_string
         ParameterBuilder.from(
           options_object.parameters, options_object.named_parameters
