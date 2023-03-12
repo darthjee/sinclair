@@ -2,6 +2,15 @@
 
 class Sinclair
   class MethodDefinition
+    # @api private
+    # @author darthjee
+    #
+    # Builder a string of parameters
+    #
+    # This is used when creating the string for a method defined
+    # using a string definition
+    #
+    # @see StringDefinition
     class ParameterBuilder
       class << self
         def from(*args)
