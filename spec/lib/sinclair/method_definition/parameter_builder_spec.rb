@@ -41,7 +41,7 @@ describe Sinclair::MethodDefinition::ParameterBuilder do
       end
     end
 
-    xcontext 'when named_parameters has no default values' do
+    context 'when named_parameters has no default values' do
       let(:named_parameters) { [:x, :y] }
 
       it do

@@ -9,12 +9,16 @@ class Sinclair
         end
 
         def plain_parameters(parameters, &block)
+          return [] unless parameters
+
           parameters.reject do |param|
             param.is_a?(Hash)
           end.map(&block)
         end
 
         def parameters_with_defaults(parameters, &block)
+          return [] unless parameters
+
           defaults = parameters.select do |param|
             param.is_a?(Hash)
           end.reduce(&:merge)
@@ -33,7 +37,7 @@ class Sinclair
       end
 
       def parameters_string
-        return '' unless parameters.present?
+        return '' unless parameters?
 
         "(#{parameters_strings.join(', ')})"
       end
@@ -42,19 +46,30 @@ class Sinclair
 
       attr_reader :parameters, :named_parameters
 
+      def parameters?
+        parameters.present? || named_parameters.present?
+      end
+
       def parameters_strings
         plain_parameters +
-          parameters_with_defaults
+          parameters_with_defaults +
+          plain_named_parameters
+      end
+
+      def plain_parameters
+        self.class.plain_parameters(parameters, &:to_s)
+      end
+
+      def plain_named_parameters
+        self.class.plain_parameters(named_parameters) do |param|
+          "#{param}:"
+        end
       end
 
       def parameters_with_defaults
         self.class.parameters_with_defaults(parameters) do |key, value|
           "#{key} = #{value}"
         end
-      end
-
-      def plain_parameters
-        self.class.plain_parameters(parameters, &:to_s)
       end
     end
   end
