@@ -40,7 +40,7 @@ class Sinclair
       #
       # @return [String]
       def to_s
-        return '' unless parameters?
+        return '' if empty_parameters?
 
         "(#{parameters_string})"
       end
@@ -68,11 +68,11 @@ class Sinclair
       delegate :parameters_for, :parameteres_defaults_for, to: ParameterHelper
 
       # @private
-      # Flag if any kind of parameters have been provided
+      # Flag if any kind of parameters have not been provided
       #
       # @return [TrueClass,FalseClass]
-      def parameters?
-        parameters.present? || named_parameters.present?
+      def empty_parameters?
+        !parameters.present? && !named_parameters.present?
       end
 
       def parameters_string
