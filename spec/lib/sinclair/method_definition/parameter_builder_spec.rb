@@ -7,7 +7,7 @@ describe Sinclair::MethodDefinition::ParameterBuilder do
     let(:parameters) { nil }
     let(:named_parameters) { nil }
 
-    context 'when parameters is nil' do
+    context 'when parameters and named_parameters are nil' do
       it do
         expect(described_class.from(parameters, named_parameters))
           .to eq('')
@@ -23,12 +23,30 @@ describe Sinclair::MethodDefinition::ParameterBuilder do
       end
     end
 
-    context 'when parameters has no default values' do
-      let(:parameters) { [:x, { y: 1 }] }
+    context 'when named_parameters is empty' do
+      let(:named_parameters) { [] }
 
       it do
         expect(described_class.from(parameters, named_parameters))
-          .to eq('(x, y = 1)')
+          .to eq('')
+      end
+    end
+
+    context 'when parameters has no default values' do
+      let(:parameters) { [:x, :y] }
+
+      it do
+        expect(described_class.from(parameters, named_parameters))
+          .to eq('(x, y)')
+      end
+    end
+
+    xcontext 'when named_parameters has no default values' do
+      let(:named_parameters) { [:x, :y] }
+
+      it do
+        expect(described_class.from(parameters, named_parameters))
+          .to eq('(x:, y:)')
       end
     end
 
@@ -38,6 +56,25 @@ describe Sinclair::MethodDefinition::ParameterBuilder do
       it do
         expect(described_class.from(parameters, named_parameters))
           .to eq('(x = 1, y = 3)')
+      end
+    end
+
+    xcontext 'when named parameters has only default values' do
+      let(:named_parameters) { [{ x: 1, y: 3 }] }
+
+      it do
+        expect(described_class.from(parameters, named_parameters))
+          .to eq('(x: 1, y: 3)')
+      end
+    end
+
+    xcontext 'when all options are present' do
+      let(:parameters) { [:x, { y: 2 }] }
+      let(:named_parameters) { [:a, { b: 3 }] }
+
+      it do
+        expect(described_class.from(parameters, named_parameters))
+          .to eq('(x, y = 2, a:, b: 3)')
       end
     end
   end
