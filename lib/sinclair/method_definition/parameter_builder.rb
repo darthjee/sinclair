@@ -12,30 +12,8 @@ class Sinclair
     #
     # @see StringDefinition
     class ParameterBuilder
-      class << self
-        def from(*args)
-          new(*args).parameters_string
-        end
-
-        def plain_parameters(parameters, &block)
-          return [] unless parameters
-
-          parameters.reject do |param|
-            param.is_a?(Hash)
-          end.map(&block)
-        end
-
-        def parameters_with_defaults(parameters, &block)
-          return [] unless parameters
-
-          defaults = parameters.select do |param|
-            param.is_a?(Hash)
-          end.reduce(&:merge)
-
-          return [] unless defaults
-
-          defaults.map(&block)
-        end
+      def self.from(*args)
+        new(*args).parameters_string
       end
 
       private_class_method :new
@@ -54,6 +32,7 @@ class Sinclair
       private
 
       attr_reader :parameters, :named_parameters
+      delegate :parameters_for, :parameteres_defaults_for, to: ParameterHelper
 
       def parameters?
         parameters.present? || named_parameters.present?
@@ -67,23 +46,23 @@ class Sinclair
       end
 
       def plain_parameters
-        self.class.plain_parameters(parameters, &:to_s)
+        parameters_for(parameters, &:to_s)
       end
 
       def plain_named_parameters
-        self.class.plain_parameters(named_parameters) do |param|
+        parameters_for(named_parameters) do |param|
           "#{param}:"
         end
       end
 
       def parameters_with_defaults
-        self.class.parameters_with_defaults(parameters) do |key, value|
+        parameteres_defaults_for(parameters) do |key, value|
           "#{key} = #{value}"
         end
       end
 
       def named_parameters_with_defaults
-        self.class.parameters_with_defaults(named_parameters) do |key, value|
+        parameteres_defaults_for(named_parameters) do |key, value|
           "#{key}: #{value}"
         end
       end
