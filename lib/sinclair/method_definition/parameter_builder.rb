@@ -5,8 +5,26 @@ class Sinclair
     class ParameterBuilder
       attr_reader :parameters
 
-      def self.from(parameters)
-        new(parameters).parameters_string
+      class << self
+        def from(parameters)
+          new(parameters).parameters_string
+        end
+
+        def plain_parameters(parameters, &block)
+          parameters.reject do |param|
+            param.is_a?(Hash)
+          end.map(&block)
+        end
+
+        def parameters_with_defaults(parameters, &block)
+          defaults = parameters.select do |param|
+            param.is_a?(Hash)
+          end.reduce(&:merge)
+
+          return [] unless defaults
+
+          defaults.map(&block)
+        end
       end
 
       def initialize(parameters)
@@ -27,21 +45,13 @@ class Sinclair
       end
 
       def parameters_with_defaults
-        defaults = parameters.select do |param|
-          param.is_a?(Hash)
-        end.reduce(&:merge)
-
-        return [] unless defaults
-
-        defaults.map do |key, value|
+        self.class.parameters_with_defaults(parameters) do |key, value|
           "#{key} = #{value}"
         end
       end
 
       def plain_parameters
-        parameters.reject do |param|
-          param.is_a?(Hash)
-        end
+        self.class.plain_parameters(parameters, &:to_s)
       end
     end
   end
