@@ -10,50 +10,48 @@ class Sinclair
     # @see ParameterBuilder
     class ParameterHelper
       def self.parameters_from(*args, &block)
-        new(*args, &block).parameters_strings
+        new(*args, &block).to_s
       end
 
       private_class_method :new
 
-      attr_reader :parameters, :addtion, :map_block
+      attr_reader :parameters_list, :addtion, :map_block
 
-      def initialize(parameters, addtion='', &map_block)
-        @parameters = parameters
+      def initialize(parameters_list, addtion='', &map_block)
+        @parameters_list = parameters_list || []
         @addtion = addtion
         @map_block = map_block
       end
 
-      def parameters_strings
-        parameters_for(*parameters) do |param|
-          "#{param}#{addtion}"
-        end +
-        parameteres_defaults_for(*parameters, &map_block)
+      def to_s
+        parameters_strings + 
+        defaults_strings
       end
 
       private
 
-      # Maps an array of parameters into an Array of +Strings+
-      #
-      # The code takes advantage of ruby splitting parameters and named
-      # parameters (_defaults) from a list of arguments on method call
-      #
-      # @return [Array<String>]
-      def parameters_for(*parameters, **_defaults, &block)
-        return [] unless parameters
-
-        parameters.map(&block)
+      def parameters
+        parameters_list.reject do |param|
+          param.is_a?(Hash)
+        end
       end
 
-      # Maps a hash of defaults parameters into an Array of +Strings+
-      #
-      # The code takes advantage of ruby splitting parameters and named
-      # parameters (_defaults) from a list of arguments on method call
-      #
-      # @return [Array<String>]
-      def parameteres_defaults_for(*_parameters, **defaults, &block)
+      def defaults
+        parameters_list.select do |param|
+          param.is_a?(Hash)
+        end.reduce(&:merge) 
+      end
+
+      def parameters_strings
+        parameters.map do |param|
+          "#{param}#{addtion}"
+        end
+      end
+
+      def defaults_strings
         return [] unless defaults
 
-        defaults.map(&block)
+        defaults.map(&map_block)
       end
     end
   end
