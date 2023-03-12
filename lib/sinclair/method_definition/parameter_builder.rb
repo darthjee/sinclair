@@ -16,19 +16,28 @@ class Sinclair
       def parameters_string
         return '' unless parameters.present?
 
-        plain_parameters = parameters.reject do |param|
-          param.is_a?(Hash)
-        end
+        "(#{[plain_parameters + parameters_with_defaults].join(', ')})"
+      end
 
-        with_defaults = parameters.select do |param|
-          param.is_a?(Hash)
-        end.reduce(&:merge) || {}
+      private
 
-        with_defaults = with_defaults.map do |key, value|
+
+      def parameters_with_defaults
+        defaults = parameters.select do |param|
+          param.is_a?(Hash)
+        end.reduce(&:merge)
+
+        return [] unless defaults
+
+        defaults.map do |key, value|
           "#{key} = #{value}"
         end
+      end
 
-        "(#{[plain_parameters + with_defaults].join(', ')})"
+      def plain_parameters
+        parameters.reject do |param|
+          param.is_a?(Hash)
+        end
       end
     end
   end
