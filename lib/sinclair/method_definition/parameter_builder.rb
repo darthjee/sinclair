@@ -53,7 +53,8 @@ class Sinclair
       def parameters_strings
         plain_parameters +
           parameters_with_defaults +
-          plain_named_parameters
+          plain_named_parameters +
+          named_parameters_with_defaults
       end
 
       def plain_parameters
@@ -69,6 +70,12 @@ class Sinclair
       def parameters_with_defaults
         self.class.parameters_with_defaults(parameters) do |key, value|
           "#{key} = #{value}"
+        end
+      end
+
+      def named_parameters_with_defaults
+        self.class.parameters_with_defaults(named_parameters) do |key, value|
+          "#{key}: #{value}"
         end
       end
     end
