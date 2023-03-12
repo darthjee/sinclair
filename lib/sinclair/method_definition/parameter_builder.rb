@@ -16,10 +16,15 @@ class Sinclair
       def parameters_string
         return '' unless parameters.present?
 
-        "(#{[plain_parameters + parameters_with_defaults].join(', ')})"
+        "(#{parameters_strings.join(', ')})"
       end
 
       private
+
+      def parameters_strings
+        plain_parameters +
+          parameters_with_defaults
+      end
 
       def parameters_with_defaults
         defaults = parameters.select do |param|
