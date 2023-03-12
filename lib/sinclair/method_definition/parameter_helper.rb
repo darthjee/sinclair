@@ -17,15 +17,15 @@ class Sinclair
 
       attr_reader :parameters_list, :addtion, :map_block
 
-      def initialize(parameters_list, addtion='', &map_block)
+      def initialize(parameters_list, addtion = '', &map_block)
         @parameters_list = parameters_list || []
         @addtion = addtion
         @map_block = map_block
       end
 
       def to_s
-        parameters_strings + 
-        defaults_strings
+        parameters_strings +
+          defaults_strings
       end
 
       private
@@ -39,7 +39,7 @@ class Sinclair
       def defaults
         parameters_list.select do |param|
           param.is_a?(Hash)
-        end.reduce(&:merge) 
+        end.reduce(&:merge)
       end
 
       def parameters_strings
