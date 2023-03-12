@@ -36,9 +36,9 @@ class Sinclair
       end
 
       def defaults
-        @defaults ||= parameters_list.select do |param|
+        parameters_list.select do |param|
           param.is_a?(Hash)
-        end.reduce(&:merge)
+        end.reduce(&:merge) || {}
       end
 
       def parameters_strings
@@ -48,8 +48,6 @@ class Sinclair
       end
 
       def defaults_strings
-        return [] unless defaults
-
         defaults.map(&map_block)
       end
 
