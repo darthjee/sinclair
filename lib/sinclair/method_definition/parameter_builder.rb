@@ -14,7 +14,7 @@ class Sinclair
       end
 
       def parameters_string
-        return '' unless parameters
+        return '' unless parameters.present?
 
         plain_parameters = parameters.reject do |param|
           param.is_a?(Hash)
