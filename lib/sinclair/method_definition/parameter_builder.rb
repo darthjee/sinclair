@@ -21,7 +21,7 @@ class Sinclair
       #   @param named_parameters [Array<Object>] List of named parameters
       #
       #   The list of +parameters+/+named_parameters+ is formed by an
-      #   array of +String+/+Symbol+ representing required parameters
+      #   array of +Symbol+ representing required parameters
       #   and +Hash+ representing parameters with default values
       #
       # @return [String]
@@ -95,7 +95,7 @@ class Sinclair
       # @see ParameterHelper.parameters_for
       # @return [String]
       def parameters_strings
-        parameters_for(parameters, &:to_s)
+        parameters_for(*parameters, &:to_s)
       end
 
       # @private
@@ -104,7 +104,7 @@ class Sinclair
       # @see ParameterHelper.parameters_for
       # @return [String]
       def named_parameters_strings
-        parameters_for(named_parameters) do |param|
+        parameters_for(*named_parameters) do |param|
           "#{param}:"
         end
       end
@@ -115,7 +115,7 @@ class Sinclair
       # @see ParameterHelper.parameteres_defaults_for
       # @return [String]
       def parameters_with_defaults
-        parameteres_defaults_for(parameters) do |key, value|
+        parameteres_defaults_for(*parameters) do |key, value|
           "#{key} = #{value}"
         end
       end
@@ -126,7 +126,7 @@ class Sinclair
       # @see ParameterHelper.parameteres_defaults_for
       # @return [String]
       def named_parameters_with_defaults
-        parameteres_defaults_for(named_parameters) do |key, value|
+        parameteres_defaults_for(*named_parameters) do |key, value|
           "#{key}: #{value}"
         end
       end
