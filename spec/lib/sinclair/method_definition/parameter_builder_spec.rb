@@ -5,9 +5,8 @@ require 'spec_helper'
 describe Sinclair::MethodDefinition::ParameterBuilder do
   subject(:builder) { described_class.new(parameters) }
 
-
-  describe "#parameters_string" do
-    context "when parameters is nil" do
+  describe '#parameters_string' do
+    context 'when parameters is nil' do
       let(:parameters) { nil }
 
       it do
@@ -15,7 +14,7 @@ describe Sinclair::MethodDefinition::ParameterBuilder do
       end
     end
 
-    context "when parameters is empty" do
+    context 'when parameters is empty' do
       let(:parameters) { [] }
 
       it do

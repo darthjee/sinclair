@@ -21,7 +21,6 @@ class Sinclair
 
       private
 
-
       def parameters_with_defaults
         defaults = parameters.select do |param|
           param.is_a?(Hash)
