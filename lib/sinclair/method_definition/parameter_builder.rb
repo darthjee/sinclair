@@ -3,11 +3,9 @@
 class Sinclair
   class MethodDefinition
     class ParameterBuilder
-      attr_reader :parameters
-
       class << self
-        def from(parameters)
-          new(parameters).parameters_string
+        def from(*args)
+          new(*args).parameters_string
         end
 
         def plain_parameters(parameters, &block)
@@ -29,8 +27,9 @@ class Sinclair
 
       private_class_method :new
 
-      def initialize(parameters)
-        @parameters = parameters
+      def initialize(parameters, named_parameters)
+        @parameters       = parameters
+        @named_parameters = named_parameters
       end
 
       def parameters_string
@@ -40,6 +39,8 @@ class Sinclair
       end
 
       private
+
+      attr_reader :parameters, :named_parameters
 
       def parameters_strings
         plain_parameters +

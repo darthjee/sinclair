@@ -4,11 +4,13 @@ require 'spec_helper'
 
 describe Sinclair::MethodDefinition::ParameterBuilder do
   describe '.from' do
-    context 'when parameters is nil' do
-      let(:parameters) { nil }
+    let(:parameters) { nil }
+    let(:named_parameters) { nil }
 
+    context 'when parameters is nil' do
       it do
-        expect(described_class.from(parameters)).to eq('')
+        expect(described_class.from(parameters, named_parameters))
+          .to eq('')
       end
     end
 
@@ -16,7 +18,8 @@ describe Sinclair::MethodDefinition::ParameterBuilder do
       let(:parameters) { [] }
 
       it do
-        expect(described_class.from(parameters)).to eq('')
+        expect(described_class.from(parameters, named_parameters))
+          .to eq('')
       end
     end
 
@@ -24,7 +27,8 @@ describe Sinclair::MethodDefinition::ParameterBuilder do
       let(:parameters) { [:x, { y: 1 }] }
 
       it do
-        expect(described_class.from(parameters)).to eq('(x, y = 1)')
+        expect(described_class.from(parameters, named_parameters))
+          .to eq('(x, y = 1)')
       end
     end
 
@@ -32,7 +36,8 @@ describe Sinclair::MethodDefinition::ParameterBuilder do
       let(:parameters) { [{ x: 1, y: 3 }] }
 
       it do
-        expect(described_class.from(parameters)).to eq('(x = 1, y = 3)')
+        expect(described_class.from(parameters, named_parameters))
+          .to eq('(x = 1, y = 3)')
       end
     end
   end

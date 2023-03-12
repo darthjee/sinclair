@@ -36,7 +36,9 @@ class Sinclair
       private
 
       def parameters_string
-        ParameterBuilder.from(options_object.parameters)
+        ParameterBuilder.from(
+          options_object.parameters, options_object.named_parameters
+        )
       end
 
       # @private
