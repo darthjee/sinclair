@@ -13,7 +13,7 @@ class Sinclair
     # @see StringDefinition
     class ParameterBuilder
       def self.from(*args)
-        new(*args).parameters_string
+        new(*args).to_s
       end
 
       private_class_method :new
@@ -23,10 +23,10 @@ class Sinclair
         @named_parameters = named_parameters
       end
 
-      def parameters_string
+      def to_s
         return '' unless parameters?
 
-        "(#{parameters_strings.join(', ')})"
+        "(#{parameters_string})"
       end
 
       private
@@ -38,11 +38,13 @@ class Sinclair
         parameters.present? || named_parameters.present?
       end
 
-      def parameters_strings
-        plain_parameters +
+      def parameters_string
+        (
+          plain_parameters +
           parameters_with_defaults +
           plain_named_parameters +
           named_parameters_with_defaults
+        ).join(', ')
       end
 
       def plain_parameters
