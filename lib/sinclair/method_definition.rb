@@ -10,9 +10,10 @@ class Sinclair
 
     autoload :BlockHelper,      'sinclair/method_definition/block_helper'
     autoload :BlockDefinition,  'sinclair/method_definition/block_definition'
+    autoload :CallDefinition,   'sinclair/method_definition/call_definition'
     autoload :StringDefinition, 'sinclair/method_definition/string_definition'
-
-    autoload :CallDefinition, 'sinclair/method_definition/call_definition'
+    autoload :ParameterBuilder, 'sinclair/method_definition/parameter_builder'
+    autoload :ParameterHelper,  'sinclair/method_definition/parameter_helper'
 
     # @method name
     #

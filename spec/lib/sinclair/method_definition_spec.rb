@@ -25,8 +25,18 @@ describe Sinclair::MethodDefinition do
     context 'when the builder has been defined' do
       let(:definition_class) do
         Class.new(described_class) do
-          def code_line
-            '10'
+          attr_reader :name
+
+          def initialize(name)
+            @name = name
+          end
+
+          def code_definition
+            <<-CODE
+            def #{name}
+              10
+            end
+            CODE
           end
         end
       end

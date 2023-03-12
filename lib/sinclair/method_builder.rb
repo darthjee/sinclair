@@ -7,10 +7,9 @@ class Sinclair
   # Class responsible for building methods
   class MethodBuilder
     autoload :Base,                'sinclair/method_builder/base'
-    autoload :StringMethodBuilder, 'sinclair/method_builder/string_method_builder'
     autoload :BlockMethodBuilder,  'sinclair/method_builder/block_method_builder'
-
-    autoload :CallMethodBuilder, 'sinclair/method_builder/call_method_builder'
+    autoload :CallMethodBuilder,   'sinclair/method_builder/call_method_builder'
+    autoload :StringMethodBuilder, 'sinclair/method_builder/string_method_builder'
 
     CLASS_METHOD = :class
     INSTANCE_METHOD = :instance
