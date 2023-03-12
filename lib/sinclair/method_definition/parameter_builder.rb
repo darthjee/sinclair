@@ -27,6 +27,8 @@ class Sinclair
         end
       end
 
+      private_class_method :new
+
       def initialize(parameters)
         @parameters = parameters
       end
