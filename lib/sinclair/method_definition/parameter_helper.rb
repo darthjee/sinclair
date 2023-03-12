@@ -17,7 +17,9 @@ class Sinclair
 
       attr_reader :extra, :map_block
 
-      def initialize(parameters_list, extra = '', &map_block)
+      # @param parameters_list [Array<Object>] list of parameters and defaults
+      # @param extra [String] string to be added to the param name
+      def initialize(parameters_list, extra: '', &map_block)
         @parameters_list = parameters_list
         @extra           = extra
         @map_block       = map_block

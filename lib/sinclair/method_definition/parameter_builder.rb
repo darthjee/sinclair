@@ -83,7 +83,7 @@ class Sinclair
       def parameters_string
         (
           parameters_from(parameters) { |key, value| "#{key} = #{value}" } +
-          parameters_from(named_parameters, ':') { |key, value| "#{key}: #{value}" }
+          parameters_from(named_parameters, extra: ':') { |key, value| "#{key}: #{value}" }
         ).join(', ')
       end
     end
