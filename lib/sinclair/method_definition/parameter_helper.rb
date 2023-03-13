@@ -9,20 +9,28 @@ class Sinclair
     #
     # @see ParameterBuilder
     class ParameterHelper
+      # Returns a list of strings of parameters
+      #
+      # @overload parameters_from(parameters_list, extra: '', joinner: ' = ')
+      #   @param parameters_list [Array<Object>] list of parameters and defaults
+      #   @param extra [String] string to be added to the param name
+      #   @param joinner [String] string used when joining variable with default value
+      #
+      # @return [String]
       def self.parameters_from(*args, **opts)
         new(*args, **opts).strings
       end
 
       private_class_method :new
 
-      attr_reader :extra, :splitter
+      attr_reader :extra, :joinner
 
       # @param parameters_list [Array<Object>] list of parameters and defaults
       # @param extra [String] string to be added to the param name
-      def initialize(parameters_list, extra: '', splitter: ' = ')
+      def initialize(parameters_list, extra: '', joinner: ' = ')
         @parameters_list = parameters_list
         @extra           = extra
-        @splitter        = splitter
+        @joinner = joinner
       end
 
       def strings
@@ -51,7 +59,7 @@ class Sinclair
 
       def defaults_strings
         defaults.map do |key, value|
-          "#{key}#{splitter}#{value}"
+          "#{key}#{joinner}#{value}"
         end
       end
 

@@ -81,7 +81,7 @@ class Sinclair
       def parameters_string
         (
           ParameterHelper.parameters_from(parameters) +
-          ParameterHelper.parameters_from(named_parameters, extra: ':', splitter: ': ')
+          ParameterHelper.parameters_from(named_parameters, extra: ':', joinner: ': ')
         ).join(', ')
       end
     end
