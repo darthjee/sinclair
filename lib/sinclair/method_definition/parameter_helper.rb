@@ -13,6 +13,8 @@ class Sinclair
       #
       # @overload parameters_from(parameters_list, named: false)
       #   @param parameters_list [Array<Object>] list of parameters and defaults
+      #   @param named [TrueClass,FalseClass] Flag informing if the parameters are
+      #     named parameters
       #
       # @return [String]
       def self.parameters_from(*args, **opts)
@@ -22,6 +24,8 @@ class Sinclair
       private_class_method :new
 
       # @param parameters_list [Array<Object>] list of parameters and defaults
+      # @param named [TrueClass,FalseClass] Flag informing if the parameters are
+      #   named parameters
       def initialize(parameters_list, named: false)
         @parameters_list = parameters_list
         @named           = named
@@ -51,6 +55,22 @@ class Sinclair
       # List of parameters and parameters with defaults
       #
       # @return [Array<Object>]
+
+      # @!method named
+      # @api private
+      # @private
+      #
+      # Flag informing if the parameters are named parameters
+      #
+      # @return [TrueClass,FalseClass]
+
+      # @!method named?
+      # @api private
+      # @private
+      #
+      # Flag informing if the parameters are named parameters
+      #
+      # @return [TrueClass,FalseClass]
 
       # Parameters without defaults
       #
