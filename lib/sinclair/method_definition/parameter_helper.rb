@@ -11,11 +11,8 @@ class Sinclair
     class ParameterHelper
       # Returns a list of strings of parameters
       #
-      # @overload parameters_from(parameters_list, extra: '', joinner: ' = ')
+      # @overload parameters_from(parameters_list, named: false)
       #   @param parameters_list [Array<Object>] list of parameters and defaults
-      #   @param extra [String] string to be added to the param name
-      #     (eg: +:+ for named parameters)
-      #   @param joinner [String] string used when joining variable with default value
       #
       # @return [String]
       def self.parameters_from(*args, **opts)
@@ -25,11 +22,9 @@ class Sinclair
       private_class_method :new
 
       # @param parameters_list [Array<Object>] list of parameters and defaults
-      # @param extra [String] string to be added to the param name
-      def initialize(parameters_list, extra: nil, joinner: ' = ')
+      def initialize(parameters_list, named: false)
         @parameters_list = parameters_list
-        @extra           = extra
-        @joinner         = joinner
+        @named           = named
       end
 
       # All parameters converted into strings
@@ -46,7 +41,8 @@ class Sinclair
 
       # private
 
-      attr_reader :parameters_list, :extra, :joinner
+      attr_reader :parameters_list, :named
+      alias named? named
 
       # @!method parameters_list
       # @api private
@@ -55,17 +51,6 @@ class Sinclair
       # List of parameters and parameters with defaults
       #
       # @return [Array<Object>]
-
-      # @!method extra
-      # @api private
-      # @private
-      #
-      # String to be added when defining parameters without default value
-      #
-      # When a parameter is named, +:+ is added, when it is not, nothing is
-      # added
-      #
-      # @return [String]
 
       # Parameters without defaults
       #
@@ -98,8 +83,10 @@ class Sinclair
       #
       # @return [Array<String>]
       def parameters_strings
+        return parameters.map(&:to_s) unless named?
+
         parameters.map do |param|
-          "#{param}#{extra}"
+          "#{param}:"
         end
       end
 
@@ -107,6 +94,7 @@ class Sinclair
       #
       # @return [Array<String>]
       def defaults_strings
+        joinner = named? ? ': ' : ' = '
         defaults.map do |key, value|
           "#{key}#{joinner}#{value}"
         end
