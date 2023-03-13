@@ -43,7 +43,7 @@ class Sinclair
         parameters_strings + defaults_strings
       end
 
-      # private
+      private
 
       attr_reader :parameters_list, :named
       alias named? named
