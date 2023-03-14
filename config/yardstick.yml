@@ -60,6 +60,8 @@ rules:
       - Sinclair::MethodDefinition#initialize
       - Sinclair::MethodDefinition::CallDefinition#initialize
       - Sinclair::MethodDefinition::BlockDefinition#initialize
+      - Sinclair::MethodDefinition::ParameterBuilder#initialize
+      - Sinclair::MethodDefinition::ParameterHelper#initialize
       - Sinclair::MethodDefinition::StringDefinition#initialize
       - Sinclair::Options#initialize
       - Sinclair::Options::Builder#initialize

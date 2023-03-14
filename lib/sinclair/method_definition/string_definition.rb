@@ -22,14 +22,36 @@ class Sinclair
       default_value :block?, false
       default_value :string?, true
 
+      # string with the code to be defined
+      #
+      # @return [String]
+      def code_definition
+        <<-CODE
+          def #{name}#{parameters_string}
+            #{code_line}
+          end
+        CODE
+      end
+
+      private
+
+      # @private
+      # String for parameters
+      #
+      # @return [String]
+      def parameters_string
+        ParameterBuilder.from(
+          options_object.parameters, options_object.named_parameters
+        )
+      end
+
+      # @private
       # codeline to be run inside the code
       #
       # @return [String]
       def code_line
         cached? ? code_with_cache : code
       end
-
-      private
 
       # @method code
       # @private

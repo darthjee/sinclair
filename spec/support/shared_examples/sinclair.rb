@@ -26,6 +26,12 @@ RSpec.shared_examples 'A sinclair builder' do |type|
         expect(object.defined).to eq(1)
         expect(object.defined).to eq(2)
       end
+
+      context 'when the method has custom parameters' do
+        it 'creates a method using the string definition' do
+          expect(object.sum(10, 23)).to eq(33)
+        end
+      end
     end
 
     context 'when describing a method using a block specific type' do
