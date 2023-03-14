@@ -5,12 +5,11 @@ class Sinclair
     # @api public
     # @author Darthjee
     class Builder < Sinclair
-      attr_reader :attributes, :options
-
-      def initialize(klass, *attributes, **options)
+      def initialize(klass, *attributes, writter: true)
         super(klass)
         @attributes = attributes.flatten
-        @options = options
+        @options    = options
+        @writter    = writter
 
         add_methods
         change_initializer
@@ -18,8 +17,12 @@ class Sinclair
 
       private
 
+      attr_reader :attributes, :options, :writter
+      alias writter? writter
+
       def add_methods
-        add_method(:attr_accessor, *attributes, type: :call)
+        call = writter? ? :attr_accessor : :attr_reader
+        add_method(call, *attributes, type: :call)
       end
 
       def change_initializer
