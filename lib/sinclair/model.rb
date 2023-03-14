@@ -7,11 +7,11 @@ class Sinclair
     autoload :Builder, 'sinclair/model/builder'
 
     class << self
-      def with_attributes(*attributes, **options)
-        Builder.new(self, *attributes, **options).build
+      def for(*attributes, **options)
+        Class.new(self) do |klass|
+          Builder.new(klass, *attributes, **options).build
+        end
       end
     end
-
-    def initialize; end
   end
 end

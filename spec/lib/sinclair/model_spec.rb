@@ -3,34 +3,28 @@
 require 'spec_helper'
 
 describe Sinclair::Model do
-  subject(:model) { model_class.new(name: nil) }
-
-  let(:model_class) { Class.new(described_class) }
-
   describe '.with_attributes' do
     context 'when the call happens with no options' do
-      it do
-        expect { model_class.with_attributes(:name) }
-          .to add_method(:name).to(model_class)
+      it 'Returns a new class' do
+        expect(described_class.for(:name).superclass)
+          .to eq(described_class)
       end
 
-      it do
-        expect { model_class.with_attributes(:name) }
-          .to add_method(:name=).to(model_class)
+      it 'returns a class with getter' do
+        expect(described_class.for(:name).instance_method(:name))
+          .to be_a(UnboundMethod)
       end
 
-      it 'Adds required keyword' do
-        expect { model_class.with_attributes(:name) }
-          .to change { model_class.new rescue nil }
-          .from(model_class).to(nil)
+      it 'returns a class with setter' do
+        expect(described_class.for(:name).instance_method(:name=))
+          .to be_a(UnboundMethod)
       end
 
       context 'when reader is called' do
         let(:name) { SecureRandom.hex(10) }
 
-        before do
-          model_class.with_attributes(:name)
-          model.instance_variable_set(:@name, name)
+        let(:model) do
+          described_class.for(:name).new(name: name)
         end
 
         it do
@@ -41,13 +35,13 @@ describe Sinclair::Model do
       context 'when setter is called' do
         let(:name) { SecureRandom.hex(10) }
 
-        before do
-          model_class.with_attributes(:name)
+        let(:model) do
+          described_class.for(:name).new(name: nil)
         end
 
         it do
           expect { model.name = name }
-            .to change { model.instance_variable_get(:@name) }
+            .to change(model, :name)
             .from(nil)
             .to(name)
         end
