@@ -54,7 +54,7 @@ describe Sinclair::Model do
       subject(:klass) { described_class.for(*attributes, **options) }
 
       let(:attributes) { %i[name] }
-      let(:options)    { { writter: true } }
+      let(:options)    { { writter: false } }
 
       it 'Returns a new class' do
         expect(klass.superclass)
@@ -66,9 +66,9 @@ describe Sinclair::Model do
           .to be_a(UnboundMethod)
       end
 
-      it 'returns a class with setter' do
+      it 'returns a class without setter' do
         expect { klass.instance_method(:name=) }
-          .not_to raise_error
+          .to raise_error(NameError)
       end
 
       context 'when reader is called' do

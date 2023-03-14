@@ -22,6 +22,7 @@ class Sinclair
 
       def add_methods
         call = writter? ? :attr_accessor : :attr_reader
+
         add_method(call, *attributes, type: :call)
       end
 
