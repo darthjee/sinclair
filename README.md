@@ -270,9 +270,12 @@ invalid_object.valid? # returns false
 </details>
 
 #### Different ways of adding the methods
-There are different ways to add a method
+There are different ways to add a method, each accepting different options
+
 <details>
 <summary>Define method using block</summary>
+Block methods accepts, as option
+  - [cache](#caching-the-result)
 
 ```ruby
 klass = Class.new
@@ -288,23 +291,27 @@ instance.random_number # returns a number between 10 and 20
 
 <details>
 <summary>Define method using string</summary>
+String methods accepts, as option
+  - [cache](#caching-the-result)
+  - [cache](#caching-the-result)
 
 ```ruby
-klass = Class.new
-instance = klass.new
+# Example without parameters
 
-builder = Sinclair.new(klass)
+class MyClass
+end
+instance = MyClass.new
+
+builder = Sinclair.new(MyClass)
 builder.add_method(:random_number, "Random.rand(10..20)")
 builder.build
 
 instance.random_number # returns a number between 10 and 20
 ```
-</details>
-
-<details>
-<summary>Define method using string with parameters</summary>
 
 ```ruby
+# Example with parameters
+
 class MyClass
 end
 
@@ -320,6 +327,7 @@ MyClass.function(10, b: 2) # returns 115
 
 <details>
 <summary>Define method using a call to the class</summary>
+Call method definitions right now have no options available
 
 ```ruby
 klass = Class.new
