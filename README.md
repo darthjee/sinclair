@@ -302,6 +302,23 @@ instance.random_number # returns a number between 10 and 20
 </details>
 
 <details>
+<summary>Define method using string with parameters</summary>
+
+```ruby
+class MyClass
+end
+
+builder = described_class.new(MyClass)
+builder.add_class_method(
+  :function, 'a ** b + c', parameters: [:a], named_parameters: [:b, { c: 15 }]
+)
+builder.build
+
+MyClass.function(10, b: 2) # returns 115
+```
+</details>
+
+<details>
 <summary>Define method using a call to the class</summary>
 
 ```ruby
