@@ -25,6 +25,24 @@ describe Sinclair::Model do
           .from(model_class).to(nil)
       end
 
+      context 'When a field has been added already' do
+        before do
+          model_class.with_attributes(:name)
+        end
+
+        it 'Adds required keyword' do
+          expect { model_class.with_attributes(:age) }
+            .to change { model_class.new(name: 'Some Name') rescue nil }
+            .from(model_class).to(nil)
+        end
+
+        it 'Does not remove old required keyword' do
+          expect { model_class.with_attributes(:age) }
+            .to change { model_class.new(name: 'Some Name', age: 21) rescue nil }
+            .from(nil).to(model_class)
+        end
+      end
+
       context 'when reader is called' do
         let(:name) { SecureRandom.hex(10) }
 
