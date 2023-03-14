@@ -5,20 +5,22 @@ require 'spec_helper'
 describe Sinclair::Model do
   describe '.with_attributes' do
     context 'when the call happens with no options' do
+      subject(:klass) { described_class.for(*attributes) }
+
       let(:attributes) { %i[name] }
 
       it 'Returns a new class' do
-        expect(described_class.for(*attributes).superclass)
+        expect(klass.superclass)
           .to eq(described_class)
       end
 
       it 'returns a class with getter' do
-        expect(described_class.for(*attributes).instance_method(:name))
+        expect(klass.instance_method(:name))
           .to be_a(UnboundMethod)
       end
 
       it 'returns a class with setter' do
-        expect(described_class.for(*attributes).instance_method(:name=))
+        expect(klass.instance_method(:name=))
           .to be_a(UnboundMethod)
       end
 
@@ -26,7 +28,7 @@ describe Sinclair::Model do
         let(:name) { SecureRandom.hex(10) }
 
         let(:model) do
-          described_class.for(*attributes).new(name: name)
+          klass.new(name: name)
         end
 
         it do
@@ -35,11 +37,8 @@ describe Sinclair::Model do
       end
 
       context 'when setter is called' do
-        let(:name) { SecureRandom.hex(10) }
-
-        let(:model) do
-          described_class.for(*attributes).new(name: nil)
-        end
+        let(:name)  { SecureRandom.hex(10) }
+        let(:model) { klass.new(name: nil) }
 
         it do
           expect { model.name = name }
