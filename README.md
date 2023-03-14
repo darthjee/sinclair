@@ -276,7 +276,7 @@ There are different ways to add a method, each accepting different options
 <summary>Define method using block</summary>
 
 Block methods accepts, as option
-  - [cache](#caching-the-result): defining the cashing of results
+  -  [cache](#caching-the-result): defining the cashing of results
 
 ```ruby
 klass = Class.new
@@ -294,9 +294,9 @@ instance.random_number # returns a number between 10 and 20
 <summary>Define method using string</summary>
 
 String methods accepts, as option
-  - [cache](#caching-the-result): defining the cashing of results
-  - parameters: defining accepted parameters
-  - named_parameters: defining accepted named parameters
+  -  [cache](#caching-the-result): defining the cashing of results
+  -  parameters: defining accepted parameters
+  -  named_parameters: defining accepted named parameters
 
 ```ruby
 # Example without parameters
