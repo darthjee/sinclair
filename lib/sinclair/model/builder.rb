@@ -13,12 +13,21 @@ class Sinclair
         @options = options
 
         add_methods
+        change_initializer
       end
 
       private
 
       def add_methods
         add_method(:attr_accessor, *attributes, type: :call)
+      end
+
+      def change_initializer
+        code = attributes.map do |attr|
+          "@#{attr} = #{attr}"
+        end.join("\n")
+
+        add_method(:initialize, code, named_parameters: attributes)
       end
     end
   end

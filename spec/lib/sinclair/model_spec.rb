@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe Sinclair::Model do
-  subject(:model) { model_class.new }
+  subject(:model) { model_class.new(name: nil) }
 
   let(:model_class) { Class.new(described_class) }
 
@@ -17,6 +17,12 @@ describe Sinclair::Model do
       it do
         expect { model_class.with_attributes(:name) }
           .to add_method(:name=).to(model_class)
+      end
+
+      it 'Adds required keyword' do
+        expect { model_class.with_attributes(:name) }
+          .to change { model_class.new rescue nil }
+          .from(model_class).to(nil)
       end
 
       context 'when reader is called' do
