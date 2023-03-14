@@ -13,13 +13,13 @@ This gem helps the creation of complex gems/concerns
 that enables creation of methods on the fly through class
 methods
 
-Current Release: [1.11.0](https://github.com/darthjee/sinclair/tree/1.11.0)
+Current Release: [1.12.0](https://github.com/darthjee/sinclair/tree/1.12.0)
 
-[Next release](https://github.com/darthjee/sinclair/compare/1.11.0...master)
+[Next release](https://github.com/darthjee/sinclair/compare/1.12.0...master)
 
 Yard Documentation
 -------------------
-[https://www.rubydoc.info/gems/sinclair/1.11.0](https://www.rubydoc.info/gems/sinclair/1.11.0)
+[https://www.rubydoc.info/gems/sinclair/1.12.0](https://www.rubydoc.info/gems/sinclair/1.12.0)
 
 Installation
 ---------------
@@ -270,9 +270,13 @@ invalid_object.valid? # returns false
 </details>
 
 #### Different ways of adding the methods
-There are different ways to add a method
+There are different ways to add a method, each accepting different options
+
 <details>
 <summary>Define method using block</summary>
+
+Block methods accepts, as option
+  -  [cache](#caching-the-result): defining the cashing of results
 
 ```ruby
 klass = Class.new
@@ -289,31 +293,57 @@ instance.random_number # returns a number between 10 and 20
 <details>
 <summary>Define method using string</summary>
 
-```ruby
-klass = Class.new
-instance = klass.new
+String methods accepts, as option
+  -  [cache](#caching-the-result): defining the cashing of results
+  -  parameters: defining accepted parameters
+  -  named_parameters: defining accepted named parameters
 
-builder = Sinclair.new(klass)
+```ruby
+# Example without parameters
+
+class MyClass
+end
+instance = MyClass.new
+
+builder = Sinclair.new(MyClass)
 builder.add_method(:random_number, "Random.rand(10..20)")
 builder.build
 
 instance.random_number # returns a number between 10 and 20
+```
+
+```ruby
+# Example with parameters
+
+class MyClass
+end
+
+builder = described_class.new(MyClass)
+builder.add_class_method(
+  :function, 'a ** b + c', parameters: [:a], named_parameters: [:b, { c: 15 }]
+)
+builder.build
+
+MyClass.function(10, b: 2) # returns 115
 ```
 </details>
 
 <details>
 <summary>Define method using a call to the class</summary>
 
-```ruby
-klass = Class.new
+Call method definitions right now have no options available
 
-builder = Sinclair.new(klass)
+```ruby
+class MyClass
+end
+
+builder = Sinclair.new(MyClass)
 builder.add_class_method(:attr_accessor, :number, type: :call)
 builder.build
 
-klass.number # returns nil
-klass.number = 10
-klass.number # returns 10
+MyClass.number # returns nil
+MyClass.number = 10
+MyClass.number # returns 10
 ```
 </details>
 
