@@ -13,13 +13,13 @@ This gem helps the creation of complex gems/concerns
 that enables creation of methods on the fly through class
 methods
 
-Current Release: [1.11.0](https://github.com/darthjee/sinclair/tree/1.11.0)
+Current Release: [1.12.0](https://github.com/darthjee/sinclair/tree/1.12.0)
 
-[Next release](https://github.com/darthjee/sinclair/compare/1.11.0...master)
+[Next release](https://github.com/darthjee/sinclair/compare/1.12.0...master)
 
 Yard Documentation
 -------------------
-[https://www.rubydoc.info/gems/sinclair/1.11.0](https://www.rubydoc.info/gems/sinclair/1.11.0)
+[https://www.rubydoc.info/gems/sinclair/1.12.0](https://www.rubydoc.info/gems/sinclair/1.12.0)
 
 Installation
 ---------------
@@ -274,8 +274,9 @@ There are different ways to add a method, each accepting different options
 
 <details>
 <summary>Define method using block</summary>
+
 Block methods accepts, as option
-  - [cache](#caching-the-result)
+  - [cache](#caching-the-result): defining the cashing of results
 
 ```ruby
 klass = Class.new
@@ -291,9 +292,11 @@ instance.random_number # returns a number between 10 and 20
 
 <details>
 <summary>Define method using string</summary>
+
 String methods accepts, as option
-  - [cache](#caching-the-result)
-  - [cache](#caching-the-result)
+  - [cache](#caching-the-result): defining the cashing of results
+  - parameters: defining accepted parameters
+  - named_parameters: defining accepted named parameters
 
 ```ruby
 # Example without parameters
@@ -327,18 +330,20 @@ MyClass.function(10, b: 2) # returns 115
 
 <details>
 <summary>Define method using a call to the class</summary>
+
 Call method definitions right now have no options available
 
 ```ruby
-klass = Class.new
+class MyClass
+end
 
-builder = Sinclair.new(klass)
+builder = Sinclair.new(MyClass)
 builder.add_class_method(:attr_accessor, :number, type: :call)
 builder.build
 
-klass.number # returns nil
-klass.number = 10
-klass.number # returns 10
+MyClass.number # returns nil
+MyClass.number = 10
+MyClass.number # returns 10
 ```
 </details>
 
