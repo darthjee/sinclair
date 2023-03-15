@@ -630,11 +630,23 @@ When creating a model class, options can be passed
 class Human < Sinclair::Model.for(:name, :age, { gender: :undefined }, **{})
 end
 
-human = Human.new(name: 'John Doe', age: 22)
+human1 = Human.new(name: 'John Doe', age: 22)
+human2 = Human.new(name: 'John Doe', age: 22)
 
-human.name   # returns 'John Doe'
-human.age    # returns 22
-human.gender # returns :undefined
+human1.name      # returns 'John Doe'
+human1.age       # returns 22
+human1.gender    # returns :undefined
+human1 == human2 # returns true
+```
+
+```ruby
+class Tv < Sinclair::Model.for(:model, writter: false, comparable: false)
+end
+
+tv1 = Tv.new(model: 'Sans Sunga Xt')
+tv2 = Tv.new(model: 'Sans Sunga Xt')
+
+tv1 == tv2 # returns false
 ```
 </details>
 
