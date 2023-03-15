@@ -7,9 +7,7 @@ class ::Object
   #
   # @return [TrueClass,FalseClass]
   def is_any?(*classes)
-    classes.any? do |klass|
-      is_a?(klass)
-    end
+    classes.any?(method(:is_a?))
   end
 end
 
