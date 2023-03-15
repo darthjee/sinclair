@@ -14,7 +14,7 @@ describe Sinclair::MethodDefinition::ParameterHelper do
 
       context 'when there are defaults' do
         let(:parameters) do
-          [{a: 10,  b: 'word', c: true, d: false}]
+          [{ a: 10, b: 'word', c: true, d: false }]
         end
 
         it 'returns a list of parameters' do
@@ -34,7 +34,7 @@ describe Sinclair::MethodDefinition::ParameterHelper do
 
       context 'when there are defaults' do
         let(:parameters) do
-          [{a: 10,  b: 'word', c: true, d: false}]
+          [{ a: 10, b: 'word', c: true, d: false }]
         end
 
         it 'returns a list of parameters' do
