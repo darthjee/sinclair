@@ -34,6 +34,7 @@ class Sinclair
       private
 
       attr_reader :attributes, :writter
+      alias writter? writter
 
       # @!method attributes
       # @api private
@@ -54,7 +55,13 @@ class Sinclair
       #
       # @return [TrueClass,FalseClass]
 
-      alias writter? writter
+      # @!method writter?
+      # @api private
+      # @private
+      #
+      # Flag if writter methods (setter) should be added or not
+      #
+      # @return [TrueClass,FalseClass]
 
       # @private
       # Adds readers and setters

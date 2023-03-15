@@ -63,6 +63,7 @@ rules:
       - Sinclair::MethodDefinition::ParameterBuilder#initialize
       - Sinclair::MethodDefinition::ParameterHelper#initialize
       - Sinclair::MethodDefinition::StringDefinition#initialize
+      - Sinclair::Model::Builder#initialize
       - Sinclair::Options#initialize
       - Sinclair::Options::Builder#initialize
   Summary::Length:
