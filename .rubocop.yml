@@ -57,8 +57,3 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
-
-Style/Documentation:
-  Exclude:
-    - lib/sinclair/core_ext/**/*.rb
-    - spec/**/*.rb
