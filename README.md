@@ -616,6 +616,15 @@ model1 == model2 # returns true
 ```
 </details>
 
+### Sinclair::Model
+Model class for quickly creation of plain simple classes/models
+
+<details>
+<summary>Example of simple usage</summary>
+
+```ruby
+```
+</details>
 RSspec matcher
 ---------------
 
