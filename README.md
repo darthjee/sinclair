@@ -616,6 +616,24 @@ model1 == model2 # returns true
 ```
 </details>
 
+### Sinclair::Model
+Model class for quickly creation of plain simple classes/models
+
+<details>
+<summary>Example of simple usage</summary>
+
+```ruby
+class Human < Sinclair::Model.for(:name, :age, { gender: :undefined }, **{})
+end
+
+human = Human.new(name: 'John Doe', age: 22)
+
+human.name   # returns 'John Doe'
+human.age    # returns 22
+human.gender # returns :undefined
+```
+</details>
+
 RSspec matcher
 ---------------
 
