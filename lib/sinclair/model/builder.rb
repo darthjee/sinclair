@@ -28,6 +28,7 @@ class Sinclair
         @writter    = writter
 
         add_methods
+        change_equals
         change_initializer
       end
 
@@ -73,6 +74,10 @@ class Sinclair
         call = writter? ? :attr_accessor : :attr_reader
 
         add_method(call, *attributes_names, type: :call)
+      end
+
+      def change_equals
+        add_method(:comparable_by, *attributes_names, type: :call)
       end
 
       # @private
