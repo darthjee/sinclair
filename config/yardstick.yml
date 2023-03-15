@@ -29,6 +29,7 @@ rules:
       - Sinclair::Matchers#add_class_method
       - Sinclair::Matchers#change_method
       - Sinclair::Matchers#change_class_method
+      - Sinclair::Model.for
   ReturnTag:
     enabled: true
     exclude:

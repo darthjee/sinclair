@@ -11,7 +11,7 @@ class Sinclair
     class << self
       # Returns a new class that inherits from model
       #
-      # @overload for(*attributes, writter: true)
+      # @overload .for(*attributes, writter: true)
       #   @param attributes [Array<Symbol>] attributes to be added in both the
       #     initialization and adding the methos to the model
       #   @param writter [TrueClass,FalseClass] flag informing if the writter/setter
@@ -26,7 +26,7 @@ class Sinclair
       #     car.brand # returns :ford
       #     car.model # returns :T
       #
-      # @overload for(*attributes, defaults, writter: true)
+      # @overload .for(*attributes, defaults, writter: true)
       #   @param attributes [Array<Symbol>] attributes to be added in both the
       #     initialization and adding the methos to the model
       #   @param defaults [Hash] attributes to be added with a default value in the initializer
