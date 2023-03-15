@@ -28,6 +28,7 @@ class Sinclair
         super(klass)
         @attributes = attributes.flatten
         @writter    = writter
+        @comparable = comparable
 
         add_methods
         change_equals
@@ -36,8 +37,9 @@ class Sinclair
 
       private
 
-      attr_reader :attributes, :writter
+      attr_reader :attributes, :writter, :comparable
       alias writter? writter
+      alias comparable? comparable
 
       # @!method attributes
       # @api private
@@ -79,6 +81,8 @@ class Sinclair
       end
 
       def change_equals
+        return unless comparable?
+
         add_method(:include, Comparable, type: :call)
         add_method(:comparable_by, *attributes_names, type: :call)
       end
