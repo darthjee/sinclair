@@ -638,6 +638,10 @@ human1.age       # returns 22
 human1.gender    # returns :undefined
 human1 == human2 # returns true
 ```
+</details>
+
+<details>
+<summary>Example with options</summary>
 
 ```ruby
 class Tv < Sinclair::Model.for(:model, writter: false, comparable: false)
