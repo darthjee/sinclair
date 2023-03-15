@@ -119,12 +119,20 @@ class Sinclair
         end
       end
 
+      # Returns the string for one default parameter
+      #
+      # @return [String]
       def default_string(key, value)
         value_string = value.nil? ? 'nil' : value.to_json
 
         "#{key}#{joinner}#{value_string}"
       end
 
+      # Returns the string used when joining a parameter with it's default value
+      #
+      # @see #named?
+      #
+      # @return [String]
       def joinner
         @joinner ||= named? ? ': ' : ' = '
       end
