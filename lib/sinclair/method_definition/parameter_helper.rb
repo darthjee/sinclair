@@ -114,12 +114,19 @@ class Sinclair
       #
       # @return [Array<String>]
       def defaults_strings
-        joinner = named? ? ': ' : ' = '
         defaults.map do |key, value|
-          value_string = value.nil? ? 'nil' : value.to_json
-
-          "#{key}#{joinner}#{value_string}"
+          default_string(key, value)
         end
+      end
+
+      def default_string(key, value)
+        value_string = value.nil? ? 'nil' : value.to_json
+
+        "#{key}#{joinner}#{value_string}"
+      end
+
+      def joinner
+        @joinner ||= named? ? ': ' : ' = '
       end
     end
   end
