@@ -21,6 +21,13 @@ class Sinclair
         new(*args, **opts).strings
       end
 
+      def self.value_string(value)
+        return 'nil' if value.nil?
+        return ":#{value}" if value.is_a?(Symbol)
+
+        value.to_json
+      end
+
       private_class_method :new
 
       # @param parameters_list [Array<Object>] list of parameters and defaults
@@ -126,9 +133,7 @@ class Sinclair
       #
       # @return [String]
       def default_string(parameter, value)
-        value_string = value.nil? ? 'nil' : value.to_json
-
-        "#{parameter}#{joinner}#{value_string}"
+        "#{parameter}#{joinner}#{self.class.value_string(value)}"
       end
 
       # Returns the string used when joining a parameter with it's default value
