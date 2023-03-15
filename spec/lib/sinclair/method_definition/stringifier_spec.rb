@@ -55,7 +55,7 @@ describe Sinclair::MethodDefinition::Stringifier do
     context 'when value is a hash' do
       it 'returns string representing a Hash' do
         expect(described_class.value_string({ a: 10, 'b' => 'value' }))
-          .to eq('{ :a => 10, "b" => "value" }')
+          .to eq('{:a=>10, "b"=>"value"}')
       end
     end
   end
