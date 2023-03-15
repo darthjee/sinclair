@@ -67,7 +67,7 @@ describe Sinclair::Model do
     context 'when the call happens with reader options' do
       subject(:klass) { described_class.for(*attributes, **options) }
 
-      let(:options)    { { writter: false } }
+      let(:options) { { writter: false } }
 
       it 'Returns a new class' do
         expect(klass.superclass)

@@ -15,7 +15,8 @@ class Sinclair
       #     initialization and adding the methos to the model
       #   @param writter [TrueClass,FalseClass] flag informing if the writter/setter
       #     method should be added
-      #   @param comparable flag to make the class {Comparable} by the fields
+      #   @param comparable [TrueClass,FalseClass] flag to make the class {Comparable}
+      #     by the fields
       # @overload initialize(klass, *attributes, defaults, writter: true, comparable: true)
       #   @param klass [Class<Sinclair::Model>] the new class to receive the methods
       #   @param attributes [Array<Symbol>] attributes to be added in both the
@@ -23,7 +24,8 @@ class Sinclair
       #   @param defaults [Hash] attributes to be added with a default value in the initializer
       #   @param writter [TrueClass,FalseClass] flag informing if the writter/setter
       #     method should be added
-      #   @param comparable flag to make the class {Comparable} by the fields
+      #   @param comparable [TrueClass,FalseClass] flag to make the class {Comparable}
+      #     by the fields
       def initialize(klass, *attributes, writter: true, comparable: true)
         super(klass)
         @attributes = attributes.flatten
@@ -60,11 +62,27 @@ class Sinclair
       #
       # @return [TrueClass,FalseClass]
 
+      # @!method comparable
+      # @api private
+      # @private
+      #
+      # flag to make the class {Comparable} by the fields
+      #
+      # @return [TrueClass,FalseClass]
+
       # @!method writter?
       # @api private
       # @private
       #
       # Flag if writter methods (setter) should be added or not
+      #
+      # @return [TrueClass,FalseClass]
+
+      # @!method comparable?
+      # @api private
+      # @private
+      #
+      # flag to make the class {Comparable} by the fields
       #
       # @return [TrueClass,FalseClass]
 
@@ -80,6 +98,13 @@ class Sinclair
         add_method(call, *attributes_names, type: :call)
       end
 
+      # @private
+      # Change the method +==+
+      #
+      # The change happens using {Sinclair::Comparable}
+      # and adding all the fields to be included in the comparisom
+      #
+      # @return [Array<MethodDefinition>]
       def change_equals
         return unless comparable?
 

@@ -16,7 +16,8 @@ class Sinclair
       #     initialization and adding the methos to the model
       #   @param writter [TrueClass,FalseClass] flag informing if the writter/setter
       #     method should be added
-      #   @param comparable flag to make the class {Comparable} by the fields
+      #   @param comparable [TrueClass,FalseClass] flag to make the class {Comparable}
+      #     by the fields
       #
       #   @example A model with readers
       #     class Car < Sinclair::Model.for(:brand, :model, writter: false)
@@ -33,7 +34,8 @@ class Sinclair
       #   @param defaults [Hash] attributes to be added with a default value in the initializer
       #   @param writter [TrueClass,FalseClass] flag informing if the writter/setter
       #     method should be added
-      #   @param comparable flag to make the class {Comparable} by the fields
+      #   @param comparable [TrueClass,FalseClass] flag to make the class {Comparable}
+      #     by the fields
       #
       #   @example A model with writters
       #     class Job < Sinclair::Model.for({ state: :starting }, writter: true)
