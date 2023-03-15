@@ -46,11 +46,13 @@ class Sinclair
       #
       # @return [Array<Symbol,Hash>]
 
-      # @!method options
+      # @!method writter
       # @api private
       # @private
       #
-      # options
+      # Flag if writter methods (setter) should be added or not
+      #
+      # @return [TrueClass,FalseClass]
 
       alias writter? writter
 
