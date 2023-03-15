@@ -79,6 +79,7 @@ class Sinclair
       end
 
       def change_equals
+        add_method(:include, Comparable, type: :call)
         add_method(:comparable_by, *attributes_names, type: :call)
       end
 
