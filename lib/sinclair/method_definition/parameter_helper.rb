@@ -45,6 +45,7 @@ class Sinclair
 
       private
 
+      delegate :value_string, to: Stringifier
       attr_reader :parameters_list, :named
       alias named? named
 
@@ -126,9 +127,7 @@ class Sinclair
       #
       # @return [String]
       def default_string(parameter, value)
-        value_string = value.nil? ? 'nil' : value.to_json
-
-        "#{parameter}#{joinner}#{value_string}"
+        "#{parameter}#{joinner}#{value_string(value)}"
       end
 
       # Returns the string used when joining a parameter with it's default value
