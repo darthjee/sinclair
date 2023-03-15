@@ -33,6 +33,15 @@ class Sinclair
       #   @param writter [TrueClass,FalseClass] flag informing if the writter/setter
       #     method should be added
       #
+      #   @example A model with writters
+      #     class Job < Sinclair::Model.for({ state: :starting }, writter: true)
+      #     end
+      #     job = Job.new
+      #
+      #     job.state # returns :starting
+      #     job.state = :done
+      #     job.state # returns :done
+      #
       # @return [Class<Model>] a new class with the chosen attributes
       def for(*attributes, **options)
         Class.new(self) do |klass|
