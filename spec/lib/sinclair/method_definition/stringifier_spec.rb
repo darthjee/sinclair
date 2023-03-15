@@ -58,5 +58,12 @@ describe Sinclair::MethodDefinition::Stringifier do
           .to eq('{:a=>10, "b"=>"value"}')
       end
     end
+
+    context 'when value is an Array' do
+      it 'returns string representing a Array' do
+        expect(described_class.value_string([:a, 10, 'b', true, nil]))
+          .to eq('[:a, 10, "b", true, nil]')
+      end
+    end
   end
 end
