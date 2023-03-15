@@ -83,9 +83,8 @@ describe Sinclair::Model do
 
     context 'when the call happens with defaults' do
       subject(:klass) do
-        described_class.for({ name: 'John Doe'}, **{})
+        described_class.for({ name: 'John Doe' }, **{})
       end
-
 
       it 'Returns a new class' do
         expect(klass.superclass)
