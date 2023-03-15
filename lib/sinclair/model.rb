@@ -11,11 +11,13 @@ class Sinclair
     class << self
       # Returns a new class that inherits from model
       #
-      # @overload .for(*attributes, writter: true)
+      # @overload for(*attributes, writter: true, comparable: true)
       #   @param attributes [Array<Symbol>] attributes to be added in both the
       #     initialization and adding the methos to the model
       #   @param writter [TrueClass,FalseClass] flag informing if the writter/setter
       #     method should be added
+      #   @param comparable [TrueClass,FalseClass] flag to make the class {Comparable}
+      #     by the fields
       #
       #   @example A model with readers
       #     class Car < Sinclair::Model.for(:brand, :model, writter: false)
@@ -26,16 +28,19 @@ class Sinclair
       #     car.brand # returns :ford
       #     car.model # returns :T
       #
-      # @overload .for(*attributes, defaults, writter: true)
+      # @overload for(*attributes, defaults, writter: true, comparable: true)
       #   @param attributes [Array<Symbol>] attributes to be added in both the
       #     initialization and adding the methos to the model
       #   @param defaults [Hash] attributes to be added with a default value in the initializer
       #   @param writter [TrueClass,FalseClass] flag informing if the writter/setter
       #     method should be added
+      #   @param comparable [TrueClass,FalseClass] flag to make the class {Comparable}
+      #     by the fields
       #
       #   @example A model with writters
       #     class Job < Sinclair::Model.for({ state: :starting }, writter: true)
       #     end
+      #
       #     job = Job.new
       #
       #     job.state # returns :starting

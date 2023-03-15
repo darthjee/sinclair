@@ -13,13 +13,13 @@ This gem helps the creation of complex gems/concerns
 that enables creation of methods on the fly through class
 methods
 
-Current Release: [1.12.1](https://github.com/darthjee/sinclair/tree/1.12.1)
+Current Release: [1.13.0](https://github.com/darthjee/sinclair/tree/1.13.0)
 
-[Next release](https://github.com/darthjee/sinclair/compare/1.12.1...master)
+[Next release](https://github.com/darthjee/sinclair/compare/1.13.0...master)
 
 Yard Documentation
 -------------------
-[https://www.rubydoc.info/gems/sinclair/1.12.1](https://www.rubydoc.info/gems/sinclair/1.12.1)
+[https://www.rubydoc.info/gems/sinclair/1.13.0](https://www.rubydoc.info/gems/sinclair/1.13.0)
 
 Installation
 ---------------
@@ -619,6 +619,10 @@ model1 == model2 # returns true
 ### Sinclair::Model
 Model class for quickly creation of plain simple classes/models
 
+When creating a model class, options can be passed
+-  writter: Adds writter/setter methods (defaults to true)
+-  comparable: Adds the fields when running a `==` method (defaults to true)
+
 <details>
 <summary>Example of simple usage</summary>
 
@@ -626,11 +630,27 @@ Model class for quickly creation of plain simple classes/models
 class Human < Sinclair::Model.for(:name, :age, { gender: :undefined }, **{})
 end
 
-human = Human.new(name: 'John Doe', age: 22)
+human1 = Human.new(name: 'John Doe', age: 22)
+human2 = Human.new(name: 'John Doe', age: 22)
 
-human.name   # returns 'John Doe'
-human.age    # returns 22
-human.gender # returns :undefined
+human1.name      # returns 'John Doe'
+human1.age       # returns 22
+human1.gender    # returns :undefined
+human1 == human2 # returns true
+```
+</details>
+
+<details>
+<summary>Example with options</summary>
+
+```ruby
+class Tv < Sinclair::Model.for(:model, writter: false, comparable: false)
+end
+
+tv1 = Tv.new(model: 'Sans Sunga Xt')
+tv2 = Tv.new(model: 'Sans Sunga Xt')
+
+tv1 == tv2 # returns false
 ```
 </details>
 
