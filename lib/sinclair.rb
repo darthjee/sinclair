@@ -96,6 +96,7 @@ class Sinclair
   autoload :MethodBuilder,     'sinclair/method_builder'
   autoload :MethodDefinition,  'sinclair/method_definition'
   autoload :MethodDefinitions, 'sinclair/method_definitions'
+  autoload :Model,             'sinclair/model'
   autoload :Options,           'sinclair/options'
 
   include OptionsParser
