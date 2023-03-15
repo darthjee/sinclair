@@ -116,7 +116,9 @@ class Sinclair
       def defaults_strings
         joinner = named? ? ': ' : ' = '
         defaults.map do |key, value|
-          "#{key}#{joinner}#{value.to_json}"
+          value_string = value.nil? ? 'nil' : value.to_json
+
+          "#{key}#{joinner}#{value_string}"
         end
       end
     end
