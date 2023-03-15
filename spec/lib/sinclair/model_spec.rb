@@ -4,6 +4,10 @@ require 'spec_helper'
 
 describe Sinclair::Model do
   describe '.with_attributes' do
+    subject(:model) { klass.new(name: name) }
+
+    let(:name) { SecureRandom.hex(10) }
+
     context 'when the call happens with no options' do
       subject(:klass) { described_class.for(*attributes) }
 
@@ -24,13 +28,15 @@ describe Sinclair::Model do
           .to be_a(UnboundMethod)
       end
 
+      it 'returns a new class with a comparable that finds matches' do
+        expect(model).to eq(klass.new(name: name))
+      end
+
+      it 'returns a new class with a comparable that find misses' do
+        expect(model).not_to eq(klass.new(name: SecureRandom.hex(10)))
+      end
+
       context 'when reader is called' do
-        let(:name) { SecureRandom.hex(10) }
-
-        let(:model) do
-          klass.new(name: name)
-        end
-
         it do
           expect(model.name).to eq(name)
         end
@@ -71,10 +77,6 @@ describe Sinclair::Model do
       end
 
       context 'when reader is called' do
-        let(:name) { SecureRandom.hex(10) }
-
-        let(:model) { klass.new(name: name) }
-
         it do
           expect(model.name).to eq(name)
         end
@@ -102,9 +104,9 @@ describe Sinclair::Model do
       end
 
       context 'when reader is called' do
-        let(:name) { SecureRandom.hex(10) }
+        subject(:model) { klass.new }
 
-        let(:model) { klass.new }
+        let(:name) { SecureRandom.hex(10) }
 
         it 'returns the dfault value' do
           expect(model.name).to eq('John Doe')
@@ -112,8 +114,9 @@ describe Sinclair::Model do
       end
 
       context 'when setter is called' do
-        let(:name)  { SecureRandom.hex(10) }
-        let(:model) { klass.new }
+        subject(:model) { klass.new }
+
+        let(:name) { SecureRandom.hex(10) }
 
         it do
           expect { model.name = name }

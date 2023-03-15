@@ -6,6 +6,7 @@ class Sinclair
   #
   # Basic model to be used when defining new classes quickly
   class Model
+    include Comparable
     autoload :Builder, 'sinclair/model/builder'
 
     class << self
