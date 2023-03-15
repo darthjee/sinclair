@@ -6,12 +6,11 @@ describe Sinclair::Model do
   describe '.with_attributes' do
     subject(:model) { klass.new(name: name) }
 
-    let(:name) { SecureRandom.hex(10) }
+    let(:name)       { SecureRandom.hex(10) }
+    let(:attributes) { %i[name] }
 
     context 'when the call happens with no options' do
       subject(:klass) { described_class.for(*attributes) }
-
-      let(:attributes) { %i[name] }
 
       it 'Returns a new class' do
         expect(klass.superclass)
@@ -55,10 +54,19 @@ describe Sinclair::Model do
       end
     end
 
+    context 'when the call happens with comparable false' do
+      subject(:klass) { described_class.for(*attributes, **options) }
+
+      let(:options) { { comparable: false } }
+
+      it 'returns a new class without comparable' do
+        expect(model).not_to eq(klass.new(name: name))
+      end
+    end
+
     context 'when the call happens with reader options' do
       subject(:klass) { described_class.for(*attributes, **options) }
 
-      let(:attributes) { %i[name] }
       let(:options)    { { writter: false } }
 
       it 'Returns a new class' do
