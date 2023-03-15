@@ -114,10 +114,30 @@ class Sinclair
       #
       # @return [Array<String>]
       def defaults_strings
-        joinner = named? ? ': ' : ' = '
-        defaults.map do |key, value|
-          "#{key}#{joinner}#{value.to_json}"
+        defaults.map do |parameter, value|
+          default_string(parameter, value)
         end
+      end
+
+      # Returns the string for one default parameter
+      #
+      # @param parameter [Symbol] name of the parameter
+      # @param value [Object] default value
+      #
+      # @return [String]
+      def default_string(parameter, value)
+        value_string = value.nil? ? 'nil' : value.to_json
+
+        "#{parameter}#{joinner}#{value_string}"
+      end
+
+      # Returns the string used when joining a parameter with it's default value
+      #
+      # @see #named?
+      #
+      # @return [String]
+      def joinner
+        @joinner ||= named? ? ': ' : ' = '
       end
     end
   end
