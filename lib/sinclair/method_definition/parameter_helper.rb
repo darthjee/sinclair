@@ -52,6 +52,7 @@ class Sinclair
 
       private
 
+      delegate :value_string, to: :class
       attr_reader :parameters_list, :named
       alias named? named
 
@@ -133,7 +134,7 @@ class Sinclair
       #
       # @return [String]
       def default_string(parameter, value)
-        "#{parameter}#{joinner}#{self.class.value_string(value)}"
+        "#{parameter}#{joinner}#{value_string(value)}"
       end
 
       # Returns the string used when joining a parameter with it's default value
