@@ -9,20 +9,22 @@ class Sinclair
     #
     # The building adds readers/setters and an initializer with named parameters
     class Builder < Sinclair
-      # @overload initialize(klass, *attributes, writter: true)
+      # @overload initialize(klass, *attributes, writter: true, comparable: true)
       #   @param klass [Class<Sinclair::Model>] the new class to receive the methods
       #   @param attributes [Array<Symbol>] attributes to be added in both the
       #     initialization and adding the methos to the model
       #   @param writter [TrueClass,FalseClass] flag informing if the writter/setter
       #     method should be added
-      # @overload initialize(klass, *attributes, defaults, writter: true)
+      #   @param comparable flag to make the class {Comparable} by the fields
+      # @overload initialize(klass, *attributes, defaults, writter: true, comparable: true)
       #   @param klass [Class<Sinclair::Model>] the new class to receive the methods
       #   @param attributes [Array<Symbol>] attributes to be added in both the
       #     initialization and adding the methos to the model
       #   @param defaults [Hash] attributes to be added with a default value in the initializer
       #   @param writter [TrueClass,FalseClass] flag informing if the writter/setter
       #     method should be added
-      def initialize(klass, *attributes, writter: true)
+      #   @param comparable flag to make the class {Comparable} by the fields
+      def initialize(klass, *attributes, writter: true, comparable: true)
         super(klass)
         @attributes = attributes.flatten
         @writter    = writter
