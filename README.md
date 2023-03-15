@@ -633,6 +633,7 @@ human.age    # returns 22
 human.gender # returns :undefined
 ```
 </details>
+
 RSspec matcher
 ---------------
 
