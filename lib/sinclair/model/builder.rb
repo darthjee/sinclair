@@ -23,15 +23,21 @@ class Sinclair
       def add_methods
         call = writter? ? :attr_accessor : :attr_reader
 
-        add_method(call, *attributes, type: :call)
+        add_method(call, *attributes_names, type: :call)
       end
 
       def change_initializer
-        code = attributes.map do |attr|
+        code = attributes_names.map do |attr|
           "@#{attr} = #{attr}"
         end.join("\n")
 
         add_method(:initialize, code, named_parameters: attributes)
+      end
+
+      def attributes_names
+        @attributes_names ||= attributes.map do |attr|
+          attr.try(:keys) || attr.to_s
+        end.flatten
       end
     end
   end
