@@ -12,6 +12,12 @@ class Object
   #
   # @param classes [Array<Class>] classes to be checked against object
   #
+  # @example
+  #   object = [1, 2, 3]
+  #
+  #   object.is_any?(Hash, Class) # returns false
+  #   object.is_any?(Hash, Array) # returns true
+  #
   # @return [TrueClass,FalseClass]
   def is_any?(*classes)
     classes.any?(method(:is_a?))
