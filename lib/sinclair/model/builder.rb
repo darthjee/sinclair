@@ -25,7 +25,6 @@ class Sinclair
       def initialize(klass, *attributes, writter: true)
         super(klass)
         @attributes = attributes.flatten
-        @options    = options
         @writter    = writter
 
         add_methods
@@ -34,17 +33,24 @@ class Sinclair
 
       private
 
-      attr_reader :attributes, :options, :writter
+      attr_reader :attributes, :writter
 
       # @!method attributes
       # @api private
       # @private
+      #
       # Attributes to be added in the class
       #
       # Attributes without default values are symbols
       # while attributes with defaults values are defined in a Hash
       #
       # @return [Array<Symbol,Hash>]
+
+      # @!method options
+      # @api private
+      # @private
+      #
+      # options
 
       alias writter? writter
 
