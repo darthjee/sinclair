@@ -14,6 +14,7 @@ class Sinclair
     autoload :StringDefinition, 'sinclair/method_definition/string_definition'
     autoload :ParameterBuilder, 'sinclair/method_definition/parameter_builder'
     autoload :ParameterHelper,  'sinclair/method_definition/parameter_helper'
+    autoload :Stringifier,      'sinclair/method_definition/stringifier'
 
     # @method name
     #
