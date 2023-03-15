@@ -87,5 +87,11 @@ describe Sinclair::MethodDefinition::ParameterHelper do
         expect(described_class.value_string(false)).to eq('false')
       end
     end
+
+    context 'when value is a class' do
+      it 'returns string representing a class' do
+        expect(described_class.value_string(Sinclair::Model)).to eq('Sinclair::Model')
+      end
+    end
   end
 end

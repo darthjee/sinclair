@@ -24,6 +24,7 @@ class Sinclair
       def self.value_string(value)
         return 'nil' if value.nil?
         return ":#{value}" if value.is_a?(Symbol)
+        return value.to_s if value.is_a?(Class)
 
         value.to_json
       end
