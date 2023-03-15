@@ -4,7 +4,6 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   TargetRubyVersion: 2.5
 
-
 RSpec/DescribeClass:
   Exclude:
     - 'spec/integration/yard/**/*_spec.rb'
@@ -58,3 +57,8 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+
+Style/Documentation:
+  Exclude:
+    - lib/sinclair/core_ext/**/*.rb
+    - spec/**/*.rb
