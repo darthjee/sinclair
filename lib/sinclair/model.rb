@@ -16,6 +16,16 @@ class Sinclair
       #     initialization and adding the methos to the model
       #   @param writter [TrueClass,FalseClass] flag informing if the writter/setter
       #     method should be added
+      #
+      #   @example A model with readers
+      #     class Car < Sinclair::Model.for(:brand, :model, writter: false)
+      #     end
+      #
+      #     car = Car.new(brand: :ford, model: :T)
+      #
+      #     car.brand # returns :ford
+      #     car.model # returns :T
+      #
       # @overload for(*attributes, defaults, writter: true)
       #   @param attributes [Array<Symbol>] attributes to be added in both the
       #     initialization and adding the methos to the model
