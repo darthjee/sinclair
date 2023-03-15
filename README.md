@@ -620,8 +620,8 @@ model1 == model2 # returns true
 Model class for quickly creation of plain simple classes/models
 
 When creating a model class, options can be passed
-- writter: Adds writter/setter methods (defaults to true)
-- comparable: Adds the fields when running a `==` method (defaults to true)
+-  writter: Adds writter/setter methods (defaults to true)
+-  comparable: Adds the fields when running a `==` method (defaults to true)
 
 <details>
 <summary>Example of simple usage</summary>
