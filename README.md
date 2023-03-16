@@ -627,7 +627,8 @@ When creating a model class, options can be passed
 <summary>Example of simple usage</summary>
 
 ```ruby
-class Human < Sinclair::Model.for(:name, :age, { gender: :undefined }, **{})
+class Human < Sinclair::Model
+  initialize_with :name, :age, { gender: :undefined }, **{}
 end
 
 human1 = Human.new(name: 'John Doe', age: 22)
