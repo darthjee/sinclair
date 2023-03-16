@@ -78,7 +78,7 @@ shared_examples 'sinclair model building' do
   end
 
   context 'when the call happens with defaults' do
-    let(:attributes) { [ { name: 'John Doe' } ] }
+    let(:attributes) { [{ name: 'John Doe' }] }
 
     it 'Returns a new class' do
       expect(klass.superclass)
