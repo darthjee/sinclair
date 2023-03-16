@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
 shared_examples 'sinclair model building' do
-  subject(:model) { klass.new(name: name) }
-
-  let(:name)       { SecureRandom.hex(10) }
-  let(:attributes) { %i[name] }
-  let(:options)    { {} }
-
   context 'when the call happens with no options' do
     it 'Returns a new class' do
       expect(klass.superclass)
