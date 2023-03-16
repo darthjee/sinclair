@@ -3,136 +3,63 @@
 require 'spec_helper'
 
 describe Sinclair::Model do
-  describe '.with_attributes' do
-    subject(:model) { klass.new(name: name) }
+  subject(:model) { klass.new(name: name) }
 
-    let(:name)       { SecureRandom.hex(10) }
-    let(:attributes) { %i[name] }
+  let(:name)       { SecureRandom.hex(10) }
+  let(:attributes) { %i[name] }
+  let(:options)    { {} }
 
-    context 'when the call happens with no options' do
-      subject(:klass) { described_class.for(*attributes) }
+  describe '.for' do
+    subject(:klass) { described_class.for(*attributes, **options) }
 
-      it 'Returns a new class' do
-        expect(klass.superclass)
-          .to eq(described_class)
+    it_behaves_like 'sinclair model building'
+  end
+
+  describe '.initialize_with' do
+    subject(:klass) { Class.new(described_class) }
+
+    context 'when no options are given' do
+      it do
+        expect { klass.initialize_with(*attributes, **options) }
+          .to add_method(:name).to(klass)
       end
 
-      it 'returns a class with getter' do
-        expect(klass.instance_method(:name))
-          .to be_a(UnboundMethod)
+      it do
+        expect { klass.initialize_with(*attributes, **options) }
+          .to add_method(:name=).to(klass)
       end
 
-      it 'returns a class with setter' do
-        expect(klass.instance_method(:name=))
-          .to be_a(UnboundMethod)
-      end
-
-      it 'returns a new class with a comparable that finds matches' do
-        expect(model).to eq(klass.new(name: name))
-      end
-
-      it 'returns a new class with a comparable that find misses' do
-        expect(model).not_to eq(klass.new(name: SecureRandom.hex(10)))
-      end
-
-      context 'when reader is called' do
-        it do
-          expect(model.name).to eq(name)
-        end
-      end
-
-      context 'when setter is called' do
-        let(:name)  { SecureRandom.hex(10) }
-        let(:model) { klass.new(name: nil) }
-
-        it do
-          expect { model.name = name }
-            .to change(model, :name)
-            .from(nil)
-            .to(name)
-        end
+      it do
+        expect { klass.initialize_with(*attributes, **options) }
+          .to change_method(:==).on(klass)
       end
     end
 
-    context 'when the call happens with comparable false' do
-      subject(:klass) { described_class.for(*attributes, **options) }
+    context 'when writter and comparable are not enabled' do
+      let(:options) { { writter: false, comparable: false } }
 
-      let(:options) { { comparable: false } }
+      it do
+        expect { klass.initialize_with(*attributes, **options) }
+          .to add_method(:name).to(klass)
+      end
 
-      it 'returns a new class without comparable' do
-        expect(model).not_to eq(klass.new(name: name))
+      it do
+        expect { klass.initialize_with(*attributes, **options) }
+          .not_to add_method(:name=).to(klass)
+      end
+
+      it do
+        expect { klass.initialize_with(*attributes, **options) }
+          .not_to change_method(:==).on(klass)
       end
     end
 
-    context 'when the call happens with reader options' do
-      subject(:klass) { described_class.for(*attributes, **options) }
-
-      let(:options) { { writter: false } }
-
-      it 'Returns a new class' do
-        expect(klass.superclass)
-          .to eq(described_class)
+    context 'when the build is done' do
+      before do
+        klass.initialize_with(*attributes, **options)
       end
 
-      it 'returns a class with getter' do
-        expect(klass.instance_method(:name))
-          .to be_a(UnboundMethod)
-      end
-
-      it 'returns a class without setter' do
-        expect { klass.instance_method(:name=) }
-          .to raise_error(NameError)
-      end
-
-      context 'when reader is called' do
-        it do
-          expect(model.name).to eq(name)
-        end
-      end
-    end
-
-    context 'when the call happens with defaults' do
-      subject(:klass) do
-        described_class.for({ name: 'John Doe' }, **{})
-      end
-
-      it 'Returns a new class' do
-        expect(klass.superclass)
-          .to eq(described_class)
-      end
-
-      it 'returns a class with getter' do
-        expect(klass.instance_method(:name))
-          .to be_a(UnboundMethod)
-      end
-
-      it 'returns a class with setter' do
-        expect(klass.instance_method(:name=))
-          .to be_a(UnboundMethod)
-      end
-
-      context 'when reader is called' do
-        subject(:model) { klass.new }
-
-        let(:name) { SecureRandom.hex(10) }
-
-        it 'returns the dfault value' do
-          expect(model.name).to eq('John Doe')
-        end
-      end
-
-      context 'when setter is called' do
-        subject(:model) { klass.new }
-
-        let(:name) { SecureRandom.hex(10) }
-
-        it do
-          expect { model.name = name }
-            .to change(model, :name)
-            .from('John Doe')
-            .to(name)
-        end
-      end
+      it_behaves_like 'sinclair model building'
     end
   end
 end
