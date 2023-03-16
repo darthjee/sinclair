@@ -56,6 +56,10 @@ class Sinclair
         end
       end
 
+      # Adds methods needed for the model
+      #
+      # The readers/writters, +==+ and initializer are added
+      #
       # @overload initialize_with(*attributes, writter: true, comparable: true)
       #   @param attributes [Array<Symbol>] attributes to be added in both the
       #     initialization and adding the methos to the model
