@@ -54,6 +54,22 @@ class Sinclair
         end
       end
 
+      # @overload initialize_with(*attributes, writter: true, comparable: true)
+      #   @param attributes [Array<Symbol>] attributes to be added in both the
+      #     initialization and adding the methos to the model
+      #   @param writter [TrueClass,FalseClass] flag informing if the writter/setter
+      #     method should be added
+      #   @param comparable [TrueClass,FalseClass] flag to make the class {Comparable}
+      #     by the fields
+      #
+      # @overload initialize_with(*attributes, defaults, writter: true, comparable: true)
+      #   @param attributes [Array<Symbol>] attributes to be added in both the
+      #     initialization and adding the methos to the model
+      #   @param defaults [Hash] attributes to be added with a default value in the initializer
+      #   @param writter [TrueClass,FalseClass] flag informing if the writter/setter
+      #     method should be added
+      #   @param comparable [TrueClass,FalseClass] flag to make the class {Comparable}
+      #     by the fields
       def initialize_with(*attributes, **options)
         Builder.new(self, *attributes, **options).build
       end
