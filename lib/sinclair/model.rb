@@ -53,6 +53,10 @@ class Sinclair
           Builder.new(klass, *attributes, **options).build
         end
       end
+
+      def initialize_with(*attributes, **options)
+        Builder.new(self, *attributes, **options).build
+      end
     end
   end
 end
