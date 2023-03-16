@@ -645,7 +645,8 @@ human1 == human2 # returns true
 <summary>Example with options</summary>
 
 ```ruby
-class Tv < Sinclair::Model.for(:model, writter: false, comparable: false)
+class Tv < Sinclair::Model
+  initialize_with :model, writter: false, comparable: false
 end
 
 tv1 = Tv.new(model: 'Sans Sunga Xt')
