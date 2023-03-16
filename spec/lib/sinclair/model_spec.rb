@@ -4,14 +4,14 @@ require 'spec_helper'
 
 describe Sinclair::Model do
   describe '.with_attributes' do
+    subject(:klass) { described_class.for(*attributes, **options) }
     subject(:model) { klass.new(name: name) }
 
     let(:name)       { SecureRandom.hex(10) }
     let(:attributes) { %i[name] }
+    let(:options)    { {} }
 
     context 'when the call happens with no options' do
-      subject(:klass) { described_class.for(*attributes) }
-
       it 'Returns a new class' do
         expect(klass.superclass)
           .to eq(described_class)
@@ -55,8 +55,6 @@ describe Sinclair::Model do
     end
 
     context 'when the call happens with comparable false' do
-      subject(:klass) { described_class.for(*attributes, **options) }
-
       let(:options) { { comparable: false } }
 
       it 'returns a new class without comparable' do
@@ -65,8 +63,6 @@ describe Sinclair::Model do
     end
 
     context 'when the call happens with reader options' do
-      subject(:klass) { described_class.for(*attributes, **options) }
-
       let(:options) { { writter: false } }
 
       it 'Returns a new class' do
@@ -92,9 +88,7 @@ describe Sinclair::Model do
     end
 
     context 'when the call happens with defaults' do
-      subject(:klass) do
-        described_class.for({ name: 'John Doe' }, **{})
-      end
+      let(:attributes) { [ { name: 'John Doe' } ] }
 
       it 'Returns a new class' do
         expect(klass.superclass)
