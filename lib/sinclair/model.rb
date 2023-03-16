@@ -62,6 +62,16 @@ class Sinclair
       #   @param comparable [TrueClass,FalseClass] flag to make the class {Comparable}
       #     by the fields
       #
+      #   @example A model with readers
+      #     class Car < Sinclair::Model
+      #       initialize_with(:brand, :model, writter: false)
+      #     end
+      #
+      #     car = Car.new(brand: :ford, model: :T)
+      #
+      #     car.brand # returns :ford
+      #     car.model # returns :T
+      #
       # @overload initialize_with(*attributes, defaults, writter: true, comparable: true)
       #   @param attributes [Array<Symbol>] attributes to be added in both the
       #     initialization and adding the methos to the model
@@ -70,6 +80,17 @@ class Sinclair
       #     method should be added
       #   @param comparable [TrueClass,FalseClass] flag to make the class {Comparable}
       #     by the fields
+      #
+      #   @example A model with writters
+      #     class Job < Sinclair::Model
+      #       initialize_with({ state: :starting }, writter: true)
+      #     end
+      #
+      #     job = Job.new
+      #
+      #     job.state # returns :starting
+      #     job.state = :done
+      #     job.state # returns :done
       def initialize_with(*attributes, **options)
         Builder.new(self, *attributes, **options).build
       end
