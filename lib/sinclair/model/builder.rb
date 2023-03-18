@@ -118,11 +118,15 @@ class Sinclair
       #
       # @return [Array<MethodDefinition>]
       def change_initializer
-        code = attributes_names.map do |attr|
+        lines = attributes_names.map do |attr|
           "@#{attr} = #{attr}"
-        end.join("\n")
+        end
 
-        add_method(:initialize, code, named_parameters: attributes)
+        lines << 'super(**attributes)'
+
+        code = lines.join("\n")
+
+        add_method(:initialize, code, named_parameters: attributes + ['**attributes'])
       end
 
       # @private
