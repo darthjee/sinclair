@@ -40,7 +40,7 @@ class Sinclair
       def strings
         return [] unless parameters_list
 
-        parameters_strings + defaults_strings
+        parameters_strings + defaults_strings + wild_card_parameters
       end
 
       private
@@ -81,7 +81,13 @@ class Sinclair
       # @return [Array<Symbol>]
       def parameters
         parameters_list.reject do |param|
-          param.is_a?(Hash)
+          param.is_a?(Hash) || param.to_s.match?(/^\*/)
+        end
+      end
+
+      def wild_card_parameters
+        parameters_list.reject do |param|
+          param.is_a?(Hash) || !param.to_s.match?(/^\*/)
         end
       end
 

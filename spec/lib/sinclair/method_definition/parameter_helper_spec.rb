@@ -53,6 +53,17 @@ describe Sinclair::MethodDefinition::ParameterHelper do
             .to eq(['a: 10', 'b: "word"', 'c: true', 'd: false', 'e: nil', 'f: :symbol'])
         end
       end
+
+      context 'when the parameter is an undefined parameter' do
+        let(:parameters) do
+          [:a, :b, '**opts', { c: 10, d: 'word' }]
+        end
+
+        it 'returns a list of parameters' do
+          expect(described_class.parameters_from(parameters, named: true))
+            .to eq(['a:', 'b:', 'c: 10', 'd: "word"', '**opts'])
+        end
+      end
     end
   end
 end
