@@ -54,6 +54,36 @@ describe Sinclair::Model do
       end
     end
 
+    context 'when class is subclass of another model' do
+      subject(:model) { klass.new(name: name, age: age) }
+      let(:age) { Random.rand(10..20) }
+
+      let(:superclass) do
+        Class.new(described_class) do
+          initialize_with(:age)
+        end
+      end
+
+      let(:klass) do
+        Class.new(superclass) do
+          initialize_with(:name)
+        end
+      end
+
+      it 'is initialized with both attributes' do
+        expect { klass.new(name: name, age: age) }
+          .not_to raise_error
+      end
+
+      it 'is initializes new attributes' do
+        expect(model.name).to eq(name)
+      end
+
+      it 'is initializes old attributes' do
+        expect(model.age).to eq(age)
+      end
+    end
+
     context 'when the build is done' do
       before do
         klass.initialize_with(*attributes, **options)
