@@ -21,3 +21,14 @@ services:
     <<: *base
     depends_on: [base_build]
     command: /bin/bash -c 'rspec && yard && rake yardstick_measure && rake verify_measurements'
+
+  sinclair_circleci:
+    <<: *base
+    image: sinclair_circleci
+    container_name: sinclair_circleci
+    volumes:
+      - .:/home/circleci/project
+    working_dir: /home/circleci/project
+    command: /bin/bash
+    build:
+      dockerfile: Dockerfile.circleci
