@@ -85,6 +85,11 @@ class Sinclair
         end
       end
 
+      # Returns the named parameters that have not been defined
+      #
+      # THis is usually extra options
+      #
+      # @return [Array<String>]
       def wild_card_parameters
         parameters_list.reject do |param|
           param.is_a?(Hash) || !param.to_s.match?(/^\*/)
