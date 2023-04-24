@@ -26,7 +26,7 @@ class Sinclair
       # @param parameters_list [Array<Object>] list of parameters and defaults
       # @param named [TrueClass,FalseClass] Flag informing if the parameters are
       #   named parameters
-      def initialize(parameters_list, named: false)
+      def initialize(parameters_list, named: nil)
         @parameters_list = parameters_list
         @named           = named
       end
