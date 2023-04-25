@@ -7,4 +7,5 @@ ignore:
   - lib/sinclair/matchers/base.rb
   - lib/sinclair/matchers/change_method_on.rb
   - lib/sinclair/matchers/method_to.rb
+  - lib/sinclair/model/builder_options.rb
   - lib/sinclair/version.rb
