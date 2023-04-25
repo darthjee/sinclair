@@ -9,9 +9,11 @@ Sinclair
 
 ![sinclair](https://raw.githubusercontent.com/darthjee/sinclair/master/sinclair.jpg)
 
-This gem helps the creation of complex gems/concerns
-that enables creation of methods on the fly through class
-methods
+Sinclair is a Ruby gem that provides developers with a variety of utility modules and classes
+to simplify common tasks, reusability and avoid boilerplate code. Whether you need to class methods to create methods on the fly,
+create custom comparators, configure your application, create powerfull options, Sinclair has got you covered.
+
+Employing Sinclair in your applications helps you streamline your development workflow and enhance your development process through more efficient, cleaner code
 
 Current Release: [1.14.0](https://github.com/darthjee/sinclair/tree/1.14.0)
 
