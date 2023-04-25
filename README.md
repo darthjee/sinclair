@@ -9,17 +9,19 @@ Sinclair
 
 ![sinclair](https://raw.githubusercontent.com/darthjee/sinclair/master/sinclair.jpg)
 
-This gem helps the creation of complex gems/concerns
-that enables creation of methods on the fly through class
-methods
+Sinclair is a Ruby gem that provides developers with a variety of utility modules and classes
+to simplify common tasks, reusability and avoid boilerplate code. Whether you need to class methods to create methods on the fly,
+create custom comparators, configure your application, create powerfull options, Sinclair has got you covered.
 
-Current Release: [1.14.0](https://github.com/darthjee/sinclair/tree/1.14.0)
+Employing Sinclair in your applications helps you streamline your development workflow and enhance your development process through more efficient, cleaner code
 
-[Next release](https://github.com/darthjee/sinclair/compare/1.14.0...master)
+Current Release: [1.14.1](https://github.com/darthjee/sinclair/tree/1.14.1)
+
+[Next release](https://github.com/darthjee/sinclair/compare/1.14.1...master)
 
 Yard Documentation
 -------------------
-[https://www.rubydoc.info/gems/sinclair/1.14.0](https://www.rubydoc.info/gems/sinclair/1.14.0)
+[https://www.rubydoc.info/gems/sinclair/1.14.1](https://www.rubydoc.info/gems/sinclair/1.14.1)
 
 Installation
 ---------------
@@ -524,8 +526,16 @@ Client.config.url # returns 'http://interstella.com:8080'
 
 ### Sinclair::EnvSettable
 
-Settable allows classes to extract configuration from environments through
-a simple meta-programable way
+EnvSettable is a convenient utility that allows you to read environment
+variables using Ruby class methods.
+
+With this tool, you can define the usage of environment variables for your application in a single location
+allowing the use of prefixes to isolate groups of variables.
+
+This not only makes your code more readable and maintainable but also adds layer of security by ensuring
+that sensitive information like API keys and passwords are not exposed in your source code.
+
+EnvSettable allows accessing those variables thorugh a simple meta-programable way
 
 <details>
 <summary>Using env settable example</summary>
