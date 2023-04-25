@@ -55,6 +55,14 @@ class Sinclair
       #
       # @return [Array<Symbol,Hash>]
 
+      # @!method options
+      # @api private
+      # @private
+      #
+      # Class building options
+      #
+      # @return [BuilderOptions]
+
       # @!method writter
       # @api private
       # @private
