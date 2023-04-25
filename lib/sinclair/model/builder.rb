@@ -26,11 +26,10 @@ class Sinclair
       #     method should be added
       #   @param comparable [TrueClass,FalseClass] flag to make the class {Comparable}
       #     by the fields
-      def initialize(klass, *attributes, writter: true, comparable: true)
+      def initialize(klass, *attributes, **options)
         super(klass)
         @attributes = attributes.flatten
-        @writter    = writter
-        @comparable = comparable
+        @options = BuilderOptions.new(**options)
 
         add_methods
         change_equals
@@ -39,7 +38,9 @@ class Sinclair
 
       private
 
-      attr_reader :attributes, :writter, :comparable
+      attr_reader :attributes, :options
+
+      delegate :writter, :comparable, to: :options
       alias writter? writter
       alias comparable? comparable
 

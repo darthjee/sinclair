@@ -6,7 +6,8 @@ class Sinclair
   #
   # Basic model to be used when defining new classes quickly
   class Model
-    autoload :Builder, 'sinclair/model/builder'
+    autoload :Builder,        'sinclair/model/builder'
+    autoload :BuilderOptions, 'sinclair/model/builder_options'
 
     class << self
       # Returns a new class that inherits from model
