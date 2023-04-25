@@ -526,8 +526,16 @@ Client.config.url # returns 'http://interstella.com:8080'
 
 ### Sinclair::EnvSettable
 
-Settable allows classes to extract configuration from environments through
-a simple meta-programable way
+EnvSettable is a convenient utility that allows you to read environment
+variables using Ruby class methods.
+
+With this tool, you can define the usage of environment variables for your application in a single location
+allowing the use of prefixes to isolate groups of variables.
+
+This not only makes your code more readable and maintainable but also adds layer of security by ensuring
+that sensitive information like API keys and passwords are not exposed in your source code.
+
+EnvSettable allows accessing those variables thorugh a simple meta-programable way
 
 <details>
 <summary>Using env settable example</summary>
