@@ -1,4 +1,5 @@
 # frozen_string_literal: true
 
-class Tv < Sinclair::Model.for(:model, writter: false, comparable: false)
+class Tv < Sinclair::Model
+  initialize_with :model, writter: false, comparable: false
 end

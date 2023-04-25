@@ -26,11 +26,10 @@ class Sinclair
       #     method should be added
       #   @param comparable [TrueClass,FalseClass] flag to make the class {Comparable}
       #     by the fields
-      def initialize(klass, *attributes, writter: true, comparable: true)
+      def initialize(klass, *attributes, **options)
         super(klass)
         @attributes = attributes.flatten
-        @writter    = writter
-        @comparable = comparable
+        @options = BuilderOptions.new(**options)
 
         add_methods
         change_equals
@@ -39,7 +38,9 @@ class Sinclair
 
       private
 
-      attr_reader :attributes, :writter, :comparable
+      attr_reader :attributes, :options
+
+      delegate :writter, :comparable, to: :options
       alias writter? writter
       alias comparable? comparable
 
@@ -53,6 +54,14 @@ class Sinclair
       # while attributes with defaults values are defined in a Hash
       #
       # @return [Array<Symbol,Hash>]
+
+      # @!method options
+      # @api private
+      # @private
+      #
+      # Class building options
+      #
+      # @return [BuilderOptions]
 
       # @!method writter
       # @api private
@@ -118,11 +127,15 @@ class Sinclair
       #
       # @return [Array<MethodDefinition>]
       def change_initializer
-        code = attributes_names.map do |attr|
+        lines = attributes_names.map do |attr|
           "@#{attr} = #{attr}"
-        end.join("\n")
+        end
 
-        add_method(:initialize, code, named_parameters: attributes)
+        lines << 'super(**attributes)'
+
+        code = lines.join("\n")
+
+        add_method(:initialize, code, named_parameters: attributes + ['**attributes'])
       end
 
       # @private

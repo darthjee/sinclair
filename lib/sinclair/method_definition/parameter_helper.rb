@@ -26,7 +26,7 @@ class Sinclair
       # @param parameters_list [Array<Object>] list of parameters and defaults
       # @param named [TrueClass,FalseClass] Flag informing if the parameters are
       #   named parameters
-      def initialize(parameters_list, named: false)
+      def initialize(parameters_list, named: nil)
         @parameters_list = parameters_list
         @named           = named
       end
@@ -40,7 +40,7 @@ class Sinclair
       def strings
         return [] unless parameters_list
 
-        parameters_strings + defaults_strings
+        parameters_strings + defaults_strings + wild_card_parameters
       end
 
       private
@@ -81,7 +81,18 @@ class Sinclair
       # @return [Array<Symbol>]
       def parameters
         parameters_list.reject do |param|
-          param.is_a?(Hash)
+          param.is_a?(Hash) || param.to_s.match?(/^\*/)
+        end
+      end
+
+      # Returns the named parameters that have not been defined
+      #
+      # THis is usually extra options
+      #
+      # @return [Array<String>]
+      def wild_card_parameters
+        parameters_list.reject do |param|
+          param.is_a?(Hash) || !param.to_s.match?(/^\*/)
         end
       end
 
