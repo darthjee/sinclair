@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Sinclair do
+describe Sinclair::ClassMethods do
   describe 'yard for .build' do
     before { allow(Random).to receive(:rand).and_return(803) }
 
