@@ -79,20 +79,20 @@ puts "One Hundred => #{Clazz.one_hundred_twenty}" # One Hundred Twenty => 120
 <summary>Builder in class method</summary>
 
 ```ruby
+# http_json_model.rb
+
 class HttpJsonModel
   attr_reader :json
 
   class << self
     def parse(attribute, path: [])
-      builder = Sinclair.new(self)
-
       keys = (path + [attribute]).map(&:to_s)
 
-      builder.add_method(attribute) do
-        keys.inject(hash) { |h, key| h[key] }
+      Sinclair.build(self) do
+        add_method(attribute) do
+          keys.inject(hash) { |h, key| h[key] }
+        end
       end
-
-      builder.build
     end
   end
 
@@ -104,6 +104,10 @@ class HttpJsonModel
     @hash ||= JSON.parse(json)
   end
 end
+```
+
+```ruby
+# http_person.rb
 
 class HttpPerson < HttpJsonModel
   parse :uid
@@ -112,7 +116,9 @@ class HttpPerson < HttpJsonModel
   parse :username, path: [:digital_information]
   parse :email,    path: [:digital_information]
 end
+```
 
+```ruby
 json = <<-JSON
   {
     "uid": "12sof511",
