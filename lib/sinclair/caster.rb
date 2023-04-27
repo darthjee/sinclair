@@ -4,10 +4,7 @@ class Sinclair
   class Caster
     class << self
       def cast_with(key, method_name = nil, &block)
-        return casters[key] = new(&block) unless method_name
-        return casters[key] = new(&method_name) unless method_name.is_a?(Caster)
-
-        casters[key] = method_name
+        casters[key] = instance_for(method_name, &block)
       end
 
       def cast(value, klass)
@@ -17,6 +14,13 @@ class Sinclair
       end
 
       protected
+
+      def instance_for(method_name, &block)
+        return new(&block) unless method_name
+        return method_name if method_name.is_a?(Caster)
+
+        new(&method_name)
+      end
 
       def caster_for(key)
         casters[key] || caster_superclass&.caster_for(key)
