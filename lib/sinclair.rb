@@ -103,6 +103,20 @@ class Sinclair
   include OptionsParser
   extend ClassMethods
 
+  # @method self.build(klass, options = {}, &block)
+  # Runs build using a block for adding the methods
+  #
+  # The block is executed adding the methods and after the builder
+  # runs build building all the methods
+  #
+  # @see Sinclair::ClassMethods#build
+  #
+  # @param (see Sinclair::ClassMethods#build)
+  # @return (see Sinclair::ClassMethods#build)
+  # @yield (see Sinclair::ClassMethods#build)
+  #
+  # @example (see Sinclair::ClassMethods#build)
+
   # Returns a new instance of Sinclair
   #
   # @param klass [Class] Class that will receive the methods
