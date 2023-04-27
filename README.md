@@ -326,11 +326,11 @@ instance.random_number # returns a number between 10 and 20
 class MyClass
 end
 
-builder = described_class.new(MyClass)
-builder.add_class_method(
-  :function, 'a ** b + c', parameters: [:a], named_parameters: [:b, { c: 15 }]
-)
-builder.build
+Sinclair.build(MyClass) do
+  add_class_method(
+    :function, 'a ** b + c', parameters: [:a], named_parameters: [:b, { c: 15 }]
+  )
+end
 
 MyClass.function(10, b: 2) # returns 115
 ```
