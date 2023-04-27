@@ -9,9 +9,9 @@ describe Sinclair do
         klass = Class.new
         instance = klass.new
 
-        builder = described_class.new(klass)
-        builder.add_method(:random_number) { Random.rand(10..20) }
-        builder.build
+        Sinclair.build(klass) do
+          add_method(:random_number) { Random.rand(10..20) }
+        end
 
         expect(instance.random_number).to be_between(10, 20)
       end
@@ -34,11 +34,11 @@ describe Sinclair do
       it 'adds the method' do
         klass = Class.new
 
-        builder = described_class.new(klass)
-        builder.add_class_method(
-          :function, 'a ** b + c', parameters: [:a], named_parameters: [:b, { c: 15 }]
-        )
-        builder.build
+        Sinclair.build(klass) do
+          add_class_method(
+            :function, 'a ** b + c', parameters: [:a], named_parameters: [:b, { c: 15 }]
+          )
+        end
 
         expect(klass.function(10, b: 2)).to eq(115)
       end

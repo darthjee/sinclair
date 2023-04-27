@@ -290,9 +290,9 @@ Block methods accepts, as option
 klass = Class.new
 instance = klass.new
 
-builder = Sinclair.new(klass)
-builder.add_method(:random_number) { Random.rand(10..20) }
-builder.build
+Sinclair.build(klass) do
+  add_method(:random_number) { Random.rand(10..20) }
+end
 
 instance.random_number # returns a number between 10 and 20
 ```
@@ -326,11 +326,11 @@ instance.random_number # returns a number between 10 and 20
 class MyClass
 end
 
-builder = described_class.new(MyClass)
-builder.add_class_method(
-  :function, 'a ** b + c', parameters: [:a], named_parameters: [:b, { c: 15 }]
-)
-builder.build
+Sinclair.build(MyClass) do
+  add_class_method(
+    :function, 'a ** b + c', parameters: [:a], named_parameters: [:b, { c: 15 }]
+  )
+end
 
 MyClass.function(10, b: 2) # returns 115
 ```

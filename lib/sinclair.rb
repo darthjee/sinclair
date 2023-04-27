@@ -12,13 +12,13 @@ require 'active_support/core_ext'
 #   class MyModel
 #   end
 #
-#   buider = Sinclair.new(MyModel)
-#
 #   value = 10
-#   builder.add_method(:default_value) { value }
-#   builder.add_method(:value, '@value || default_value')
-#   builder.add_method(:value=) { |val| @value = val }
-#   builder.build
+#
+#   Sinclair.build(MyModel) do
+#     add_method(:default_value) { value }
+#     add_method(:value, '@value || default_value')
+#     add_method(:value=) { |val| @value = val }
+#   end
 #
 #   instance = MyModel.new
 #   instance.value # returns 10
@@ -136,7 +136,6 @@ class Sinclair
   #   builder = Sinclair.new(Purchase)
   #
   # @example Passing building options (Used on subclasses)
-  #
   #   class MyBuilder < Sinclair
   #     def add_methods
   #       if options_object.rescue_error
@@ -160,10 +159,9 @@ class Sinclair
   #   class MyModel
   #   end
   #
-  #   builder = MyBuilder.new(MyModel, rescue_error: true)
-  #
-  #   builder.add_method
-  #   builder.build
+  #   MyBuilder.build(MyModel, rescue_error: true) do
+  #     add_method
+  #   end
   #
   #   instance = MyModel.new
   #
@@ -217,9 +215,9 @@ class Sinclair
   #       end
   #     end
   #
-  #     builder = Sinclair.new(Person)
-  #     builder.add_method(:full_name, '[first_name, last_name].join(" ")')
-  #     builder.build
+  #     Sinclair.build(Person) do
+  #       add_method(:full_name, '[first_name, last_name].join(" ")')
+  #     end
   #
   #     Person.new('john', 'wick').full_name # returns 'john wick'
   #
@@ -241,9 +239,9 @@ class Sinclair
   #       end
   #     end
   #
-  #     builder = Sinclair.new(Person)
-  #     builder.add_method(:bond_name) { "#{last_name}, #{first_name} #{last_name}" }
-  #     builder.build
+  #     Sinclair.build(Person) do
+  #       add_method(:bond_name) { "#{last_name}, #{first_name} #{last_name}" }
+  #     end
   #
   #     Person.new('john', 'wick').bond_name # returns 'wick, john wick'
   #
@@ -268,11 +266,11 @@ class Sinclair
   #       end
   #     end
   #
-  #     builder = Sinclair.new(Person)
-  #     builder.add_method(:bond_name, type: :block, cached: true) do
-  #       "{last_name}, #{first_name} #{last_name}"
+  #     Sinclair.build(Person) do
+  #       add_method(:bond_name, type: :block, cached: true) do
+  #         "{last_name}, #{first_name} #{last_name}"
+  #       end
   #     end
-  #     builder.build
   #
   #     person.Person.new('john', 'wick')
   #
