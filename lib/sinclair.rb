@@ -238,9 +238,9 @@ class Sinclair
   #       end
   #     end
   #
-  #     builder = Sinclair.new(Person)
-  #     builder.add_method(:bond_name) { "#{last_name}, #{first_name} #{last_name}" }
-  #     builder.build
+  #     Sinclair.build(Person) do
+  #       add_method(:bond_name) { "#{last_name}, #{first_name} #{last_name}" }
+  #     end
   #
   #     Person.new('john', 'wick').bond_name # returns 'wick, john wick'
   #

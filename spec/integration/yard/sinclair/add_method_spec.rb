@@ -19,9 +19,9 @@ describe 'yard Sinclair#add_method' do
     let(:klass) { Class.new(Person) }
 
     it 'creates new method' do
-      builder = Sinclair.new(klass)
-      builder.add_method(:bond_name) { "#{last_name}, #{first_name} #{last_name}" }
-      builder.build
+      Sinclair.build(klass) do
+        add_method(:bond_name) { "#{last_name}, #{first_name} #{last_name}" }
+      end
 
       expect(klass.new('john', 'wick').bond_name).to eq('wick, john wick')
     end
