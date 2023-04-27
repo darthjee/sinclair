@@ -214,9 +214,9 @@ class Sinclair
   #       end
   #     end
   #
-  #     builder = Sinclair.new(Person)
-  #     builder.add_method(:full_name, '[first_name, last_name].join(" ")')
-  #     builder.build
+  #     Sinclair.build(Person) do
+  #       add_method(:full_name, '[first_name, last_name].join(" ")')
+  #     end
   #
   #     Person.new('john', 'wick').full_name # returns 'john wick'
   #

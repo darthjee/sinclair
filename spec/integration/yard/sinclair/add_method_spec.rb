@@ -7,9 +7,9 @@ describe 'yard Sinclair#add_method' do
     let(:klass) { Class.new(Person) }
 
     it 'creates new method' do
-      builder = Sinclair.new(klass)
-      builder.add_method(:full_name, '[first_name, last_name].join(" ")')
-      builder.build
+      Sinclair.build(klass) do
+        add_method(:full_name, '[first_name, last_name].join(" ")')
+      end
 
       expect(klass.new('john', 'wick').full_name).to eq('john wick')
     end
