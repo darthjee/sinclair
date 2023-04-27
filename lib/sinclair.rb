@@ -12,13 +12,13 @@ require 'active_support/core_ext'
 #   class MyModel
 #   end
 #
-#   buider = Sinclair.new(MyModel)
-#
 #   value = 10
-#   builder.add_method(:default_value) { value }
-#   builder.add_method(:value, '@value || default_value')
-#   builder.add_method(:value=) { |val| @value = val }
-#   builder.build
+#
+#   Sinclair.build(MyModel) do
+#     add_method(:default_value) { value }
+#     add_method(:value, '@value || default_value')
+#     add_method(:value=) { |val| @value = val }
+#   end
 #
 #   instance = MyModel.new
 #   instance.value # returns 10

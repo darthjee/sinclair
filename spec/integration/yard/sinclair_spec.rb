@@ -85,13 +85,13 @@ describe Sinclair do
 
     describe 'Stand alone usage' do
       it 'builds the methods' do
-        builder = Sinclair.new(klass)
-
         value = 10
-        builder.add_method(:default_value) { value }
-        builder.add_method(:value, '@value || default_value')
-        builder.add_method(:value=) { |val| @value = val }
-        builder.build
+
+        Sinclair.build(klass) do
+          add_method(:default_value) { value }
+          add_method(:value, '@value || default_value')
+          add_method(:value=) { |val| @value = val }
+        end
 
         instance = klass.new
 
