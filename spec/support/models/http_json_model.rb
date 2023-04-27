@@ -5,15 +5,13 @@ class HttpJsonModel
 
   class << self
     def parse(attribute, path: [])
-      builder = Sinclair.new(self)
-
       keys = (path + [attribute]).map(&:to_s)
 
-      builder.add_method(attribute) do
-        keys.inject(hash) { |h, key| h[key] }
+      Sinclair.build(self) do
+        add_method(attribute) do
+          keys.inject(hash) { |h, key| h[key] }
+        end
       end
-
-      builder.build
     end
   end
 

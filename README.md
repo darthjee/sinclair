@@ -15,13 +15,13 @@ create custom comparators, configure your application, create powerfull options,
 
 Employing Sinclair in your applications helps you streamline your development workflow and enhance your development process through more efficient, cleaner code
 
-Current Release: [1.14.1](https://github.com/darthjee/sinclair/tree/1.14.1)
+Current Release: [1.14.2](https://github.com/darthjee/sinclair/tree/1.14.2)
 
-[Next release](https://github.com/darthjee/sinclair/compare/1.14.1...master)
+[Next release](https://github.com/darthjee/sinclair/compare/1.14.2...master)
 
 Yard Documentation
 -------------------
-[https://www.rubydoc.info/gems/sinclair/1.14.1](https://www.rubydoc.info/gems/sinclair/1.14.1)
+[https://www.rubydoc.info/gems/sinclair/1.14.2](https://www.rubydoc.info/gems/sinclair/1.14.2)
 
 Installation
 ---------------
@@ -79,20 +79,20 @@ puts "One Hundred => #{Clazz.one_hundred_twenty}" # One Hundred Twenty => 120
 <summary>Builder in class method</summary>
 
 ```ruby
+# http_json_model.rb
+
 class HttpJsonModel
   attr_reader :json
 
   class << self
     def parse(attribute, path: [])
-      builder = Sinclair.new(self)
-
       keys = (path + [attribute]).map(&:to_s)
 
-      builder.add_method(attribute) do
-        keys.inject(hash) { |h, key| h[key] }
+      Sinclair.build(self) do
+        add_method(attribute) do
+          keys.inject(hash) { |h, key| h[key] }
+        end
       end
-
-      builder.build
     end
   end
 
@@ -104,6 +104,10 @@ class HttpJsonModel
     @hash ||= JSON.parse(json)
   end
 end
+```
+
+```ruby
+# http_person.rb
 
 class HttpPerson < HttpJsonModel
   parse :uid
@@ -112,7 +116,9 @@ class HttpPerson < HttpJsonModel
   parse :username, path: [:digital_information]
   parse :email,    path: [:digital_information]
 end
+```
 
+```ruby
 json = <<-JSON
   {
     "uid": "12sof511",
@@ -675,6 +681,15 @@ You can use the provided matcher to check that your builder is adding a method c
 <summary>Sample of specs over adding methods</summary>
 
 ```ruby
+# spec_helper.rb
+
+RSpec.configure do |config|
+  config.include Sinclair::Matchers
+end
+```
+
+```ruby
+# default_value.rb
 class DefaultValue
   delegate :build, to: :builder
   attr_reader :klass, :method, :value, :class_method
@@ -698,8 +713,12 @@ class DefaultValue
     end
   end
 end
+```
 
-RSpec.describe Sinclair::Matchers do
+```ruby
+# default_value_spec.rb
+
+RSpec.describe DefaultValue do
   subject(:builder_class) { DefaultValue }
 
   let(:klass)         { Class.new }
