@@ -7,10 +7,10 @@ class Sinclair
         casters[key] = instance_for(method_name, &block)
       end
 
-      def cast(value, klass)
-        return value unless caster_defined?(klass)
+      def cast(value, key)
+        return value unless caster_defined?(key)
 
-        cast_value(klass, value)
+        caster_for(key).cast(value)
       end
 
       protected
@@ -31,10 +31,6 @@ class Sinclair
       end
 
       private
-
-      def cast_value(key, value)
-        caster_for(key).cast(value)
-      end
 
       def casters
         @casters ||= {}
