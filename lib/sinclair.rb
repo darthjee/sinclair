@@ -101,6 +101,14 @@ class Sinclair
 
   include OptionsParser
 
+  class << self
+    def build(klass, options = {}, &block)
+      new(klass, options).tap do |builder|
+        builder.instance_eval(&block)
+      end.build
+    end
+  end
+
   # Returns a new instance of Sinclair
   #
   # @param klass [Class] Class that will receive the methods

@@ -10,6 +10,32 @@ describe Sinclair do
   let(:dummy_class)   { Class.new }
   let(:builder_class) { described_class }
 
+  describe '.build' do
+    let(:block) do
+      method_name = :some_method
+      value = 1
+
+      proc do
+        add_method(:some_method) { value }
+      end
+    end
+
+    it 'executes the block and builds' do
+      expect { builder_class.build(dummy_class, options, &block) }
+        .to add_method(:some_method).to(dummy_class)
+    end
+
+    context 'after the method is built and called' do
+      before do
+        builder_class.build(dummy_class, options, &block)
+      end
+
+      it 'returns the value' do
+        expect(dummy_class.new.some_method).to eq(1)
+      end
+    end
+  end
+
   describe '#add_method' do
     let(:object) { instance }
 
