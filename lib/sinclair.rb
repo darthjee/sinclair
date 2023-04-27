@@ -102,6 +102,18 @@ class Sinclair
   include OptionsParser
 
   class << self
+    # Runs build using a block for adding the methods
+    #
+    # The block is executed adding the methods and after the builder
+    # runs build building all the methods
+    #
+    # @param (see #initialize)
+    # @param block [Proc] block to be executed by the builder
+    #   in order to add the methods before running build
+    #
+    # @yield an instance of a builder ({Sinclair})
+    #
+    # @return (see #build)
     def build(klass, options = {}, &block)
       new(klass, options).tap do |builder|
         builder.instance_eval(&block)
