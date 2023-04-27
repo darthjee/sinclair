@@ -16,7 +16,7 @@ describe Sinclair do
       value = 1
 
       proc do
-        add_method(:some_method) { value }
+        add_method(method_name) { value }
       end
     end
 
