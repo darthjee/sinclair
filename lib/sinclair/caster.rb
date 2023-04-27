@@ -3,7 +3,9 @@
 class Sinclair
   class Caster
     class << self
-      def cast_with(key, &block)
+      def cast_with(key, method_name = nil, &block)
+        block = method_name ? method_name.to_proc : block
+
         casters[key] = new(&block)
       end
 
@@ -52,8 +54,8 @@ class Sinclair
 
     attr_reader :block
 
-    cast_with(:string, &:to_s)
-    cast_with(:integer, &:to_i)
-    cast_with(:float, &:to_f)
+    cast_with(:string, :to_s)
+    cast_with(:integer, :to_i)
+    cast_with(:float, :to_f)
   end
 end

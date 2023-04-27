@@ -5,6 +5,22 @@ require 'spec_helper'
 describe Sinclair::Caster do
   subject(:caster) { Class.new(described_class) }
 
+  describe '.cast_with' do
+    context 'when a proc is given' do
+      it do
+        expect { caster.cast_with(:problem, &:to_p) }
+          .not_to raise_error
+      end
+    end
+
+    context 'when a symbol is given' do
+      it do
+        expect { caster.cast_with(:problem, :to_p) }
+          .not_to raise_error
+      end
+    end
+  end
+
   describe '.cast' do
     let(:value) { values.sample }
     let(:values) do
