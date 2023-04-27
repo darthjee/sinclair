@@ -25,7 +25,7 @@ describe Sinclair do
         .to add_method(:some_method).to(dummy_class)
     end
 
-    context 'after the method is built and called' do
+    context 'when the method is built and called' do
       before do
         builder_class.build(dummy_class, options, &block)
       end

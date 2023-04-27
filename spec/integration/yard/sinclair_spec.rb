@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe Sinclair do
-  describe 'yarn' do
+  describe 'yard' do
     let(:klass)         { Class.new(MyModel) }
     let(:instance)      { klass.new }
     let(:builder)       { described_class.new(klass) }

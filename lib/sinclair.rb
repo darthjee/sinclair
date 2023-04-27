@@ -114,6 +114,20 @@ class Sinclair
     # @yield an instance of a builder ({Sinclair})
     #
     # @return (see #build)
+    #
+    # @example Simple usage
+    #   class MyPerson
+    #   end
+    #
+    #   Sinclair.build(model_class) do
+    #     add_method(:random_name, cached: true) do
+    #       "John #{Random.rand(1000)} Doe"
+    #     end
+    #   end
+    #
+    #   model = MyPerson.new
+    #
+    #   model.random_name # returns 'John 803 Doe'
     def build(klass, options = {}, &block)
       new(klass, options).tap do |builder|
         builder.instance_eval(&block)
