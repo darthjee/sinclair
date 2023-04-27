@@ -4,7 +4,7 @@ class Sinclair
   class Caster
     class << self
       def cast_with(key, &block)
-        casters[key] = block
+        casters[key] = new(&block)
       end
 
       def cast(value, klass)
@@ -26,7 +26,7 @@ class Sinclair
       private
 
       def cast_value(key, value)
-        caster_for(key).to_proc.call(value)
+        caster_for(key).cast(value)
       end
 
       def casters
@@ -39,6 +39,18 @@ class Sinclair
         superclass
       end
     end
+
+    def initialize(&block)
+      @block = block.to_proc
+    end
+
+    def cast(value)
+      block.call(value)
+    end
+
+    private
+
+    attr_reader :block
 
     cast_with(:string, &:to_s)
     cast_with(:integer, &:to_i)
