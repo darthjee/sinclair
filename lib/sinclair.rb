@@ -83,6 +83,7 @@ class Sinclair
   require 'sinclair/options_parser'
 
   autoload :VERSION,           'sinclair/version'
+  autoload :ClassMethods,      'sinclair/class_methods'
   autoload :Config,            'sinclair/config'
   autoload :ConfigBuilder,     'sinclair/config_builder'
   autoload :ConfigClass,       'sinclair/config_class'
@@ -100,6 +101,21 @@ class Sinclair
   autoload :Options,           'sinclair/options'
 
   include OptionsParser
+  extend ClassMethods
+
+  # @method self.build(klass, options = {}, &block)
+  # Runs build using a block for adding the methods
+  #
+  # The block is executed adding the methods and after the builder
+  # runs build building all the methods
+  #
+  # @see Sinclair::ClassMethods#build
+  #
+  # @param (see Sinclair::ClassMethods#build)
+  # @return (see Sinclair::ClassMethods#build)
+  # @yield (see Sinclair::ClassMethods#build)
+  #
+  # @example (see Sinclair::ClassMethods#build)
 
   # Returns a new instance of Sinclair
   #
