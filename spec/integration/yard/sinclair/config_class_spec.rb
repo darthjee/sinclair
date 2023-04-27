@@ -5,33 +5,19 @@ require 'spec_helper'
 describe Sinclair::ConfigClass do
   describe 'yard' do
     describe '.add_configs' do
-      subject(:config) { AppConfig.new }
+      it 'Adding configurations to config class' do
+        config = AppConfig.new
 
-      it 'has a secret configuration method' do
         expect(config.secret).to be_nil
-      end
-
-      it 'has a app_name configuration method' do
         expect(config.app_name).to eq('MyApp')
-      end
 
-      context 'when configured' do
-        let(:config_builder) do
-          Sinclair::ConfigBuilder.new(config)
-        end
+        config_builder = Sinclair::ConfigBuilder.new(config)
 
-        before do
-          config_builder.secret '123abc'
-          config_builder.app_name 'MySuperApp'
-        end
+        config_builder.secret '123abc'
+        config_builder.app_name 'MySuperApp'
 
-        it 'has a secret configuration method' do
-          expect(config.secret).to eq('123abc')
-        end
-
-        it 'has a app_name configuration method' do
-          expect(config.app_name).to eq('MySuperApp')
-        end
+        expect(config.secret).to eq('123abc')
+        expect(config.app_name).to eq('MySuperApp')
       end
     end
   end

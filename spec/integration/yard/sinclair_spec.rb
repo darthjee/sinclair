@@ -4,10 +4,8 @@ require 'spec_helper'
 
 describe Sinclair do
   describe 'yard' do
-    let(:klass)         { Class.new(MyModel) }
-    let(:instance)      { klass.new }
-    let(:builder)       { described_class.new(klass) }
-    let(:default_value) { 10 }
+    let(:klass)   { Class.new(MyModel) }
+    let(:builder) { described_class.new(klass) }
 
     describe 'Using cache' do
       subject(:server) { Server.new }
@@ -85,38 +83,21 @@ describe Sinclair do
       end
     end
 
-    describe '#build' do
-      before do
-        value = default_value
-        builder.add_method(:default_value) { value }
-        builder.add_method(:value, '@value || default_value')
-        builder.add_method(:value=) { |val| @value = val }
-      end
+    describe 'Stand alone usage' do
+      it 'builds the methods' do
+        value = 10
 
-      describe 'after the build' do
-        before { builder.build }
-
-        it 'creates the expected methods' do
-          expect(instance.value).to eq(10)
+        Sinclair.build(klass) do
+          add_method(:default_value) { value }
+          add_method(:value, '@value || default_value')
+          add_method(:value=) { |val| @value = val }
         end
 
-        context 'when default value is overwritten' do
-          before do
-            instance.value = 20
-          end
+        instance = klass.new
 
-          it 'returns the new written value' do
-            expect(instance.value).to eq(20)
-          end
-        end
-      end
-
-      context 'when calling the build' do
-        it do
-          expect do
-            builder.build
-          end.to change { instance.respond_to?(:default_value) }.to(true)
-        end
+        expect(instance.value).to eq(10)
+        instance.value = 20
+        expect(instance.value).to eq(20)
       end
     end
   end

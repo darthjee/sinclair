@@ -69,22 +69,16 @@ class Sinclair
     #
     #   config = AppConfig.new
     #
-    #   config.secret
-    #   # return nil
-    #
-    #   config.app_name
-    #   # return 'MyApp'
+    #   config.secret # return nil
+    #   config.app_name # return 'MyApp'
     #
     #   config_builder = Sinclair::ConfigBuilder.new(config)
     #
     #   config_builder.secret '123abc'
     #   config_builder.app_name 'MySuperApp'
     #
-    #   config.secret
-    #   # return '123abc'
-    #
-    #   config.app_name
-    #   # return 'MySuperApp'
+    #   config.secret # return '123abc'
+    #   config.app_name # return 'MySuperApp'
     def add_configs(*args)
       Config::MethodsBuilder.new(self, *args).tap do |builder|
         builder.build
