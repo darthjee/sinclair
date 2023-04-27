@@ -14,6 +14,15 @@ describe Sinclair::Caster do
     end
 
     context 'when a symbol is given' do
+      let(:instance) { described_class.new(&:to_p) }
+
+      it do
+        expect { caster.cast_with(:problem, instance) }
+          .not_to raise_error
+      end
+    end
+
+    context 'when a caster is given is given' do
       it do
         expect { caster.cast_with(:problem, :to_p) }
           .not_to raise_error

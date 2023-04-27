@@ -4,9 +4,10 @@ class Sinclair
   class Caster
     class << self
       def cast_with(key, method_name = nil, &block)
-        block = method_name ? method_name.to_proc : block
+        return casters[key] = new(&block) unless method_name
+        return casters[key] = new(&method_name) unless method_name.is_a?(Caster)
 
-        casters[key] = new(&block)
+        casters[key] = method_name
       end
 
       def cast(value, klass)
