@@ -83,6 +83,7 @@ class Sinclair
   require 'sinclair/options_parser'
 
   autoload :VERSION,           'sinclair/version'
+  autoload :ClassMethods,      'sinclair/class_methods'
   autoload :Config,            'sinclair/config'
   autoload :ConfigBuilder,     'sinclair/config_builder'
   autoload :ConfigClass,       'sinclair/config_class'
@@ -100,40 +101,7 @@ class Sinclair
   autoload :Options,           'sinclair/options'
 
   include OptionsParser
-
-  class << self
-    # Runs build using a block for adding the methods
-    #
-    # The block is executed adding the methods and after the builder
-    # runs build building all the methods
-    #
-    # @param (see #initialize)
-    # @param block [Proc] block to be executed by the builder
-    #   in order to add the methods before running build
-    #
-    # @yield an instance of a builder ({Sinclair})
-    #
-    # @return (see #build)
-    #
-    # @example Simple usage
-    #   class MyPerson
-    #   end
-    #
-    #   Sinclair.build(model_class) do
-    #     add_method(:random_name, cached: true) do
-    #       "John #{Random.rand(1000)} Doe"
-    #     end
-    #   end
-    #
-    #   model = MyPerson.new
-    #
-    #   model.random_name # returns 'John 803 Doe'
-    def build(klass, options = {}, &block)
-      new(klass, options).tap do |builder|
-        builder.instance_eval(&block)
-      end.build
-    end
-  end
+  extend ClassMethods
 
   # Returns a new instance of Sinclair
   #
