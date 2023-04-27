@@ -135,7 +135,6 @@ class Sinclair
   #   builder = Sinclair.new(Purchase)
   #
   # @example Passing building options (Used on subclasses)
-  #
   #   class MyBuilder < Sinclair
   #     def add_methods
   #       if options_object.rescue_error
