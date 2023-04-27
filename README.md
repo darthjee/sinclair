@@ -675,6 +675,15 @@ You can use the provided matcher to check that your builder is adding a method c
 <summary>Sample of specs over adding methods</summary>
 
 ```ruby
+# spec_helper.rb
+
+RSpec.configure do |config|
+  config.include Sinclair::Matchers
+end
+```
+
+```ruby
+# default_value.rb
 class DefaultValue
   delegate :build, to: :builder
   attr_reader :klass, :method, :value, :class_method
@@ -698,8 +707,12 @@ class DefaultValue
     end
   end
 end
+```
 
-RSpec.describe Sinclair::Matchers do
+```ruby
+# default_value_spec.rb
+
+RSpec.describe DefaultValue do
   subject(:builder_class) { DefaultValue }
 
   let(:klass)         { Class.new }
