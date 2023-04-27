@@ -158,10 +158,9 @@ class Sinclair
   #   class MyModel
   #   end
   #
-  #   builder = MyBuilder.new(MyModel, rescue_error: true)
-  #
-  #   builder.add_method
-  #   builder.build
+  #   MyBuilder.build(MyModel, rescue_error: true) do
+  #     add_method
+  #   end
   #
   #   instance = MyModel.new
   #
