@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe Sinclair::Caster do
-  subject(:caster) { described_class }
+  subject(:caster) { Class.new(described_class) }
 
   describe '.cast' do
     let(:value) { values.sample }

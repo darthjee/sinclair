@@ -13,18 +13,30 @@ class Sinclair
         cast_value(klass, value)
       end
 
+      protected
+
+      def caster_for(key)
+        casters[key] || caster_superclass&.caster_for(key)
+      end
+
+      def caster_defined?(key)
+        casters.key?(key) || caster_superclass&.caster_defined?(key)
+      end
+
       private
 
       def cast_value(key, value)
-        casters[key].to_proc.call(value)
+        caster_for(key).to_proc.call(value)
       end
 
       def casters
         @casters ||= {}
       end
 
-      def caster_defined?(key)
-        casters.key?(key)
+      def caster_superclass
+        return if self == Sinclair::Caster
+
+        superclass
       end
     end
 
