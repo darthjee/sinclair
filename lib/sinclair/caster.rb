@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Sinclair
-  module Caster
+  class Caster
     class << self
       def cast_with(key, &block)
         casters[key] = block

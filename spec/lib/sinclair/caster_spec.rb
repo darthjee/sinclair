@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 describe Sinclair::Caster do
+  subject(:caster) { described_class }
+
   describe '.cast' do
     let(:value) { values.sample }
     let(:values) do
@@ -11,14 +13,14 @@ describe Sinclair::Caster do
 
     context 'when klass is nil' do
       it 'returns the value' do
-        expect(described_class.cast(value, nil))
+        expect(caster.cast(value, nil))
           .to eq(value)
       end
     end
 
     context 'when class is :string' do
       it 'returns the value as string' do
-        expect(described_class.cast(value, :string))
+        expect(caster.cast(value, :string))
           .to eq(value.to_s)
       end
     end
@@ -27,7 +29,7 @@ describe Sinclair::Caster do
       let(:value) { '10.5' }
 
       it 'returns the value as integer' do
-        expect(described_class.cast(value, :integer))
+        expect(caster.cast(value, :integer))
           .to eq(10)
       end
     end
@@ -36,7 +38,7 @@ describe Sinclair::Caster do
       let(:value) { '10.5' }
 
       it 'returns the value as integer' do
-        expect(described_class.cast(value, :integer))
+        expect(caster.cast(value, :integer))
           .to eq(10)
       end
     end
