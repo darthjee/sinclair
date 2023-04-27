@@ -31,11 +31,12 @@ describe 'yard Sinclair#add_method' do
     let(:klass) { Class.new(Person) }
 
     it 'creates new method' do
-      builder = Sinclair.new(klass)
-      builder.add_method(:bond_name, type: :block, cached: true) do
-        "#{last_name}, #{first_name} #{last_name}"
+      Sinclair.build(klass) do
+        add_method(:bond_name, type: :block, cached: true) do
+          "#{last_name}, #{first_name} #{last_name}"
+        end
       end
-      builder.build
+
       person = klass.new('john', 'wick')
 
       expect(person.bond_name).to eq('wick, john wick')

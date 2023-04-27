@@ -265,11 +265,11 @@ class Sinclair
   #       end
   #     end
   #
-  #     builder = Sinclair.new(Person)
-  #     builder.add_method(:bond_name, type: :block, cached: true) do
-  #       "{last_name}, #{first_name} #{last_name}"
+  #     Sinclair.build(Person) do
+  #       add_method(:bond_name, type: :block, cached: true) do
+  #         "{last_name}, #{first_name} #{last_name}"
+  #       end
   #     end
-  #     builder.build
   #
   #     person.Person.new('john', 'wick')
   #
