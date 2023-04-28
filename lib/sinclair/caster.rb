@@ -153,6 +153,46 @@ class Sinclair
     #   When the +class_key+ does not match the stored key, but matches a superclass,
     #   the registerd caster is returned.
     #
+    #   @example Casts with class key
+    #     # ruby_string_caster.rb
+    #     class RubyStringCaster < Sinclair::Caster
+    #       master_caster!
+    #
+    #       cast_with(NilClass) { 'nil' }
+    #       cast_with(Symbol) { |value| ":#{value}" }
+    #       cast_with(String, :to_json)
+    #       cast_with(Object, :to_s)
+    #
+    #       def self.to_ruby_string(value)
+    #         cast(value, value.class)
+    #       end
+    #     end
+    #
+    #     # main.rb
+    #     hash = { a: 1, b: 2, 'c' => nil }
+    #     string = 'my string'
+    #     symbol = :the_symbol
+    #     number = 10
+    #     null = nil
+    #
+    #     <<-RUBY
+    #       hash_value = #{RubyStringCaster.to_ruby_string(hash)}
+    #       string_value = #{RubyStringCaster.to_ruby_string(string)}
+    #       symbol_value = #{RubyStringCaster.to_ruby_string(symbol)}
+    #       number = #{RubyStringCaster.to_ruby_string(number)}
+    #       null_value = #{RubyStringCaster.to_ruby_string(null)}
+    #     RUBY
+    #
+    #     # Generates the String
+    #     #
+    #     # <<-RUBY
+    #     #   hash_value = {:a=>1, :b=>2, "c"=>nil}
+    #     #   string_value = "my string"
+    #     #   symbol_value = :the_symbol
+    #     #   number = 10
+    #     #   null_value = nil
+    #     # RUBY
+    #
     # @see Caster::ClassMethods#cast
     # @see Caster.cast_with
     # @see Caster.caster_for
