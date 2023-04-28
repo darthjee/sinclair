@@ -47,15 +47,45 @@ class Sinclair
     #   @param method_name [Symbol] method to be called on the
     #     value that is being converted
     #
+    #   @example
+    #     class MyCaster < Sinclair::Caster
+    #       cast_with(:json, :to_json)
+    #     end
+    #
+    #     my_caster.cast({ key: :value }, :json) # returns '{"key":"value"}'
+    #
     # @overload cast_with(key, &block)
     #   @param key [Symbol] key where the caster will be store.
     #   @param block [Proc] block to be used when casting the value.
+    #
+    #   @example Casting from pre registered block caster
+    #     class MyCaster < Sinclair::Caster
+    #       cast_with(Numeric, :to_i)
+    #     end
+    #
+    #     MyCaster.cast_with(:complex) do |hash|
+    #       real = hash[:real]
+    #       imaginary = hash[:imaginary]
+    #
+    #       "#{real.to_f} + #{imaginary.to_f} i"
+    #     end
+    #
+    #     value = { real: 10, imaginary: 5 }
+    #
+    #     MyCaster.cast(value, :complex) # returns '10.0 + 5.0 i'
     #
     # @overload cast_with(class_key, method_name)
     #   @param class_key [Class] class to be used as key.
     #     This will be used as parent class when the calling {Caster.cast}.
     #   @param method_name [Symbol] method to be called on the
     #     value that is being converted.
+    #
+    #   @example Casting from pre registered class
+    #     class MyCaster < Sinclair::Caster
+    #       cast_with(Numeric, :to_i)
+    #     end
+    #
+    #     MyCaster.cast('10', Integer) # returns 10
     #
     # @overload cast_with(class_key, &block)
     #   @param class_key [Class] class to be used as key.
@@ -77,9 +107,6 @@ class Sinclair
     #   @param value [Object] value to be cast
     #   @param key [Symbol] key where the caster is registered under
     #   @param opts [Hash] Options to be sent to the caster
-    #
-    #   @example Casting from pre registered symbol caster 
-    #     my_caster.cast('10', :integer) # returns 10
     #
     # @overload cast(value, class_key, **opts)
     #   @param value [Object] value to be cast
