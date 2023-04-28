@@ -17,19 +17,20 @@ class Sinclair
 
     def initialize(&block)
       @block = block.to_proc
-      @with_options = block.parameters.size > 1
+      @options_keys = block.parameters.select { |l| %i[key keyreq].include? l.first }.map(&:second)
     end
 
     def cast(value, **opts)
-      opts = {} unless with_options?
+      options = opts.select do |k, _|
+        options_keys.include?(k)
+      end
 
-      block.call(value, **opts)
+      block.call(value, **options)
     end
 
     private
 
-    attr_reader :block, :with_options
-    alias with_options? with_options
+    attr_reader :block, :options_keys
 
     cast_with(:string, :to_s)
     cast_with(:integer, :to_i)
