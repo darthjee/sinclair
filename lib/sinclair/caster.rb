@@ -22,7 +22,7 @@ class Sinclair
       end
 
       def caster_for(key)
-        casters[key] || caster_superclass&.caster_for(key) || new { |v| v }
+        casters[key] || caster_superclass&.caster_for(key) || new { |value| value }
       end
 
       protected
