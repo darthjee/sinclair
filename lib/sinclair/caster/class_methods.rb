@@ -13,7 +13,7 @@ class Sinclair
       def master_caster
         @master_caster = true
       end
- 
+
       # Register a caster under a key
       #
       # @overload cast_with(key, method_name)
@@ -27,14 +27,17 @@ class Sinclair
       #
       # @overload cast_with(class_key, method_name)
       #   @param class_key [Class] class to be used as key.
-      #     This will be used as parent class when the calling {#cast}.
+      #     This will be used as parent class when the calling {Caster.cast}.
       #   @param method_name [Symbol] method to be called on the
       #     value that is being converted.
       #
       # @overload cast_with(class_key, method_name)
       #   @param class_key [Class] class to be used as key.
-      #     This will be used as parent class when the calling {#cast}.
+      #     This will be used as parent class when the calling {Caster.cast}.
       #   @param block [Proc] block to be used when casting the value.
+      #
+      # @see Caster.caster_for
+      # @see Caster.cast
       #
       # @return [Caster] the registered caster
       def cast_with(key, method_name = nil, &block)

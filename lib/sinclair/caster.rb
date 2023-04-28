@@ -16,6 +16,14 @@ class Sinclair
     extend Caster::ClassMethods
     master_caster
 
+    # @method self.master_caster
+
+    # @method self.cast_with
+
+    # @method self.cast
+
+    # @method self.caster_for
+
     # @param block [Proc] Proc to be used when converting the value object
     def initialize(&block)
       @block = block.to_proc
