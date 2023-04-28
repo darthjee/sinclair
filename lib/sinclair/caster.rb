@@ -17,8 +17,16 @@ class Sinclair
     master_caster
 
     # @method self.master_caster
+    # @api public
+    #
+    # The master caster never checks with its an
+    #
+    # @see Caster::ClassMethods#master_caster
 
     # @method self.cast_with
+    # @api public
+    #
+    # Register a caster under a key
 
     # @method self.cast
 
