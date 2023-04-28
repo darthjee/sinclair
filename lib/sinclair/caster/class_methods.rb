@@ -1,17 +1,11 @@
 # frozen_string_literal: true
 
 class Sinclair
-  # @api public
-  # @author darhtjee
-  #
-  # Class responsible for defining how to and casting values
-  #
-  # First the class needs to be configured using {.cast_with} and later
-  # a value can be cast by using {.cast} or {.caster_for}
-  #
-  # Inheritance grants the hability to have different casting for different
-  # purposes / applications / gems
   class Caster
+    # @api public
+    # @author darhtjee
+    #
+    # Class methods for {Caster}
     module ClassMethods
       def cast_with(key, method_name = nil, &block)
         caster = instance_for(method_name, &block)
