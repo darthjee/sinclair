@@ -28,13 +28,15 @@ class Sinclair
       def caster_for(key)
         return casters[key] if casters.key?(key)
 
-        caster_for_class(key) || superclas_caster_for(key)
+        caster_for_class(key) || superclas_caster_for(key) || new { |value| value }
       end
 
       protected
 
       def superclas_caster_for(key)
-        caster_superclass&.caster_for(key) || new { |value| value }
+        return if master_class?
+
+        superclass.caster_for(key)
       end
 
       def caster_for_class(klass)
@@ -60,10 +62,8 @@ class Sinclair
         @class_casters ||= {}
       end
 
-      def caster_superclass
-        return if self == Sinclair::Caster
-
-        superclass
+      def master_class?
+        @master_class ||= self == Sinclair::Caster
       end
     end
 
