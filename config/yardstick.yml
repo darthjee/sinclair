@@ -19,6 +19,7 @@ rules:
       - Sinclair#add_method
       - Sinclair#add_class_method
       - Sinclair.build
+      - Sinclair::Caster.cast_with
       - Sinclair::Configurable#config
       - Sinclair::Configurable#reset_config
       - Sinclair::Configurable#configure
