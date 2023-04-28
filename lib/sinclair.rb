@@ -83,6 +83,7 @@ class Sinclair
   require 'sinclair/options_parser'
 
   autoload :VERSION,           'sinclair/version'
+  autoload :Caster,            'sinclair/caster'
   autoload :ClassMethods,      'sinclair/class_methods'
   autoload :Config,            'sinclair/config'
   autoload :ConfigBuilder,     'sinclair/config_builder'
