@@ -159,4 +159,12 @@ describe Sinclair::Caster::ClassMethods do
       end
     end
   end
+
+  describe '.master_class' do
+    it 'ignores superclass registered casters' do
+      expect { caster.master_class }
+        .to change { caster.cast('10', :integer) }
+        .from(10).to('10')
+    end
+  end
 end
