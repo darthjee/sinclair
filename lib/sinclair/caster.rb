@@ -78,6 +78,9 @@ class Sinclair
     #   @param key [Symbol] key where the caster is registered under
     #   @param opts [Hash] Options to be sent to the caster
     #
+    #   @example Casting from pre registered symbol caster 
+    #     my_caster.cast('10', :integer) # returns 10
+    #
     # @overload cast(value, class_key, **opts)
     #   @param value [Object] value to be cast
     #   @param class_key [Class] Class to used as key in the casters storage
