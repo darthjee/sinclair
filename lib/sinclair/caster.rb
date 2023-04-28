@@ -84,6 +84,7 @@ class Sinclair
     # @return [Object] the value cast
 
     # @method self.caster_for
+    # @api public
     #
     # Returns an instance of caster for the provided key
     #
@@ -131,7 +132,9 @@ class Sinclair
 
     private
 
+    # @api private
     # @private
+    #
     # Keys of options accepted by the block
     #
     # @return [Array<Symbol>]

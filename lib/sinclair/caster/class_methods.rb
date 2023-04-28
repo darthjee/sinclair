@@ -67,6 +67,8 @@ class Sinclair
         end&.second
       end
 
+      # @api private
+      #
       # Returns a new instance {Caster}
       #
       # @overload instance_for(method_name, &block)
