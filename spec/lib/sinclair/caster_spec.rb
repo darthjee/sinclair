@@ -73,6 +73,17 @@ describe Sinclair::Caster do
     end
   end
 
+  describe '.caster_for' do
+    context 'when the key has been defined with a symbol key' do
+      before { caster.cast_with(:problem, :to_p) }
+
+      it do
+        expect(caster.caster_for(:problem))
+          .to be_a(described_class)
+      end
+    end
+  end
+
   describe '.cast' do
     let(:value) { values.sample }
     let(:values) do

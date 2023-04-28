@@ -13,6 +13,10 @@ class Sinclair
         caster_for(key).cast(value, **opts)
       end
 
+      def caster_for(key)
+        casters[key] || caster_superclass&.caster_for(key)
+      end
+
       protected
 
       def instance_for(method_name, &block)
@@ -20,10 +24,6 @@ class Sinclair
         return method_name if method_name.is_a?(Caster)
 
         new(&method_name)
-      end
-
-      def caster_for(key)
-        casters[key] || caster_superclass&.caster_for(key)
       end
 
       def caster_defined?(key)
