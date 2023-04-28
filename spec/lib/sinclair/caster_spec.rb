@@ -82,7 +82,7 @@ describe Sinclair::Caster do
         before { caster.cast_with(Integer, :to_i) }
 
         it 'returns the cast value' do
-          expect(caster.cast("10", Integer)).to eq(10)
+          expect(caster.cast('10', Integer)).to eq(10)
         end
       end
     end
@@ -97,7 +97,7 @@ describe Sinclair::Caster do
         before { caster.cast_with(Numeric, :to_i) }
 
         it 'returns the cast value' do
-          expect(caster.cast("10", Integer)).to eq(10)
+          expect(caster.cast('10', Integer)).to eq(10)
         end
       end
     end

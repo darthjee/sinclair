@@ -28,14 +28,20 @@ class Sinclair
       def caster_for(key)
         return casters[key] if casters.key?(key)
 
-        caster = class_casters.find do |klass, _|
-          key == klass || key < klass
-        end&.second
-
-        caster || caster_superclass&.caster_for(key) || new { |value| value }
+        caster_for_class(key) || superclas_caster_for(key)
       end
 
       protected
+
+      def superclas_caster_for(key)
+        caster_superclass&.caster_for(key) || new { |value| value }
+      end
+
+      def caster_for_class(klass)
+        class_casters.find do |klazz, _|
+          klass == klazz || klass < klazz
+        end&.second
+      end
 
       def instance_for(method_name, &block)
         return new(&block) unless method_name
