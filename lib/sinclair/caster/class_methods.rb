@@ -7,10 +7,36 @@ class Sinclair
     #
     # Class methods for {Caster}
     module ClassMethods
+      # Changes the class to be the master caster
+      #
+      # The master caster never checks with its an
       def master_caster
         @master_caster = true
       end
-
+ 
+      # Register a caster under a key
+      #
+      # @overload cast_with(key, method_name)
+      #   @param key [Symbol] key where the caster will be store.
+      #   @param method_name [Symbol] method to be called on the
+      #     value that is being converted
+      #
+      # @overload cast_with(key, &block)
+      #   @param key [Symbol] key where the caster will be store.
+      #   @param block [Proc] block to be used when casting the value.
+      #
+      # @overload cast_with(class_key, method_name)
+      #   @param class_key [Class] class to be used as key.
+      #     This will be used as parent class when the calling {#cast}.
+      #   @param method_name [Symbol] method to be called on the
+      #     value that is being converted.
+      #
+      # @overload cast_with(class_key, method_name)
+      #   @param class_key [Class] class to be used as key.
+      #     This will be used as parent class when the calling {#cast}.
+      #   @param block [Proc] block to be used when casting the value.
+      #
+      # @return [Caster] the registered caster
       def cast_with(key, method_name = nil, &block)
         caster = instance_for(method_name, &block)
 
