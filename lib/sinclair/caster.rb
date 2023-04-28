@@ -12,50 +12,28 @@ class Sinclair
   # Inheritance grants the hability to have different casting for different
   # purposes / applications / gems
   class Caster
-    class << self
-      def cast_with(key, method_name = nil, &block)
-        casters[key] = instance_for(method_name, &block)
-      end
-
-      def cast(value, key, **opts)
-        caster_for(key).cast(value, **opts)
-      end
-
-      def caster_for(key)
-        casters[key] || caster_superclass&.caster_for(key) || new { |value| value }
-      end
-
-      protected
-
-      def instance_for(method_name, &block)
-        return new(&block) unless method_name
-        return method_name if method_name.is_a?(Caster)
-
-        new(&method_name)
-      end
-
-      private
-
-      def casters
-        @casters ||= {}
-      end
-
-      def caster_superclass
-        return if self == Sinclair::Caster
-
-        superclass
-      end
-    end
+    autoload :ClassMethods, 'sinclair/caster/class_methods'
+    extend Caster::ClassMethods
 
     def initialize(&block)
       @block = block.to_proc
     end
 
     def cast(value, **opts)
-      block.call(value, **opts)
+      options = opts.select do |key, _|
+        options_keys.include?(key)
+      end
+
+      block.call(value, **options)
     end
 
     private
+
+    def options_keys
+      @options_keys ||= block.parameters.select do |(type, _)|
+        %i[key keyreq].include? type
+      end.map(&:second)
+    end
 
     attr_reader :block
 

@@ -3,129 +3,72 @@
 require 'spec_helper'
 
 describe Sinclair::Caster do
-  subject(:caster) { Class.new(described_class) }
+  subject(:caster) { caster_class.new(&method_name) }
 
-  describe '.cast_with' do
-    let(:value)       { instance_double('value', to_p: final_value) }
-    let(:final_value) { Random.rand(100) }
-
-    context 'when a proc is given' do
-      it do
-        expect { caster.cast_with(:problem, &:to_p) }
-          .not_to raise_error
-      end
-
-      context 'when casting is called' do
-        before { caster.cast_with(:problem, &:to_p) }
-
-        it 'returns the cast value' do
-          expect(caster.cast(value, :problem)).to eq(final_value)
-        end
-      end
-    end
-
-    context 'when a proc with two arguments is given' do
-      it do
-        expect { caster.cast_with(:problem) { |v, **_opts| v.to_p } }
-          .not_to raise_error
-      end
-
-      context 'when casting is called' do
-        before { caster.cast_with(:problem) { |v, sum:| v.to_p + sum } }
-
-        it 'returns the cast value' do
-          expect(caster.cast(value, :problem, sum: 2))
-            .to eq(final_value + 2)
-        end
-      end
-    end
-
-    context 'when a symbol is given' do
-      let(:instance) { described_class.new(&:to_p) }
-
-      it do
-        expect { caster.cast_with(:problem, instance) }
-          .not_to raise_error
-      end
-
-      context 'when casting is called' do
-        before { caster.cast_with(:problem, instance) }
-
-        it 'returns the cast value' do
-          expect(caster.cast(value, :problem)).to eq(final_value)
-        end
-      end
-    end
-
-    context 'when a caster is given is given' do
-      it do
-        expect { caster.cast_with(:problem, :to_p) }
-          .not_to raise_error
-      end
-
-      context 'when casting is called' do
-        before { caster.cast_with(:problem, :to_p) }
-
-        it 'returns the cast value' do
-          expect(caster.cast(value, :problem)).to eq(final_value)
-        end
-      end
-    end
-  end
-
-  describe '.caster_for' do
-    context 'when the key has been defined with a symbol key' do
-      before { caster.cast_with(:problem, :to_p) }
-
-      it do
-        expect(caster.caster_for(:problem))
-          .to be_a(described_class)
-      end
-    end
-
-    context 'when the key has not been defined' do
-      it do
-        expect(caster.caster_for(:problem))
-          .to be_a(described_class)
-      end
-    end
-  end
+  let(:caster_class) { Class.new(described_class) }
 
   describe '.cast' do
-    let(:value) { values.sample }
-    let(:values) do
-      [Random.rand, 'some string', { key: 10 }, Object.new, Class.new, [2, 3]]
-    end
+    context 'when no options are given and the block accepts none' do
+      let(:method_name) { :to_s }
 
-    context 'when klass is nil' do
-      it 'returns the value' do
-        expect(caster.cast(value, nil))
-          .to eq(value)
+      it 'uses the block to transform the value' do
+        expect(caster.cast(10)).to eq('10')
       end
     end
 
-    context 'when class is :string' do
-      it 'returns the value as string' do
-        expect(caster.cast(value, :string))
-          .to eq(value.to_s)
+    context 'when options are given and the block accepts none' do
+      let(:method_name) { :to_i }
+
+      it 'uses the block to transform the value' do
+        expect(caster.cast('10', extra: true)).to eq(10)
       end
     end
 
-    context 'when class is :integer' do
-      let(:value) { '10.5' }
+    context 'when no options are given and the block accepts options' do
+      subject(:caster) do
+        caster_class.new do |value, sum: 5|
+          (value.to_i + sum).to_s
+        end
+      end
 
-      it 'returns the value as integer' do
-        expect(caster.cast(value, :integer))
-          .to eq(10)
+      it 'uses the block to transform the value' do
+        expect(caster.cast('10')).to eq('15')
       end
     end
 
-    context 'when class is :float' do
-      let(:value) { '10.5' }
+    context 'when options are given and the block accepts options' do
+      subject(:caster) do
+        caster_class.new do |value, sum:|
+          (value.to_i + sum).to_s
+        end
+      end
 
-      it 'returns the value as float' do
-        expect(caster.cast(value, :float))
-          .to eq(10.5)
+      it 'uses the options in the block' do
+        expect(caster.cast('10', sum: 5)).to eq('15')
+      end
+    end
+
+    context 'when no options are given and the block requires options' do
+      subject(:caster) do
+        caster_class.new do |value, sum:|
+          (value.to_i + sum).to_s
+        end
+      end
+
+      it do
+        expect { caster.cast('10') }.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'when extra options are given and the block accepts options' do
+      subject(:caster) do
+        caster_class.new do |value, sum:|
+          (value.to_i + sum).to_s
+        end
+      end
+
+      it 'ignores extra options' do
+        expect(caster.cast('10', sum: 5, extra: true)).to eq('15')
       end
     end
   end
