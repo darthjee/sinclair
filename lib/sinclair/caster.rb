@@ -17,15 +17,19 @@ class Sinclair
 
     def initialize(&block)
       @block = block.to_proc
+      @with_options = block.parameters.size > 1
     end
 
     def cast(value, **opts)
+      opts = {} unless with_options?
+
       block.call(value, **opts)
     end
 
     private
 
-    attr_reader :block
+    attr_reader :block, :with_options
+    alias with_options? with_options
 
     cast_with(:string, :to_s)
     cast_with(:integer, :to_i)

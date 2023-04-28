@@ -160,4 +160,3 @@ describe Sinclair::Caster::ClassMethods do
     end
   end
 end
-
