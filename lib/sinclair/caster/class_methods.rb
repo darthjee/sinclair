@@ -26,6 +26,7 @@ class Sinclair
         caster_for(key).cast(value, **opts)
       end
 
+      # (see Caster.caster_for)
       def caster_for(key)
         return casters[key] if casters.key?(key)
 

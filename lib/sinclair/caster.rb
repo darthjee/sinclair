@@ -31,7 +31,7 @@ class Sinclair
     # @api public
     #
     # Register a caster under a key
-    # 
+    #
     # @overload cast_with(key, method_name)
     #   @param key [Symbol] key where the caster will be store.
     #   @param method_name [Symbol] method to be called on the
@@ -84,6 +84,28 @@ class Sinclair
     # @return [Object] the value cast
 
     # @method self.caster_for
+    #
+    # Returns an instance of caster for the provided key
+    #
+    # When no registered caster is found one is requested for the parent class.
+    # If no caster is found, then a default caster is returned
+    #
+    # The default caster performs no casting returning the value itself
+    #
+    # @overload caster_for(key)
+    #   @param key [Symbol] key where the caster is registered under
+    #
+    # @overload caster_for(class_key)
+    #   @param class_key [Class] Class to used as key in the casters storage
+    #
+    #   When the +class_key+ does not match the stored key, but matches a superclass,
+    #   the registerd caster is returned.
+    #
+    # @see Caster::ClassMethods#caster_for
+    # @see Caster.cast_with
+    # @see Caster.cast
+    #
+    # @return [Caster]
 
     # @param block [Proc] Proc to be used when converting the value object
     def initialize(&block)
