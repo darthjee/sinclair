@@ -18,6 +18,7 @@ rules:
     exclude:
       - Sinclair#add_method
       - Sinclair#add_class_method
+      - Sinclair.build
       - Sinclair::Configurable#config
       - Sinclair::Configurable#reset_config
       - Sinclair::Configurable#configure
@@ -34,6 +35,7 @@ rules:
   ReturnTag:
     enabled: true
     exclude:
+      - Sinclair.build
       - Sinclair::Matchers::AddClassMethodTo#raise_block_syntax_error
       - Sinclair::Matchers::AddInstanceMethodTo#raise_block_syntax_error
       - Sinclair::MethodBuilder#build_from_definition
