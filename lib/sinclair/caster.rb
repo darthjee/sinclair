@@ -14,7 +14,7 @@ class Sinclair
   class Caster
     autoload :ClassMethods, 'sinclair/caster/class_methods'
     extend Caster::ClassMethods
-    master_class
+    master_caster
 
     def initialize(&block)
       @block = block.to_proc

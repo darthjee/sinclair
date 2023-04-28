@@ -7,8 +7,8 @@ class Sinclair
     #
     # Class methods for {Caster}
     module ClassMethods
-      def master_class
-        @master_class = true
+      def master_caster
+        @master_caster = true
       end
 
       def cast_with(key, method_name = nil, &block)
@@ -32,7 +32,7 @@ class Sinclair
       protected
 
       def superclas_caster_for(key)
-        return if master_class?
+        return if master_caster?
 
         superclass.caster_for(key)
       end
@@ -60,8 +60,8 @@ class Sinclair
         @class_casters ||= {}
       end
 
-      def master_class?
-        @master_class
+      def master_caster?
+        @master_caster
       end
     end
   end
