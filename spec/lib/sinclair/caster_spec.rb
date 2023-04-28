@@ -6,10 +6,21 @@ describe Sinclair::Caster do
   subject(:caster) { Class.new(described_class) }
 
   describe '.cast_with' do
+    let(:value)       { double(:value, to_p: final_value) }
+    let(:final_value) { Random.rand(100) }
+
     context 'when a proc is given' do
       it do
         expect { caster.cast_with(:problem, &:to_p) }
           .not_to raise_error
+      end
+
+      context 'when casting is called' do
+        before { caster.cast_with(:problem, &:to_p) }
+
+        it 'returns the cast value' do
+          expect(caster.cast(value, :problem)).to eq(final_value)
+        end
       end
     end
 
@@ -20,12 +31,28 @@ describe Sinclair::Caster do
         expect { caster.cast_with(:problem, instance) }
           .not_to raise_error
       end
+
+      context 'when casting is called' do
+        before { caster.cast_with(:problem, instance) }
+
+        it 'returns the cast value' do
+          expect(caster.cast(value, :problem)).to eq(final_value)
+        end
+      end
     end
 
     context 'when a caster is given is given' do
       it do
         expect { caster.cast_with(:problem, :to_p) }
           .not_to raise_error
+      end
+
+      context 'when casting is called' do
+        before { caster.cast_with(:problem, :to_p) }
+
+        it 'returns the cast value' do
+          expect(caster.cast(value, :problem)).to eq(final_value)
+        end
       end
     end
   end
