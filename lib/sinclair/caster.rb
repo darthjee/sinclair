@@ -20,8 +20,8 @@ class Sinclair
     end
 
     def cast(value, **opts)
-      options = opts.select do |k, _|
-        options_keys.include?(k)
+      options = opts.select do |key, _|
+        options_keys.include?(key)
       end
 
       block.call(value, **options)
