@@ -27,6 +27,32 @@ class Sinclair
     # @api public
     #
     # Register a caster under a key
+    # 
+    # @overload cast_with(key, method_name)
+    #   @param key [Symbol] key where the caster will be store.
+    #   @param method_name [Symbol] method to be called on the
+    #     value that is being converted
+    #
+    # @overload cast_with(key, &block)
+    #   @param key [Symbol] key where the caster will be store.
+    #   @param block [Proc] block to be used when casting the value.
+    #
+    # @overload cast_with(class_key, method_name)
+    #   @param class_key [Class] class to be used as key.
+    #     This will be used as parent class when the calling {Caster.cast}.
+    #   @param method_name [Symbol] method to be called on the
+    #     value that is being converted.
+    #
+    # @overload cast_with(class_key, &block)
+    #   @param class_key [Class] class to be used as key.
+    #     This will be used as parent class when the calling {Caster.cast}.
+    #   @param block [Proc] block to be used when casting the value.
+    #
+    # @see Caster::ClassMethods#cast_with
+    # @see Caster.caster_for
+    # @see Caster.cast
+    #
+    # @return [Caster] the registered caster
 
     # @method self.cast
 
