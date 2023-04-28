@@ -8,8 +8,6 @@ class Sinclair
       end
 
       def cast(value, key, **opts)
-        return value unless caster_defined?(key)
-
         caster_for(key).cast(value, **opts)
       end
 
@@ -24,10 +22,6 @@ class Sinclair
         return method_name if method_name.is_a?(Caster)
 
         new(&method_name)
-      end
-
-      def caster_defined?(key)
-        casters.key?(key) || caster_superclass&.caster_defined?(key)
       end
 
       private
