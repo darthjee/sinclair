@@ -7,10 +7,10 @@ class Sinclair
         casters[key] = instance_for(method_name, &block)
       end
 
-      def cast(value, key)
+      def cast(value, key, **opts)
         return value unless caster_defined?(key)
 
-        caster_for(key).cast(value)
+        caster_for(key).cast(value, **opts)
       end
 
       protected
@@ -47,8 +47,8 @@ class Sinclair
       @block = block.to_proc
     end
 
-    def cast(value)
-      block.call(value)
+    def cast(value, **opts)
+      block.call(value, **opts)
     end
 
     private

@@ -24,6 +24,22 @@ describe Sinclair::Caster do
       end
     end
 
+    context 'when a proc with two arguments is given' do
+      it do
+        expect { caster.cast_with(:problem) { |v, **opts| v.to_p } }
+          .not_to raise_error
+      end
+
+      context 'when casting is called' do
+        before { caster.cast_with(:problem) { |v, sum:| v.to_p + sum } }
+
+        it 'returns the cast value' do
+          expect(caster.cast(value, :problem, sum: 2))
+            .to eq(final_value + 2)
+        end
+      end
+    end
+
     context 'when a symbol is given' do
       let(:instance) { described_class.new(&:to_p) }
 
