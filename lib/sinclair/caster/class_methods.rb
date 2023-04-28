@@ -35,7 +35,7 @@ class Sinclair
 
       def caster_for_class(klass)
         class_casters.find do |klazz, _|
-          klass == klazz || klass < klazz
+          klass <= klazz
         end&.second
       end
 
