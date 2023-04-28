@@ -14,16 +14,16 @@ class Sinclair
   class Caster
     autoload :ClassMethods, 'sinclair/caster/class_methods'
     extend Caster::ClassMethods
-    master_caster
+    master_caster!
 
-    # @method self.master_caster
+    # @method self.master_caster!
     # @api public
     #
     # Changes the class to be the master caster
     #
     # The master caster never checks with its an
     #
-    # @see Caster::ClassMethods#master_caster
+    # @see Caster::ClassMethods#master_caster!
     #
     # @return [TrueClass]
 

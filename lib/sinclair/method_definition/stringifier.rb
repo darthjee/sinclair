@@ -9,7 +9,7 @@ class Sinclair
     #
     # Stringgify a value for {StringDefinition}
     class Stringifier < Caster
-      master_caster
+      master_caster!
 
       cast_with(NilClass) { 'nil' }
       cast_with(Symbol) { |value| ":#{value}" }

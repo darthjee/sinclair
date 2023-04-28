@@ -7,8 +7,8 @@ class Sinclair
     #
     # Class methods for {Caster}
     module ClassMethods
-      # (see Caster.master_caster)
-      def master_caster
+      # (see Caster.master_caster!)
+      def master_caster!
         @master_caster = true
       end
 
@@ -117,7 +117,7 @@ class Sinclair
       #
       # A master caster never checks if a superclass has a caster
       #
-      # @see master_caster
+      # @see master_caster!
       # @return [TrueClass,FalseClass]
       def master_caster?
         @master_caster
