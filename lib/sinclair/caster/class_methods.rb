@@ -31,7 +31,7 @@ class Sinclair
       #   @param method_name [Symbol] method to be called on the
       #     value that is being converted.
       #
-      # @overload cast_with(class_key, method_name)
+      # @overload cast_with(class_key, &block)
       #   @param class_key [Class] class to be used as key.
       #     This will be used as parent class when the calling {Caster.cast}.
       #   @param block [Proc] block to be used when casting the value.
@@ -48,6 +48,26 @@ class Sinclair
         casters[key] = caster
       end
 
+      # Cast a value using the registered caster
+      #
+      # @overload cast(value, key, **opts)
+      #   @param value [Object] value to be cast
+      #   @param key [Symbol] key where the caster is registered under
+      #   @param opts [Hash] Options to be sent to the caster
+      #
+      # @overload cast(value, class_key, **opts)
+      #   @param value [Object] value to be cast
+      #   @param class_key [Class] Class to used as key in the casters storage
+      #   @param opts [Hash] Options to be sent to the caster
+      #
+      #   When the +class_key+ does not match the stored key, but matches a superclass,
+      #   the registerd caster is returned.
+      #
+      # @see Caster.cast_with
+      # @see Caster.caster_for
+      # @see Caster#cast
+      #
+      # @return [Object] the value cast
       def cast(value, key, **opts)
         caster_for(key).cast(value, **opts)
       end
