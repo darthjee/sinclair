@@ -8,7 +8,16 @@ class Sinclair
     # @author darthjee
     #
     # Stringgify a value for {StringDefinition}
-    class Stringifier
+    class Stringifier < Caster
+      master_caster
+
+      cast_with(NilClass) { 'nil' }
+      cast_with(Symbol) { |value| ":#{value}" }
+      cast_with(Class, :to_s)
+      cast_with(Hash, :to_s)
+      cast_with(Array, :to_s)
+      cast_with(Object, :to_json)
+
       # Convert a value to a string format
       #
       # The returned string can be evaluated as code, returning the
@@ -18,12 +27,7 @@ class Sinclair
       #
       # @return [String]
       def self.value_string(value)
-        return 'nil' if value.nil?
-        return ":#{value}" if value.is_a?(Symbol)
-
-        return value.to_s if value.is_any?(Class, Hash, Array)
-
-        value.to_json
+        cast(value, value.class)
       end
     end
   end
