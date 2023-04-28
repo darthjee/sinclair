@@ -88,6 +88,47 @@ class Sinclair
     #     This will be used as parent class when the calling {Caster.cast}.
     #   @param block [Proc] block to be used when casting the value.
     #
+    #   @example Casting from pre registered block caster from a class
+    #     # hash_model.rb
+    #
+    #     class HashModel
+    #       def initialize(hash)
+    #         hash.each do |attribute, value|
+    #           method_name = "#{attribute}="
+    #
+    #           send(method_name, value) if respond_to?(method_name)
+    #         end
+    #       end
+    #     end
+    #
+    #     # hash_person.rb
+    #     class HashPerson < HashModel
+    #       attr_accessor :name, :age
+    #     end
+    #
+    #     # caster_config.rb
+    #     Caster.cast_with(HashModel) do |value, klass:|
+    #       klass.new(value)
+    #     end
+    #
+    #     Caster.cast_with(String, &:to_json)
+    #
+    #     # main.rb
+    #     values = [
+    #       { klass: String, value: { name: 'john', age: 20, country: 'BR' } },
+    #       { klass: HashPerson, value: { name: 'Mary', age: 22, country: 'IT' } }
+    #     ]
+    #
+    #     values.map! do |config|
+    #       value = config[:value]
+    #       klass = config[:klass]
+    #
+    #       Caster.cast(value, klass, klass: klass)
+    #     end
+    #
+    #     values[0] # returns '{"name":"john","age":20,"country":"BR"}'
+    #     values[1] # returns HashPerson.new(name: 'Mary', age: 22)
+    #
     # @see Caster::ClassMethods#cast_with
     # @see Caster.caster_for
     # @see Caster.cast

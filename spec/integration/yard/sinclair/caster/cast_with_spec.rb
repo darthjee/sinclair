@@ -34,6 +34,7 @@ describe 'yard Sinclair::Caster.cast_with' do
     my_caster.cast_with(HashModel) do |value, klass:|
       klass.new(value)
     end
+
     my_caster.cast_with(String, &:to_json)
 
     values = [
