@@ -47,22 +47,18 @@ class Sinclair
     #   @param method_name [Symbol] method to be called on the
     #     value that is being converted
     #
-    #   @example
+    #   @example Casting from pre registered symbol caster
     #     class MyCaster < Sinclair::Caster
     #       cast_with(:json, :to_json)
     #     end
     #
-    #     my_caster.cast({ key: :value }, :json) # returns '{"key":"value"}'
+    #     MyCaster.cast({ key: :value }, :json) # returns '{"key":"value"}'
     #
     # @overload cast_with(key, &block)
     #   @param key [Symbol] key where the caster will be store.
     #   @param block [Proc] block to be used when casting the value.
     #
     #   @example Casting from pre registered block caster
-    #     class MyCaster < Sinclair::Caster
-    #       cast_with(Numeric, :to_i)
-    #     end
-    #
     #     MyCaster.cast_with(:complex) do |hash|
     #       real = hash[:real]
     #       imaginary = hash[:imaginary]

@@ -29,4 +29,25 @@ describe 'yard Sinclair::Caster.cast_with' do
 
     expect(my_caster.cast('10', Integer)).to eq(10)
   end
+
+  it 'Casting from pre registered block caster from a class' do
+    my_caster.cast_with(HashModel) do |value, klass:|
+      klass.new(value)
+    end
+    my_caster.cast_with(String, &:to_json)
+
+    values = [
+      { klass: String, value: { name: 'john', age: 20, country: 'BR' } },
+      { klass: HashPerson, value: { name: 'Mary', age: 22, country: 'IT' } }
+    ]
+
+    values.map! do |config|
+      value = config[:value]
+      klass = config[:klass]
+      my_caster.cast(value, klass, klass: klass)
+    end
+
+    expect(values[0]).to eq('{"name":"john","age":20,"country":"BR"}')
+    expect(values[1]).to eq(HashPerson.new(name: 'Mary', age: 22))
+  end
 end
