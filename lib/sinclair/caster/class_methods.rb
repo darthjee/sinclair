@@ -7,19 +7,12 @@ class Sinclair
     #
     # Class methods for {Caster}
     module ClassMethods
-      # Changes the class to be the master caster
-      #
-      # The master caster never checks with its an
+      # (see Caster.master_caster)
       def master_caster
         @master_caster = true
       end
 
-      # Register a caster under a key
-      #
-      # @overload (see Caster.cast_with)
-      #
-      # @see (see Caster.cast_with)
-      # @return (see Caster.cast_with)
+      # (see Caster.cast_with)
       def cast_with(key, method_name = nil, &block)
         caster = instance_for(method_name, &block)
 
@@ -28,26 +21,7 @@ class Sinclair
         casters[key] = caster
       end
 
-      # Cast a value using the registered caster
-      #
-      # @overload cast(value, key, **opts)
-      #   @param value [Object] value to be cast
-      #   @param key [Symbol] key where the caster is registered under
-      #   @param opts [Hash] Options to be sent to the caster
-      #
-      # @overload cast(value, class_key, **opts)
-      #   @param value [Object] value to be cast
-      #   @param class_key [Class] Class to used as key in the casters storage
-      #   @param opts [Hash] Options to be sent to the caster
-      #
-      #   When the +class_key+ does not match the stored key, but matches a superclass,
-      #   the registerd caster is returned.
-      #
-      # @see Caster.cast_with
-      # @see Caster.caster_for
-      # @see Caster#cast
-      #
-      # @return [Object] the value cast
+      # (see Caster.cast)
       def cast(value, key, **opts)
         caster_for(key).cast(value, **opts)
       end

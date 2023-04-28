@@ -19,9 +19,13 @@ class Sinclair
     # @method self.master_caster
     # @api public
     #
+    # Changes the class to be the master caster
+    #
     # The master caster never checks with its an
     #
     # @see Caster::ClassMethods#master_caster
+    #
+    # @return [TrueClass]
 
     # @method self.cast_with
     # @api public
@@ -55,6 +59,29 @@ class Sinclair
     # @return [Caster] the registered caster
 
     # @method self.cast
+    # @api public
+    #
+    # Cast a value using the registered caster
+    #
+    # @overload cast(value, key, **opts)
+    #   @param value [Object] value to be cast
+    #   @param key [Symbol] key where the caster is registered under
+    #   @param opts [Hash] Options to be sent to the caster
+    #
+    # @overload cast(value, class_key, **opts)
+    #   @param value [Object] value to be cast
+    #   @param class_key [Class] Class to used as key in the casters storage
+    #   @param opts [Hash] Options to be sent to the caster
+    #
+    #   When the +class_key+ does not match the stored key, but matches a superclass,
+    #   the registerd caster is returned.
+    #
+    # @see Caster::ClassMethods#cast
+    # @see Caster.cast_with
+    # @see Caster.caster_for
+    # @see Caster#cast
+    #
+    # @return [Object] the value cast
 
     # @method self.caster_for
 
