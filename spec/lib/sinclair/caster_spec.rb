@@ -82,6 +82,13 @@ describe Sinclair::Caster do
           .to be_a(described_class)
       end
     end
+
+    context 'when the key has not been defined' do
+      it do
+        expect(caster.caster_for(:problem))
+          .to be_a(described_class)
+      end
+    end
   end
 
   describe '.cast' do
