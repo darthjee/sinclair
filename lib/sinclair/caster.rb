@@ -14,7 +14,11 @@ class Sinclair
   class Caster
     class << self
       def cast_with(key, method_name = nil, &block)
-        casters[key] = instance_for(method_name, &block)
+        caster = instance_for(method_name, &block)
+
+        return class_casters[key] = caster if key.is_a?(Class)
+
+        casters[key] = caster
       end
 
       def cast(value, key, **opts)
@@ -22,7 +26,13 @@ class Sinclair
       end
 
       def caster_for(key)
-        casters[key] || caster_superclass&.caster_for(key) || new { |value| value }
+        return casters[key] if casters.key?(key)
+
+        caster = class_casters.find do |klass, _|
+          key == klass || key < klass
+        end&.second
+
+        caster || caster_superclass&.caster_for(key) || new { |value| value }
       end
 
       protected
@@ -38,6 +48,10 @@ class Sinclair
 
       def casters
         @casters ||= {}
+      end
+
+      def class_casters
+        @class_casters ||= {}
       end
 
       def caster_superclass

@@ -86,6 +86,21 @@ describe Sinclair::Caster do
         end
       end
     end
+
+    context 'when key is a superclass' do
+      it do
+        expect { caster.cast_with(Numeric, :to_i) }
+          .not_to raise_error
+      end
+
+      context 'when casting is called with the child class' do
+        before { caster.cast_with(Numeric, :to_i) }
+
+        it 'returns the cast value' do
+          expect(caster.cast("10", Integer)).to eq(10)
+        end
+      end
+    end
   end
 
   describe '.caster_for' do
