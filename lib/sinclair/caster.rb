@@ -17,7 +17,6 @@ class Sinclair
 
     def initialize(&block)
       @block = block.to_proc
-      @options_keys = block.parameters.select { |l| %i[key keyreq].include? l.first }.map(&:second)
     end
 
     def cast(value, **opts)
@@ -30,7 +29,13 @@ class Sinclair
 
     private
 
-    attr_reader :block, :options_keys
+    def options_keys
+      @options_keys ||= block.parameters.select do |(type, _)|
+        %i[key keyreq].include? type
+      end.map(&:second)
+    end
+
+    attr_reader :block
 
     cast_with(:string, :to_s)
     cast_with(:integer, :to_i)
