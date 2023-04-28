@@ -23,6 +23,16 @@ class Sinclair
     #
     # The master caster never checks with its an
     #
+    # @example
+    #   class MyCaster < Sinclair::Caster
+    #   end
+    #
+    #   MyCaster.cast(10, :string) # returns '10'
+    #
+    #   MyCaster.master_caster!
+    #
+    #   MyCaster.cast(10, :string) # returns 10
+    #
     # @see Caster::ClassMethods#master_caster!
     #
     # @return [TrueClass]
