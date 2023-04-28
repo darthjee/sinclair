@@ -7,6 +7,10 @@ class Sinclair
     #
     # Class methods for {Caster}
     module ClassMethods
+      def master_class
+        @master_class = true
+      end
+
       def cast_with(key, method_name = nil, &block)
         caster = instance_for(method_name, &block)
 
@@ -57,7 +61,7 @@ class Sinclair
       end
 
       def master_class?
-        @master_class ||= self == Sinclair::Caster
+        @master_class
       end
     end
   end
