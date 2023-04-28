@@ -43,7 +43,7 @@ describe Sinclair::Caster do
         end
       end
 
-      it 'uses the block to transform the value' do
+      it 'uses the options in the block' do
         expect(caster.cast('10', sum: 5)).to eq('15')
       end
     end
@@ -55,8 +55,20 @@ describe Sinclair::Caster do
         end
       end
 
-      it 'uses the block to transform the value' do
+      it do
         expect { caster.cast('10') }.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'when extra options are given and the block accepts options' do
+      subject(:caster) do
+        caster_class.new do |value, sum:|
+          (value.to_i + sum).to_s
+        end
+      end
+
+      it 'ignores extra options' do
+        expect(caster.cast('10', sum: 5, extra: true)).to eq('15')
       end
     end
   end
