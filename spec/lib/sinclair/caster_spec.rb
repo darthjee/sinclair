@@ -6,7 +6,7 @@ describe Sinclair::Caster do
   subject(:caster) { Class.new(described_class) }
 
   describe '.cast_with' do
-    let(:value)       { double(:value, to_p: final_value) }
+    let(:value)       { instance_double('value', to_p: final_value) }
     let(:final_value) { Random.rand(100) }
 
     context 'when a proc is given' do
@@ -26,7 +26,7 @@ describe Sinclair::Caster do
 
     context 'when a proc with two arguments is given' do
       it do
-        expect { caster.cast_with(:problem) { |v, **opts| v.to_p } }
+        expect { caster.cast_with(:problem) { |v, **_opts| v.to_p } }
           .not_to raise_error
       end
 
