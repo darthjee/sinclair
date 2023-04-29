@@ -290,6 +290,21 @@ class Sinclair
     #   When the +class_key+ does not match the stored key, but matches a superclass,
     #   the registerd caster is returned.
     #
+    #   @example Getting the caster with class key'
+    #     # stringer_parser.rb
+    #     class StringParser < Sinclair::Caster
+    #       master_caster!
+    #
+    #       cast_with(JSON) { |value| JSON.parse(value) }
+    #       cast_with(Integer, :to_i)
+    #       cast_with(Float, :to_f)
+    #     end
+    #
+    #     # main.rb
+    #     StringParser.cast('{"key":"value"}', JSON) # returns { "key" => "value" }
+    #     StringParser.cast('10.2', Integer) # returns 10
+    #     StringParser.cast('10.2', Float) # returns 10.2
+    #
     # @see Caster::ClassMethods#caster_for
     # @see Caster.cast_with
     # @see Caster.cast
