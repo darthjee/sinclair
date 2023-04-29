@@ -1,4 +1,4 @@
-threshold: 97.7
+threshold: 100
 require_exact_threshold: false
 rules:
   ApiTag::Presence:
@@ -25,6 +25,7 @@ rules:
       - Sinclair::Caster#initialize
       - Sinclair::Caster::ClassMethods#cast
       - Sinclair::Caster::ClassMethods#cast_with
+      - Sinclair::Caster::ClassMethods#caster_for
       - Sinclair::Configurable#config
       - Sinclair::Configurable#reset_config
       - Sinclair::Configurable#configure
