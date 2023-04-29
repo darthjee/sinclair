@@ -9,6 +9,8 @@ describe 'yard Sinclair::Caster.cast' do
   end
 
   it 'Getting the caster with class key' do
-
+    expect(StringParser.cast('{"key":"value"}', JSON)).to eq({ "key" => "value" })
+    expect(StringParser.cast('10.2', Integer)).to eq(10)
+    expect(StringParser.cast('10.2', Float)).to eq(10.2)
   end
 end
