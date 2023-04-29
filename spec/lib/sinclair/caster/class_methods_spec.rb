@@ -87,6 +87,22 @@ describe Sinclair::Caster::ClassMethods do
       end
     end
 
+    context 'when key is a module' do
+      it do
+        expect { caster.cast_with(JSON) { |value| JSON.parse(value) } }
+          .not_to raise_error
+      end
+
+      context 'when casting is called' do
+        before { caster.cast_with(JSON) { |value| JSON.parse(value) } }
+
+        it 'returns the cast value' do
+          expect(caster.cast('{"key":"value"}', JSON))
+            .to eq({ "key" => "value" })
+        end
+      end
+    end
+
     context 'when key is a superclass' do
       it do
         expect { caster.cast_with(Numeric, :to_i) }
