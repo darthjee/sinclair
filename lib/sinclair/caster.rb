@@ -246,6 +246,44 @@ class Sinclair
     # @overload caster_for(key)
     #   @param key [Symbol] key where the caster is registered under
     #
+    #   @example Getting the caster with symbol key
+    #     # enum_caster.rb
+    #     class EnumCaster < Sinclair::Caster
+    #       cast_with(:hash, :to_h)
+    #       cast_with(:array, :to_a)
+    #     end
+    #
+    #     # enum_converter.rb
+    #     module EnumConverter
+    #       class << self
+    #         def to_hash(value)
+    #           return value if value.is_a?(Hash)
+    #
+    #           hash_caster.cast(value)
+    #         end
+    #
+    #         def to_array(value)
+    #           return value if value.is_a?(Array)
+    #
+    #           array_caster.cast(value)
+    #         end
+    #
+    #         private
+    #
+    #         def hash_caster
+    #           @hash_caster ||= EnumCaster.caster_for(:hash)
+    #         end
+    #
+    #         def array_caster
+    #           @array_caster ||= EnumCaster.caster_for(:array)
+    #         end
+    #       end
+    #     end
+    #
+    #     # main.rb
+    #     EnumConverter.to_array({ key: :value }) # returns [%i[key value]]
+    #     EnumConverter.to_hash([%i[key value]]) # returns { key: :value }
+    #
     # @overload caster_for(class_key)
     #   @param class_key [Class] Class to used as key in the casters storage
     #
