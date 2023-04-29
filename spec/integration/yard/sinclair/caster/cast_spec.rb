@@ -46,7 +46,7 @@ describe 'yard Sinclair::Caster' do
     end
   end
 
-  describe '.cast' do
+  describe '#cast' do
     it 'Casts from a selected caster' do
       caster = MathCaster.caster_for(:log)
 

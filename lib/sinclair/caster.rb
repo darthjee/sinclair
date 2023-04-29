@@ -324,6 +324,24 @@ class Sinclair
     # When the block does not accept options, those
     # are not passed
     #
+    # @example Casts from a selected caster
+    #   # math_caster.rb
+    #   class MathCaster < Sinclair::Caster
+    #     cast_with(:float, :to_f)
+    #
+    #     cast_with(:log) do |value, base: 10|
+    #       value = MathCaster.cast(value, :float)
+    #
+    #       Math.log(value, base)
+    #     end
+    #   end
+    #
+    #   # main.rb
+    #   caster = MathCaster.caster_for(:log)
+    #
+    #   caster.cast(100) # returns 2
+    #   caster.cast(8, base: 2) # returns 3
+    #
     # @return [Object] the result of the converting block
     def cast(value, **opts)
       options = opts.select do |key, _|
