@@ -7,4 +7,8 @@ describe 'yard Sinclair::Caster.cast' do
     expect(EnumConverter.to_array({ key: :value })).to eq([%i[key value]])
     expect(EnumConverter.to_hash([%i[key value]])).to eq({ key: :value })
   end
+
+  it 'Getting the caster with class key' do
+
+  end
 end
