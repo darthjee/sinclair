@@ -3,6 +3,23 @@
 require 'spec_helper'
 
 describe 'yard Sinclair::Caster.cast' do
+  it 'Casts with a symbol key' do
+    initial = Random.rand(10..20)
+    log = MathCaster.cast(initial, :log)
+    exp = MathCaster.cast(log, :exp)
+
+    expect(exp).to be_between(initial-0.0001, initial+0.0001)
+  end
+
+  it 'Casts passing parameter' do
+    base = Random.rand(3..6)
+    initial = Random.rand(10..20)
+    log = MathCaster.cast(initial, :log, base: base)
+    exp = MathCaster.cast(log, :exp, base: base)
+
+    expect(exp).to be_between(initial-0.0001, initial+0.0001)
+  end
+
   it 'Casts with class key' do
     hash = { a: 1, b: 2, 'c' => nil }
     string = 'my string'
