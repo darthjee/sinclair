@@ -98,7 +98,7 @@ describe Sinclair::Caster::ClassMethods do
 
         it 'returns the cast value' do
           expect(caster.cast('{"key":"value"}', JSON))
-            .to eq({ "key" => "value" })
+            .to eq({ 'key' => 'value' })
         end
       end
     end
