@@ -105,6 +105,8 @@ class Sinclair
   extend ClassMethods
 
   # @method self.build(klass, options = {}, &block)
+  # @api public
+  #
   # Runs build using a block for adding the methods
   #
   # The block is executed adding the methods and after the builder

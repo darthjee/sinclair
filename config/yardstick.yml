@@ -1,4 +1,4 @@
-threshold: 97.7
+threshold: 100
 require_exact_threshold: false
 rules:
   ApiTag::Presence:
@@ -18,6 +18,14 @@ rules:
     exclude:
       - Sinclair#add_method
       - Sinclair#add_class_method
+      - Sinclair.build
+      - Sinclair::Caster.cast
+      - Sinclair::Caster.cast_with
+      - Sinclair::Caster.caster_for
+      - Sinclair::Caster#initialize
+      - Sinclair::Caster::ClassMethods#cast
+      - Sinclair::Caster::ClassMethods#cast_with
+      - Sinclair::Caster::ClassMethods#caster_for
       - Sinclair::Configurable#config
       - Sinclair::Configurable#reset_config
       - Sinclair::Configurable#configure
@@ -34,6 +42,7 @@ rules:
   ReturnTag:
     enabled: true
     exclude:
+      - Sinclair.build
       - Sinclair::Matchers::AddClassMethodTo#raise_block_syntax_error
       - Sinclair::Matchers::AddInstanceMethodTo#raise_block_syntax_error
       - Sinclair::MethodBuilder#build_from_definition
@@ -42,6 +51,7 @@ rules:
   Summary::Presence:
     enabled: true
     exclude:
+      - Sinclair::Caster#initialize
       - Sinclair::Config::MethodsBuilder#initialize
       - Sinclair::ConfigFactory#initialize
       - Sinclair::EnvSettable::Builder#initialize

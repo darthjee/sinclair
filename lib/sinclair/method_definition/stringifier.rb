@@ -9,14 +9,12 @@ class Sinclair
     #
     # Stringgify a value for {StringDefinition}
     class Stringifier < Caster
-      master_caster
+      master_caster!
 
       cast_with(NilClass) { 'nil' }
       cast_with(Symbol) { |value| ":#{value}" }
-      cast_with(Class, :to_s)
-      cast_with(Hash, :to_s)
-      cast_with(Array, :to_s)
-      cast_with(Object, :to_json)
+      cast_with(String, :to_json)
+      cast_with(Object, :to_s)
 
       # Convert a value to a string format
       #

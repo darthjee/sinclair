@@ -87,6 +87,22 @@ describe Sinclair::Caster::ClassMethods do
       end
     end
 
+    context 'when key is a module' do
+      it do
+        expect { caster.cast_with(JSON) { |value| JSON.parse(value) } }
+          .not_to raise_error
+      end
+
+      context 'when casting is called' do
+        before { caster.cast_with(JSON) { |value| JSON.parse(value) } }
+
+        it 'returns the cast value' do
+          expect(caster.cast('{"key":"value"}', JSON))
+            .to eq({ 'key' => 'value' })
+        end
+      end
+    end
+
     context 'when key is a superclass' do
       it do
         expect { caster.cast_with(Numeric, :to_i) }
@@ -160,9 +176,9 @@ describe Sinclair::Caster::ClassMethods do
     end
   end
 
-  describe '.master_caster' do
+  describe '.master_caster!' do
     it 'ignores superclass registered casters' do
-      expect { caster.master_caster }
+      expect { caster.master_caster! }
         .to change { caster.cast('10', :integer) }
         .from(10).to('10')
     end
