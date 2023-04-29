@@ -8,7 +8,7 @@ describe 'yard Sinclair::Caster.cast' do
     log = MathCaster.cast(initial, :log)
     exp = MathCaster.cast(log, :exp)
 
-    expect(exp).to be_between(initial-0.0001, initial+0.0001)
+    expect(exp).to be_between(initial - 0.0001, initial + 0.0001)
   end
 
   it 'Casts passing parameter' do
@@ -17,7 +17,7 @@ describe 'yard Sinclair::Caster.cast' do
     log = MathCaster.cast(initial, :log, base: base)
     exp = MathCaster.cast(log, :exp, base: base)
 
-    expect(exp).to be_between(initial-0.0001, initial+0.0001)
+    expect(exp).to be_between(initial - 0.0001, initial + 0.0001)
   end
 
   it 'Casts with class key' do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RubyStringCaster < Sinclair::Caster
   master_caster!
 
@@ -10,4 +12,3 @@ class RubyStringCaster < Sinclair::Caster
     cast(value, value.class)
   end
 end
-
