@@ -145,6 +145,39 @@ class Sinclair
     #   @param key [Symbol] key where the caster is registered under
     #   @param opts [Hash] Options to be sent to the caster
     #
+    #   @example Casts with a symbol key
+    #     # math_caster.rb
+    #     class MathCaster < Sinclair::Caster
+    #       cast_with(:float, :to_f)
+    #
+    #       cast_with(:log) do |value, base: 10|
+    #         value = MathCaster.cast(value, :float)
+    #
+    #         Math.log(value, base)
+    #       end
+    #
+    #       cast_with(:exp) do |value, base: 10|
+    #         value = MathCaster.cast(value, :float)
+    #
+    #         base**value
+    #       end
+    #     end
+    #
+    #     # main.rb
+    #     initial = Random.rand(10..20)
+    #     log = MathCaster.cast(initial, :log)
+    #     exp = MathCaster.cast(log, :exp)
+    #
+    #     # exp will be betwween initial - 0.0001 and initial + 0.0001
+    #
+    #   @example Casts passing parameter
+    #     base = Random.rand(3..6)
+    #     initial = Random.rand(10..20)
+    #     log = MathCaster.cast(initial, :log, base: base)
+    #     exp = MathCaster.cast(log, :exp, base: base)
+    #
+    #     # exp will be betwween initial - 0.0001 and initial + 0.0001
+    #
     # @overload cast(value, class_key, **opts)
     #   @param value [Object] value to be cast
     #   @param class_key [Class] Class to used as key in the casters storage

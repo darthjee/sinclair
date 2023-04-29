@@ -19,7 +19,11 @@ rules:
       - Sinclair#add_method
       - Sinclair#add_class_method
       - Sinclair.build
+      - Sinclair::Caster.cast
       - Sinclair::Caster.cast_with
+      - Sinclair::Caster#initialize
+      - Sinclair::Caster::ClassMethods#cast
+      - Sinclair::Caster::ClassMethods#cast_with
       - Sinclair::Configurable#config
       - Sinclair::Configurable#reset_config
       - Sinclair::Configurable#configure
@@ -45,6 +49,7 @@ rules:
   Summary::Presence:
     enabled: true
     exclude:
+      - Sinclair::Caster#initialize
       - Sinclair::Config::MethodsBuilder#initialize
       - Sinclair::ConfigFactory#initialize
       - Sinclair::EnvSettable::Builder#initialize
