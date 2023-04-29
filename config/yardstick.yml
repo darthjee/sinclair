@@ -21,6 +21,7 @@ rules:
       - Sinclair.build
       - Sinclair::Caster.cast
       - Sinclair::Caster.cast_with
+      - Sinclair::Caster.caster_for
       - Sinclair::Caster#initialize
       - Sinclair::Caster::ClassMethods#cast
       - Sinclair::Caster::ClassMethods#cast_with
