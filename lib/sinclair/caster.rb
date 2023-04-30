@@ -24,7 +24,11 @@ class Sinclair
     # The master caster never checks with its an
     #
     # @example
-    #   class MyCaster < Sinclair::Caster
+    #   class BaseCaster < Sinclair::Caster
+    #     cast_with(:string, :to_s)
+    #   end
+    #
+    #   class MyCaster < BaseCaster
     #   end
     #
     #   MyCaster.cast(10, :string) # returns '10'
@@ -373,9 +377,5 @@ class Sinclair
     #
     # @return [Proc]
     attr_reader :block
-
-    cast_with(:string, :to_s)
-    cast_with(:integer, :to_i)
-    cast_with(:float, :to_f)
   end
 end
