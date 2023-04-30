@@ -3,7 +3,15 @@
 require 'spec_helper'
 
 describe Sinclair::Caster::ClassMethods do
-  subject(:caster) { Class.new(Sinclair::Caster) }
+  subject(:caster) { Class.new(superclass) }
+
+  let(:superclass) do
+    Class.new(Sinclair::Caster) do
+      cast_with(:string, :to_s)
+      cast_with(:integer, :to_i)
+      cast_with(:float, :to_f)
+    end
+  end
 
   describe '.cast_with' do
     let(:value)       { instance_double('value', to_p: final_value) }

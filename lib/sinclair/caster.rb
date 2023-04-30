@@ -373,9 +373,5 @@ class Sinclair
     #
     # @return [Proc]
     attr_reader :block
-
-    cast_with(:string, :to_s)
-    cast_with(:integer, :to_i)
-    cast_with(:float, :to_f)
   end
 end
