@@ -28,7 +28,7 @@ describe Sinclair::EqualsChecker::Reader do
 
       it do
         expect(described_class)
-          .to be_attributes_match(attribute, model, other)
+          .not_to be_attributes_match(attribute, model, other)
       end
     end
   end
