@@ -121,7 +121,7 @@ describe Sinclair::EqualsChecker do
     end
 
     context 'when one of the attributes is an instance variable' do
-      let(:attributes) { [:name, :@age] }
+      let(:attributes) { %i[name @age] }
 
       context 'when the instance variable is different and the method the same' do
         let(:name2) { name1 }
