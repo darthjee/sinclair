@@ -10,6 +10,7 @@ describe Sinclair::Caster::ClassMethods do
       cast_with(:string, :to_s)
       cast_with(:integer, :to_i)
       cast_with(:float, :to_f)
+      cast_with(String, :to_s)
     end
   end
 
@@ -128,6 +129,19 @@ describe Sinclair::Caster::ClassMethods do
   end
 
   describe '.caster_for' do
+    context 'when nil key is given' do
+      let(:value) { values.sample }
+      let(:values) do
+        [Random.rand, 'some string', { key: 10 }, Object.new, Class.new, [2, 3]]
+      end
+
+      it { expect(caster.caster_for(nil)).to be_a(Sinclair::Caster) }
+
+      it 'returns the default caster' do
+        expect(caster.caster_for(nil).cast(value)).to eq(value)
+      end
+    end
+
     context 'when the key has been defined with a symbol key' do
       before { caster.cast_with(:problem, :to_p) }
 

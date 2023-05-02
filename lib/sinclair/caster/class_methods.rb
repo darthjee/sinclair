@@ -62,6 +62,8 @@ class Sinclair
       #
       # @return [Caster]
       def caster_for_class(klass)
+        return unless klass.is_a?(Class) || klass.is_a?(Module)
+
         class_casters.find do |klazz, _|
           klass <= klazz
         end&.second
