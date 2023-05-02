@@ -33,7 +33,7 @@ class Sinclair
       # Reads the +attribute+ from the model
       #
       # When attribute is a method name, calls that method on the model
-      # 
+      #
       # When attribute is an instance variable name, that is read directly from the model
       #
       # @param model [Object] the model to be read
