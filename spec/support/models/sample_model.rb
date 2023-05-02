@@ -6,6 +6,10 @@ class SampleModel
     @age  = age
   end
 
+  def information
+    "#{name}: #{age} yo"
+  end
+
   protected
 
   attr_reader :name

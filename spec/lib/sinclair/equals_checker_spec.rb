@@ -119,6 +119,18 @@ describe Sinclair::EqualsChecker do
         end
       end
     end
+
+    context 'when one of the attributes is an instance variable' do
+      let(:attributes) { %i[name @age] }
+
+      context 'when the instance variable is different and the method the same' do
+        let(:name2) { name1 }
+
+        it do
+          expect(checker).not_to be_match(model1, model2)
+        end
+      end
+    end
   end
 
   describe '#add' do
