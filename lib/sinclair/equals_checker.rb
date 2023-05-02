@@ -50,6 +50,8 @@ class Sinclair
   #
   #   checker.match?(model1, model2) # returns false
   class EqualsChecker
+    autoload :Reader, 'sinclair/equals_checker/reader'
+
     # @param attributes [Array<Symbol,String>] list of relevant attributes
     def initialize(*attributes)
       @attributes = Set.new(attributes.flatten)
@@ -91,28 +93,11 @@ class Sinclair
       return false unless model.class == other.class
 
       attributes.all? do |attr|
-        attributes_match?(attr, model, other)
+        Reader.attributes_match?(attr, model, other)
       end
     end
 
     private
-
-    # @private
-    # @api private
-    #
-    # Checks if two attributes from 2 object match
-    #
-    # @param attr [Symbol] attribute name
-    # @param model [Object] object to be compared with other
-    # @param other [Object] object to be compared with model
-    #
-    # @see #match?
-    # @return [TrueClass,FalseClass]
-    def attributes_match?(attr, model, other)
-      self_value  = attr.to_s.match?(/^@.*/) ? model.instance_variable_get(attr) : model.send(attr)
-      other_value = attr.to_s.match?(/^@.*/) ? other.instance_variable_get(attr) : other.send(attr)
-      self_value == other_value
-    end
 
     attr_reader :attributes
 
