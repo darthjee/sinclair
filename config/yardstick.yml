@@ -57,6 +57,7 @@ rules:
       - Sinclair::EnvSettable::Builder#initialize
       - Sinclair::Exception::InvalidOptions#initialize
       - Sinclair::EqualsChecker#initialize
+      - Sinclair::EqualsChecker::Reader#initialize
       - Sinclair::InputHash#initialize
       - Sinclair::Matchers::AddInstanceMethodTo#initialize
       - Sinclair::Matchers::AddClassMethodTo#initialize
