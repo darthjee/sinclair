@@ -91,11 +91,17 @@ class Sinclair
       return false unless model.class == other.class
 
       attributes.all? do |attr|
-        model.send(attr) == other.send(attr)
+        attributes_match?(attr, model, other)
       end
     end
 
     private
+
+    def attributes_match?(attr, model, other)
+      self_value  = attr.to_s.match?(/^@.*/) ? model.instance_variable_get(attr) : model.send(attr)
+      other_value = attr.to_s.match?(/^@.*/) ? other.instance_variable_get(attr) : other.send(attr)
+      self_value == other_value
+    end
 
     attr_reader :attributes
 
