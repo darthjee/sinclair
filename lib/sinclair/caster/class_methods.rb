@@ -28,6 +28,7 @@ class Sinclair
 
       # (see Caster.caster_for)
       def caster_for(key)
+        return new { |value| value } if key.nil?
         return casters[key] if casters.key?(key)
 
         caster_for_class(key) || superclas_caster_for(key) || new { |value| value }
