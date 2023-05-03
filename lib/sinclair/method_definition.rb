@@ -16,7 +16,7 @@ class Sinclair
     autoload :ParameterHelper,  'sinclair/method_definition/parameter_helper'
     autoload :Stringifier,      'sinclair/method_definition/stringifier'
 
-    # @method name
+    # @attr_reader name
     #
     # name of the method
     #
