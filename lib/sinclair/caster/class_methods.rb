@@ -35,6 +35,12 @@ class Sinclair
 
       protected
 
+      # @private
+      # @api private
+      #
+      # Default caster that performs no casting returning the value itself
+      #
+      # @return [Caster]
       def default
         @default ||= new
       end
