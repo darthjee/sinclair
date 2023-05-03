@@ -455,16 +455,13 @@ class Sinclair
     add_method(name, instance_eval(&block))
   end
 
-  private
-
-  attr_reader :klass
-  # @method klass
   # @api private
   # @private
   #
   # Class that will receive the methods
   #
   # @return [Class]
+  attr_reader :klass
 
   # @private
   # @api private
