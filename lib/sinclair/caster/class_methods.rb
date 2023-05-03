@@ -30,10 +30,14 @@ class Sinclair
       def caster_for(key)
         return casters[key] if casters.key?(key)
 
-        caster_for_class(key) || superclas_caster_for(key) || new { |value| value }
+        caster_for_class(key) || superclas_caster_for(key) || Sinclair::Caster.default
       end
 
       protected
+
+      def default
+        @default ||= new
+      end
 
       # @api private
       #
