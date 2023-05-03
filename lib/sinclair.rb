@@ -455,6 +455,9 @@ class Sinclair
     add_method(name, instance_eval(&block))
   end
 
+  private
+
+  # @!visibility public
   # @api private
   # @private
   #
