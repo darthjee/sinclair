@@ -45,6 +45,7 @@ class Sinclair
 
       # @api private
       # @private
+      # @attr_reader attributes
       #
       # Options attributes
       #
