@@ -6,8 +6,29 @@ describe Sinclair::Caster do
   subject(:caster) { caster_class.new(&method_name) }
 
   let(:caster_class) { Class.new(described_class) }
+  let(:value)        { values.sample }
+  let(:values) do
+    [Random.rand, 'some string', { key: 10 }, Object.new, Class.new, [2, 3]]
+  end
 
-  describe '.cast' do
+  describe '#cast' do
+    context 'when no block is given' do
+      subject(:caster) { caster_class.new }
+
+      context 'when no options are given' do
+        it 'returns the value' do
+          expect(caster.cast(value)).to be(value)
+        end
+      end
+
+      context 'when options are given' do
+        it 'returns the value' do
+          expect(caster.cast(value, key: :value))
+            .to be(value)
+        end
+      end
+    end
+
     context 'when no options are given and the block accepts none' do
       let(:method_name) { :to_s }
 

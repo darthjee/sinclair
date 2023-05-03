@@ -317,7 +317,7 @@ class Sinclair
 
     # @param block [Proc] Proc to be used when converting the value object
     def initialize(&block)
-      @block = block.to_proc
+      @block = block&.to_proc
     end
 
     # Cast a value using the given the set +block+
@@ -348,6 +348,8 @@ class Sinclair
     #
     # @return [Object] the result of the converting block
     def cast(value, **opts)
+      return value unless block
+
       options = opts.select do |key, _|
         options_keys.include?(key)
       end
