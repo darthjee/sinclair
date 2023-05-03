@@ -99,14 +99,13 @@ class Sinclair
 
     private
 
-    attr_reader :attributes
-
     # @private
     # @api private
-    # @method attributes
+    # @attr_reader attributes
     #
     # attributes relevant for checking difference
     #
     # @return [Set<Symbol,String>]
+    attr_reader :attributes
   end
 end

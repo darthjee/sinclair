@@ -43,14 +43,14 @@ class Sinclair
 
       private
 
-      attr_reader :attributes
-      # @method attributes
       # @api private
       # @private
+      # @attr_reader attributes
       #
       # Options attributes
       #
       # @return [Hash<Symbol.Object>]
+      attr_reader :attributes
 
       # Add all methods for options
       #

@@ -30,7 +30,9 @@ class Sinclair
   module OptionsParser
     private
 
+    # @attr_reader options
     # @!visibility public
+    # @private
     #
     # Options hash
     #
