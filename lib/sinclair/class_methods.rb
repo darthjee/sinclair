@@ -34,7 +34,7 @@ class Sinclair
     #   model.random_name # returns 'John 803 Doe'
     def build(klass, options = {}, &block)
       new(klass, options).tap do |builder|
-        builder.instance_eval(&block)
+        builder.instance_eval(&block) if block_given?
       end.build
     end
   end

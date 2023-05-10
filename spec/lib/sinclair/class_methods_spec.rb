@@ -34,5 +34,21 @@ describe Sinclair::ClassMethods do
         expect(instance.some_method).to eq(1)
       end
     end
+
+    context 'when no block is given' do
+      let(:builder_class) do
+        Class.new(Sinclair) do
+          def build
+            add_method(:some_method) { 1 }
+            super
+          end
+        end
+      end
+
+      it 'executes the block and builds' do
+        expect { builder_class.build(dummy_class, options) }
+          .to add_method(:some_method).to(dummy_class)
+      end
+    end
   end
 end
