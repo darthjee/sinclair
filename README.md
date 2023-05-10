@@ -15,13 +15,13 @@ create custom comparators, configure your application, create powerfull options,
 
 Employing Sinclair in your applications helps you streamline your development workflow and enhance your development process through more efficient, cleaner code
 
-Current Release: [1.16.2](https://github.com/darthjee/sinclair/tree/1.16.2)
+Current Release: [1.16.3](https://github.com/darthjee/sinclair/tree/1.16.3)
 
-[Next release](https://github.com/darthjee/sinclair/compare/1.16.2...master)
+[Next release](https://github.com/darthjee/sinclair/compare/1.16.3...master)
 
 Yard Documentation
 -------------------
-[https://www.rubydoc.info/gems/sinclair/1.16.2](https://www.rubydoc.info/gems/sinclair/1.16.2)
+[https://www.rubydoc.info/gems/sinclair/1.16.3](https://www.rubydoc.info/gems/sinclair/1.16.3)
 
 Installation
 ---------------
