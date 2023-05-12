@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 class Sinclair
-  VERSION = '1.16.3'
+  VERSION = '2.0.0'
 end
