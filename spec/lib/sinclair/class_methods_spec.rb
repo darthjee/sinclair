@@ -55,7 +55,7 @@ describe Sinclair::ClassMethods do
       let(:builder_class) { ComplexBuilder }
       let(:value)         { Random.rand(10..30) }
       let(:power)         { Random.rand(3..5) }
-      let(:result)        { value ** power }
+      let(:result)        { value**power }
 
       it 'executes the block and builds' do
         expect { builder_class.build(dummy_class, value, power, &:add_default) }
