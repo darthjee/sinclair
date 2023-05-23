@@ -21,13 +21,13 @@ describe Sinclair::ClassMethods do
     end
 
     it 'executes the block and builds' do
-      expect { builder_class.build(dummy_class, options, &block) }
+      expect { builder_class.build(dummy_class, **options, &block) }
         .to add_method(:some_method).to(dummy_class)
     end
 
     context 'when the method is built and called' do
       before do
-        builder_class.build(dummy_class, options, &block)
+        builder_class.build(dummy_class, **options, &block)
       end
 
       it 'returns the value' do
@@ -46,7 +46,7 @@ describe Sinclair::ClassMethods do
       end
 
       it 'executes the block and builds' do
-        expect { builder_class.build(dummy_class, options) }
+        expect { builder_class.build(dummy_class, **options) }
           .to add_method(:some_method).to(dummy_class)
       end
     end
