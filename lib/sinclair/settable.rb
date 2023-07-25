@@ -8,7 +8,7 @@ class Sinclair
   #
   # @example
   #   class MyAppClient
-  #     extend Sinclair::EnvSettable
+  #     extend Sinclair::Settable
   #
   #     settings_prefix 'MY_APP'
   #
@@ -25,8 +25,8 @@ class Sinclair
   #
   #   MyAppClient.host     # returns 'other-host.com'
   #
-  module EnvSettable
-    autoload :Builder, 'sinclair/env_settable/builder'
+  module Settable
+    autoload :Builder, 'sinclair/settable/builder'
 
     private
 
@@ -40,7 +40,7 @@ class Sinclair
     #
     # @return [String]
     #
-    # @example (see EnvSettable)
+    # @example (see Settable)
     def settings_prefix(prefix)
       @settings_prefix = prefix
     end
@@ -57,7 +57,7 @@ class Sinclair
     #
     # @return (see Sinclair#build)
     #
-    # @example (see EnvSettable)
+    # @example (see Settable)
     def with_settings(*settings_name, **defaults)
       Builder.new(self, @settings_prefix, *settings_name, **defaults).build
     end

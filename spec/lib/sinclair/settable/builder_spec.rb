@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Sinclair::EnvSettable::Builder do
+describe Sinclair::Settable::Builder do
   subject(:settable) { Class.new }
 
   let(:username) { 'my_login' }

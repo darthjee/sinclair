@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Sinclair
-  module EnvSettable
+  module Settable
     # @api private
     # @author darthjee
     #
@@ -12,7 +12,7 @@ class Sinclair
     class Builder < Sinclair
       # @param klass [Class] Class that will receive the methods
       # @param prefix [String] Env keys prefix
-      # @param (see EnvSettable#with_settings)
+      # @param (see Settable#with_settings)
       def initialize(klass, prefix, *settings_name, **defaults)
         super(klass, prefix: prefix)
 

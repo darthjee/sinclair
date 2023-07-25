@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ServiceClient
-  extend Sinclair::EnvSettable
+  extend Sinclair::Settable
   attr_reader :username, :password, :host, :port
 
   settings_prefix 'SERVICE'
