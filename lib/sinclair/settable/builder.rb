@@ -21,6 +21,7 @@ class Sinclair
 
       private
 
+      delegate :type, to: :options_object
       attr_reader :settings, :settable_module
 
       # @private
@@ -38,9 +39,12 @@ class Sinclair
       def add_setting_method(name)
         options = call_options
         block = read_block
+        caster = caster_class
+        cast_type = type
 
         add_class_method(name, cached: :full) do
-          block.call(name, **options)
+          value = block.call(name, **options)
+          caster.cast(value, cast_type)
         end
       end
 
@@ -56,6 +60,10 @@ class Sinclair
 
       def read_block
         @read_block ||= klass.read_with
+      end
+
+      def caster_class
+        settable_module::Caster
       end
     end
   end

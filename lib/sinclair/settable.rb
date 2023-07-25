@@ -3,6 +3,7 @@
 class Sinclair
   module Settable
     autoload :Builder,      'sinclair/settable/builder'
+    autoload :Caster,       'sinclair/settable/caster'
     autoload :ClassMethods, 'sinclair/settable/class_methods'
 
     extend Sinclair::Settable::ClassMethods
