@@ -33,7 +33,7 @@ class Sinclair
       # @return (see settings)
       def add_all_methods
         settings.each do |name|
-          add_setting_method(name, **options, &read_block)
+          add_setting_method(name, **call_options, &read_block)
         end
       end
 
@@ -41,6 +41,16 @@ class Sinclair
         add_class_method(name, cached: :full) do
           block.call(name, **opts)
         end
+      end
+
+      def call_options
+        @call_options ||= options.slice(*read_block_options)
+      end
+
+      def read_block_options
+        @read_block_options ||= read_block.parameters.select do |(type, _name)|
+          type == :key
+        end.map(&:second)
       end
     end
   end
