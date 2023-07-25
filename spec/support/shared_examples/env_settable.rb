@@ -47,8 +47,8 @@ shared_examples 'settings reading from env' do
   end
 
   context 'when defining a type' do
-    let(:settings) { %i[type] }
-    let(:options)  { { type: :integer } }
+    let(:settings) { %i[port] }
+    let(:options)  { { prefix: prefix, type: :integer } }
     let(:port)     { Random.rand(10..100) }
 
     before do

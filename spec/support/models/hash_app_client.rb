@@ -12,4 +12,5 @@ class HashAppClient
   end
 
   with_settings :username, :password, host: 'my-host.com'
+  setting_with_options :port, type: :integer
 end
