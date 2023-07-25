@@ -10,13 +10,13 @@ class Sinclair
     # This builder does the magic of adding methods
     # that will fetch variables from env or a default value
     class Builder < Sinclair
-      # @param klass [Class] Class that will receive the methods
-      # @param prefix [String] Env keys prefix
-      # @param (see Settable#with_settings)
-      def initialize(klass, prefix, *settings_name, **defaults)
+      attr_reader :read_block
+
+      def initialize(klass, prefix, read_with, *settings_name, **defaults)
         super(klass, prefix: prefix)
 
         @settings = Sinclair::InputHash.input_hash(*settings_name, **defaults)
+        @read_block = read_block
 
         add_all_methods
       end

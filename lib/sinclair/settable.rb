@@ -5,6 +5,10 @@ class Sinclair
     autoload :Builder,      'sinclair/settable/builder'
     autoload :ClassMethods, 'sinclair/settable/class_methods'
 
+    def read_with
+      self.singleton_class.included_modules.find { |m| m <= Sinclair::Settable }.read_with
+    end
+
     private
 
     # @private
@@ -36,7 +40,7 @@ class Sinclair
     #
     # @example (see Settable)
     def with_settings(*settings_name, **defaults)
-      Builder.new(self, @settings_prefix, *settings_name, **defaults).build
+      Builder.build(self, @settings_prefix, self.read_with, *settings_name, **defaults)
     end
   end
 end
