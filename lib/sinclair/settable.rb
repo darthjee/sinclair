@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class Sinclair
+  # @api public
+  # @author darthjee
+  #
+  # Module to be extended or included, allowing settings to be read from a source
+  #
+  # @see Sinclair::EnvSettable
   module Settable
     autoload :Builder,      'sinclair/settable/builder'
     autoload :ClassMethods, 'sinclair/settable/class_methods'
