@@ -34,5 +34,24 @@ class Sinclair
 
       ENV[env_key] || default
     end
+
+    # Sets environment keys prefix
+    #
+    # @param prefix [String] prefix of the env keys
+    #
+    # @return [String]
+    #
+    # @example (see Settable)
+    def settings_prefix(prefix = @settings_prefix)
+      @settings_prefix = prefix || superclass_prefix
+    end
+
+    private
+
+    def superclass_prefix
+      return unless superclass.is_a?(Sinclair::EnvSettable)
+
+      superclass.settings_prefix
+    end
   end
 end
