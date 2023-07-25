@@ -43,7 +43,7 @@ class Sinclair
         cast_type = type
 
         add_class_method(name, cached: :full) do
-          value = self.instance_exec(name, **options, &block)
+          value = instance_exec(name, **options, &block)
 
           value ? caster.cast(value, cast_type) : nil
         end

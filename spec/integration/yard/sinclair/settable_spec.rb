@@ -2,18 +2,18 @@
 
 require 'spec_helper'
 
-describe Sinclair::EnvSettable do
+describe Sinclair::Settable do
   describe '#yard' do
-    subject(:settable) { MyAppClient }
+    subject(:settable) { HashAppClient }
 
     before do
-      ENV['MY_APP_USERNAME'] = 'my_login'
-      ENV['MY_APP_PORT'] = '8080'
+      HashAppClient::HASH[:username] = 'my_login'
+      HashAppClient::HASH[:port] = '8080'
     end
 
     after do
-      ENV.delete('MY_APP_USERNAME')
-      ENV.delete('MY_APP_PORT')
+      HashAppClient::HASH.delete(:username)
+      HashAppClient::HASH.delete(:port)
     end
 
     it 'retrieves data from env' do
