@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Sinclair::Settable do
+describe Sinclair::EnvSettable do
   describe 'readme' do
     let(:client) { ServiceClient.default }
     let(:query) do

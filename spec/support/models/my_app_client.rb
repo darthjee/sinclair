@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MyAppClient
-  extend Sinclair::Settable
+  extend Sinclair::EnvSettable
 
   settings_prefix 'MY_APP'
 

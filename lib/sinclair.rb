@@ -91,7 +91,7 @@ class Sinclair
   autoload :ConfigFactory,     'sinclair/config_factory'
   autoload :Configurable,      'sinclair/configurable'
   autoload :Comparable,        'sinclair/comparable'
-  autoload :Settable,          'sinclair/settable'
+  autoload :EnvSettable,       'sinclair/env_settable'
   autoload :Exception,         'sinclair/exception'
   autoload :EqualsChecker,     'sinclair/equals_checker'
   autoload :InputHash,         'sinclair/input_hash'
@@ -100,6 +100,7 @@ class Sinclair
   autoload :MethodDefinitions, 'sinclair/method_definitions'
   autoload :Model,             'sinclair/model'
   autoload :Options,           'sinclair/options'
+  autoload :Settable,          'sinclair/settable'
 
   include OptionsParser
   extend ClassMethods

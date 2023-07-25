@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Sinclair::Settable do
+describe Sinclair::EnvSettable do
   describe '#yard' do
     subject(:settable) { Class.new(MyAppClient) }
 
