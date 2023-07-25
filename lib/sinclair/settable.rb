@@ -2,7 +2,8 @@
 
 class Sinclair
   module Settable
-    autoload :Builder, 'sinclair/settable/builder'
+    autoload :Builder,      'sinclair/settable/builder'
+    autoload :ClassMethods, 'sinclair/settable/class_methods'
 
     private
 
