@@ -22,9 +22,6 @@ class Sinclair
       private
 
       attr_reader :settings, :settable_module
-      delegate :read_with, to: :klass
-
-      alias read_block read_with
 
       # @private
       # @api private
@@ -55,6 +52,10 @@ class Sinclair
         @read_block_options ||= read_block.parameters.select do |(type, _name)|
           type == :key
         end.map(&:second)
+      end
+
+      def read_block
+        @read_block ||= klass.read_with
       end
     end
   end
