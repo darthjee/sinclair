@@ -3,22 +3,34 @@
 shared_examples 'settings reading' do
   let(:env_hash) { ENV }
 
-  before do
-    env_hash[username_key] = username
-    env_hash[password_key] = password
+  context 'when the key is not set' do
+    it 'retrieves username from env' do
+      expect(settable.username).to be_nil
+    end
+
+    it 'retrieves password from env' do
+      expect(settable.password).to be_nil
+    end
   end
 
-  after do
-    env_hash.delete(username_key)
-    env_hash.delete(password_key)
-  end
+  context 'when the key is set' do
+    before do
+      env_hash[username_key] = username
+      env_hash[password_key] = password
+    end
 
-  it 'retrieves username from env' do
-    expect(settable.username).to eq(username)
-  end
+    after do
+      env_hash.delete(username_key)
+      env_hash.delete(password_key)
+    end
 
-  it 'retrieves password from env' do
-    expect(settable.password).to eq(password)
+    it 'retrieves username from env' do
+      expect(settable.username).to eq(username)
+    end
+
+    it 'retrieves password from env' do
+      expect(settable.password).to eq(password)
+    end
   end
 
   context 'when defining defaults' do
@@ -51,16 +63,24 @@ shared_examples 'settings reading' do
     let(:options)  { { prefix: prefix, type: :integer } }
     let(:port)     { Random.rand(10..100) }
 
-    before do
-      env_hash[port_key] = port.to_s
+    context 'when the key is not set' do
+      it 'retrieves port and cast to string' do
+        expect(settable.port).to be_nil
+      end
     end
 
-    after do
-      env_hash.delete(port_key)
-    end
+    context 'when the key is set' do
+      before do
+        env_hash[port_key] = port.to_s
+      end
 
-    it 'retrieves port and cast to string' do
-      expect(settable.port).to eq(port)
+      after do
+        env_hash.delete(port_key)
+      end
+
+      it 'retrieves port and cast to string' do
+        expect(settable.port).to eq(port)
+      end
     end
   end
 end
