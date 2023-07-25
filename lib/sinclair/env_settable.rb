@@ -51,9 +51,9 @@ class Sinclair
     private
 
     def default_options
-      {
+      super.merge(
         prefix: settings_prefix
-      }
+      )
     end
 
     def superclass_prefix
