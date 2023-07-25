@@ -3,7 +3,9 @@
 class HashAppClient
   extend Sinclair::Settable
 
+  # rubocop:disable Style/MutableConstant
   HASH = {}
+  # rubocop:enable Style/MutableConstant
 
   read_with do |key, default: nil|
     HASH[key] || default
