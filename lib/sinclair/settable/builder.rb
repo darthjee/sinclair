@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Sinclair
-  module EnvSettable
+  module Settable
     # @api private
     # @author darthjee
     #
@@ -10,13 +10,13 @@ class Sinclair
     # This builder does the magic of adding methods
     # that will fetch variables from env or a default value
     class Builder < Sinclair
-      # @param klass [Class] Class that will receive the methods
-      # @param prefix [String] Env keys prefix
-      # @param (see EnvSettable#with_settings)
-      def initialize(klass, prefix, *settings_name, **defaults)
-        super(klass, prefix: prefix)
+      attr_reader :read_block
+
+      def initialize(klass, read_block, *settings_name, **defaults)
+        super(klass)
 
         @settings = Sinclair::InputHash.input_hash(*settings_name, **defaults)
+        @read_block = read_block
 
         add_all_methods
       end
@@ -32,15 +32,6 @@ class Sinclair
       #
       # @return [Hash<Symbol,Object>]
 
-      delegate :prefix, to: :options_object
-      # @method prefix
-      # @private
-      # @api private
-      #
-      # Env keys prefix
-      #
-      # @return [String]
-
       # @private
       # @api private
       #
@@ -49,10 +40,11 @@ class Sinclair
       # @return (see settings)
       def add_all_methods
         settings.each do |name, value|
-          key = [prefix, name].compact.join('_').to_s.upcase
+          key   = name
+          block = read_block
 
           add_class_method(name) do
-            ENV[key] || value
+            block.call(key, self, value)
           end
         end
       end

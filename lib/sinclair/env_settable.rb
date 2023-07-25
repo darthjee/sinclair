@@ -26,40 +26,34 @@ class Sinclair
   #   MyAppClient.host     # returns 'other-host.com'
   #
   module EnvSettable
-    autoload :Builder, 'sinclair/env_settable/builder'
+    include Sinclair::Settable
+    extend Sinclair::Settable::ClassMethods
 
-    private
+    read_with do |key, settable, default|
+      env_key = [settable.settings_prefix, key].compact.join('_').to_s.upcase
 
-    # @private
-    # @api public
-    # @visibility public
-    #
+      ENV[env_key] || default
+    end
+
     # Sets environment keys prefix
     #
     # @param prefix [String] prefix of the env keys
     #
     # @return [String]
     #
-    # @example (see EnvSettable)
-    def settings_prefix(prefix)
+    # @example (see Settable)
+    def settings_prefix(prefix = nil)
+      return @settings_prefix || superclass_prefix unless prefix
+
       @settings_prefix = prefix
     end
 
-    # @private
-    # @api public
-    # @visibility public
-    #
-    # Adds settings
-    #
-    # @param settings_name [Array<Symbol,String>] Name of all settings
-    #   to be added
-    # @param defaults [Hash] Settings with default values
-    #
-    # @return (see Sinclair#build)
-    #
-    # @example (see EnvSettable)
-    def with_settings(*settings_name, **defaults)
-      Builder.new(self, @settings_prefix, *settings_name, **defaults).build
+    private
+
+    def superclass_prefix
+      return unless superclass.is_a?(Sinclair::EnvSettable)
+
+      superclass.settings_prefix
     end
   end
 end

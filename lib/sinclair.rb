@@ -100,6 +100,7 @@ class Sinclair
   autoload :MethodDefinitions, 'sinclair/method_definitions'
   autoload :Model,             'sinclair/model'
   autoload :Options,           'sinclair/options'
+  autoload :Settable,          'sinclair/settable'
 
   include OptionsParser
   extend ClassMethods
