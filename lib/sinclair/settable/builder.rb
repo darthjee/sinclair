@@ -10,12 +10,10 @@ class Sinclair
     # This builder does the magic of adding methods
     # that will fetch variables from env or a default value
     class Builder < Sinclair
-      attr_reader :read_block
+      def initialize(klass, read_block, *settings_name, **options)
+        super(klass, **options)
 
-      def initialize(klass, read_block, *settings_name, **defaults)
-        super(klass)
-
-        @settings = Sinclair::InputHash.input_hash(*settings_name, **defaults)
+        @settings = settings_name
         @read_block = read_block
 
         add_all_methods
@@ -23,14 +21,9 @@ class Sinclair
 
       private
 
-      attr_reader :settings
-      # @method settings
-      # @private
-      # @api private
-      #
-      # Settings map with default values
-      #
-      # @return [Hash<Symbol,Object>]
+      delegate :default, to: :options_object
+
+      attr_reader :settings, :read_block
 
       # @private
       # @api private
@@ -39,13 +32,14 @@ class Sinclair
       #
       # @return (see settings)
       def add_all_methods
-        settings.each do |name, value|
-          key   = name
-          block = read_block
+        settings.each do |name|
+          add_setting_method(name, **options, &read_block)
+        end
+      end
 
-          add_class_method(name) do
-            block.call(key, self, value)
-          end
+      def add_setting_method(name, **opts, &block)
+        add_class_method(name, cached: :full) do
+          block.call(name, **opts)
         end
       end
     end

@@ -29,8 +29,8 @@ class Sinclair
     include Sinclair::Settable
     extend Sinclair::Settable::ClassMethods
 
-    read_with do |key, settable, default|
-      env_key = [settable.settings_prefix, key].compact.join('_').to_s.upcase
+    read_with do |key, default: nil, prefix: nil|
+      env_key = [prefix, key].compact.join('_').to_s.upcase
 
       ENV[env_key] || default
     end
@@ -49,6 +49,12 @@ class Sinclair
     end
 
     private
+
+    def default_options
+      super.merge(
+        prefix: settings_prefix
+      )
+    end
 
     def superclass_prefix
       return unless superclass.is_a?(Sinclair::EnvSettable)

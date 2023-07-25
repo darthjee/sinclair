@@ -31,7 +31,21 @@ class Sinclair
     #
     # @example (see Settable)
     def with_settings(*settings_name, **defaults)
-      Builder.build(self, read_with, *settings_name, **defaults)
+      setting_with_options(*settings_name)
+
+      defaults.each do |key, default|
+        setting_with_options(key, default: default)
+      end
+    end
+
+    def setting_with_options(*settings_name, **options)
+      opts = default_options.merge(options)
+
+      Builder.build(self, read_with, *settings_name, **opts)
+    end
+
+    def default_options
+      {}
     end
   end
 end

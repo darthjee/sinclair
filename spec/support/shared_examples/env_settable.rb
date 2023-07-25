@@ -20,6 +20,9 @@ shared_examples 'settings reading from env' do
   end
 
   context 'when defining defaults' do
+    let(:settings)   { %i[host] }
+    let(:options)    { { prefix: prefix, default: 'my-host.com' } }
+
     it 'returns default value' do
       expect(settable.host).to eq('my-host.com')
     end
