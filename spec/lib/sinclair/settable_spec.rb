@@ -40,7 +40,7 @@ describe Sinclair::Settable do
     let(:port_key)     { :port }
 
     it_behaves_like 'settings reading' do
-      let(:env_hash) { HashAppClient::HASH }
+      let(:env_hash) { HashSettable::HASH }
     end
   end
 end
