@@ -10,20 +10,22 @@ class Sinclair
     # This builder does the magic of adding methods
     # that will fetch variables from env or a default value
     class Builder < Sinclair
-      def initialize(klass, read_block, *settings_name, **options)
+      def initialize(klass, settable_module, *settings_name, **options)
         super(klass, **options)
 
         @settings = settings_name
-        @read_block = read_block
+        @settable_module = settable_module
 
         add_all_methods
       end
 
       private
 
+      attr_reader :settings, :settable_module
       delegate :default, to: :options_object
+      delegate :read_with, to: :klass
 
-      attr_reader :settings, :read_block
+      alias read_block read_with
 
       # @private
       # @api private
