@@ -33,13 +33,16 @@ class Sinclair
       # @return (see settings)
       def add_all_methods
         settings.each do |name|
-          add_setting_method(name, **call_options, &read_block)
+          add_setting_method(name)
         end
       end
 
-      def add_setting_method(name, **opts, &block)
+      def add_setting_method(name)
+        options = call_options
+        block = read_block
+
         add_class_method(name, cached: :full) do
-          block.call(name, **opts)
+          block.call(name, **options)
         end
       end
 
