@@ -30,6 +30,7 @@ describe Sinclair::Settable::Builder do
     let(:username_key) { 'USERNAME' }
     let(:password_key) { 'PASSWORD' }
     let(:host_key)     { 'HOST' }
+    let(:port_key)     { 'PORT' }
 
     it_behaves_like 'settings reading from env'
   end
@@ -39,6 +40,7 @@ describe Sinclair::Settable::Builder do
     let(:username_key) { 'MY_APP_USERNAME' }
     let(:password_key) { 'MY_APP_PASSWORD' }
     let(:host_key)     { 'MY_APP_HOST' }
+    let(:port_key)     { 'MY_APP_PORT' }
 
     it_behaves_like 'settings reading from env'
   end

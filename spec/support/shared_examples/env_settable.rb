@@ -45,4 +45,22 @@ shared_examples 'settings reading from env' do
       end
     end
   end
+
+  context 'when defining a type' do
+    let(:settings) { %i[type] }
+    let(:options)  { { type: :integer } }
+    let(:port)     { Random.rand(10..100) }
+
+    before do
+      env_hash[port_key] = port.to_s
+    end
+
+    after do
+      env_hash.delete(port_key)
+    end
+
+    it 'retrieves port and cast to string' do
+      expect(settable.port).to eq(port)
+    end
+  end
 end
