@@ -13,18 +13,16 @@ class Sinclair
   #     settings_prefix 'MY_APP'
   #
   #     with_settings :username, :password, host: 'my-host.com'
+  #     setting_with_options :port, type: :integer
   #   end
   #
   #   ENV['MY_APP_USERNAME'] = 'my_login'
+  #   ENV['MY_APP_PORT']     = '8080'
   #
   #   MyAppClient.username # returns 'my_login'
   #   MyAppClient.password # returns nil
   #   MyAppClient.host     # returns 'my-host.com'
-  #
-  #   ENV['MY_APP_HOST'] = 'other-host.com'
-  #
-  #   MyAppClient.host     # returns 'other-host.com'
-  #
+  #   MyAppClient.port     # returns 8080
   module EnvSettable
     include Sinclair::Settable
     extend Sinclair::Settable::ClassMethods
