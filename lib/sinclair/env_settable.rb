@@ -42,8 +42,10 @@ class Sinclair
     # @return [String]
     #
     # @example (see Settable)
-    def settings_prefix(prefix = @settings_prefix)
-      @settings_prefix = prefix || superclass_prefix
+    def settings_prefix(prefix = nil)
+      return @settings_prefix || superclass_prefix unless prefix
+
+      @settings_prefix = prefix
     end
 
     private
