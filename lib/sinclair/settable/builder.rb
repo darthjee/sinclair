@@ -22,7 +22,6 @@ class Sinclair
       private
 
       attr_reader :settings, :settable_module
-      delegate :default, to: :options_object
       delegate :read_with, to: :klass
 
       alias read_block read_with
