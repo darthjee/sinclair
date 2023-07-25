@@ -44,7 +44,8 @@ class Sinclair
 
         add_class_method(name, cached: :full) do
           value = block.call(name, **options)
-          caster.cast(value, cast_type)
+
+          value ? caster.cast(value, cast_type) : nil
         end
       end
 
