@@ -37,9 +37,9 @@ class Sinclair
       end
 
       def add_setting_method(name)
-        options = call_options
-        block = read_block
-        caster = caster_class
+        options   = call_options
+        block     = read_block
+        caster    = caster_class
         cast_type = type
 
         add_class_method(name, cached: :full) do
