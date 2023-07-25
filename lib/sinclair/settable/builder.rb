@@ -38,7 +38,7 @@ class Sinclair
           block = read_block
 
           add_class_method(name) do
-            block.call(key, self, **opts)
+            block.call(key, **opts)
           end
         end
       end
