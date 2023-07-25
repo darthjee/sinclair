@@ -34,11 +34,11 @@ class Sinclair
       def add_all_methods
         settings.each do |name|
           key   = name
-          value = default
+          opts  = options
           block = read_block
 
           add_class_method(name) do
-            block.call(key, self, value)
+            block.call(key, self, **opts)
           end
         end
       end
