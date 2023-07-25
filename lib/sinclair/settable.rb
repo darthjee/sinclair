@@ -34,7 +34,7 @@ class Sinclair
       setting_with_options(*settings_name)
 
       defaults.each do |key, default|
-        Builder.build(self, read_with, key, default: default)
+        setting_with_options(key, default: default)
       end
     end
 
