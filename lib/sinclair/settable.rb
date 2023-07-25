@@ -12,7 +12,9 @@ class Sinclair
     private
 
     def settable_module
-      singleton_class.included_modules.find { |m| m <= Sinclair::Settable }
+      singleton_class.included_modules.find do |modu|
+        modu <= Sinclair::Settable
+      end
     end
 
     # @private
