@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 shared_examples 'settings reading from env' do
+  let(:env_hash) { ENV }
+
   before do
-    ENV[username_key] = username
-    ENV[password_key] = password
+    env_hash[username_key] = username
+    env_hash[password_key] = password
   end
 
   after do
-    ENV.delete(username_key)
-    ENV.delete(password_key)
+    env_hash.delete(username_key)
+    env_hash.delete(password_key)
   end
 
   it 'retrieves username from env' do
@@ -31,11 +33,11 @@ shared_examples 'settings reading from env' do
       let(:other_host) { 'other-host.com' }
 
       before do
-        ENV[host_key] = other_host
+        env_hash[host_key] = other_host
       end
 
       after do
-        ENV.delete(host_key)
+        env_hash.delete(host_key)
       end
 
       it 'retrieves host from env' do

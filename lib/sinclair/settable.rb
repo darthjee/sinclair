@@ -5,8 +5,10 @@ class Sinclair
     autoload :Builder,      'sinclair/settable/builder'
     autoload :ClassMethods, 'sinclair/settable/class_methods'
 
-    def read_with
-      settable_module.read_with
+    extend Sinclair::Settable::ClassMethods
+
+    def read_with(&block)
+      settable_module.read_with(&block)
     end
 
     private
