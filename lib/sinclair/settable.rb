@@ -12,7 +12,7 @@ class Sinclair
     private
 
     def settable_module
-      self.singleton_class.included_modules.find { |m| m <= Sinclair::Settable }
+      singleton_class.included_modules.find { |m| m <= Sinclair::Settable }
     end
 
     # @private
@@ -44,7 +44,7 @@ class Sinclair
     #
     # @example (see Settable)
     def with_settings(*settings_name, **defaults)
-      Builder.build(self, @settings_prefix, self.read_with, *settings_name, **defaults)
+      Builder.build(self, @settings_prefix, read_with, *settings_name, **defaults)
     end
   end
 end
