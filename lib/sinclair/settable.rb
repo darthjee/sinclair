@@ -31,7 +31,12 @@ class Sinclair
     #
     # @example (see Settable)
     def with_settings(*settings_name, **defaults)
-      Builder.build(self, read_with, *settings_name, **defaults)
+      setting_with_options(*settings_name)
+      Builder.build(self, read_with, **defaults)
+    end
+
+    def setting_with_options(*settings_name)
+      Builder.build(self, read_with, *settings_name)
     end
   end
 end
