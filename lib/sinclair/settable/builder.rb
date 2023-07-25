@@ -12,7 +12,7 @@ class Sinclair
     class Builder < Sinclair
       attr_reader :read_block
 
-      def initialize(klass, prefix, read_with, *settings_name, **defaults)
+      def initialize(klass, prefix, read_block, *settings_name, **defaults)
         super(klass, prefix: prefix)
 
         @settings = Sinclair::InputHash.input_hash(*settings_name, **defaults)
@@ -51,8 +51,10 @@ class Sinclair
         settings.each do |name, value|
           key = [prefix, name].compact.join('_').to_s.upcase
 
+          block = read_block
+
           add_class_method(name) do
-            ENV[key] || value
+            block.call(key, value)
           end
         end
       end

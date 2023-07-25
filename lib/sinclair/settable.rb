@@ -6,10 +6,14 @@ class Sinclair
     autoload :ClassMethods, 'sinclair/settable/class_methods'
 
     def read_with
-      self.singleton_class.included_modules.find { |m| m <= Sinclair::Settable }.read_with
+      settable_module.read_with
     end
 
     private
+
+    def settable_module
+      self.singleton_class.included_modules.find { |m| m <= Sinclair::Settable }
+    end
 
     # @private
     # @api public
