@@ -12,8 +12,8 @@ class Sinclair
     class Builder < Sinclair
       attr_reader :read_block
 
-      def initialize(klass, prefix, read_block, *settings_name, **defaults)
-        super(klass, prefix: prefix)
+      def initialize(klass, read_block, *settings_name, **defaults)
+        super(klass)
 
         @settings = Sinclair::InputHash.input_hash(*settings_name, **defaults)
         @read_block = read_block
@@ -31,15 +31,6 @@ class Sinclair
       # Settings map with default values
       #
       # @return [Hash<Symbol,Object>]
-
-      delegate :prefix, to: :options_object
-      # @method prefix
-      # @private
-      # @api private
-      #
-      # Env keys prefix
-      #
-      # @return [String]
 
       # @private
       # @api private
