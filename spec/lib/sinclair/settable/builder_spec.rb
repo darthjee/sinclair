@@ -3,13 +3,22 @@
 require 'spec_helper'
 
 describe Sinclair::Settable::Builder do
-  subject(:settable) { Class.new }
+  subject(:settable) do
+    setting_prefix = prefix
 
-  let(:username) { 'my_login' }
-  let(:password) { Random.rand(10_000).to_s }
+    Class.new do
+      extend Sinclair::EnvSettable
+
+      settings_prefix setting_prefix
+    end
+  end
+
+  let(:username)   { 'my_login' }
+  let(:password)   { Random.rand(10_000).to_s }
+  let(:read_block) { Sinclair::EnvSettable.read_with }
 
   let(:builder) do
-    described_class.new(settable, prefix, :username, :password, host: 'my-host.com')
+    described_class.new(settable, read_block, :username, :password, host: 'my-host.com')
   end
 
   before { builder.build }
