@@ -6,4 +6,5 @@ class MyAppClient
   settings_prefix 'MY_APP'
 
   with_settings :username, :password, host: 'my-host.com'
+  setting_with_options :port, type: :integer
 end

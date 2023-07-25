@@ -9,10 +9,13 @@ class Sinclair
   # @see Sinclair::EnvSettable
   module Settable
     autoload :Builder,      'sinclair/settable/builder'
+    autoload :Caster,       'sinclair/settable/caster'
     autoload :ClassMethods, 'sinclair/settable/class_methods'
 
-    def read_with
-      settable_module.read_with
+    extend Sinclair::Settable::ClassMethods
+
+    def read_with(&block)
+      settable_module.read_with(&block)
     end
 
     private
@@ -47,7 +50,7 @@ class Sinclair
     def setting_with_options(*settings_name, **options)
       opts = default_options.merge(options)
 
-      Builder.build(self, read_with, *settings_name, **opts)
+      Builder.build(self, settable_module, *settings_name, **opts)
     end
 
     def default_options
