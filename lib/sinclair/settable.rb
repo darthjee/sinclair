@@ -7,6 +7,34 @@ class Sinclair
   # Module to be extended or included, allowing settings to be read from a source
   #
   # @see Sinclair::EnvSettable
+  #
+  # @example Creating a custom settable
+  #
+  #   module HashSettable
+  #     extend Sinclair::Settable::ClassMethods
+  #     include Sinclair::Settable
+  #
+  #     read_with do |key, default: nil|
+  #       self::HASH[key] || default
+  #     end
+  #   end
+  #
+  #   class HashAppClient
+  #     extend HashSettable
+  #
+  #     HASH = {}
+  #
+  #     with_settings :username, :password, host: 'my-host.com'
+  #     setting_with_options :port, type: :integer
+  #   end
+  #
+  #   ENV[:username] = 'my_login'
+  #   ENV[:port]     = '8080'
+  #
+  #   HashAppClient.username # returns 'my_login'
+  #   HashAppClient.password # returns nil
+  #   HashAppClient.host     # returns 'my-host.com'
+  #   HashAppClient.port     # returns 8080
   module Settable
     autoload :Builder,      'sinclair/settable/builder'
     autoload :Caster,       'sinclair/settable/caster'
