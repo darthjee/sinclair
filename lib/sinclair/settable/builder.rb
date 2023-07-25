@@ -38,7 +38,7 @@ class Sinclair
       end
 
       def add_setting_method(name, **opts, &block)
-        add_class_method(name) do
+        add_class_method(name, cached: :full) do
           block.call(name, **opts)
         end
       end
