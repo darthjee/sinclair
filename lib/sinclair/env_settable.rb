@@ -29,8 +29,10 @@ class Sinclair
     include Sinclair::Settable
     extend Sinclair::Settable::ClassMethods
 
-    read_with do |key, default|
-      ENV[key] || default
+    read_with do |key, settable, default|
+      env_key = [settable.settings_prefix, key].compact.join('_').to_s.upcase
+
+      ENV[env_key] || default
     end
   end
 end

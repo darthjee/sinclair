@@ -49,12 +49,11 @@ class Sinclair
       # @return (see settings)
       def add_all_methods
         settings.each do |name, value|
-          key = [prefix, name].compact.join('_').to_s.upcase
-
+          key   = name
           block = read_block
 
           add_class_method(name) do
-            block.call(key, value)
+            block.call(key, self, value)
           end
         end
       end

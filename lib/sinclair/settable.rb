@@ -9,18 +9,6 @@ class Sinclair
       settable_module.read_with
     end
 
-    private
-
-    def settable_module
-      singleton_class.included_modules.find do |modu|
-        modu <= Sinclair::Settable
-      end
-    end
-
-    # @private
-    # @api public
-    # @visibility public
-    #
     # Sets environment keys prefix
     #
     # @param prefix [String] prefix of the env keys
@@ -28,8 +16,22 @@ class Sinclair
     # @return [String]
     #
     # @example (see Settable)
-    def settings_prefix(prefix)
-      @settings_prefix = prefix
+    def settings_prefix(prefix = @settings_prefix)
+      @settings_prefix = prefix || superclass_prefix
+    end
+
+    private
+
+    def superclass_prefix
+      return unless superclass.is_a?(Sinclair::Settable)
+
+      superclass.settings_prefix
+    end
+
+    def settable_module
+      singleton_class.included_modules.find do |modu|
+        modu <= Sinclair::Settable
+      end
     end
 
     # @private
