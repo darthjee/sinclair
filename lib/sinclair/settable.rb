@@ -39,7 +39,13 @@ class Sinclair
     end
 
     def setting_with_options(*settings_name, **options)
-      Builder.build(self, read_with, *settings_name, **options)
+      opts = default_options.merge(options)
+
+      Builder.build(self, read_with, *settings_name, **opts)
+    end
+
+    def default_options
+      {}
     end
   end
 end
