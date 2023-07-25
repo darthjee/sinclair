@@ -14,7 +14,7 @@ describe Sinclair::Settable do
     let(:host_key)     { 'HOST' }
     let(:port_key)     { 'PORT' }
 
-    it_behaves_like 'settings reading from env'
+    it_behaves_like 'settings reading'
 
     context 'when defining a prefix' do
       subject(:settable) { Class.new(MyAppClient) }
@@ -24,7 +24,7 @@ describe Sinclair::Settable do
       let(:host_key)     { 'MY_APP_HOST' }
       let(:port_key)     { 'MY_APP_PORT' }
 
-      it_behaves_like 'settings reading from env'
+      it_behaves_like 'settings reading'
     end
   end
 
@@ -39,7 +39,7 @@ describe Sinclair::Settable do
     let(:host_key)     { :host }
     let(:port_key)     { :port }
 
-    it_behaves_like 'settings reading from env' do
+    it_behaves_like 'settings reading' do
       let(:env_hash) { HashAppClient::HASH }
     end
   end

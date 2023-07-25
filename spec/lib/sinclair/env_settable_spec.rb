@@ -13,7 +13,7 @@ describe Sinclair::EnvSettable do
   let(:host_key)     { 'HOST' }
   let(:port_key)     { 'PORT' }
 
-  it_behaves_like 'settings reading from env'
+  it_behaves_like 'settings reading'
 
   context 'when defining a prefix' do
     subject(:settable) { Class.new(MyAppClient) }
@@ -23,6 +23,6 @@ describe Sinclair::EnvSettable do
     let(:host_key)     { 'MY_APP_HOST' }
     let(:port_key)     { 'MY_APP_PORT' }
 
-    it_behaves_like 'settings reading from env'
+    it_behaves_like 'settings reading'
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-shared_examples 'settings reading from env' do
+shared_examples 'settings reading' do
   let(:env_hash) { ENV }
 
   before do
