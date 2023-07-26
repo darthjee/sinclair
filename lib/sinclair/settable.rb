@@ -44,6 +44,15 @@ class Sinclair
 
     private
 
+    # @private
+    # @api private
+    #
+    # returns the settable module that the class extends
+    #
+    # This is used in order to find out what is the read block used
+    # by the settable
+    #
+    # @return [Module] a +Sinclair::Settable+
     def settable_module
       singleton_class.included_modules.find do |modu|
         modu <= Sinclair::Settable
@@ -63,6 +72,7 @@ class Sinclair
     # @return (see Sinclair#build)
     #
     # @example (see Settable)
+    # @example (see EnvSettable)
     def with_settings(*settings_name, **defaults)
       setting_with_options(*settings_name)
 
