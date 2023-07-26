@@ -21,7 +21,7 @@ class Sinclair
       #
       # @example
       #   # config.yml
-      #   timeout: 10
+      #   # timeout: 10
       #
       #   # yaml_file_settable.rb
       #
