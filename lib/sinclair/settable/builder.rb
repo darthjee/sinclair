@@ -60,7 +60,7 @@ class Sinclair
       end
 
       def read_block
-        @read_block ||= klass.read_with
+        @read_block ||= settable_module.read_with
       end
 
       def caster_class

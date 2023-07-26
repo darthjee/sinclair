@@ -42,10 +42,6 @@ class Sinclair
 
     extend Sinclair::Settable::ClassMethods
 
-    def read_with(&block)
-      settable_module.read_with(&block)
-    end
-
     private
 
     def settable_module
