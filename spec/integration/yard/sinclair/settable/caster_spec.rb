@@ -23,7 +23,7 @@ describe Sinclair::Settable::Caster do
     describe 'creating a new caster' do
       subject(:settable) { JsonEnvSettings }
 
-      let(:hash) { { 'key' => 'value' } }
+      let(:hash) { { key: 'value' } }
 
       before do
         ENV['JSON_CONFIG'] = hash.to_json
@@ -34,7 +34,7 @@ describe Sinclair::Settable::Caster do
       end
 
       it 'retrieves data from env' do
-        expect(settable.config).to eq(hash)
+        expect(settable.config).to eq(hash.stringify_keys)
       end
     end
   end
