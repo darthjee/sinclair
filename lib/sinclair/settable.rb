@@ -87,6 +87,11 @@ class Sinclair
       Builder.build(self, settable_module, *settings_name, **opts)
     end
 
+    # @private
+    #
+    # Default options when creating the method
+    #
+    # @return [Hash]
     def default_options
       {}
     end

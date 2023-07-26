@@ -48,6 +48,13 @@ class Sinclair
 
     private
 
+    # @private
+    #
+    # Default options when creating the method
+    #
+    # Prefix is included in default options
+    #
+    # @return [Hash]
     def default_options
       super.merge(
         prefix: settings_prefix
