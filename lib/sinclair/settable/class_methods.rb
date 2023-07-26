@@ -6,6 +6,7 @@ class Sinclair
       def read_with(&read_block)
         return @read_block = read_block if read_block
         return @read_block if @read_block
+
         superclass_settable&.read_with
       end
 
