@@ -43,7 +43,7 @@ class Sinclair
         cast_type = type
 
         add_class_method(name, cached: :full) do
-          value = block.call(name, **options)
+          value = instance_exec(name, **options, &block)
 
           value ? caster.cast(value, cast_type) : nil
         end
@@ -60,7 +60,7 @@ class Sinclair
       end
 
       def read_block
-        @read_block ||= klass.read_with
+        @read_block ||= settable_module.read_with
       end
 
       def caster_class
