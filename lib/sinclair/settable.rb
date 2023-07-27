@@ -86,7 +86,7 @@ class Sinclair
     def setting_with_options(*settings_name, **options)
       opts = default_options.merge(options)
 
-      Builder.build(self, settable_module, *settings_name, **opts)
+      Builder.build(self, *settings_name, **opts)
     end
 
     # @private
