@@ -123,7 +123,7 @@ class Sinclair
       # @see Settable::ClassMethods#read_with
       # @return [Proc]
       def read_block
-        @read_block ||= settable_module.read_with
+        @read_block ||= klass.settable_module.read_with
       end
 
       # @private

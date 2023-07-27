@@ -42,9 +42,6 @@ class Sinclair
 
     extend Sinclair::Settable::ClassMethods
 
-    private
-
-    # @private
     # @api private
     #
     # returns the settable module that the class extends
@@ -58,6 +55,8 @@ class Sinclair
         modu <= Sinclair::Settable
       end
     end
+
+    private
 
     # @private
     # @api public
