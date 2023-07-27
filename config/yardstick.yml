@@ -40,6 +40,7 @@ rules:
       - Sinclair::Model.for
       - Sinclair::Model.initialize_with
       - Sinclair::Settable#setting_with_options
+      - Sinclair::Settable::Builder#read_block
   ReturnTag:
     enabled: true
     exclude:
@@ -49,6 +50,7 @@ rules:
       - Sinclair::MethodBuilder#build_from_definition
       - Sinclair::Matchers::ChangeClassMethodOn#raise_block_syntax_error
       - Sinclair::Matchers::ChangeInstanceMethodOn#raise_block_syntax_error
+      - Sinclair::Settable::Builder#read_block
   Summary::Presence:
     enabled: true
     exclude:

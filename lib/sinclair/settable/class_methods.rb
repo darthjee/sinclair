@@ -19,6 +19,8 @@ class Sinclair
       # When the block is called, it will receive the key and any
       # given options
       #
+      # @return [Proc]
+      #
       # @example
       #   # config.yml
       #   # timeout: 10
