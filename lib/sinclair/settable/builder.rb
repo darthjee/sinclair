@@ -10,6 +10,15 @@ class Sinclair
     # This builder does the magic of adding methods
     # that will fetch variables from env or a default value
     class Builder < Sinclair
+      # @param klass [Class] Setting class where the methods will be added to
+      # @param settable_module [Module] Module of settable that the class extends
+      # @param settings_name [Array<Symbol>] list of all settings to be added
+      # @param options [Hash] Options of setting.
+      #
+      #   Each settable might have their own set options defined in
+      #   {Sinclair::Settable::ClassMethods#read_with Settable.read_with},
+      #   and then passed to the buildr on
+      #   {Sinclair::Settable#setting_with_options Settable#setting_with_options}
       def initialize(klass, settable_module, *settings_name, **options)
         super(klass, **options)
 
