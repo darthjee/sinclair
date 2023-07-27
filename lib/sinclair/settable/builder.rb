@@ -41,7 +41,7 @@ class Sinclair
       #
       # @return [Symbol]
 
-      attr_reader :settings, :settable_module
+      attr_reader :settings
       # @method settings
       # @private
       # @api private
@@ -50,13 +50,15 @@ class Sinclair
       #
       # @return [Array<Symbol>]
 
-      # @method settable_module
       # @private
       # @api private
       #
       # Module of settable that the class extends
       #
       # @return [Module]
+      def settable_module
+        @settable_module ||= klass.settable_module
+      end
 
       # @private
       # @api private
@@ -123,7 +125,7 @@ class Sinclair
       # @see Settable::ClassMethods#read_with
       # @return [Proc]
       def read_block
-        @read_block ||= klass.settable_module.read_with
+        @read_block ||= settable_module.read_with
       end
 
       # @private
