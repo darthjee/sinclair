@@ -53,6 +53,7 @@ class Sinclair
     end
 
     # @private
+    # @api private
     #
     # Default options when creating the method
     #
@@ -66,6 +67,7 @@ class Sinclair
     end
 
     # @private
+    # @api private
     #
     # Returns the prefix set up for a superclass
     #

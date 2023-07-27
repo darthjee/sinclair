@@ -68,10 +68,12 @@ class Sinclair
     #   to be added
     # @param defaults [Hash] Settings with default values
     #
-    # @return (see Sinclair#build)
-    #
     # @example (see Settable)
     # @example (see EnvSettable)
+    #
+    # @see setting_with_options
+    #
+    # @return [Hash<Symbol, Object>]
     def with_settings(*settings_name, **defaults)
       setting_with_options(*settings_name)
 
@@ -83,6 +85,16 @@ class Sinclair
     # @private
     # @api public
     # @visibility public
+    #
+    # Add setting with options
+    #
+    # @param settings_name [Array<Symbol,String>] Name of all settings
+    #   to be added
+    # @param options [Hash<Symbol, Object>] setting exposition options
+    # @option options type [Symbol] type to cast the value fetched
+    #
+    # @see with_settings
+    # @return (see Sinclair#build)
     def setting_with_options(*settings_name, **options)
       opts = default_options.merge(options)
 
@@ -90,6 +102,7 @@ class Sinclair
     end
 
     # @private
+    # @api private
     #
     # Default options when creating the method
     #

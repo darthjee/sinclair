@@ -19,6 +19,8 @@ class Sinclair
       # When the block is called, it will receive the key and any
       # given options
       #
+      # @return [Proc]
+      #
       # @example
       #   # config.yml
       #   # timeout: 10
@@ -62,6 +64,9 @@ class Sinclair
 
       private
 
+      # @private
+      # @api private
+      #
       # Returns a {Settable} module representing a superclass
       #
       # @return [Module]
