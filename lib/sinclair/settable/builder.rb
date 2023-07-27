@@ -40,12 +40,24 @@ class Sinclair
       # @return [Symbol]
 
       delegate :settable_module, to: :klass
+      # @method settable_module
       # @private
       # @api private
       #
       # Module of settable that the class extends
       #
       # @return [Module]
+
+      delegate :read_with, to: :settable_module
+      # @method read_with
+      # @private
+      #
+      # Returns proc for extracting values when reading a setting
+      #
+      # @see add_setting_method
+      # @see Settable::ClassMethods#read_with
+      # @return [Proc]
+      alias read_block read_with
 
       attr_reader :settings
       # @method settings
@@ -85,7 +97,6 @@ class Sinclair
         end
       end
 
-
       # @private
       #
       # Options that will be accepted by {read_block}
@@ -111,17 +122,6 @@ class Sinclair
         read_block.parameters.select do |(type, _name)|
           type == :key
         end.map(&:second)
-      end
-
-      # @private
-      #
-      # Returns proc for extracting values when reading a setting
-      #
-      # @see add_setting_method
-      # @see Settable::ClassMethods#read_with
-      # @return [Proc]
-      def read_block
-        @read_block ||= settable_module.read_with
       end
 
       # @private
