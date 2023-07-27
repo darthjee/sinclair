@@ -102,6 +102,7 @@ class Sinclair
     end
 
     # @private
+    # @api private
     #
     # Default options when creating the method
     #
