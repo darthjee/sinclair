@@ -65,6 +65,7 @@ class Sinclair
       private
 
       # @private
+      # @api private
       #
       # Returns a {Settable} module representing a superclass
       #
