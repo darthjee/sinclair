@@ -78,13 +78,12 @@ class Sinclair
       def add_setting_method(name)
         options   = call_options
         block     = read_block
-        caster    = caster_class
-        cast_type = type
+        caster    = caster_class.caster_for(type)
 
         add_class_method(name, cached: :full) do
           value = instance_exec(name, **options, &block)
 
-          value ? caster.cast(value, cast_type) : nil
+          value ? caster.cast(value) : nil
         end
       end
 
