@@ -51,7 +51,7 @@ class Sinclair
     #
     # @return [Module] a +Sinclair::Settable+
     def settable_module
-      singleton_class.included_modules.find do |modu|
+      @settable_module ||= singleton_class.included_modules.find do |modu|
         modu <= Sinclair::Settable
       end
     end

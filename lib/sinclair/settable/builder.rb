@@ -39,6 +39,14 @@ class Sinclair
       #
       # @return [Symbol]
 
+      delegate :settable_module, to: :klass
+      # @private
+      # @api private
+      #
+      # Module of settable that the class extends
+      #
+      # @return [Module]
+
       attr_reader :settings
       # @method settings
       # @private
@@ -47,16 +55,6 @@ class Sinclair
       # Name of all settings to be added
       #
       # @return [Array<Symbol>]
-
-      # @private
-      # @api private
-      #
-      # Module of settable that the class extends
-      #
-      # @return [Module]
-      def settable_module
-        @settable_module ||= klass.settable_module
-      end
 
       # @private
       # @api private
