@@ -62,6 +62,8 @@ class Sinclair
 
       private
 
+      # @private
+      #
       # Returns a {Settable} module representing a superclass
       #
       # @return [Module]
