@@ -39,6 +39,7 @@ rules:
       - Sinclair::Matchers#change_class_method
       - Sinclair::Model.for
       - Sinclair::Model.initialize_with
+      - Sinclair::Settable#setting_with_option
   ReturnTag:
     enabled: true
     exclude:
