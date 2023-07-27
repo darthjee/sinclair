@@ -80,6 +80,7 @@ rules:
       - Sinclair::Model::Builder#initialize
       - Sinclair::Options#initialize
       - Sinclair::Options::Builder#initialize
+      - Sinclair::Settable:Builder#initialize
   Summary::Length:
     enabled: true
     exclude: []
