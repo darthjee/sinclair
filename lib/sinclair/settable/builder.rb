@@ -51,6 +51,7 @@ class Sinclair
       delegate :read_with, to: :settable_module
       # @method read_with
       # @private
+      # @api private
       #
       # Returns proc for extracting values when reading a setting
       #
