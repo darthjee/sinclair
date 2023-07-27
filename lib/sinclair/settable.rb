@@ -42,9 +42,6 @@ class Sinclair
 
     extend Sinclair::Settable::ClassMethods
 
-    private
-
-    # @private
     # @api private
     #
     # returns the settable module that the class extends
@@ -54,10 +51,12 @@ class Sinclair
     #
     # @return [Module] a +Sinclair::Settable+
     def settable_module
-      singleton_class.included_modules.find do |modu|
+      @settable_module ||= singleton_class.included_modules.find do |modu|
         modu <= Sinclair::Settable
       end
     end
+
+    private
 
     # @private
     # @api public
@@ -87,7 +86,7 @@ class Sinclair
     def setting_with_options(*settings_name, **options)
       opts = default_options.merge(options)
 
-      Builder.build(self, settable_module, *settings_name, **opts)
+      Builder.build(self, *settings_name, **opts)
     end
 
     # @private

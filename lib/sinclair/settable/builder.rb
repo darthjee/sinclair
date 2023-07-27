@@ -11,7 +11,6 @@ class Sinclair
     # that will fetch variables from env or a default value
     class Builder < Sinclair
       # @param klass [Class] Setting class where the methods will be added to
-      # @param settable_module [Module] Module of settable that the class extends
       # @param settings_name [Array<Symbol>] list of all settings to be added
       # @param options [Hash] Options of setting.
       #
@@ -21,11 +20,10 @@ class Sinclair
       #   {Sinclair::Settable#setting_with_options Settable#setting_with_options}
       #
       # @option options type [Symbol] type to cast the value fetched
-      def initialize(klass, settable_module, *settings_name, **options)
+      def initialize(klass, *settings_name, **options)
         super(klass, **options)
 
         @settings = settings_name
-        @settable_module = settable_module
 
         add_all_methods
       end
@@ -41,15 +39,7 @@ class Sinclair
       #
       # @return [Symbol]
 
-      attr_reader :settings, :settable_module
-      # @method settings
-      # @private
-      # @api private
-      #
-      # Name of all settings to be added
-      #
-      # @return [Array<Symbol>]
-
+      delegate :settable_module, to: :klass
       # @method settable_module
       # @private
       # @api private
@@ -57,6 +47,26 @@ class Sinclair
       # Module of settable that the class extends
       #
       # @return [Module]
+
+      delegate :read_with, to: :settable_module
+      # @method read_with
+      # @private
+      #
+      # Returns proc for extracting values when reading a setting
+      #
+      # @see add_setting_method
+      # @see Settable::ClassMethods#read_with
+      # @return [Proc]
+      alias read_block read_with
+
+      attr_reader :settings
+      # @method settings
+      # @private
+      # @api private
+      #
+      # Name of all settings to be added
+      #
+      # @return [Array<Symbol>]
 
       # @private
       # @api private
@@ -78,16 +88,14 @@ class Sinclair
       def add_setting_method(name)
         options   = call_options
         block     = read_block
-        caster    = caster_class
-        cast_type = type
+        caster    = caster_class.caster_for(type)
 
         add_class_method(name, cached: :full) do
           value = instance_exec(name, **options, &block)
 
-          value ? caster.cast(value, cast_type) : nil
+          value ? caster.cast(value) : nil
         end
       end
-
 
       # @private
       #
@@ -114,17 +122,6 @@ class Sinclair
         read_block.parameters.select do |(type, _name)|
           type == :key
         end.map(&:second)
-      end
-
-      # @private
-      #
-      # Returns proc for extracting values when reading a setting
-      #
-      # @see add_setting_method
-      # @see Settable::ClassMethods#read_with
-      # @return [Proc]
-      def read_block
-        @read_block ||= settable_module.read_with
       end
 
       # @private

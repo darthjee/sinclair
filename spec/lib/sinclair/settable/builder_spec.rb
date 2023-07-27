@@ -19,7 +19,7 @@ describe Sinclair::Settable::Builder do
   let(:options)    { { prefix: prefix } }
 
   let(:builder) do
-    described_class.new(settable, Sinclair::EnvSettable, *settings, **options)
+    described_class.new(settable, *settings, **options)
   end
 
   before { builder.build }
