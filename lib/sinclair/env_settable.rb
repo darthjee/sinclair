@@ -13,20 +13,25 @@ class Sinclair
   #     settings_prefix 'MY_APP'
   #
   #     with_settings :username, :password, host: 'my-host.com'
+  #     setting_with_options :port, type: :integer
   #   end
   #
   #   ENV['MY_APP_USERNAME'] = 'my_login'
+  #   ENV['MY_APP_PORT']     = '8080'
   #
   #   MyAppClient.username # returns 'my_login'
   #   MyAppClient.password # returns nil
   #   MyAppClient.host     # returns 'my-host.com'
-  #
-  #   ENV['MY_APP_HOST'] = 'other-host.com'
-  #
-  #   MyAppClient.host     # returns 'other-host.com'
-  #
+  #   MyAppClient.port     # returns 8080
   module EnvSettable
-    autoload :Builder, 'sinclair/env_settable/builder'
+    include Sinclair::Settable
+    extend Sinclair::Settable::ClassMethods
+
+    read_with do |key, default: nil, prefix: nil|
+      env_key = [prefix, key].compact.join('_').to_s.upcase
+
+      ENV[env_key] || default
+    end
 
     private
 
@@ -41,25 +46,38 @@ class Sinclair
     # @return [String]
     #
     # @example (see EnvSettable)
-    def settings_prefix(prefix)
+    def settings_prefix(prefix = nil)
+      return @settings_prefix || superclass_prefix unless prefix
+
       @settings_prefix = prefix
     end
 
     # @private
-    # @api public
-    # @visibility public
+    # @api private
     #
-    # Adds settings
+    # Default options when creating the method
     #
-    # @param settings_name [Array<Symbol,String>] Name of all settings
-    #   to be added
-    # @param defaults [Hash] Settings with default values
+    # Prefix is included in default options
     #
-    # @return (see Sinclair#build)
+    # @return [Hash]
+    def default_options
+      super.merge(
+        prefix: settings_prefix
+      )
+    end
+
+    # @private
+    # @api private
     #
-    # @example (see EnvSettable)
-    def with_settings(*settings_name, **defaults)
-      Builder.new(self, @settings_prefix, *settings_name, **defaults).build
+    # Returns the prefix set up for a superclass
+    #
+    # This ensures that an inherited class also has a prefix
+    #
+    # @return [String]
+    def superclass_prefix
+      return unless superclass.is_a?(Sinclair::EnvSettable)
+
+      superclass.settings_prefix
     end
   end
 end

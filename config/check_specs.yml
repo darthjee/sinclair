@@ -8,4 +8,6 @@ ignore:
   - lib/sinclair/matchers/change_method_on.rb
   - lib/sinclair/matchers/method_to.rb
   - lib/sinclair/model/builder_options.rb
+  - lib/sinclair/settable/class_methods.rb
+  - lib/sinclair/settable/caster.rb
   - lib/sinclair/version.rb
