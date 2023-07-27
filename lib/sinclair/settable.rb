@@ -81,6 +81,9 @@ class Sinclair
       end
     end
 
+    # @private
+    # @api public
+    # @visibility public
     def setting_with_options(*settings_name, **options)
       opts = default_options.merge(options)
 
