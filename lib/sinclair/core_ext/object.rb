@@ -24,6 +24,37 @@ class Object
   end
   # rubocop:enable Naming/PredicateName
 
+  # Maps the elements into a new value, returning only one
+  #
+  # The result to be returned is
+  # the first mapping that is evaluated to true
+  #
+  # This method is equivalent to #map#find but
+  # only calling the map block up to when a value
+  # is found
+  #
+  # @yield (*args) mappig block
+  #
+  # @example Using an array of keys to remove remove elements of a hash
+  #
+  #   service_map = {
+  #     a: nil,
+  #     b: false,
+  #     c: 'found me',
+  #     d: nil,
+  #     e: 'didnt find me'
+  #   }
+  #
+  #   keys = %i[a b c d e]
+  #
+  #   keys.map_and_find do |key|   #
+  #     service_values.delete(key) #
+  #   end                          # returns 'found me'
+  #
+  #   service_map # has lost only 3 keys returning
+  #               # { d: nil, e: 'didnt find me' }
+  #
+  # @return [::Object]
   def map_and_find
     mapped = nil
     find do |*args|
