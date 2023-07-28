@@ -85,6 +85,7 @@ class Sinclair
   autoload :VERSION,           'sinclair/version'
   autoload :Caster,            'sinclair/caster'
   autoload :ClassMethods,      'sinclair/class_methods'
+  autoload :ChainSettable,     'sinclair/chain_settable'
   autoload :Config,            'sinclair/config'
   autoload :ConfigBuilder,     'sinclair/config_builder'
   autoload :ConfigClass,       'sinclair/config_class'
