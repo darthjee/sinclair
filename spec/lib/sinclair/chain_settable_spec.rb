@@ -7,8 +7,8 @@ describe Sinclair::ChainSettable do
     Class.new do
       extend Sinclair::ChainSettable
 
-      source :app_client, Class.new(AppClient)
-      source :app_client, Class.new(MyAppClient)
+      source :app_client, Class.new(NonDefaultAppClient)
+      source :my_app_client, Class.new(MyAppClient)
 
       with_settings :username, :password, :host, :port
     end
