@@ -34,4 +34,23 @@ describe Sinclair::ChainSettable do
 
     it_behaves_like 'settings reading'
   end
+
+  context 'when both have a value' do
+    let(:first_host) { 'first_host' }
+    let(:second_host) { 'second_host' }
+
+    before do
+      ENV['HOST'] = first_host
+      ENV['MY_APP_HOST'] = second_host
+    end
+
+    after do
+      ENV.delete('HOST')
+      ENV.delete('MY_APP_HOST')
+    end
+
+    it 'returns the first value' do
+      expect(settable.host).to eq(first_host)
+    end
+  end
 end
