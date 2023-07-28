@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class Sinclair
+  # @api public
+  # @author darthjee
+  #
+  # Settable that recovers data from other settables
+  #
+  # Each setting obeys a settable order and when a setting value is not found,
+  # the next is checked
   module ChainSettable
     include Sinclair::Settable
     extend Sinclair::Settable::ClassMethods
@@ -16,27 +23,46 @@ class Sinclair
     # @private
     # @api public
     # @visibility public
-    def source(key, settable)
-      sources_map[key] = settable
+    #
+    # Register a setting source
+    #
+    # @param key [Symbol] key identifying the setting
+    # @param source [Class<Settable>] Setting source class
+    def source(key, source)
+      sources_map[key] = source
     end
 
     # @private
     # @api public
     # @visibility public
+    #
+    # Defines the order of the settings
     def sources(*sources)
       @sources = sources
     end
 
     # @private
     # @api private
+    #
+    # Hash with all Setting classes defined
+    #
+    # @return [Hash<Symbol,Settable>]
     def sources_map
       @sources_map ||= {}
     end
 
+    # @private
+    # @api private
+    #
+    # Order of sources to be checked by default
     def sources_order
       @sources || sources_map.keys
     end
 
+    # @private
+    # @api private
+    #
+    # List of sources
     def ordered_sources
       sources_order.map do |key|
         sources_map[key]
