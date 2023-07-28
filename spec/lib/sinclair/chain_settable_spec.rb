@@ -4,18 +4,20 @@ require 'spec_helper'
 
 describe Sinclair::ChainSettable do
   subject(:settable) do
+    options = options_hash
     Class.new do
       extend Sinclair::ChainSettable
 
       source :app_client, Class.new(NonDefaultAppClient)
       source :my_app_client, Class.new(MyAppClient)
 
-      with_settings :username, :password, :host, :port
+      setting_with_options :username, :password, :host, :port, **options
     end
   end
 
-  let(:username) { 'my_login' }
-  let(:password) { Random.rand(10_000).to_s }
+  let(:options_hash) { {} }
+  let(:username)     { 'my_login' }
+  let(:password)     { Random.rand(10_000).to_s }
 
   context 'when the first setting finds the data' do
     let(:username_key) { 'USERNAME' }
@@ -51,6 +53,14 @@ describe Sinclair::ChainSettable do
 
     it 'returns the first value' do
       expect(settable.host).to eq(first_host)
+    end
+
+    context 'when passing a different source as options' do
+      let(:options_hash) { { sources: [:my_app_client, :app_client] } }
+
+      it 'returns the second value' do
+        expect(settable.host).to eq(second_host)
+      end
     end
   end
 end
