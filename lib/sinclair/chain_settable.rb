@@ -59,6 +59,10 @@ class Sinclair
       @sources || sources_map.keys
     end
 
+    # @private
+    # @api private
+    #
+    # Returns default options passed to {read_block}
     def default_options
       {
         sources: sources_order,
