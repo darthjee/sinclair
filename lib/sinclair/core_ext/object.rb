@@ -23,7 +23,7 @@ class Object
     classes.any?(method(:is_a?))
   end
   # rubocop:enable Naming/PredicateName
-  
+
   def map_and_find
     mapped = nil
     find do |*args|

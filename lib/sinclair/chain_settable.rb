@@ -34,7 +34,7 @@ class Sinclair
     end
 
     def sources_order
-      @sources || sources_map.keys 
+      @sources || sources_map.keys
     end
 
     def ordered_sources
