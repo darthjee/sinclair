@@ -25,9 +25,8 @@ class Sinclair
     # @private
     # @api public
     # @visibility public
-    def source_order(*order)
-      @source_order = order if order
-      @source_order || sources_map.keys
+    def sources(*sources)
+      @sources = sources
     end
 
     # @private
@@ -36,15 +35,19 @@ class Sinclair
       @sources_map ||= {}
     end
 
+    def sources_order
+      @sources || sources_map.keys 
+    end
+
     def ordered_sources
-      source_order.map do |key|
+      sources_order.map do |key|
         sources_map[key]
       end
     end
 
     def default_options
       {
-        sources: source_order
+        sources: ordered_sources
       }
     end
   end
