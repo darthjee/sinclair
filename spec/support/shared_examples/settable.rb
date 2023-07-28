@@ -24,7 +24,7 @@ shared_examples 'settings reading' do
       env_hash.delete(password_key)
     end
 
-    fit 'retrieves username from env' do
+    it 'retrieves username from env' do
       expect(settable.username).to eq(username)
     end
 

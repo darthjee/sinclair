@@ -6,11 +6,9 @@ class Sinclair
     extend Sinclair::Settable::ClassMethods
 
     read_with do |key, default: nil, sources: nil|
-      sources.each do |source|
-        value = source.public_send(key)
-        return value if value
-      end
-      default
+      sources.map_and_find do |source|
+        source.public_send(key)
+      end || default
     end
 
     private
