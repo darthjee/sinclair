@@ -12,9 +12,9 @@ class Sinclair
     include Sinclair::Settable
     extend Sinclair::Settable::ClassMethods
 
-    read_with do |key, default: nil, sources: nil|
+    read_with do |key, default: nil, sources: nil, sources_map: {}|
       sources.map_and_find do |source|
-        source.public_send(key)
+        sources_map[source].public_send(key)
       end || default
     end
 
@@ -59,19 +59,10 @@ class Sinclair
       @sources || sources_map.keys
     end
 
-    # @private
-    # @api private
-    #
-    # List of sources
-    def ordered_sources
-      sources_order.map do |key|
-        sources_map[key]
-      end
-    end
-
     def default_options
       {
-        sources: ordered_sources
+        sources: sources_order,
+        sources_map: sources_map
       }
     end
   end
