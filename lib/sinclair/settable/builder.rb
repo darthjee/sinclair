@@ -20,6 +20,7 @@ class Sinclair
       #   {Sinclair::Settable#setting_with_options Settable#setting_with_options}
       #
       # @option options type [Symbol] type to cast the value fetched
+      # @option options default [Object] Default value
       def initialize(klass, *settings_name, **options)
         super(klass, **options)
 
@@ -90,11 +91,12 @@ class Sinclair
         options   = call_options
         block     = read_block
         caster    = caster_class.caster_for(type)
+        default   = options_object.default
 
         add_class_method(name, cached: :full) do
           value = instance_exec(name, **options, &block)
 
-          value ? caster.cast(value) : nil
+          value ? caster.cast(value) : default
         end
       end
 
