@@ -5,6 +5,7 @@ require 'spec_helper'
 describe Sinclair::ChainSettable do
   subject(:settable) do
     options = options_hash
+
     Class.new do
       extend Sinclair::ChainSettable
 
@@ -38,29 +39,38 @@ describe Sinclair::ChainSettable do
   end
 
   context 'when both have a value' do
-    let(:first_host) { 'first_host' }
-    let(:second_host) { 'second_host' }
+    let(:first_username)  { 'first_username' }
+    let(:second_username) { 'second_username' }
 
     before do
-      ENV['HOST'] = first_host
-      ENV['MY_APP_HOST'] = second_host
+      ENV['USERNAME'] = first_username
+      ENV['MY_APP_USERNAME'] = second_username
     end
 
     after do
-      ENV.delete('HOST')
-      ENV.delete('MY_APP_HOST')
+      ENV.delete('USERNAME')
+      ENV.delete('MY_APP_USERNAME')
     end
 
     it 'returns the first value' do
-      expect(settable.host).to eq(first_host)
+      expect(settable.username).to eq(first_username)
     end
 
     context 'when passing a different source as options' do
       let(:options_hash) { { sources: %i[my_app_client app_client] } }
 
       it 'returns the second value' do
-        expect(settable.host).to eq(second_host)
+        expect(settable.username).to eq(second_username)
       end
+    end
+  end
+
+  context 'when none has value' do
+    let(:default)      { 'some_default_username' }
+    let(:options_hash) { { default: default } }
+
+    it 'returns the first value' do
+      expect(settable.username).to eq(default)
     end
   end
 end
