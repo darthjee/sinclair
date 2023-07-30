@@ -92,6 +92,7 @@ class Sinclair
     #   to be added
     # @param options [Hash<Symbol, Object>] setting exposition options
     # @option options type [Symbol] type to cast the value fetched
+    # @option options default [Object] Default value
     #
     # @see with_settings
     # @return (see Sinclair#build)

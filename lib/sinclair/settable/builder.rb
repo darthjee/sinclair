@@ -20,6 +20,7 @@ class Sinclair
       #   {Sinclair::Settable#setting_with_options Settable#setting_with_options}
       #
       # @option options type [Symbol] type to cast the value fetched
+      # @option options default [Object] Default value
       def initialize(klass, *settings_name, **options)
         super(klass, **options)
 
