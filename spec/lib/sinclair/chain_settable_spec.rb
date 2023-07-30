@@ -56,7 +56,7 @@ describe Sinclair::ChainSettable do
     end
 
     context 'when passing a different source as options' do
-      let(:options_hash) { { sources: [:my_app_client, :app_client] } }
+      let(:options_hash) { { sources: %i[my_app_client app_client] } }
 
       it 'returns the second value' do
         expect(settable.host).to eq(second_host)
