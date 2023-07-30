@@ -28,6 +28,8 @@ class Sinclair
     #
     # @param key [Symbol] key identifying the setting
     # @param source [Class<Settable>] Setting source class
+    #
+    # @return [Class<Settable>]
     def source(key, source)
       sources_map[key] = source
     end
@@ -37,6 +39,10 @@ class Sinclair
     # @visibility public
     #
     # Defines the order of the settings
+    #
+    # @param sources [Array<Symbol>] lis of sources in order
+    #
+    # @return [Array<Symbol>]
     def sources(*sources)
       @sources = sources
     end
@@ -55,6 +61,8 @@ class Sinclair
     # @api private
     #
     # Order of sources to be checked by default
+    #
+    # @return [Hash<Symbol,Settable>]
     def sources_order
       @sources || sources_map.keys
     end
@@ -63,6 +71,8 @@ class Sinclair
     # @api private
     #
     # Returns default options passed to {read_block}
+    #
+    # @return [Hash<Symbol,Object>]
     def default_options
       {
         sources: sources_order,
