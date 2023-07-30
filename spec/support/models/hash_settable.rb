@@ -4,7 +4,7 @@ module HashSettable
   extend Sinclair::Settable::ClassMethods
   include Sinclair::Settable
 
-  read_with do |key, default: nil|
-    self::HASH[key] || default
+  read_with do |key|
+    self::HASH[key]
   end
 end

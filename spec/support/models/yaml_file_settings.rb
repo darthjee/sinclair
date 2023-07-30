@@ -4,8 +4,8 @@ module YamlFileSettable
   include Sinclair::Settable
   extend Sinclair::Settable::ClassMethods
 
-  read_with do |key, default: nil|
-    loaded_yaml[key.to_s] || default
+  read_with do |key|
+    loaded_yaml[key.to_s]
   end
 
   def loaded_yaml
