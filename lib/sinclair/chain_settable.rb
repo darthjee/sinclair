@@ -12,9 +12,9 @@ class Sinclair
     include Sinclair::Settable
     extend Sinclair::Settable::ClassMethods
 
-    read_with do |key, sources: nil, sources_map: {}|
+    read_with do |key, sources: nil|
       sources.map_and_find do |source|
-        self.sources_map[source].public_send(key)
+        sources_map[source].public_send(key)
       end
     end
 
