@@ -5,20 +5,22 @@ require 'spec_helper'
 describe Sinclair::ChainSettable do
   subject(:settable) do
     options = options_hash
+    env_setting = env_setting_class
 
     Class.new do
       extend Sinclair::ChainSettable
 
-      source :app_client, Class.new(NonDefaultAppClient)
+      source :app_client, env_setting
       source :my_app_client, Class.new(MyAppClient)
 
       setting_with_options :username, :password, :host, :port, **options
     end
   end
 
-  let(:options_hash) { {} }
-  let(:username)     { 'my_login' }
-  let(:password)     { Random.rand(10_000).to_s }
+  let(:env_setting_class) { Class.new(NonDefaultAppClient) }
+  let(:options_hash)      { {} }
+  let(:username)          { 'my_login' }
+  let(:password)          { Random.rand(10_000).to_s }
 
   context 'when the first setting finds the data' do
     let(:username_key) { 'USERNAME' }
@@ -71,6 +73,37 @@ describe Sinclair::ChainSettable do
 
     it 'returns the first value' do
       expect(settable.username).to eq(default)
+    end
+  end
+
+  context 'when there is a subclass with diferent sources' do
+    subject(:second_settable) do
+      env_setting = second_env_setting_class
+
+      Class.new(settable) do
+        source :app_client, env_setting
+        source :my_app_client, Class.new(MyAppClient)
+      end
+    end
+
+    let(:first_username)  { 'first_username' }
+    let(:second_username) { 'second_username' }
+    let(:second_env_setting_class) do
+      Class.new(MyAppClient)
+    end
+
+    before do
+      ENV['USERNAME'] = first_username
+      ENV['MY_APP_USERNAME'] = second_username
+    end
+
+    after do
+      ENV.delete('USERNAME')
+      ENV.delete('MY_APP_USERNAME')
+    end
+
+    it 'returns different values' do
+      expect(settable.username).not_to eq(second_settable.username)
     end
   end
 end
