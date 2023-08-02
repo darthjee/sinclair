@@ -18,9 +18,9 @@ describe Sinclair::ChainSettable do
   end
 
   let(:env_setting_class) { Class.new(NonDefaultAppClient) }
-  let(:options_hash) { {} }
-  let(:username)     { 'my_login' }
-  let(:password)     { Random.rand(10_000).to_s }
+  let(:options_hash)      { {} }
+  let(:username)          { 'my_login' }
+  let(:password)          { Random.rand(10_000).to_s }
 
   context 'when the first setting finds the data' do
     let(:username_key) { 'USERNAME' }
