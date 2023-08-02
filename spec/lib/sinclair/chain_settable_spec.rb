@@ -89,7 +89,7 @@ describe Sinclair::ChainSettable do
     let(:first_username)  { 'first_username' }
     let(:second_username) { 'second_username' }
     let(:second_env_setting_class) do
-      Class.new(NonDefaultAppClient)
+      Class.new(MyAppClient)
     end
 
     before do

@@ -14,7 +14,7 @@ class Sinclair
 
     read_with do |key, sources: nil, sources_map: {}|
       sources.map_and_find do |source|
-        sources_map[source].public_send(key)
+        self.sources_map[source].public_send(key)
       end
     end
 
