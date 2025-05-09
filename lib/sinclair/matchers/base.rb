@@ -24,7 +24,7 @@ class Sinclair
       #
       # @return [Boolean]
       def equal?(other)
-        return unless other.class == self.class
+        return false unless other.class == self.class
 
         other.method_name == method_name &&
           other.try(:klass) == try(:klass)

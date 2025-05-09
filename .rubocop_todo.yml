@@ -17,10 +17,3 @@ Style/HashConversion:
 Style/OpenStructUse:
   Exclude:
     - 'lib/sinclair/options_parser.rb'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: AllowedMethods, AllowedPatterns.
-Style/ReturnNilInPredicateMethodDefinition:
-  Exclude:
-    - 'lib/sinclair/matchers/base.rb'
