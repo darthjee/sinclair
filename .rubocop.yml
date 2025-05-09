@@ -79,3 +79,6 @@ RSpec/RedundantPredicateMatcher:
   Exclude:
     - 'spec/integration/yard/sinclair/config_factory_spec.rb'
     - 'spec/lib/sinclair/equals_checker_spec.rb'
+
+Gemspec/RequireMFA:
+  Enabled: false

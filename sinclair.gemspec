@@ -19,4 +19,5 @@ Gem::Specification.new do |gem|
   gem.require_paths         = ['lib']
 
   gem.add_runtime_dependency 'activesupport', '~> 7.2.x'
+  gem.metadata['rubygems_mfa_required'] = 'false'
 end
