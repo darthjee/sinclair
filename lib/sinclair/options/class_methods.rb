@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 class Sinclair
   class Options
     # Class Methods for {Sinclair::Options}
