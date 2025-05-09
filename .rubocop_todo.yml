@@ -13,15 +13,6 @@ RSpec/RedundantPredicateMatcher:
     - 'spec/integration/yard/sinclair/config_factory_spec.rb'
     - 'spec/lib/sinclair/equals_checker_spec.rb'
 
-# Offense count: 2
-# Configuration parameters: Include, CustomTransform, IgnoreMethods, IgnoreMetadata.
-# Include: **/*_spec.rb
-RSpec/SpecFilePathFormat:
-  Exclude:
-    - '**/spec/routing/**/*'
-    - 'spec/integration/readme/sinclair/types_of_definition_spec.rb'
-    - 'spec/integration/yard/sinclair/class_methods/build_spec.rb'
-
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: .
