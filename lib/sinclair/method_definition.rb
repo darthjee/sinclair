@@ -131,7 +131,7 @@ class Sinclair
     # @raise NotImplementedError
     def build(_klass, _type)
       raise NotImplementedError, 'Build is implemented in subclasses. ' \
-        "Use #{self.class}.from to initialize a proper object"
+                                 "Use #{self.class}.from to initialize a proper object"
     end
 
     delegate :cached, to: :options_object

@@ -25,7 +25,7 @@ describe Sinclair::Matchers::ChangeClassMethod do
       expect { matcher.matches?(proc {}) }
         .to raise_error(
           SyntaxError, 'You should specify which class the method is being changed on' \
-          "change_class_method(:#{method}).on(klass)"
+                       "change_class_method(:#{method}).on(klass)"
         )
     end
   end

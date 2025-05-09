@@ -60,7 +60,7 @@ describe Sinclair::Matchers::AddClassMethodTo do
         expect { matcher.matches?(event_proc) { 1 } }
           .to raise_error(
             SyntaxError, 'Block not received by the `add_class_method_to` matcher. ' \
-            'Perhaps you want to use `{ ... }` instead of do/end?'
+                         'Perhaps you want to use `{ ... }` instead of do/end?'
           )
       end
     end

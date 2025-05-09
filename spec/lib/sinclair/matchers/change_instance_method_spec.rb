@@ -25,7 +25,7 @@ describe Sinclair::Matchers::ChangeInstanceMethod do
       expect { matcher.matches?(proc {}) }
         .to raise_error(
           SyntaxError, 'You should specify which instance the method is being changed on' \
-          "change_method(:#{method}).on(instance)"
+                       "change_method(:#{method}).on(instance)"
         )
     end
   end

@@ -6,28 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 15
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: aligned, indented
-Layout/LineEndStringConcatenationIndentation:
-  Exclude:
-    - 'lib/sinclair/config_factory.rb'
-    - 'lib/sinclair/configurable.rb'
-    - 'lib/sinclair/matchers/add_class_method_to.rb'
-    - 'lib/sinclair/matchers/add_instance_method_to.rb'
-    - 'lib/sinclair/matchers/change_class_method_on.rb'
-    - 'lib/sinclair/matchers/change_instance_method_on.rb'
-    - 'lib/sinclair/method_definition.rb'
-    - 'spec/lib/sinclair/matchers/add_class_method_spec.rb'
-    - 'spec/lib/sinclair/matchers/add_class_method_to_spec.rb'
-    - 'spec/lib/sinclair/matchers/add_instance_method_spec.rb'
-    - 'spec/lib/sinclair/matchers/add_instance_method_to_spec.rb'
-    - 'spec/lib/sinclair/matchers/change_class_method_on_spec.rb'
-    - 'spec/lib/sinclair/matchers/change_class_method_spec.rb'
-    - 'spec/lib/sinclair/matchers/change_instance_method_on_spec.rb'
-    - 'spec/lib/sinclair/matchers/change_instance_method_spec.rb'
-
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 Lint/AmbiguousOperatorPrecedence:
