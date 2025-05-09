@@ -6,15 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 24
-# Configuration parameters: AllowComments, AllowEmptyLambdas.
-Lint/EmptyBlock:
-  Exclude:
-    - 'spec/lib/sinclair/matchers/add_class_method_to_spec.rb'
-    - 'spec/lib/sinclair/matchers/add_instance_method_to_spec.rb'
-    - 'spec/lib/sinclair/matchers/change_class_method_on_spec.rb'
-    - 'spec/lib/sinclair/matchers/change_instance_method_on_spec.rb'
-
 # Offense count: 2
 # Configuration parameters: AllowComments.
 Lint/EmptyClass:
