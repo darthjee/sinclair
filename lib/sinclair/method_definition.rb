@@ -49,11 +49,11 @@ class Sinclair
       # returns a {StringDefinition} otherwise
       #
       # @return [Base]
-      def from(name, code = nil, **options, &block)
+      def from(name, code = nil, **, &block)
         if block
-          BlockDefinition.new(name, **options, &block)
+          BlockDefinition.new(name, **, &block)
         else
-          StringDefinition.new(name, code, **options)
+          StringDefinition.new(name, code, **)
         end
       end
 
@@ -68,11 +68,11 @@ class Sinclair
       # @param type [Symbol] the method definition type
       #
       # @return [Sinclair::MethodDefinition] an instance of a subclass
-      def for(type, *args, **options, &)
-        return from(*args, **options, &) unless type
+      def for(type, ...)
+        return from(...) unless type
 
         klass = const_get("#{type}_definition".camelize)
-        klass.new(*args, **options, &)
+        klass.new(...)
       end
 
       # Defines builder for a definition class

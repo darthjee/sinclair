@@ -34,8 +34,8 @@ class Sinclair
     #   #   key3: 10,
     #   #   'key4' => 20
     #   # }
-    def self.input_hash(*args)
-      new(*args).to_h
+    def self.input_hash(*)
+      new(*).to_h
     end
 
     # @api private

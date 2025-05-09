@@ -79,11 +79,11 @@ class Sinclair
     #
     #   config.secret # return '123abc'
     #   config.app_name # return 'MySuperApp'
-    def add_configs(*args)
-      Config::MethodsBuilder.new(self, *args).tap do |builder|
+    def add_configs(*)
+      Config::MethodsBuilder.new(self, *).tap do |builder|
         builder.build
 
-        Sinclair::InputHash.input_hash(*args).each do |name, value|
+        Sinclair::InputHash.input_hash(*).each do |name, value|
           options_class.with_options(name => value)
         end
 

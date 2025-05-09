@@ -56,11 +56,11 @@ class Sinclair
     #
     #   config.respond_to? :active
     #   # returns true
-    def add_configs(*args)
+    def add_configs(*)
       builder = if config_class.is_a?(Sinclair::ConfigClass)
-                  config_class.add_configs(*args)
+                  config_class.add_configs(*)
                 else
-                  Config::MethodsBuilder.build(config_class, *args)
+                  Config::MethodsBuilder.build(config_class, *)
                 end
 
       config_attributes.concat(builder.config_names.map(&:to_sym))

@@ -22,8 +22,8 @@ class Sinclair
       end
 
       # (see Caster.cast)
-      def cast(value, key, **opts)
-        caster_for(key).cast(value, **opts)
+      def cast(value, key, **)
+        caster_for(key).cast(value, **)
       end
 
       # (see Caster.caster_for)

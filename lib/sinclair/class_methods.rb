@@ -32,8 +32,8 @@ class Sinclair
     #   model = MyPerson.new
     #
     #   model.random_name # returns 'John 803 Doe'
-    def build(*args, **opts, &)
-      new(*args, **opts).tap do |builder|
+    def build(*, **, &)
+      new(*, **).tap do |builder|
         builder.instance_eval(&) if block_given?
       end.build
     end
