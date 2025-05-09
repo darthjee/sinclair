@@ -64,3 +64,6 @@ RSpec/MultipleMemoizedHelpers:
 
 Naming/VariableNumber:
   Enabled: false
+
+RSpec/IndexedLet:
+  Enabled: false
