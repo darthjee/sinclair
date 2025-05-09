@@ -67,3 +67,6 @@ Naming/VariableNumber:
 
 RSpec/IndexedLet:
   Enabled: false
+
+RSpec/IdenticalEqualityAssertion:
+  Enabled: false
