@@ -88,7 +88,7 @@ class Sinclair
     #
     # @return  [TrueClass,FalseClass]
     def match?(model, other)
-      return false unless model.class == other.class
+      return false unless model.instance_of?(other.class)
 
       attributes.all? do |attr|
         Reader.attributes_match?(attr, model, other)
