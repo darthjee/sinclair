@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RandomGenerator
-  KAPA = 3.9 + Random.rand / 10.0
+  KAPA = 3.9 + (Random.rand / 10.0)
 
   class << self
     def rand

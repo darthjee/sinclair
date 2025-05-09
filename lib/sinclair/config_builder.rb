@@ -78,8 +78,8 @@ class Sinclair
       klass = @config.class
 
       @config_attributes.include?(method_name) ||
-        klass.is_a?(Sinclair::ConfigClass) &&
-          klass.config_attributes.include?(method_name)
+        (klass.is_a?(Sinclair::ConfigClass) &&
+          klass.config_attributes.include?(method_name))
     end
   end
 end
