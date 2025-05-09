@@ -7,8 +7,8 @@ describe Object do
         it do
           object = [1, 2, 3]
 
-          expect(object.is_any?(Hash, Class)).to eq(false)
-          expect(object.is_any?(Hash, Array)).to eq(true)
+          expect(object.is_any?(Hash, Class)).to be(false)
+          expect(object.is_any?(Hash, Array)).to be(true)
         end
       end
     end

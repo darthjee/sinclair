@@ -142,7 +142,7 @@ describe Sinclair::Options do
     context 'when overriding values with false' do
       let(:options) { klass.new(protocol: false) }
 
-      it { expect(options.protocol).to eq(false) }
+      it { expect(options.protocol).to be(false) }
     end
   end
 

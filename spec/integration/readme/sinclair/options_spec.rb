@@ -11,7 +11,7 @@ describe Sinclair::Options do
       )
 
       expect(options.timeout).to eq(10)
-      expect(options.retries).to eq(nil)
+      expect(options.retries).to be_nil
       expect(options.protocol).to eq('http')
       expect(options.port).to eq(443)
     end
