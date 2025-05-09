@@ -5,7 +5,7 @@ require 'spec_helper'
 describe Sinclair::MethodBuilder::StringMethodBuilder do
   describe '#build' do
     subject(:builder) do
-      described_class.new(klass, definition, type: type)
+      described_class.new(klass, definition, type:)
     end
 
     let(:klass)       { Class.new }

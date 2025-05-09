@@ -49,10 +49,10 @@ class Sinclair
     # @param args [Array<Object>] arguments of the call
     #
     # @return [Object]
-    def method_missing(method_name, *args)
+    def method_missing(method_name, *)
       return super unless method_included?(method_name)
 
-      @config.instance_variable_set("@#{method_name}", *args)
+      @config.instance_variable_set("@#{method_name}", *)
     end
 
     # @private
@@ -78,8 +78,8 @@ class Sinclair
       klass = @config.class
 
       @config_attributes.include?(method_name) ||
-        klass.is_a?(Sinclair::ConfigClass) &&
-          klass.config_attributes.include?(method_name)
+        (klass.is_a?(Sinclair::ConfigClass) &&
+          klass.config_attributes.include?(method_name))
     end
   end
 end

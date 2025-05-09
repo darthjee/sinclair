@@ -21,8 +21,8 @@ class Sinclair
     # Deprecation warning message
     # @see https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes
     CONFIG_CLASS_WARNING = 'Config class is expected to be ConfigClass. ' \
-      "In future releases this will be enforced.\n" \
-      'see more on https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes'
+                           "In future releases this will be enforced.\n" \
+                           'see more on https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes'
 
     # @param config_class [Class] configuration class to be used
     # @param config_attributes [Array<Symbol,String>] list of possible configurations
@@ -56,11 +56,11 @@ class Sinclair
     #
     #   config.respond_to? :active
     #   # returns true
-    def add_configs(*args)
+    def add_configs(*)
       builder = if config_class.is_a?(Sinclair::ConfigClass)
-                  config_class.add_configs(*args)
+                  config_class.add_configs(*)
                 else
-                  Config::MethodsBuilder.build(config_class, *args)
+                  Config::MethodsBuilder.build(config_class, *)
                 end
 
       config_attributes.concat(builder.config_names.map(&:to_sym))
@@ -138,13 +138,14 @@ class Sinclair
     def child
       self.class.new(
         config_class: Class.new(config_class),
-        config_attributes: config_attributes
+        config_attributes:
       )
     end
 
     private
 
     attr_reader :config_class, :config_attributes
+
     # @method config_class
     # @private
     # @api private

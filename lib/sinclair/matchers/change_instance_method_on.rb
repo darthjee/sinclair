@@ -91,7 +91,7 @@ class Sinclair
       # @raise SyntaxError
       def raise_block_syntax_error
         raise SyntaxError, 'Block not received by the `change_instance_method_on` matcher. ' \
-          'Perhaps you want to use `{ ... }` instead of do/end?'
+                           'Perhaps you want to use `{ ... }` instead of do/end?'
       end
     end
   end

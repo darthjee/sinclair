@@ -26,10 +26,10 @@ class Sinclair
       #     method should be added
       #   @param comparable [TrueClass,FalseClass] flag to make the class {Comparable}
       #     by the fields
-      def initialize(klass, *attributes, **options)
+      def initialize(klass, *attributes, **)
         super(klass)
         @attributes = attributes.flatten
-        @options = BuilderOptions.new(**options)
+        @options = BuilderOptions.new(**)
 
         add_methods
         change_equals

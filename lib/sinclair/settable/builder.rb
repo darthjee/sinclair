@@ -62,6 +62,7 @@ class Sinclair
       alias read_block read_with
 
       attr_reader :settings
+
       # @method settings
       # @private
       # @api private

@@ -69,7 +69,7 @@ describe Sinclair::ChainSettable do
 
   context 'when none has value' do
     let(:default)      { 'some_default_username' }
-    let(:options_hash) { { default: default } }
+    let(:options_hash) { { default: } }
 
     it 'returns the first value' do
       expect(settable.username).to eq(default)

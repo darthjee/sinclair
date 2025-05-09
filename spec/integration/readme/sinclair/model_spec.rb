@@ -11,14 +11,14 @@ describe Sinclair::Model do
       expect(human1.name).to eq('John Doe')
       expect(human1.age).to eq(22)
       expect(human1.gender).to eq(:undefined)
-      expect(human1 == human2).to eq(true)
+      expect(human1 == human2).to be(true)
     end
 
     it 'Without comparable' do
       tv1 = Tv.new(model: 'Sans Sunga Xt')
       tv2 = Tv.new(model: 'Sans Sunga Xt')
 
-      expect(tv1 == tv2).to eq(false)
+      expect(tv1 == tv2).to be(false)
     end
   end
 end

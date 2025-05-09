@@ -35,7 +35,7 @@ shared_examples 'settings reading' do
 
   context 'when defining defaults' do
     let(:settings)   { %i[host] }
-    let(:options)    { { prefix: prefix, default: 'my-host.com' } }
+    let(:options)    { { prefix:, default: 'my-host.com' } }
 
     it 'returns default value' do
       expect(settable.host).to eq('my-host.com')
@@ -60,7 +60,7 @@ shared_examples 'settings reading' do
 
   context 'when defining a type' do
     let(:settings) { %i[port] }
-    let(:options)  { { prefix: prefix, type: :integer } }
+    let(:options)  { { prefix:, type: :integer } }
     let(:port)     { Random.rand(10..100) }
 
     context 'when the key is not set' do

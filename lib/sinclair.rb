@@ -294,8 +294,8 @@ class Sinclair
   #     person.bond_name # returns 'Bond, James Bond'
   #
   # @return [Array<MethodDefinition>] the list of all currently defined instance methods
-  def add_method(*args, type: nil, **options, &block)
-    definitions.add(*args, type: type, **options, &block)
+  def add_method(*, type: nil, **, &)
+    definitions.add(*, type:, **, &)
   end
 
   # Add a method to the method list to be created on klass
@@ -379,8 +379,8 @@ class Sinclair
   #     env_fetcher.timeout # returns '10'
   #
   # @return [Array<MethodDefinition>] the list of all currently defined class methods
-  def add_class_method(*args, type: nil, **options, &block)
-    class_definitions.add(*args, type: type, **options, &block)
+  def add_class_method(*, type: nil, **, &)
+    class_definitions.add(*, type:, **, &)
   end
 
   # Evaluetes a block which will result in a String, the method code
@@ -453,8 +453,8 @@ class Sinclair
   #
   #   Purchase.new(2.3, 5).total_price # returns 11.5
   # @return [Array<MethodDefinition>] the list of all currently defined instance methods
-  def eval_and_add_method(name, &block)
-    add_method(name, instance_eval(&block))
+  def eval_and_add_method(name, &)
+    add_method(name, instance_eval(&))
   end
 
   private

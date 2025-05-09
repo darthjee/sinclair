@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe Sinclair::Model do
-  subject(:model) { klass.new(name: name) }
+  subject(:model) { klass.new(name:) }
 
   let(:name)       { SecureRandom.hex(10) }
   let(:attributes) { %i[name] }
@@ -55,7 +55,7 @@ describe Sinclair::Model do
     end
 
     context 'when class is subclass of another model' do
-      subject(:model) { klass.new(name: name, age: age) }
+      subject(:model) { klass.new(name:, age:) }
 
       let(:age) { Random.rand(10..20) }
 
@@ -72,7 +72,7 @@ describe Sinclair::Model do
       end
 
       it 'is initialized with both attributes' do
-        expect { klass.new(name: name, age: age) }
+        expect { klass.new(name:, age:) }
           .not_to raise_error
       end
 

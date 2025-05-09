@@ -69,7 +69,7 @@ describe Sinclair::Matchers::AddInstanceMethodTo do
         expect { matcher.matches?(event_proc) { 1 } }
           .to raise_error(
             SyntaxError, 'Block not received by the `add_instance_method_to` matcher. ' \
-            'Perhaps you want to use `{ ... }` instead of do/end?'
+                         'Perhaps you want to use `{ ... }` instead of do/end?'
           )
       end
     end

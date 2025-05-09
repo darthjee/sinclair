@@ -25,7 +25,7 @@ describe Sinclair::Matchers::AddInstanceMethod do
       expect { matcher.matches?(proc {}) }
         .to raise_error(
           SyntaxError, 'You should specify which instance the method is being added to' \
-          "add_method(:#{method}).to(instance)"
+                       "add_method(:#{method}).to(instance)"
         )
     end
   end

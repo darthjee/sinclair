@@ -45,7 +45,7 @@ describe 'yard Sinclair::Caster.cast_with' do
     values.map! do |config|
       value = config[:value]
       klass = config[:klass]
-      my_caster.cast(value, klass, klass: klass)
+      my_caster.cast(value, klass, klass:)
     end
 
     expect(values[0]).to eq('{"name":"john","age":20,"country":"BR"}')

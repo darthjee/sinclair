@@ -51,9 +51,9 @@ class Sinclair
       #     job.state # returns :done
       #
       # @return [Class<Model>] a new class with the chosen attributes
-      def for(*attributes, **options)
+      def for(*attributes, **)
         Class.new(self) do |klass|
-          Builder.new(klass, *attributes, **options).build
+          Builder.new(klass, *attributes, **).build
         end
       end
 
@@ -100,8 +100,8 @@ class Sinclair
       #     job.state # returns :done
       #
       # @return [Array<MethodDefinition>]
-      def initialize_with(*attributes, **options)
-        Builder.new(self, *attributes, **options).build
+      def initialize_with(*attributes, **)
+        Builder.new(self, *attributes, **).build
       end
     end
   end

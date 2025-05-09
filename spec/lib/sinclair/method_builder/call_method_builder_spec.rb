@@ -5,7 +5,7 @@ require 'spec_helper'
 describe Sinclair::MethodBuilder::CallMethodBuilder do
   describe '#build' do
     subject(:builder) do
-      described_class.new(klass, definition, type: type)
+      described_class.new(klass, definition, type:)
     end
 
     let(:call_name) { "attr_#{accessor_type}" }

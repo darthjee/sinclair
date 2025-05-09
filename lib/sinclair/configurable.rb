@@ -22,10 +22,10 @@ class Sinclair
     # Deprecation warning message
     # @see https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes
     CONFIG_CLASS_WARNING = 'Config classes attributes should ' \
-      'be defined inside the class or through the usage of ' \
-      "configurable_with.\n" \
-      "In future releases this will be enforced.\n" \
-      'see more on https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes'
+                           'be defined inside the class or through the usage of ' \
+                           "configurable_with.\n" \
+                           "In future releases this will be enforced.\n" \
+                           'see more on https://github.com/darthjee/sinclair/blob/master/WARNINGS.md#usage-of-custom-config-classes'
 
     # @method config
     #
@@ -202,7 +202,7 @@ class Sinclair
       warn CONFIG_CLASS_WARNING if with.present?
 
       @config_factory = ConfigFactory.new(
-        config_class: config_class,
+        config_class:,
         config_attributes: with.map(&:to_sym)
       )
     end

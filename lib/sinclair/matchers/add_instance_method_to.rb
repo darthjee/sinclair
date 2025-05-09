@@ -108,7 +108,7 @@ class Sinclair
       # @raise SyntaxError
       def raise_block_syntax_error
         raise SyntaxError, 'Block not received by the `add_instance_method_to` matcher. ' \
-          'Perhaps you want to use `{ ... }` instead of do/end?'
+                           'Perhaps you want to use `{ ... }` instead of do/end?'
       end
     end
   end

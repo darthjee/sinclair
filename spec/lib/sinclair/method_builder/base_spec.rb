@@ -8,7 +8,7 @@ describe Sinclair::MethodBuilder::Base do
     let(:type)  { Sinclair::MethodBuilder::CLASS_METHOD }
 
     it do
-      expect { described_class.build(klass, instance_of(described_class), type: type) }
+      expect { described_class.build(klass, instance_of(described_class), type:) }
         .to raise_error(NotImplementedError)
     end
   end

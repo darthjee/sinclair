@@ -23,8 +23,8 @@ class Sinclair
       #   and +Hash+ representing parameters with default values
       #
       # @return [String]
-      def self.from(*args)
-        new(*args).to_s
+      def self.from(*)
+        new(*).to_s
       end
 
       private_class_method :new

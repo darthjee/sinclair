@@ -30,7 +30,7 @@ class Sinclair
     read_with do |key, prefix: nil|
       env_key = [prefix, key].compact.join('_').to_s.upcase
 
-      ENV[env_key]
+      ENV.fetch(env_key, nil)
     end
 
     private

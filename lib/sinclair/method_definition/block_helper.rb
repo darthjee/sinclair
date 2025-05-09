@@ -14,12 +14,12 @@ class Sinclair
       # Returns proc block when {#cached?} as simple
       #
       # @return [Proc]
-      def cached_method_proc(method_name, &inner_block)
+      def cached_method_proc(method_name, &)
         proc do
           instance_variable_get("@#{method_name}") ||
             instance_variable_set(
               "@#{method_name}",
-              instance_eval(&inner_block)
+              instance_eval(&)
             )
         end
       end
@@ -29,14 +29,14 @@ class Sinclair
       # Returns proc block when {#cached?} as full
       #
       # @return [Proc]
-      def full_cached_method_proc(method_name, &inner_block)
+      def full_cached_method_proc(method_name, &)
         proc do
           if instance_variable_defined?("@#{method_name}")
             instance_variable_get("@#{method_name}")
           else
             instance_variable_set(
               "@#{method_name}",
-              instance_eval(&inner_block)
+              instance_eval(&)
             )
           end
         end

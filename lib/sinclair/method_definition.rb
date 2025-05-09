@@ -49,11 +49,11 @@ class Sinclair
       # returns a {StringDefinition} otherwise
       #
       # @return [Base]
-      def from(name, code = nil, **options, &block)
+      def from(name, code = nil, **, &block)
         if block
-          BlockDefinition.new(name, **options, &block)
+          BlockDefinition.new(name, **, &block)
         else
-          StringDefinition.new(name, code, **options)
+          StringDefinition.new(name, code, **)
         end
       end
 
@@ -68,11 +68,11 @@ class Sinclair
       # @param type [Symbol] the method definition type
       #
       # @return [Sinclair::MethodDefinition] an instance of a subclass
-      def for(type, *args, **options, &block)
-        return from(*args, **options, &block) unless type
+      def for(type, ...)
+        return from(...) unless type
 
         klass = const_get("#{type}_definition".camelize)
-        klass.new(*args, **options, &block)
+        klass.new(...)
       end
 
       # Defines builder for a definition class
@@ -100,7 +100,7 @@ class Sinclair
       #   @return [Symbol] the name of the method built
       def build_with(builder_class)
         define_method(:build) do |klass, type|
-          builder_class.build(klass, self, type: type)
+          builder_class.build(klass, self, type:)
         end
       end
     end
@@ -131,7 +131,7 @@ class Sinclair
     # @raise NotImplementedError
     def build(_klass, _type)
       raise NotImplementedError, 'Build is implemented in subclasses. ' \
-        "Use #{self.class}.from to initialize a proper object"
+                                 "Use #{self.class}.from to initialize a proper object"
     end
 
     delegate :cached, to: :options_object

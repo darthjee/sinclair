@@ -17,8 +17,8 @@ class Sinclair
       #     named parameters
       #
       # @return [String]
-      def self.parameters_from(*args, **opts)
-        new(*args, **opts).strings
+      def self.parameters_from(*, **)
+        new(*, **).strings
       end
 
       private_class_method :new

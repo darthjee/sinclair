@@ -13,8 +13,8 @@ class Sinclair
       end
 
       # (see Caster.cast_with)
-      def cast_with(key, method_name = nil, &block)
-        caster = instance_for(method_name, &block)
+      def cast_with(key, method_name = nil, &)
+        caster = instance_for(method_name, &)
 
         return class_casters[key] = caster if key.is_a?(Class)
 
@@ -22,8 +22,8 @@ class Sinclair
       end
 
       # (see Caster.cast)
-      def cast(value, key, **opts)
-        caster_for(key).cast(value, **opts)
+      def cast(value, key, **)
+        caster_for(key).cast(value, **)
       end
 
       # (see Caster.caster_for)
@@ -93,8 +93,8 @@ class Sinclair
       #   @param caster [Caster] instance of caster to be returned
       #
       # @return [Caster]
-      def instance_for(method_name, &block)
-        return new(&block) unless method_name
+      def instance_for(method_name, &)
+        return new(&) unless method_name
         return method_name if method_name.is_a?(Caster)
 
         new(&method_name)

@@ -54,7 +54,7 @@ describe Sinclair::Matchers::ChangeClassMethodOn do
         expect { matcher.matches?(event_proc) { 1 } }
           .to raise_error(
             SyntaxError, 'Block not received by the `change_class_method_on` matcher. ' \
-            'Perhaps you want to use `{ ... }` instead of do/end?'
+                         'Perhaps you want to use `{ ... }` instead of do/end?'
           )
       end
     end

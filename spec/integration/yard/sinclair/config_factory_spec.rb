@@ -6,8 +6,8 @@ describe Sinclair::ConfigFactory do
   describe '#yard' do
     subject(:factory) do
       described_class.new(
-        config_class: config_class,
-        config_attributes: config_attributes
+        config_class:,
+        config_attributes:
       )
     end
 
@@ -74,13 +74,13 @@ describe Sinclair::ConfigFactory do
 
       describe 'Setting name with hash and block' do
         it 'sets name on config' do
-          expect { factory.configure(email: email) { name 'John' } }
+          expect { factory.configure(email:) { name 'John' } }
             .to change(config, :name)
             .from(nil).to('John')
         end
 
         it 'sets email on config' do
-          expect { factory.configure(email: email) { name 'John' } }
+          expect { factory.configure(email:) { name 'John' } }
             .to change(config, :email)
             .from(nil).to(email)
         end

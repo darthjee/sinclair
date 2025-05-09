@@ -10,9 +10,9 @@ describe MyClass do
   let(:age)   { 20 }
   let(:attributes) do
     {
-      name: name,
+      name:,
       surname: 'surname',
-      age: age,
+      age:,
       legs: 2
     }
   end

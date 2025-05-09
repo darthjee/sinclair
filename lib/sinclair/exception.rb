@@ -18,6 +18,7 @@ class Sinclair
     class InvalidOptions < Sinclair::Exception
       # @param invalid_keys [Array<Symbol>] list of invalid keys
       def initialize(invalid_keys = [])
+        super
         @invalid_keys = invalid_keys
       end
 

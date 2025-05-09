@@ -23,7 +23,7 @@ describe Sinclair::Matchers::AddClassMethod do
       expect { matcher.matches?(proc {}) }
         .to raise_error(
           SyntaxError, 'You should specify which class the method is being added to' \
-          "add_class_method(:#{method}).to(klass)"
+                       "add_class_method(:#{method}).to(klass)"
         )
     end
   end

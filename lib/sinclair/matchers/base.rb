@@ -9,6 +9,7 @@ class Sinclair
     class Base < RSpec::Matchers::BuiltIn::BaseMatcher
       # @param method_name [String,Symbol] the method, to be checked, name
       def initialize(method_name)
+        super
         @method_name = method_name.to_sym
       end
 
@@ -23,7 +24,7 @@ class Sinclair
       #
       # @return [Boolean]
       def equal?(other)
-        return unless other.class == self.class
+        return false unless other.class == self.class
 
         other.method_name == method_name &&
           other.try(:klass) == try(:klass)
