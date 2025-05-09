@@ -70,3 +70,6 @@ RSpec/IndexedLet:
 
 RSpec/IdenticalEqualityAssertion:
   Enabled: false
+
+RSpec/VerifiedDoubleReference:
+  Enabled: false
