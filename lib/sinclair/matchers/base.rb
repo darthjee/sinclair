@@ -9,6 +9,7 @@ class Sinclair
     class Base < RSpec::Matchers::BuiltIn::BaseMatcher
       # @param method_name [String,Symbol] the method, to be checked, name
       def initialize(method_name)
+        super
         @method_name = method_name.to_sym
       end
 
