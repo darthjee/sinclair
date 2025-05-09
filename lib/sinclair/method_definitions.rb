@@ -40,8 +40,8 @@ class Sinclair
     # @see MethodDefinition.from
     #
     # @return [Array<MethodDefinition>]
-    def add(*, type: nil, **, &block)
-      definitions << MethodDefinition.for(type, *, **, &block)
+    def add(*, type: nil, **, &)
+      definitions << MethodDefinition.for(type, *, **, &)
     end
 
     private

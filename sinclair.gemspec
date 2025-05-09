@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.files                 = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   gem.executables           = gem.files.grep(%r{^bin/}) { |f| File.basename(f) }
   gem.require_paths         = ['lib']
-
-  gem.add_runtime_dependency 'activesupport', '~> 7.2.x'
   gem.metadata['rubygems_mfa_required'] = 'false'
+
+  gem.add_dependency 'activesupport', '~> 7.2.x'
 end
