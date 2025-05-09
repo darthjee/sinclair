@@ -5,10 +5,3 @@
 # one by one as the offenses are removed from the code base.
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
-
-# Offense count: 13
-# This cop supports safe autocorrection (--autocorrect).
-RSpec/RedundantPredicateMatcher:
-  Exclude:
-    - 'spec/integration/yard/sinclair/config_factory_spec.rb'
-    - 'spec/lib/sinclair/equals_checker_spec.rb'

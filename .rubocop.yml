@@ -73,3 +73,8 @@ RSpec/IdenticalEqualityAssertion:
 
 RSpec/VerifiedDoubleReference:
   Enabled: false
+
+RSpec/RedundantPredicateMatcher:
+  Exclude:
+    - 'spec/integration/yard/sinclair/config_factory_spec.rb'
+    - 'spec/lib/sinclair/equals_checker_spec.rb'
