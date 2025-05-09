@@ -4,6 +4,9 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   TargetRubyVersion: 3.3
 
+AllCops:
+  NewCops: enable
+
 RSpec/DescribeClass:
   Exclude:
     - 'spec/integration/yard/**/*_spec.rb'
