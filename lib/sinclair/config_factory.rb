@@ -145,6 +145,7 @@ class Sinclair
     private
 
     attr_reader :config_class, :config_attributes
+
     # @method config_class
     # @private
     # @api private

@@ -51,6 +51,7 @@ class Sinclair
     private
 
     attr_reader :attributes, :hash
+
     # @method attributes
     # @api private
     # @private

@@ -45,6 +45,7 @@ class Sinclair
       private
 
       attr_reader :klass, :definition, :type
+
       # @method klass
       # @private
       # @api private
