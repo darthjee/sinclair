@@ -19,7 +19,7 @@ describe 'yard Sinclair#add_class_method' do
   describe 'Adding a method by Block' do
     it 'returns the timeout' do
       builder = Sinclair.new(klass)
-      builder.add_class_method(:timeout) { ENV['TIMEOUT'] }
+      builder.add_class_method(:timeout) { ENV.fetch('TIMEOUT', nil) }
       builder.build
       ENV['TIMEOUT'] = '300'
 
@@ -30,7 +30,7 @@ describe 'yard Sinclair#add_class_method' do
   describe 'Passing type block' do
     it 'creates new method' do
       builder = Sinclair.new(klass)
-      builder.add_class_method(:timeout, type: :block) { ENV['TIMEOUT'] }
+      builder.add_class_method(:timeout, type: :block) { ENV.fetch('TIMEOUT', nil) }
       builder.build
       ENV['TIMEOUT'] = '300'
 

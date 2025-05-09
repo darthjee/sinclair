@@ -13,7 +13,7 @@ module EnvSettings
       env_key = [env_prefix, method_name].compact.join('_').upcase
 
       builder.add_class_method(method_name, cached: true) do
-        ENV[env_key]
+        ENV.fetch(env_key, nil)
       end
 
       builder.build
