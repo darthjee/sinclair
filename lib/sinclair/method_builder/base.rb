@@ -19,7 +19,7 @@ class Sinclair
       #
       # @return [Symbol] name of the method built
       def self.build(klass, definition, type:)
-        new(klass, definition, type: type).build
+        new(klass, definition, type:).build
       end
 
       # @param klass [Class] class to receive the method

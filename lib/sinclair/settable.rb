@@ -78,7 +78,7 @@ class Sinclair
       setting_with_options(*settings_name)
 
       defaults.each do |key, default|
-        setting_with_options(key, default: default)
+        setting_with_options(key, default:)
       end
     end
 

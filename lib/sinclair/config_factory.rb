@@ -138,7 +138,7 @@ class Sinclair
     def child
       self.class.new(
         config_class: Class.new(config_class),
-        config_attributes: config_attributes
+        config_attributes:
       )
     end
 

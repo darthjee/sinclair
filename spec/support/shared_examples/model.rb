@@ -18,7 +18,7 @@ shared_examples 'sinclair model building' do
     end
 
     it 'returns a new class with a comparable that finds matches' do
-      expect(model).to eq(klass.new(name: name))
+      expect(model).to eq(klass.new(name:))
     end
 
     it 'returns a new class with a comparable that find misses' do
@@ -48,7 +48,7 @@ shared_examples 'sinclair model building' do
     let(:options) { { comparable: false } }
 
     it 'returns a new class without comparable' do
-      expect(model).not_to eq(klass.new(name: name))
+      expect(model).not_to eq(klass.new(name:))
     end
   end
 

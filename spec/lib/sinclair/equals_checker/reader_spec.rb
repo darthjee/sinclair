@@ -6,7 +6,7 @@ describe Sinclair::EqualsChecker::Reader do
   subject(:reader) { described_class.new(attribute) }
 
   let(:attribute) { :information }
-  let(:model)     { SampleModel.new(name: name, age: age) }
+  let(:model)     { SampleModel.new(name:, age:) }
   let(:name)      { 'The Name' }
   let(:age)       { 25 }
 

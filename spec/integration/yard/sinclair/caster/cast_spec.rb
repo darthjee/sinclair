@@ -15,8 +15,8 @@ describe 'yard Sinclair::Caster' do
     it 'Casts passing parameter' do
       base = Random.rand(3..6)
       initial = Random.rand(10..20)
-      log = MathCaster.cast(initial, :log, base: base)
-      exp = MathCaster.cast(log, :exp, base: base)
+      log = MathCaster.cast(initial, :log, base:)
+      exp = MathCaster.cast(log, :exp, base:)
 
       expect(exp).to be_between(initial - 0.0001, initial + 0.0001)
     end

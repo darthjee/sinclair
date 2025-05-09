@@ -100,7 +100,7 @@ class Sinclair
       #   @return [Symbol] the name of the method built
       def build_with(builder_class)
         define_method(:build) do |klass, type|
-          builder_class.build(klass, self, type: type)
+          builder_class.build(klass, self, type:)
         end
       end
     end

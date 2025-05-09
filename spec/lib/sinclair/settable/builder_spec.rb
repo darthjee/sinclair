@@ -16,7 +16,7 @@ describe Sinclair::Settable::Builder do
   let(:username)   { 'my_login' }
   let(:password)   { Random.rand(10_000).to_s }
   let(:settings)   { %i[username password] }
-  let(:options)    { { prefix: prefix } }
+  let(:options)    { { prefix: } }
 
   let(:builder) do
     described_class.new(settable, *settings, **options)

@@ -295,7 +295,7 @@ class Sinclair
   #
   # @return [Array<MethodDefinition>] the list of all currently defined instance methods
   def add_method(*args, type: nil, **options, &block)
-    definitions.add(*args, type: type, **options, &block)
+    definitions.add(*args, type:, **options, &block)
   end
 
   # Add a method to the method list to be created on klass
@@ -380,7 +380,7 @@ class Sinclair
   #
   # @return [Array<MethodDefinition>] the list of all currently defined class methods
   def add_class_method(*args, type: nil, **options, &block)
-    class_definitions.add(*args, type: type, **options, &block)
+    class_definitions.add(*args, type:, **options, &block)
   end
 
   # Evaluetes a block which will result in a String, the method code

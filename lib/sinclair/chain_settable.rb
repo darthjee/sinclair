@@ -76,7 +76,7 @@ class Sinclair
     def default_options
       {
         sources: sources_order,
-        sources_map: sources_map
+        sources_map:
       }
     end
   end

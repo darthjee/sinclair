@@ -20,7 +20,7 @@ describe Sinclair::Options do
 
     context 'when initializing with valid args' do
       subject(:options) do
-        klass.new(timeout: timeout, protocol: 'http')
+        klass.new(timeout:, protocol: 'http')
       end
 
       let(:timeout) { Random.rand(10..19) }
@@ -44,7 +44,7 @@ describe Sinclair::Options do
 
     context 'when initializing subclass with valid args' do
       subject(:options) do
-        klass.new(timeout: timeout, protocol: 'http')
+        klass.new(timeout:, protocol: 'http')
       end
 
       let(:klass)   { Class.new(ConnectionOptions) }

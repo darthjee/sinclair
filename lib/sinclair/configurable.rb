@@ -202,7 +202,7 @@ class Sinclair
       warn CONFIG_CLASS_WARNING if with.present?
 
       @config_factory = ConfigFactory.new(
-        config_class: config_class,
+        config_class:,
         config_attributes: with.map(&:to_sym)
       )
     end

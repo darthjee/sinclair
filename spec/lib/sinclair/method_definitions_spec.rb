@@ -48,22 +48,22 @@ describe Sinclair::MethodDefinitions do
       let(:arguments) { %i[attr_reader some_attribute other_attribute] }
 
       it do
-        expect(definitions.add(*arguments, type: type))
+        expect(definitions.add(*arguments, type:))
           .to be_a(Array)
       end
 
       it 'creates a new definition' do
-        expect(definitions.add(*arguments, type: type).last)
+        expect(definitions.add(*arguments, type:).last)
           .to be_a(Sinclair::MethodDefinition)
       end
 
       it 'creates a new definition of the chosen type' do
-        expect(definitions.add(*arguments, type: type).last)
+        expect(definitions.add(*arguments, type:).last)
           .to be_a(Sinclair::MethodDefinition::CallDefinition)
       end
 
       it 'initializes it correctly' do
-        expect { klass.module_eval(&definitions.add(*arguments, type: type).last.code_block) }
+        expect { klass.module_eval(&definitions.add(*arguments, type:).last.code_block) }
           .to add_method(:some_attribute).to(klass)
       end
     end
@@ -89,7 +89,7 @@ describe Sinclair::MethodDefinitions do
       end
 
       it 'initializes it correctly' do
-        expect(definitions.add(method_name, type: type, &block).last.name)
+        expect(definitions.add(method_name, type:, &block).last.name)
           .to eq(method_name)
       end
     end
@@ -100,22 +100,22 @@ describe Sinclair::MethodDefinitions do
       let(:code)        { '10' }
 
       it do
-        expect(definitions.add(method_name, code, type: type))
+        expect(definitions.add(method_name, code, type:))
           .to be_a(Array)
       end
 
       it 'creates a new definition' do
-        expect(definitions.add(method_name, code, type: type).last)
+        expect(definitions.add(method_name, code, type:).last)
           .to be_a(Sinclair::MethodDefinition)
       end
 
       it 'creates a new definition of the chosen type' do
-        expect(definitions.add(method_name, code, type: type).last)
+        expect(definitions.add(method_name, code, type:).last)
           .to be_a(Sinclair::MethodDefinition::StringDefinition)
       end
 
       it 'initializes it correctly' do
-        expect(definitions.add(method_name, code, type: type).last.name)
+        expect(definitions.add(method_name, code, type:).last.name)
           .to eq(method_name)
       end
     end

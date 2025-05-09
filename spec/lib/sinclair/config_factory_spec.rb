@@ -153,7 +153,7 @@ describe Sinclair::ConfigFactory do
     end
 
     context 'when config class was set from common class' do
-      subject(:factory) { described_class.new(config_class: config_class) }
+      subject(:factory) { described_class.new(config_class:) }
 
       let(:config_class) { Class.new }
 
