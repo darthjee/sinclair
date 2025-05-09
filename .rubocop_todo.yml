@@ -7,14 +7,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 3
-# Configuration parameters: AllowedParentClasses.
-Lint/MissingSuper:
-  Exclude:
-    - 'lib/sinclair/exception.rb'
-    - 'lib/sinclair/matchers/base.rb'
-    - 'spec/lib/sinclair/method_definition_spec.rb'
-
-# Offense count: 3
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Lint/RedundantRequireStatement:
   Exclude:
