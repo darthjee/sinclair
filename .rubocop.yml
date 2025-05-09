@@ -87,6 +87,6 @@ Lint/EmptyBlock:
   Exclude:
     - 'spec/**/*_spec.rb'
 
-Lint/EmptyBlock:
+Lint/EmptyClass:
   Exclude:
-    - 'spec/**/*_spec.rb'
+    - 'spec/**/*.rb'
