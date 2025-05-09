@@ -453,8 +453,8 @@ class Sinclair
   #
   #   Purchase.new(2.3, 5).total_price # returns 11.5
   # @return [Array<MethodDefinition>] the list of all currently defined instance methods
-  def eval_and_add_method(name, &block)
-    add_method(name, instance_eval(&block))
+  def eval_and_add_method(name, &)
+    add_method(name, instance_eval(&))
   end
 
   private

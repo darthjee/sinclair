@@ -6,18 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 15
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, BlockForwardingName.
-# SupportedStyles: anonymous, explicit
-Naming/BlockForwarding:
-  Exclude:
-    - 'lib/sinclair.rb'
-    - 'lib/sinclair/caster/class_methods.rb'
-    - 'lib/sinclair/class_methods.rb'
-    - 'lib/sinclair/method_definition.rb'
-    - 'lib/sinclair/method_definition/block_helper.rb'
-
 # Offense count: 46
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowOnlyRestArgument, UseAnonymousForwarding, RedundantRestArgumentNames, RedundantKeywordRestArgumentNames, RedundantBlockArgumentNames.

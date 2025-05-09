@@ -68,11 +68,11 @@ class Sinclair
       # @param type [Symbol] the method definition type
       #
       # @return [Sinclair::MethodDefinition] an instance of a subclass
-      def for(type, *args, **options, &block)
-        return from(*args, **options, &block) unless type
+      def for(type, *args, **options, &)
+        return from(*args, **options, &) unless type
 
         klass = const_get("#{type}_definition".camelize)
-        klass.new(*args, **options, &block)
+        klass.new(*args, **options, &)
       end
 
       # Defines builder for a definition class
