@@ -6,16 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 8
-RSpec/IdenticalEqualityAssertion:
-  Exclude:
-    - 'spec/lib/sinclair/config_factory_spec.rb'
-    - 'spec/lib/sinclair/configurable_spec.rb'
-    - 'spec/lib/sinclair/method_definition/block_definition_spec.rb'
-    - 'spec/lib/sinclair/method_definition/block_helper_spec.rb'
-    - 'spec/lib/sinclair/method_definition/string_definition_spec.rb'
-    - 'spec/lib/sinclair/options_spec.rb'
-
 # Offense count: 14
 # Configuration parameters: Max, AllowedIdentifiers, AllowedPatterns.
 RSpec/IndexedLet:
