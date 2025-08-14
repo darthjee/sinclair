@@ -40,8 +40,10 @@ class Sinclair
       # @param code    [String] code to be evaluated as method
       # @param block   [Proc] block with code to be added as method
       # @param options [Hash] Options of construction
-      # @option options cached [Boolean] Flag telling to create a block
-      #   with cache
+      # @option options cached [Boolean, Symbol] Flag informing if value
+      #   is cached or not.
+      #   If +true+ the value is cached unless it is +nil+ or +false+.
+      #   If +:full+ the value is cached even if it is +nil+ or +false+
       #
       # builds a method definition based on arguments
       #
