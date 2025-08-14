@@ -99,7 +99,7 @@ shared_examples 'settings reading' do
     let(:settings) { %i[port] }
     let(:options)  { { prefix:, type: :integer } }
     let(:port)     { Random.rand(10..100) }
-    let(:new_port) { Random.rand(1000..10000) }
+    let(:new_port) { Random.rand(1000..10_000) }
 
     after do
       env_hash.delete(port_key)
