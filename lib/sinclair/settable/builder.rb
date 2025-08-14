@@ -97,7 +97,7 @@ class Sinclair
         block     = read_block
         caster    = caster_class.caster_for(type)
         default   = options_object.default
-        cached    = options_object.cached || :full
+        cached    = options.key?(:cached) ? options[:cached] : :full
 
         add_class_method(name, cached:) do
           value = instance_exec(name, **options, &block)
