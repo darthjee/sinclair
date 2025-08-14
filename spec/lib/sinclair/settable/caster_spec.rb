@@ -34,6 +34,20 @@ describe Sinclair::Settable::Caster do
       end
     end
 
+    context 'when casting to seconds' do
+      it 'converts string to seconds duration' do
+        result = described_class.cast('300', :seconds)
+        expect(result).to eq(300.seconds)
+        expect(result).to be_a(ActiveSupport::Duration)
+      end
+
+      it 'converts integer to seconds duration' do
+        result = described_class.cast(60, :seconds)
+        expect(result).to eq(60.seconds)
+        expect(result).to be_a(ActiveSupport::Duration)
+      end
+    end
+
     context 'when casting with unknown type' do
       it 'returns the original value' do
         expect(described_class.cast('value', :unknown)).to eq('value')
