@@ -92,6 +92,11 @@ class Sinclair
     #   to be added
     # @param options [Hash<Symbol, Object>] setting exposition options
     # @option options type [Symbol] type to cast the value fetched
+    #   - integer: converts to Integer
+    #   - string: converts to String
+    #   - float: converts to Float
+    #   - seconds: converts to ActiveSupport::Duration in seconds
+    #   - boolean: converts to Boolean (true/false)
     # @option options default [Object] Default value
     # @option options cached [Boolean, Symbol] Flag informing if value
     #    is cached or not.
