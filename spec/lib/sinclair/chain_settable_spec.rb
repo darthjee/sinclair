@@ -13,7 +13,9 @@ describe Sinclair::ChainSettable do
       source :app_client, env_setting
       source :my_app_client, Class.new(MyAppClient)
 
-      setting_with_options :username, :password, :host, :port, :domain, **options
+      setting_with_options :username, :password,
+                           :host, :port, :domain,
+                           :secret, **options
     end
   end
 
@@ -29,6 +31,7 @@ describe Sinclair::ChainSettable do
     let(:host_key)     { 'HOST' }
     let(:port_key)     { 'PORT' }
     let(:domain_key)   { 'DOMAIN' }
+    let(:secret_key)   { 'SECRET' }
 
     it_behaves_like 'settings reading'
   end
@@ -39,6 +42,7 @@ describe Sinclair::ChainSettable do
     let(:host_key)     { 'MY_APP_HOST' }
     let(:port_key)     { 'MY_APP_PORT' }
     let(:domain_key)   { 'MY_APP_DOMAIN' }
+    let(:secret_key)   { 'MY_APP_SECRET' }
     let(:prefix)       { 'MY_APP_' }
 
     it_behaves_like 'settings reading'
