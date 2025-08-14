@@ -99,7 +99,7 @@ class Sinclair
         default   = options_object.default
         cached    = options_object.cached || :full
 
-        add_class_method(name, cached: cached) do
+        add_class_method(name, cached:) do
           value = instance_exec(name, **options, &block)
 
           value ? caster.cast(value) : default
