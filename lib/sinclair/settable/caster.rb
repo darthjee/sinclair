@@ -56,6 +56,8 @@ class Sinclair
       cast_with(:integer, &:to_i)
       cast_with(:string, &:to_s)
       cast_with(:float, &:to_f)
+      cast_with(:seconds) { |value| value.to_i.seconds }
+      cast_with(:boolean) { |value| value.to_s.downcase == 'true' }
     end
   end
 end
