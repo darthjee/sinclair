@@ -19,12 +19,12 @@ shared_examples 'settings reading' do
 
     it 'cache username from env' do
       expect { env_hash[username_key] = SecureRandom.hex }
-        .to_not change { settable.username }
+        .not_to(change(settable, :username))
     end
 
     it 'cache password from env' do
       expect { env_hash[password_key] = SecureRandom.hex }
-        .to_not change { settable.password }
+        .not_to(change(settable, :password))
     end
   end
 
@@ -49,12 +49,12 @@ shared_examples 'settings reading' do
 
     it 'cache username from env' do
       expect { env_hash[username_key] = SecureRandom.hex }
-        .to_not change { settable.username }
+        .not_to(change(settable, :username))
     end
 
     it 'cache password from env' do
       expect { env_hash[password_key] = SecureRandom.hex }
-        .to_not change { settable.password }
+        .not_to(change(settable, :password))
     end
   end
 
@@ -65,7 +65,7 @@ shared_examples 'settings reading' do
     after do
       env_hash.delete(host_key)
     end
-    
+
     context 'when not setting the env variable' do
       it 'returns default value' do
         expect(settable.host).to eq('my-host.com')
@@ -73,7 +73,7 @@ shared_examples 'settings reading' do
 
       it 'caches default value' do
         expect { env_hash[host_key] = SecureRandom.hex }
-          .to_not change { settable.host }
+          .not_to(change(settable, :host))
       end
     end
 
@@ -90,7 +90,7 @@ shared_examples 'settings reading' do
 
       it 'caches env value' do
         expect { env_hash[host_key] = SecureRandom.hex }
-          .to_not change { settable.host }
+          .not_to(change(settable, :host))
       end
     end
   end
