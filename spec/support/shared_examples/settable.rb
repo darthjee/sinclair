@@ -100,9 +100,18 @@ shared_examples 'settings reading' do
     let(:options)  { { prefix:, type: :integer } }
     let(:port)     { Random.rand(10..100) }
 
+    after do
+      env_hash.delete(port_key)
+    end
+
     context 'when the key is not set' do
       it 'retrieves port and cast to string' do
         expect(settable.port).to be_nil
+      end
+
+      it 'caches port as nil' do
+        expect { env_hash[port_key] = SecureRandom.hex }
+          .not_to(change(settable, :port))
       end
     end
 
@@ -111,12 +120,13 @@ shared_examples 'settings reading' do
         env_hash[port_key] = port.to_s
       end
 
-      after do
-        env_hash.delete(port_key)
-      end
-
       it 'retrieves port and cast to string' do
         expect(settable.port).to eq(port)
+      end
+
+      it 'caches port as integer' do
+        expect { env_hash[port_key] = Random.rand(10000..100000).to_s }
+          .not_to(change(settable, :port))
       end
     end
   end
