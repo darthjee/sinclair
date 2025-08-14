@@ -99,6 +99,7 @@ shared_examples 'settings reading' do
     let(:settings) { %i[port] }
     let(:options)  { { prefix:, type: :integer } }
     let(:port)     { Random.rand(10..100) }
+    let(:new_port) { Random.rand(1000..10000) }
 
     after do
       env_hash.delete(port_key)
@@ -110,7 +111,7 @@ shared_examples 'settings reading' do
       end
 
       it 'caches port as nil' do
-        expect { env_hash[port_key] = SecureRandom.hex }
+        expect { env_hash[port_key] = new_port.to_s }
           .not_to(change(settable, :port))
       end
     end
@@ -125,8 +126,47 @@ shared_examples 'settings reading' do
       end
 
       it 'caches port as integer' do
-        expect { env_hash[port_key] = Random.rand(10000..100000).to_s }
+        expect { env_hash[port_key] = new_port.to_s }
           .not_to(change(settable, :port))
+      end
+    end
+  end
+
+  context 'when defining cache type as true' do
+    let(:settings)      { %i[domain] }
+    let(:options)       { { prefix:, cached: true } }
+    let(:options_hash)  { { prefix:, cached: true } }
+    let(:domain)        { 'example.com' }
+    let(:new_domain)    { 'new-example.com' }
+
+    after do
+      env_hash.delete(domain_key)
+    end
+
+    context 'when the key is not set' do
+      it 'retrieves domain and cast to string' do
+        expect(settable.domain).to be_nil
+      end
+
+      it 'does not caches domain as nil' do
+        expect { env_hash[domain_key] = new_domain.to_s }
+          .to change(settable, :domain)
+          .from(nil).to(new_domain)
+      end
+    end
+
+    context 'when the key is set' do
+      before do
+        env_hash[domain_key] = domain.to_s
+      end
+
+      it 'retrieves domain and cast to string' do
+        expect(settable.domain).to eq(domain)
+      end
+
+      it 'caches domain as string' do
+        expect { env_hash[domain_key] = new_domain }
+          .not_to(change(settable, :domain))
       end
     end
   end

@@ -12,6 +12,7 @@ describe Sinclair::EnvSettable do
   let(:password_key) { 'PASSWORD' }
   let(:host_key)     { 'HOST' }
   let(:port_key)     { 'PORT' }
+  let(:domain_key)   { 'DOMAIN' }
 
   it_behaves_like 'settings reading'
 
@@ -22,6 +23,7 @@ describe Sinclair::EnvSettable do
     let(:password_key) { 'MY_APP_PASSWORD' }
     let(:host_key)     { 'MY_APP_HOST' }
     let(:port_key)     { 'MY_APP_PORT' }
+    let(:domain_key)   { 'MY_APP_DOMAIN' }
 
     it_behaves_like 'settings reading'
   end

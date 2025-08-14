@@ -13,6 +13,7 @@ describe Sinclair::Settable do
     let(:password_key) { 'PASSWORD' }
     let(:host_key)     { 'HOST' }
     let(:port_key)     { 'PORT' }
+    let(:domain_key)   { 'DOMAIN' }
 
     it_behaves_like 'settings reading'
 
@@ -23,6 +24,7 @@ describe Sinclair::Settable do
       let(:password_key) { 'MY_APP_PASSWORD' }
       let(:host_key)     { 'MY_APP_HOST' }
       let(:port_key)     { 'MY_APP_PORT' }
+      let(:domain_key)   { 'MY_APP_DOMAIN' }
 
       it_behaves_like 'settings reading'
     end
@@ -38,6 +40,7 @@ describe Sinclair::Settable do
     let(:password_key) { :password }
     let(:host_key)     { :host }
     let(:port_key)     { :port }
+    let(:domain_key)   { :domain }
 
     it_behaves_like 'settings reading' do
       let(:env_hash) { HashAppClient::HASH }
