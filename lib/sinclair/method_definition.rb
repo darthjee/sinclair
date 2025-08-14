@@ -109,8 +109,10 @@ class Sinclair
 
     # @param name    [String,Symbol] name of the method
     # @param options [Hash] Options of construction
-    # @option options cached [Boolean] Flag telling to create
-    #   a method with cache
+    # @option options cached [Boolean, Symbol] Flag informing if value
+    #   is cached or not.
+    #   If +true+ the value is cached unless it is +nil+ or +false+.
+    #   If +:full+ the value is cached even if it is +nil+ or +false+
     def initialize(name, **options)
       @name =    name
       @options = DEFAULT_OPTIONS.merge(options)
