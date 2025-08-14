@@ -48,6 +48,32 @@ describe Sinclair::Settable::Caster do
       end
     end
 
+    context 'when casting to boolean' do
+      it 'converts string "true" to boolean true' do
+        expect(described_class.cast('true', :boolean)).to be true
+      end
+
+      it 'converts string "TRUE" to boolean true' do
+        expect(described_class.cast('TRUE', :boolean)).to be true
+      end
+
+      it 'converts string "false" to boolean false' do
+        expect(described_class.cast('false', :boolean)).to be false
+      end
+
+      it 'converts string "FALSE" to boolean false' do
+        expect(described_class.cast('FALSE', :boolean)).to be false
+      end
+
+      it 'converts any other string to boolean false' do
+        expect(described_class.cast('anything', :boolean)).to be false
+      end
+
+      it 'converts nil to boolean false' do
+        expect(described_class.cast('anything', :boolean)).to be false
+      end
+    end
+
     context 'when casting with unknown type' do
       it 'returns the original value' do
         expect(described_class.cast('value', :unknown)).to eq('value')
