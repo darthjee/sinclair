@@ -135,7 +135,7 @@ shared_examples 'settings reading' do
   context 'when defining cache type as true' do
     let(:settings)      { %i[domain] }
     let(:options)       { { prefix:, cached: true } }
-    let(:options_hash)  { { prefix:, cached: true } }
+    let(:options_hash)  { options }
     let(:domain)        { 'example.com' }
     let(:new_domain)    { 'new-example.com' }
 
