@@ -6,32 +6,33 @@ class Sinclair
   #
   # Class methods for {Sinclair}
   module ClassMethods
-    # Runs build using a block for adding the methods
+    # @overload build(*args, **options, &block)
+    #   Runs build using a block for adding the methods
     #
-    # The block is executed adding the methods and after the builder
-    # runs build building all the methods
+    #   The block is executed adding the methods and after the builder
+    #   runs build building all the methods
     #
-    # @param (see Sinclair#initialize)
-    # @param block [Proc] block to be executed by the builder
-    #   in order to add the methods before running build
+    #   @param (see Sinclair#initialize)
+    #   @param block [Proc] block to be executed by the builder
+    #     in order to add the methods before running build
     #
-    # @yield an instance of a builder ({Sinclair})
+    #   @yield an instance of a builder ({Sinclair})
     #
-    # @return (see Sinclair#build)
+    #   @return (see Sinclair#build)
     #
-    # @example Simple usage
-    #   class MyPerson
-    #   end
-    #
-    #   Sinclair.build(model_class) do
-    #     add_method(:random_name, cached: true) do
-    #       "John #{Random.rand(1000)} Doe"
+    #   @example Simple usage
+    #     class MyPerson
     #     end
-    #   end
     #
-    #   model = MyPerson.new
+    #     Sinclair.build(model_class) do
+    #       add_method(:random_name, cached: true) do
+    #         "John #{Random.rand(1000)} Doe"
+    #       end
+    #     end
     #
-    #   model.random_name # returns 'John 803 Doe'
+    #     model = MyPerson.new
+    #
+    #     model.random_name # returns 'John 803 Doe'
     def build(*, **, &)
       new(*, **).tap do |builder|
         builder.instance_eval(&) if block_given?
