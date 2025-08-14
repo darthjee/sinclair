@@ -38,15 +38,15 @@ class Sinclair
     private
 
     # @private
-    #
     # Method called for methods missing
     #
     # When a method is missing, it is expected that it is the
     # name of a variable to be set on config (as long as it was
     # defined in the config_attributes_array)
     #
-    # @param method_name [Symbol] name of the method called
-    # @param args [Array<Object>] arguments of the call
+    # @overload method_missing(method_name, *args)
+    #   @param method_name [Symbol] name of the method called
+    #   @param args [Array<Object>] arguments of the call
     #
     # @return [Object]
     def method_missing(method_name, *)

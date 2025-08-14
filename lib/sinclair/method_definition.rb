@@ -36,12 +36,15 @@ class Sinclair
         define_method(method_name) { value }
       end
 
-      # @param name    [String,Symbol] name of the method
-      # @param code    [String] code to be evaluated as method
-      # @param block   [Proc] block with code to be added as method
-      # @param options [Hash] Options of construction
-      # @option options cached [Boolean] Flag telling to create a block
-      #   with cache
+      # @overload from(name, code = nil, **options, &block)
+      #   @param name    [String,Symbol] name of the method
+      #   @param code    [String] code to be evaluated as method
+      #   @param block   [Proc] block with code to be added as method
+      #   @param options [Hash] Options of construction
+      #   @option options cached [Boolean, Symbol] Flag informing if value
+      #     is cached or not.
+      #     If +true+ the value is cached unless it is +nil+ or +false+.
+      #     If +:full+ the value is cached even if it is +nil+ or +false+
       #
       # builds a method definition based on arguments
       #
@@ -107,8 +110,10 @@ class Sinclair
 
     # @param name    [String,Symbol] name of the method
     # @param options [Hash] Options of construction
-    # @option options cached [Boolean] Flag telling to create
-    #   a method with cache
+    # @option options cached [Boolean, Symbol] Flag informing if value
+    #   is cached or not.
+    #   If +true+ the value is cached unless it is +nil+ or +false+.
+    #   If +:full+ the value is cached even if it is +nil+ or +false+
     def initialize(name, **options)
       @name =    name
       @options = DEFAULT_OPTIONS.merge(options)
