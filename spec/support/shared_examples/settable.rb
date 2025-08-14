@@ -4,12 +4,27 @@ shared_examples 'settings reading' do
   let(:env_hash) { ENV }
 
   context 'when the key is not set' do
+    after do
+      env_hash.delete(username_key)
+      env_hash.delete(password_key)
+    end
+
     it 'retrieves username from env' do
       expect(settable.username).to be_nil
     end
 
     it 'retrieves password from env' do
       expect(settable.password).to be_nil
+    end
+
+    it 'cache username from env' do
+      expect { env_hash[username_key] = SecureRandom.hex }
+        .to_not change { settable.username }
+    end
+
+    it 'cache password from env' do
+      expect { env_hash[password_key] = SecureRandom.hex }
+        .to_not change { settable.password }
     end
   end
 
