@@ -14,6 +14,7 @@ describe Sinclair::Settable do
     let(:host_key)     { 'HOST' }
     let(:port_key)     { 'PORT' }
     let(:domain_key)   { 'DOMAIN' }
+    let(:secret_key)   { 'SECRET' }
 
     it_behaves_like 'settings reading'
 
@@ -25,6 +26,7 @@ describe Sinclair::Settable do
       let(:host_key)     { 'MY_APP_HOST' }
       let(:port_key)     { 'MY_APP_PORT' }
       let(:domain_key)   { 'MY_APP_DOMAIN' }
+      let(:secret_key)   { 'MY_APP_SECRET' }
 
       it_behaves_like 'settings reading'
     end

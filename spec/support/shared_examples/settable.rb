@@ -170,4 +170,44 @@ shared_examples 'settings reading' do
       end
     end
   end
+
+  context 'when defining cache false' do
+    let(:settings)      { %i[secret] }
+    let(:options)       { { prefix:, cached: false } }
+    let(:options_hash)  { options }
+    let(:secret)        { 'my_secret' }
+    let(:new_secret)    { 'new_secret' }
+
+    after do
+      env_hash.delete(secret_key)
+    end
+
+    context 'when the key is not set' do
+      it 'retrieves secret and cast to string' do
+        expect(settable.secret).to be_nil
+      end
+
+      it 'does not caches secret as nil' do
+        expect { env_hash[secret_key] = new_secret.to_s }
+          .to change(settable, :secret)
+          .from(nil).to(new_secret)
+      end
+    end
+
+    context 'when the key is set' do
+      before do
+        env_hash[secret_key] = secret.to_s
+      end
+
+      it 'retrieves secret and cast to string' do
+        expect(settable.secret).to eq(secret)
+      end
+
+      it 'does not caches secret' do
+        expect { env_hash[secret_key] = new_secret }
+          .to change(settable, :secret)
+          .from(secret).to(new_secret)
+      end
+    end
+  end
 end
