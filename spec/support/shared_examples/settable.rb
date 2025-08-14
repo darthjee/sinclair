@@ -62,8 +62,19 @@ shared_examples 'settings reading' do
     let(:settings)   { %i[host] }
     let(:options)    { { prefix:, default: 'my-host.com' } }
 
-    it 'returns default value' do
-      expect(settable.host).to eq('my-host.com')
+    after do
+      env_hash.delete(host_key)
+    end
+    
+    context 'when not setting the env variable' do
+      it 'returns default value' do
+        expect(settable.host).to eq('my-host.com')
+      end
+
+      it 'caches default value' do
+        expect { env_hash[host_key] = SecureRandom.hex }
+          .to_not change { settable.host }
+      end
     end
 
     context 'when setting the env variable' do
@@ -73,12 +84,13 @@ shared_examples 'settings reading' do
         env_hash[host_key] = other_host
       end
 
-      after do
-        env_hash.delete(host_key)
-      end
-
       it 'retrieves host from env' do
         expect(settable.host).to eq(other_host)
+      end
+
+      it 'caches env value' do
+        expect { env_hash[host_key] = SecureRandom.hex }
+          .to_not change { settable.host }
       end
     end
   end
