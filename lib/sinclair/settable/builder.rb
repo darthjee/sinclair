@@ -93,14 +93,14 @@ class Sinclair
       #
       # @return (see Sinclair#add_class_method)
       def add_setting_method(name)
-        options   = call_options
-        block     = read_block
-        caster    = caster_class.caster_for(type)
-        default   = options_object.default
-        cached    = options.key?(:cached) ? options[:cached] : :full
+        read_options = call_options
+        block        = read_block
+        caster       = caster_class.caster_for(type)
+        default      = options_object.default
+        cached       = options.key?(:cached) ? options[:cached] : :full
 
         add_class_method(name, cached:) do
-          value = instance_exec(name, **options, &block)
+          value = instance_exec(name, **read_options, &block)
 
           value ? caster.cast(value) : default
         end
