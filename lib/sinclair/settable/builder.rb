@@ -21,6 +21,10 @@ class Sinclair
       #
       # @option options type [Symbol] type to cast the value fetched
       # @option options default [Object] Default value
+      # @option options cached [Boolean, Symbol] Flag informing if value
+      #    is cached or not.
+      #    If +true+ the value is cached unless it is +nil+ or +false+.
+      #    If +:full+ the value is cached even if it is +nil+ or +false+.
       def initialize(klass, *settings_name, **options)
         super(klass, **options)
 
@@ -89,13 +93,14 @@ class Sinclair
       #
       # @return (see Sinclair#add_class_method)
       def add_setting_method(name)
-        options   = call_options
-        block     = read_block
-        caster    = caster_class.caster_for(type)
-        default   = options_object.default
+        read_options = call_options
+        block        = read_block
+        caster       = caster_class.caster_for(type)
+        default      = options_object.default
+        cached       = options.key?(:cached) ? options[:cached] : :full
 
-        add_class_method(name, cached: :full) do
-          value = instance_exec(name, **options, &block)
+        add_class_method(name, cached:) do
+          value = instance_exec(name, **read_options, &block)
 
           value ? caster.cast(value) : default
         end

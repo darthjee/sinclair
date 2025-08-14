@@ -93,6 +93,10 @@ class Sinclair
     # @param options [Hash<Symbol, Object>] setting exposition options
     # @option options type [Symbol] type to cast the value fetched
     # @option options default [Object] Default value
+    # @option options cached [Boolean, Symbol] Flag informing if value
+    #    is cached or not.
+    #    If +true+ the value is cached unless it is +nil+ or +false+.
+    #    If +:full+ the value is cached even if it is +nil+ or +false+.
     #
     # @see with_settings
     # @return (see Sinclair#build)

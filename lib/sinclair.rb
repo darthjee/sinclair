@@ -205,8 +205,10 @@ class Sinclair
   #   @param name [String,Symbol] name of the method to be added
   #   @param code [String] code to be evaluated when the method is ran
   #   @param options [Hash] Options of construction
-  #   @option options cached [Boolean] Flag telling to create
-  #     a method with cache
+  #   @option options cached [Boolean, Symbol] Flag informing if value
+  #     is cached or not.
+  #     If +true+ the value is cached unless it is +nil+ or +false+.
+  #     If +:full+ the value is cached even if it is +nil+ or +false+
   #   @see MethodDefinition::StringDefinition
   #
   #   @example Using string code to add a string defined method
@@ -229,8 +231,10 @@ class Sinclair
   #   @param name [String,Symbol] name of the method to be added
   #   @param block [Proc]  block to be ran as method
   #   @param options [Hash] Options of construction
-  #   @option options cached [Boolean] Flag telling to create
-  #     a method with cache
+  #   @option options cached [Boolean, Symbol] Flag informing if value
+  #     is cached or not.
+  #     If +true+ the value is cached unless it is +nil+ or +false+.
+  #     If +:full+ the value is cached even if it is +nil+ or +false+
   #   @see MethodDefinition::BlockDefinition
   #
   #   @example Using block to add a block method
@@ -254,8 +258,10 @@ class Sinclair
   #   @param type [Symbol] type of method definition
   #   @param block [Proc]  block to be ran as method when type is block
   #   @param options [Hash] Options of construction
-  #   @option options cached [Boolean] Flag telling to create
-  #     a method with cache
+  #   @option options cached [Boolean, Symbol] Flag informing if value
+  #     is cached or not.
+  #     If +true+ the value is cached unless it is +nil+ or +false+.
+  #     If +:full+ the value is cached even if it is +nil+ or +false+
   #   @see MethodDefinition::BlockDefinition
   #   @see MethodDefinition::StringDefinition
   #   @see MethodDefinition::CallDefinition
@@ -305,8 +311,10 @@ class Sinclair
   #   @param name [String,Symbol] name of the method to be added
   #   @param code [String] code to be evaluated when the method is ran
   #   @param options [Hash] Options of construction
-  #   @option options cached [Boolean] Flag telling to create
-  #     a method with cache
+  #   @option options cached [Boolean, Symbol] Flag informing if value
+  #     is cached or not.
+  #     If +true+ the value is cached unless it is +nil+ or +false+.
+  #     If +:full+ the value is cached even if it is +nil+ or +false+
   #
   #   @example Adding a method by String
   #     class EnvFetcher
@@ -325,8 +333,10 @@ class Sinclair
   #   @param name [String,Symbol] name of the method to be added
   #   @param block [Proc]  block to be ran as method
   #   @param options [Hash] Options of construction
-  #   @option options cached [Boolean] Flag telling to create
-  #     a method with cache
+  #   @option options cached [Boolean, Symbol] Flag informing if value
+  #     is cached or not.
+  #     If +true+ the value is cached unless it is +nil+ or +false+.
+  #     If +:full+ the value is cached even if it is +nil+ or +false+
   #
   #   @example Adding a method by Block
   #     class EnvFetcher
@@ -346,8 +356,10 @@ class Sinclair
   #   @param type [Symbol] type of method definition
   #   @param block [Proc]  block to be ran as method when type is block
   #   @param options [Hash] Options of construction
-  #   @option options cached [Boolean] Flag telling to create
-  #     a method with cache
+  #   @option options cached [Boolean, Symbol] Flag informing if value
+  #     is cached or not.
+  #     If +true+ the value is cached unless it is +nil+ or +false+.
+  #     If +:full+ the value is cached even if it is +nil+ or +false+
   #   @see MethodDefinition::BlockDefinition
   #   @see MethodDefinition::StringDefinition
   #   @see MethodDefinition::CallDefinition
