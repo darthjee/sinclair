@@ -31,6 +31,16 @@ shared_examples 'settings reading' do
     it 'retrieves password from env' do
       expect(settable.password).to eq(password)
     end
+
+    it 'cache username from env' do
+      expect { env_hash[username_key] = SecureRandom.hex }
+        .to_not change { settable.username }
+    end
+
+    it 'cache password from env' do
+      expect { env_hash[password_key] = SecureRandom.hex }
+        .to_not change { settable.password }
+    end
   end
 
   context 'when defining defaults' do
