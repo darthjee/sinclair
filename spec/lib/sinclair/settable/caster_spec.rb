@@ -66,7 +66,7 @@ describe Sinclair::Settable::Caster do
       end
 
       it 'converts nil to boolean false' do
-        expect(described_class.cast('anything', :boolean)).to be false
+        expect(described_class.cast(nil, :boolean)).to be false
       end
     end
 
