@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 require 'simplecov'
+require 'simplecov-lcov'
+
+if ENV['CI']
+  SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
+  SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
+end
 
 SimpleCov.profiles.define 'gem' do
   add_filter '/spec/'
