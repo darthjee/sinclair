@@ -35,7 +35,7 @@ jobs:
           command: CI=true bundle exec rspec
       - run:
           name: Upload coverage to Codacy
-          command: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov/app.lcov
+          command: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov/project.lcov
   checks:
     docker:
       - image: darthjee/circleci_ruby_331:1.0.1
