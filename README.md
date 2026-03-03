@@ -1,10 +1,8 @@
 Sinclair
 ========
-[![Code Climate](https://codeclimate.com/github/darthjee/sinclair/badges/gpa.svg)](https://codeclimate.com/github/darthjee/sinclair)
-[![Test Coverage](https://codeclimate.com/github/darthjee/sinclair/badges/coverage.svg)](https://codeclimate.com/github/darthjee/sinclair/coverage)
-[![Issue Count](https://codeclimate.com/github/darthjee/sinclair/badges/issue_count.svg)](https://codeclimate.com/github/darthjee/sinclair)
 [![Gem Version](https://badge.fury.io/rb/sinclair.svg)](https://badge.fury.io/rb/sinclair)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9836de08612e46b889c7978be2b72a14)](https://www.codacy.com/manual/darthjee/sinclair?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=darthjee/sinclair&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/9836de08612e46b889c7978be2b72a14)](https://app.codacy.com/gh/darthjee/sinclair/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/9836de08612e46b889c7978be2b72a14)](https://app.codacy.com/gh/darthjee/sinclair/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![Inline docs](http://inch-ci.org/github/darthjee/sinclair.svg?branch=main)](http://inch-ci.org/github/darthjee/sinclair)
 
 ![sinclair](https://raw.githubusercontent.com/darthjee/sinclair/main/sinclair.jpg)
