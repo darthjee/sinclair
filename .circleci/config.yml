@@ -28,17 +28,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Prepare Coverage Test Report
-          command: cc-test-reporter before-build
-      - run:
           name: Bundle Install
           command: bundle install
       - run:
           name: RSpec
-          command: bundle exec rspec
+          command: CI=true bundle exec rspec
       - run:
-          name: Coverage Test Report
-          command: cc-test-reporter after-build --exit-code $?
+          name: Upload coverage to Codacy
+          command: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov/project.lcov
   checks:
     docker:
       - image: darthjee/circleci_ruby_331:1.0.1
