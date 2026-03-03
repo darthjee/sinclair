@@ -13,9 +13,9 @@ create custom comparators, configure your application, create powerfull options,
 
 Employing Sinclair in your applications helps you streamline your development workflow and enhance your development process through more efficient, cleaner code
 
-Current Release: [3.0.1](https://github.com/darthjee/sinclair/tree/3.0.1)
+**Current Release**: [3.0.1](https://github.com/darthjee/sinclair/tree/3.0.1)
 
-[Next release](https://github.com/darthjee/sinclair/compare/3.0.1...main)
+**Next release** [3.0.2](https://github.com/darthjee/sinclair/compare/3.0.1...main)
 
 Yard Documentation
 -------------------
