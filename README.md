@@ -5,7 +5,7 @@ Sinclair
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/9836de08612e46b889c7978be2b72a14)](https://app.codacy.com/gh/darthjee/sinclair/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![Inline docs](http://inch-ci.org/github/darthjee/sinclair.svg?branch=main)](http://inch-ci.org/github/darthjee/sinclair)
 
-![sinclair](https://raw.githubusercontent.com/darthjee/sinclair/main/sinclair.jpg)
+![sinclair](https://raw.githubusercontent.com/darthjee/sinclair/main/sinclair.png)
 
 Sinclair is a Ruby gem that provides developers with a variety of utility modules and classes
 to simplify common tasks, reusability and avoid boilerplate code. Whether you need to class methods to create methods on the fly,
