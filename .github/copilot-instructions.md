@@ -9,7 +9,7 @@ Sinclair is a Ruby gem that serves as a **foundation for developing other gems**
 - `Sinclair::Options` for structured, validated option objects.
 - `Sinclair::EnvSettable` for reading environment variables through class methods.
 - `Sinclair::Comparable` for easy `==` comparisons based on selected attributes.
-- `Sinclair::Model` for quick creation of simple plain-Ruby model classes.
+- `Sinclair::Model` for quick creation of simple plain-Ruby model classes (using `initialize_with` inside the class body or `.for` as an inline subclassing helper).
 - RSpec matchers (`Sinclair::Matchers`) to test method-building behaviour.
 
 All PRs, code, comments, and documentation must be written in **English**.

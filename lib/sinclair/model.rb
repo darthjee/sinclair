@@ -12,8 +12,6 @@ class Sinclair
     class << self
       # Returns a new class that inherits from model
       #
-      # @deprecated Use {.initialize_with} instead
-      #
       # @overload for(*attributes, writter: true, comparable: true)
       #   @param attributes [Array<Symbol>] attributes to be added in both the
       #     initialization and adding the methos to the model
