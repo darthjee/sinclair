@@ -637,8 +637,12 @@ When creating a model class, options can be passed
 -  writter: Adds writter/setter methods (defaults to true)
 -  comparable: Adds the fields when running a `==` method (defaults to true)
 
+There are two ways to define a model:
+- `initialize_with` – called inside the class body; adds methods to the current class
+- `.for` – called as a class method; returns a new anonymous subclass ready to inherit from
+
 <details>
-<summary>Example of simple usage</summary>
+<summary>Example of simple usage (initialize_with)</summary>
 
 ```ruby
 class Human < Sinclair::Model
@@ -656,7 +660,7 @@ human1 == human2 # returns true
 </details>
 
 <details>
-<summary>Example with options</summary>
+<summary>Example with options (initialize_with)</summary>
 
 ```ruby
 class Tv < Sinclair::Model
@@ -667,6 +671,35 @@ tv1 = Tv.new(model: 'Sans Sunga Xt')
 tv2 = Tv.new(model: 'Sans Sunga Xt')
 
 tv1 == tv2 # returns false
+```
+</details>
+
+<details>
+<summary>Example using .for</summary>
+
+```ruby
+class Car < Sinclair::Model.for(:brand, :model, writter: false)
+end
+
+car = Car.new(brand: :ford, model: :T)
+
+car.brand # returns :ford
+car.model # returns :T
+```
+</details>
+
+<details>
+<summary>Example using .for with defaults</summary>
+
+```ruby
+class Job < Sinclair::Model.for({ state: :starting }, writter: true)
+end
+
+job = Job.new
+
+job.state      # returns :starting
+job.state = :done
+job.state      # returns :done
 ```
 </details>
 
