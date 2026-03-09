@@ -22,7 +22,7 @@ workflows:
 jobs:
   test:
     docker:
-      - image: darthjee/circleci_ruby_331:1.0.2
+      - image: darthjee/circleci_ruby_331:1.1.0
         environment:
           PROJECT: sinclair
     steps:
@@ -38,7 +38,7 @@ jobs:
           command: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov/project.lcov
   checks:
     docker:
-      - image: darthjee/circleci_ruby_331:1.0.2
+      - image: darthjee/circleci_ruby_331:1.1.0
         environment:
           PROJECT: sinclair
     steps:
@@ -63,7 +63,7 @@ jobs:
           command: check_specs
   build-and-release:
     docker:
-      - image: darthjee/circleci_ruby_331:1.0.2
+      - image: darthjee/circleci_ruby_331:1.1.0
         environment:
           PROJECT: sinclair
     steps:
