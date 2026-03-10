@@ -4,8 +4,8 @@ This document describes how to use the **sinclair** gem in your project.
 Copy this file into your project's `.github/` directory so that GitHub Copilot
 is aware of the patterns and conventions Sinclair provides.
 
-**Current release**: 3.0.1  
-**Docs**: <https://www.rubydoc.info/gems/sinclair/3.0.1>
+**Current release**: 3.1.0
+**Docs**: <https://www.rubydoc.info/gems/sinclair/3.1.0>
 
 ---
 
