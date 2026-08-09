@@ -7,3 +7,4 @@ doc
 measurement/
 **/*.swp
 rubycritic/
+.claude/state/
