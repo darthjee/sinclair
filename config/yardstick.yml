@@ -41,6 +41,12 @@ rules:
       - Sinclair::Model.initialize_with
       - Sinclair::Settable#setting_with_options
       - Sinclair::Settable::Builder#read_block
+      - Sinclair::ChainSettable#source
+      - Sinclair::ChainSettable#sources
+      - Sinclair::ConfigFactory#config
+      - Sinclair::EnvSettable#settings_prefix
+      - Sinclair::Options#initialize
+      - Sinclair::Settable#with_settings
   ReturnTag:
     enabled: true
     exclude:
