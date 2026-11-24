@@ -17,17 +17,19 @@ Do NOT touch `docs/agents/`, `README.md`, `WARNINGS.md`, `AGENTS.md`, `CLAUDE.md
 
 ## Stack
 
-- Ruby (>= 3.3.1), ActiveSupport
+- Ruby (>= 3.4.0), ActiveSupport
 - RSpec for tests
 - Rubocop for linting
 - YARD / Yardstick for inline documentation and doc-coverage
 
 ## Commands
 
+Always run these through docker-compose, never with the host's Ruby:
+
 ```bash
-bundle exec rspec
-rubocop
-bundle exec rake verify_measurements
+docker-compose run --rm sinclair bundle exec rspec
+docker-compose run --rm sinclair rubocop
+docker-compose run --rm sinclair bundle exec rake verify_measurements
 ```
 
 ## Conventions

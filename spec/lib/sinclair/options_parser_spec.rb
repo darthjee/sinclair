@@ -53,7 +53,7 @@ describe Sinclair::OptionsParser do
       end
 
       it 'does not reevaluate the options' do
-        expect(model.the_method).to eq('The value is {:key=>"value"}')
+        expect(model.the_method).to eq('The value is {key: "value"}')
       end
     end
   end
