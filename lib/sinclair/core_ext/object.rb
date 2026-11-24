@@ -5,7 +5,7 @@
 #
 # Extension to core class Object
 class Object
-  # rubocop:disable Naming/PredicateName
+  # rubocop:disable Naming/PredicatePrefix
 
   # @api public
   # Checks if an object is an instance of any of the given classes
@@ -22,7 +22,7 @@ class Object
   def is_any?(*classes)
     classes.any?(method(:is_a?))
   end
-  # rubocop:enable Naming/PredicateName
+  # rubocop:enable Naming/PredicatePrefix
 
   # Maps the elements into a new value, returning only one
   #
