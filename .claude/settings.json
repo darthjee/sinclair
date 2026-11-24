@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(auto-fix-all/scripts/wait_ci_and_merge.sh *)",
+      "Bash(auto-fix-issue/scripts/commit_change.sh *)",
+      "Bash(auto-fix-issue/scripts/run_checks.sh *)",
+      "Bash(git add *)"
+    ]
+  }
+}

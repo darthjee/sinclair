@@ -7,10 +7,13 @@
 | `lib/`          | Gem source code (`Sinclair` and its submodules). |
 | `spec/`         | RSpec test suite, mirroring the structure of `lib/`. |
 | `config/`       | Configuration for dev/CI tooling: `check_specs.yml` (spec coverage exceptions), `rubycritc.rb`, `yardstick.rb`/`yardstick.yml` (YARD documentation coverage). |
-| `docs/agents/`  | Agent-facing documentation: architecture, flow, folder structure, plans, and issues. |
+| `docs/agents/`  | Agent-facing documentation: architecture, flow, folder structure, contributing, issue checklists, plans, and issues. |
+| `docs/guides/`  | User-facing usage guides for the gem's features (`sinclair-usage.md` and per-feature pages under `sinclair/`). |
 | `doc/`          | Generated YARD API documentation (build artifact, not hand-maintained). |
 | `.circleci/`    | CircleCI pipeline configuration (`config.yml`). |
-| `.github/`      | GitHub-specific files: PR/commit templates, Copilot instructions, usage notes. |
+| `.github/`      | GitHub-specific files: PR/commit message templates and the Copilot pointer to `AGENTS.md`. |
+| `.claude/`      | Claude Code configuration: specialist agents (`agents/`), per-agent check scripts (`scripts/`), shared settings, and arcanum repo config (`configuration/`). `state/` is local-only and gitignored. |
+| `AGENTS.md` / `CLAUDE.md` | Shared agent instructions (`CLAUDE.md` just points to `AGENTS.md`). |
 | `Dockerfile`    | Image used for local development (`make dev`). |
 | `Dockerfile.circleci` | Image used by the CircleCI pipeline. |
 | `docker-compose.yml` | Defines the `sinclair` development service. |
