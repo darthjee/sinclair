@@ -37,7 +37,7 @@ describe 'yard Sinclair::Caster' do
       RUBY
 
       expect(code).to eq(<<-RUBY)
-        hash_value = {:a=>1, :b=>2, "c"=>nil}
+        hash_value = {a: 1, b: 2, "c" => nil}
         string_value = "my string"
         symbol_value = :the_symbol
         number = 10
