@@ -61,6 +61,8 @@ Before a PR is considered complete, all CI checks defined in `.circleci/config.y
 | `checks` | `rubocop`, `bundle exec rake verify_measurements` (Yardstick doc coverage), `check_specs` (spec-per-source-file coverage) |
 | `build-and-release` | Release-only (gem build/push on tagged `master` builds) — not required for PRs |
 
+All commands above must be run **inside the docker-compose container**, not with the host's Ruby — either from a `make dev` shell or prefixed with `docker-compose run --rm sinclair` (e.g. `docker-compose run --rm sinclair bundle exec rspec`). Rebuild the image with `docker-compose build base_build` after changing the `Gemfile` or `Dockerfile`.
+
 Run all `test` and `checks` commands above before opening a PR. If new CircleCI jobs are added in the future, update this table.
 
 This same process must be followed when **planning how to resolve an issue**: include a final step in the plan that lists the CI commands above to run before opening a PR.

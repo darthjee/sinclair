@@ -24,6 +24,14 @@ Development runs inside **Docker** using **docker-compose**.
   ```
   This runs `docker-compose run sinclair /bin/bash`, dropping you into an interactive shell inside the container with the project mounted at `/home/app/app`.
 
+- **Always run specs and checks through docker-compose**, never with the host's Ruby. The container provides the Ruby version and gems CI uses. Either run the commands from inside `make dev`, or one-off:
+  ```bash
+  docker-compose build base_build   # (re)build the image after Gemfile/Dockerfile changes
+  docker-compose run --rm sinclair bundle exec rspec
+  docker-compose run --rm sinclair rubocop
+  ```
+  All commands listed under [Tooling & CI](#tooling--ci) are meant to be run inside the container.
+
 - The Docker image is built from `Dockerfile`; a CircleCI-specific image is available via `Dockerfile.circleci`.
 
 ## Tooling & CI

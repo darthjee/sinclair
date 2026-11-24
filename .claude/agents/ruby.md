@@ -24,10 +24,12 @@ Do NOT touch `docs/agents/`, `README.md`, `WARNINGS.md`, `AGENTS.md`, `CLAUDE.md
 
 ## Commands
 
+Always run these through docker-compose, never with the host's Ruby:
+
 ```bash
-bundle exec rspec
-rubocop
-bundle exec rake verify_measurements
+docker-compose run --rm sinclair bundle exec rspec
+docker-compose run --rm sinclair rubocop
+docker-compose run --rm sinclair bundle exec rake verify_measurements
 ```
 
 ## Conventions
