@@ -17,7 +17,7 @@ Do NOT touch `docs/agents/`, `README.md`, `WARNINGS.md`, `AGENTS.md`, `CLAUDE.md
 
 ## Stack
 
-- Ruby (>= 3.3.1), ActiveSupport
+- Ruby (>= 3.4.0), ActiveSupport
 - RSpec for tests
 - Rubocop for linting
 - YARD / Yardstick for inline documentation and doc-coverage
